@@ -23,12 +23,12 @@
             </div>
             <p>Masukkan Username dan Password</p>
             <form action="">
-                <input type="text" class="form-control" placeholder="Masukkan Username">
-                <input type="password" class="form-control" placeholder="Masukkan Password">
+                <input type="text" class="form-control" placeholder="Username">
+                <input type="password" class="form-control" placeholder="Password">
                 <button class="btn" type="submit">Login</button>
             </form>
             <div class="forgot-password">
-                <p>Lupa Password?</p>
+                <a href="#">Lupa Password?</a>
             </div>
         </div>
     </div>
