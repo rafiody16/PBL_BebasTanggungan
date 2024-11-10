@@ -1,28 +1,7 @@
 <?php 
 
     include "../Koneksi.php";
-
-    // $username = $_POST['username'];
-    // $password = md5($_POST['password']);
-    // $query = "SELECT * FROM [User] WHERE Username = ? AND Password = ? ";
-    // $params = array($username, $password);
-
-    // $result = sqlsrv_query($conn, $query, $params);
-
-    // if ($result === false) {
-    //     die(print_r(sqlsrv_errors(), true));
-    // }
     
-    // if (sqlsrv_has_rows($result)) {
-    //     echo "Login Berhasil";
-    // } else {
-    //     echo "Gagal";
-        
-    // }
-
-    // sqlsrv_free_stmt($result);
-    // sqlsrv_close($conn);
-
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $Username = $_POST['Username'];
         $Password = $_POST['Password'];
