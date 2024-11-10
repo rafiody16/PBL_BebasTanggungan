@@ -1,0 +1,54 @@
+body {
+    background-image: -webkit-repeating-linear-gradient();
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+.container {
+    background-color: white;
+    border-radius: 10px;
+    height: 500px;
+    display: flex;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.image-section {
+    margin-right: 50px;
+    margin-left: -80px;
+    flex: 1;
+    background-size: cover;
+}
+.form-section {
+    flex: 1;
+    padding: 40px;
+}
+.form-section .logo {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+.form-section .logo i {
+    color: orange;
+}
+.form-section .form-control {
+    margin-bottom: 20px;
+}
+.form-section .btn {
+    width: 100%;
+    background-color: black;
+    color: white;
+}
+.form-section .forgot-password {
+    margin-top: 10px;
+    text-align: center;
+}
+.form-section .forgot-password a {
+    color: #007bff;
+    text-decoration: none;
+}
+.form-section .logo img {
+    width: 50px;
+    height: 50px;
+}
