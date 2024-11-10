@@ -22,10 +22,10 @@
                 SISTEM BEBAS TANGGUNGAN
             </div>
             <p>Masukkan Username dan Password</p>
-            <form action="">
-                <input type="text" class="form-control" placeholder="Username">
-                <input type="password" class="form-control" placeholder="Password">
-                <button class="btn" type="submit">Login</button>
+            <form action="ProsesLogin.php" method="POST">
+                <input type="text" class="form-control" name="Username" placeholder="Username">
+                <input type="password" class="form-control" name="Password" placeholder="Password">
+                <button class="btn" type="submit" name="login">Login</button>
             </form>
             <div class="forgot-password">
                 <a href="#">Lupa Password?</a>
