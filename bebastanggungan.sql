@@ -44,7 +44,7 @@ CREATE TABLE Pengumpulan (
     ID_Pengumpulan INT PRIMARY KEY,
     NIM INT,
     Tanggal_Pengumpulan DATE,
-    Status_Pengumpulan VARCHAR(50),
+    Status_Pengumpulan VARCHAR(50),  -- Belum Upload, Menunggu verifikasi, Terverifikasi, Ditolak
     Keterangan TEXT,
     FOREIGN KEY (NIM) REFERENCES Mahasiswa(NIM)
 );
@@ -52,23 +52,27 @@ CREATE TABLE Pengumpulan (
 CREATE TABLE TugasAkhir (
     ID_Aplikasi INT PRIMARY KEY,
     ID_Pengumpulan INT,
-    File_Aplikasi VARBINARY(MAX),
-    Laporan_TA VARBINARY(MAX),
-    Pernyataan_Publikasi VARBINARY(MAX),
-    Status_Verifikasi VARCHAR(50),
+    File_Aplikasi VARCHAR(255),
+    Laporan_TA VARCHAR(255),
+    Pernyataan_Publikasi VARCHAR(255),
+    Status_Verifikasi VARCHAR(50), -- Belum Upload, Menunggu verifikasi, Terverifikasi, Ditolak.
+    Tanggal_Verifikasi DATE,
     Tanggal_Upload DATE,
+    Keterangan TEXT,
     FOREIGN KEY (ID_Pengumpulan) REFERENCES Pengumpulan(ID_Pengumpulan)
 );
 
 CREATE TABLE Administrasi (
     ID_Administrasi INT PRIMARY KEY,
     ID_Pengumpulan INT,
-    Laporan_Skripsi VARBINARY(MAX),
-    Laporan_Magang VARBINARY(MAX),
-    Bebas_Kompensasi VARBINARY(MAX),
-    Scan_Toeic VARBINARY(MAX),
-    Status_Verifikasi VARCHAR(50),
+    Laporan_Skripsi VARCHAR(255),
+    Laporan_Magang VARCHAR(255),
+    Bebas_Kompensasi VARCHAR(255),
+    Scan_Toeic VARCHAR(255),
+    Status_Verifikasi VARCHAR(50),  -- Belum Upload, Menunggu verifikasi, Terverifikasi, Ditolak
+    Tanggal_Verifikasi DATE,
     Tanggal_Upload DATE,
+    Keterangan TEXT,
     FOREIGN KEY (ID_Pengumpulan) REFERENCES Pengumpulan(ID_Pengumpulan)
 );
 
