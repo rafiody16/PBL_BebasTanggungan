@@ -135,6 +135,22 @@
                                                             <input type="text" class="form-control" name="NoHp" placeholder="Masukkan No Hp">
                                                         </div>
                                                     </div>
+                                                    <div class="col-12">
+                                                        <div class="form-group">
+                                                            <label for="Role_ID">Role</label>
+                                                            <?php 
+                                                                include('../Koneksi.php');
+                                                                $sql = "SELECT Role_ID, Nama_Role FROM Role";
+                                                                $stmt = sqlsrv_query($conn, $sql);
+                                                                echo '<select class="form-select" id="basicSelect">';
+                                                                echo '<option value="">-- Pilih Role --</option>';
+                                                                while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+                                                                    echo '<option value="' . $row["Role_ID"] . '">' . $row["Nama_Role"] . '</option>';
+                                                                }
+                                                                echo '</select>';
+                                                            ?>
+                                                        </div>
+                                                    </div>
                                                     <div class="col-12 d-flex justify-content-end">
                                                         <button type="submit" class="btn btn-primary me-1 mb-1" name="simpanStaff">Simpan</button>
                                                         <button type="reset" class="btn btn-light-secondary me-1 mb-1">Kembali</button>
