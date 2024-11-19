@@ -44,11 +44,11 @@ if (isset($_POST['simpanStaff'])) {
         }
 
         sqlsrv_commit($conn);
-        echo "Data berhasil disimpan.";
+        echo "<script>alert('Data berhasil disimpan!'); window.location.href = 'TabelUser.php';</script>";
 
     } catch (Exception $e) {
         sqlsrv_rollback($conn);
-        echo "Terjadi kesalahan: " . $e->getMessage();
+        echo "<script>alert('Data gagal disimpan! ".$e->getMessage() .  "'); window.location.href = 'TabelUser.php';</script>";
     }
 }
 
