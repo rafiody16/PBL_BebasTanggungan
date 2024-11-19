@@ -8,13 +8,8 @@ if (isset($_POST['simpanRole'])) {
     $Deskripsi = $_POST['Deskripsi'] ?? null;
     $Level_Akses = $_POST['Level_Akses'] ?? null;
 
-    if ($Role_ID || !$Nama_Role || !$Deskripsi || !$Level_Akses) {
-        echo "<script>alert('Masukkan inputan data role.'); window.location.href = 'FormRole.php';</script>";
-        exit();
-    }
-
-    $sql = "INSERT INTO [Role] (Nama_Role, Deskripsi, Level_Akses) VALUES (?, ?, ?)";
-    $params = array($Nama_Role, $Deskripsi, $Level_Akses);
+    $sql = "INSERT INTO Role (Role_ID, Nama_Role, Deskripsi, Level_Akses) VALUES (?, ?, ?, ?)";
+    $params = array($Role_ID, $Nama_Role, $Deskripsi, $Level_Akses);
 
 
     $input = sqlsrv_query($conn, $sql, $params);
@@ -24,7 +19,7 @@ if (isset($_POST['simpanRole'])) {
     }
 
     if ($input) {
-        echo "<script>alert('Data successfully saved.'); window.location.href = 'FormRole.php';</script>";
+        echo "<script>alert('Data successfully saved.'); window.location.href = 'TabelRole.php';</script>";
     } else {
         echo "<script>alert('Data saving failed.'); window.location.href = 'FormRole.php';</script>";
     }
