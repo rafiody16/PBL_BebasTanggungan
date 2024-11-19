@@ -18,20 +18,24 @@
             <div class="row mb-3">
                 <div class="col">
                     <label for="ID_User" class="form-label">ID User<span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" id="ID_User">
+                    <input type="text" class="form-control" name="ID_User">
                 </div>
                 <div class="col">
                     <label for="Username" class="form-label">Username<span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" id="Username" placeholder="Masukkan Username">
+                    <input type="text" class="form-control" name="Username" placeholder="Masukkan Username">
                 </div>
             </div>
             <div class="mb-3">
+                <label for="Email" class="form-label">Email<span class="text-danger">*</span></label>
+                <input type="text" class="form-control" name="Email" placeholder="Masukkan Email">
+            </div>
+            <div class="mb-3">
                 <label for="Password" class="form-label">Password<span class="text-danger">*</span></label>
-                <input type="password" class="form-control" id="Password" placeholder="Masukkan Password">
+                <input type="password" class="form-control" name="Password" placeholder="Masukkan Password">
             </div>
             <div class="mb-3">
                 <label for="Role_ID" class="form-label">Role<span class="text-danger">*</span></label>
-                <select class="form-select" aria-label="Default select example">
+                <select class="form-select" aria-label="Default select example" name="Role_ID">
                     <option selected>Pilih Role</option>
                     <?php 
                          include '../Koneksi.php';
@@ -39,7 +43,7 @@
                          $params = array();
                          $stmt = sqlsrv_query($conn, $sql, $params);
     
-                        while ($rec = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+                         while ($rec = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
                             if ($rec !== null) {
                                 ?>
                                 <option value="<?= htmlspecialchars($rec['Role_ID']) ?>"><?= htmlspecialchars($rec['Nama_Role']) ?></option>
@@ -49,6 +53,7 @@
                     ?>
                 </select>
             </div>
+            <button type="submit" class="btn btn-primary" name="simpanUser">Input</button>
         </form>
     </div>
 </body>
