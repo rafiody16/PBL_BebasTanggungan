@@ -3,13 +3,12 @@
 include "../Koneksi.php";
 
 if (isset($_POST['simpanRole'])) {
-    $Role_ID = $_POST['Role_ID'] ?? null;
     $Nama_Role = $_POST['Nama_Role'] ?? null;
     $Deskripsi = $_POST['Deskripsi'] ?? null;
     $Level_Akses = $_POST['Level_Akses'] ?? null;
 
-    $sql = "INSERT INTO Role (Role_ID, Nama_Role, Deskripsi, Level_Akses) VALUES (?, ?, ?, ?)";
-    $params = array($Role_ID, $Nama_Role, $Deskripsi, $Level_Akses);
+    $sql = "INSERT INTO Role (Nama_Role, Deskripsi, Level_Akses) VALUES (?, ?, ?)";
+    $params = array($Nama_Role, $Deskripsi, $Level_Akses);
 
 
     $input = sqlsrv_query($conn, $sql, $params);

@@ -79,8 +79,8 @@
                 <div class="page-title">
                     <div class="row">
                         <div class="col-12 col-md-6 order-md-1 order-last">
-                            <h3>Tabel User</h3>
-                            <p class="text-subtitle text-muted">Data user.</p>
+                            <h3>Tabel Role</h3>
+                            <p class="text-subtitle text-muted">Data Role.</p>
                         </div>
                     </div>
                 </div>
@@ -89,32 +89,37 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h5 class="card-title">Tabel User</h5>
+                                    <h5 class="card-title">Tabel Role</h5>
                                 </div>
                                 <div class="card-body">
                                     <div class="table-responsive">
                                         <table class="table table-lg">
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>ID Role</th>
-                                        <th>Nama Role</th>
-                                        <th>Level Akses</th>
-                                        <th>Deskripsi</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                <?php 
-                                    include('RoleProses.php');
-                                    $no = 1;
-                                    while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
-                                        if ($row != null) {
-                                            echo "<tr>";
-                                                echo "<td>" . htmlspecialchars($no++) . "</td>";
-                                                echo "<td>" . htmlspecialchars($row['Role_ID']) . "</td>";
-                                                echo "<td>" . htmlspecialchars($row['Nama_Role']) . "</td>";
-                                                echo "<td>" . htmlspecialchars($row['Level_Akses']) . "</td>";
-                                                echo "<td>" . htmlspecialchars($row['Deskripsi']) . "</td>";
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>ID Role</th>
+                                                    <th>Nama Role</th>
+                                                    <th>Level Akses</th>
+                                                    <th>Deskripsi</th>
+                                                    <th>Aksi</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            <?php 
+                                                include('RoleProses.php');
+                                                $no = 1;
+                                                while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+                                                    if ($row != null) {
+                                                        echo "<tr>";
+                                                        echo "<td>" . htmlspecialchars($no++) . "</td>";
+                                                        echo "<td>" . htmlspecialchars($row['Role_ID']) . "</td>";
+                                                        echo "<td>" . htmlspecialchars($row['Nama_Role']) . "</td>";
+                                                        echo "<td>" . htmlspecialchars($row['Level_Akses']) . "</td>";
+                                                        echo "<td>" . htmlspecialchars($row['Deskripsi']) . "</td>";
+                                                        ?>
+                                                <td><a href="#" class="btn btn-primary rounded-pill" style="margin-right:-10px">Primary</a></td>
+                                                <td><a href="#" class="btn btn-danger rounded-pill">Danger</a></td>
+                                                <?php
                                             echo "</tr>";
                                         } else {
                                             echo "Belum ada data";

@@ -84,9 +84,15 @@
                                 </div>
                                 <div class="card-content">
                                     <div class="card-body">
-                                        <form class="form form-vertical" action="RoleProses.php" method="POST">
+                                        <form class="form form-vertical" action="UserProses.php" method="POST">
                                             <div class="form-body">
                                                 <div class="row">
+                                                    <div class="col-12">
+                                                        <div class="form-group">
+                                                            <label for="first-name-vertical">NIP</label>
+                                                            <input type="text" class="form-control" name="Role_ID" placeholder="Masukkan id role">
+                                                        </div>
+                                                    </div>
                                                     <div class="col-12">
                                                         <div class="form-group">
                                                             <label for="first-name-vertical">Nama Role</label>
