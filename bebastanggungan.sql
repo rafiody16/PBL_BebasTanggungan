@@ -78,9 +78,10 @@ CREATE TABLE Administrasi (
 
 go;
 
-SELECT * FROM Role;
+
 SELECT * FROM Staff;
 SELECT * FROM [User];
+SELECT * FROM Role;
 SELECT * FROM Administrasi;
 go;
 
@@ -114,4 +115,7 @@ INSERT INTO Role
 VALUES (9, 'mahasiswa', 'hanya dapat upload data', '9');
 
 SELECT * FROM Role;
+
+ALTER TABLE Staff
+DROP COLUMN Jabatan;
 

@@ -97,10 +97,11 @@
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>ID User</th>
-                                        <th>Username</th>
+                                        <th>NIP</th>
+                                        <th>Nama</th>
+                                        <th>Jabatan</th>
                                         <th>Email</th>
-                                        <th>Role</th>
+                                        <th>No. HP</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -110,13 +111,13 @@
                                     while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
                                         if ($row != null) {
                                             echo "<tr>";
-                                                echo "<td>" . htmlspecialchars($no) . "</td>";
-                                                echo "<td>" . htmlspecialchars($row['ID_User']) . "</td>";
-                                                echo "<td>" . htmlspecialchars($row['Username']) . "</td>";
-                                                echo "<td>" . htmlspecialchars($row['Email']) . "</td>";
+                                                echo "<td>" . htmlspecialchars($no++) . "</td>";
+                                                echo "<td>" . htmlspecialchars($row['NIP']) . "</td>";
+                                                echo "<td>" . htmlspecialchars($row['Nama']) . "</td>";
                                                 echo "<td>" . htmlspecialchars($row['Nama_Role']) . "</td>";
+                                                echo "<td>" . htmlspecialchars($row['Email']) . "</td>";
+                                                echo "<td>" . htmlspecialchars($row['NoHp']) . "</td>";
                                             echo "</tr>";
-                                            $no ++;
                                         } else {
                                             echo "Belum ada data";
                                         }

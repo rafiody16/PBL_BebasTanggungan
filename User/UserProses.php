@@ -9,7 +9,6 @@ if (isset($_POST['simpanStaff'])) {
     $Username = $_POST['Username'];
     $Email = $_POST['Email'];
     $Password = password_hash($_POST['Password'], PASSWORD_BCRYPT); // Enkripsi password
-    $Jabatan = $_POST['Jabatan'];
     $Alamat = $_POST['Alamat'];
     $NoHp = $_POST['NoHp'];
     $Role_ID = $_POST['Role_ID'];
@@ -32,8 +31,8 @@ if (isset($_POST['simpanStaff'])) {
         $newUserID = $rowUserID['ID_User'];
 
         // Masukkan data ke tabel Staff
-        $sqlStaff = "INSERT INTO Staff (NIP, Nama, Jabatan, Alamat, NoHp, ID_User) VALUES (?, ?, ?, ?, ?, ?)";
-        $paramsStaff = [$NIP, $Nama, $Jabatan, $Alamat, $NoHp, $newUserID];
+        $sqlStaff = "INSERT INTO Staff (NIP, Nama, Alamat, NoHp, ID_User) VALUES (?, ?, ?, ?, ?)";
+        $paramsStaff = [$NIP, $Nama, $Alamat, $NoHp, $newUserID];
         $stmtStaff = sqlsrv_query($conn, $sqlStaff, $paramsStaff);
 
         if (!$stmtStaff) {
@@ -50,12 +49,12 @@ if (isset($_POST['simpanStaff'])) {
 }
 
 
-// $sql = "SELECT u.ID_User, u.Username, u.Password, u.Email, r.Nama_Role FROM [User] as u INNER JOIN [Role] as r
-//         ON u.Role_ID = r.Role_ID";
-// $stmt = sqlsrv_query($conn, $sql);
+$sql = "SELECT s.NIP, s.Nama, r.Nama_Role, u.Email, s.NoHp FROM Staff AS s
+        INNER JOIN [User] AS u ON s.ID_User = u.ID_User INNER JOIN Role AS r ON u.Role_ID = r.Role_ID";
+$stmt = sqlsrv_query($conn, $sql);
 
-// if ($stmt === false) {
-//     die(print_r(sqlsrv_errors(), true));
-// }
+if ($stmt === false) {
+    die(print_r(sqlsrv_errors(), true));
+}
 
 ?>
