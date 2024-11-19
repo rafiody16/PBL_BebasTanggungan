@@ -1,5 +1,6 @@
 <?php 
 
+
 include "../Koneksi.php";
 
 if (isset($_POST['simpanStaff'])) {
@@ -16,7 +17,10 @@ if (isset($_POST['simpanStaff'])) {
     sqlsrv_begin_transaction($conn);
 
     try {
-        $sqlUser = "INSERT INTO [User] (Username, [Password], Email, Role_ID) VALUES (?, ?, ?, ?)";
+        // Masukkan data ke tabel User dan ambil ID_User yang baru
+        $sqlUser = "INSERT INTO [User] (Username, [Password], Email, Role_ID) 
+                    OUTPUT INSERTED.ID_User 
+                    VALUES (?, ?, ?, ?)";
         $paramsUser = [$Username, $Password, $Email, $Role_ID];
         $stmtUser = sqlsrv_query($conn, $sqlUser, $paramsUser);
 
@@ -24,14 +28,13 @@ if (isset($_POST['simpanStaff'])) {
             throw new Exception('Gagal menyimpan data User: ' . print_r(sqlsrv_errors(), true));
         }
 
-        $sqlGetUserID = "SELECT SCOPE_IDENTITY() AS ID_User";
-        $stmtGetUserID = sqlsrv_query($conn, $sqlGetUserID);
-        $rowUserID = sqlsrv_fetch_array($stmtGetUserID, SQLSRV_FETCH_ASSOC);
-        if (!$stmtGetUserID || $rowUserID === false || !isset($rowUserID['ID_User'])) {
-            throw new Exception('Gagal mendapatkan ID_User: ' . print_r(sqlsrv_errors(), true));
-        }
+        $rowUserID = sqlsrv_fetch_array($stmtUser, SQLSRV_FETCH_ASSOC);
         $newUserID = $rowUserID['ID_User'];
 
+        // Debugging
+        echo "ID_User yang diambil: " . $newUserID;
+
+        // Masukkan data ke tabel Staff
         $sqlStaff = "INSERT INTO Staff (NIP, Nama, Jabatan, NoHp, ID_User) VALUES (?, ?, ?, ?, ?)";
         $paramsStaff = [$NIP, $Nama, $Jabatan, $NoHp, $newUserID];
         $stmtStaff = sqlsrv_query($conn, $sqlStaff, $paramsStaff);
@@ -47,7 +50,6 @@ if (isset($_POST['simpanStaff'])) {
         sqlsrv_rollback($conn);
         echo "Terjadi kesalahan: " . $e->getMessage();
     }
-
 }
 
 
