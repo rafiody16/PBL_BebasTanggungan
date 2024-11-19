@@ -138,17 +138,18 @@
                                                     <div class="col-12">
                                                         <div class="form-group">
                                                             <label for="Role_ID">Role</label>
+                                                            <select class="form-select" name="Role_ID" id="basicSelect">
+                                                                <option value="">-- Pilih Role --</option>
                                                             <?php 
                                                                 include('../Koneksi.php');
                                                                 $sql = "SELECT Role_ID, Nama_Role FROM Role";
                                                                 $stmt = sqlsrv_query($conn, $sql);
-                                                                echo '<select class="form-select" id="basicSelect">';
-                                                                echo '<option value="">-- Pilih Role --</option>';
+                                                                
                                                                 while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
                                                                     echo '<option value="' . $row["Role_ID"] . '">' . $row["Nama_Role"] . '</option>';
                                                                 }
-                                                                echo '</select>';
                                                             ?>
+                                                            </select>
                                                         </div>
                                                     </div>
                                                     <div class="col-12 d-flex justify-content-end">

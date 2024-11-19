@@ -79,6 +79,8 @@ CREATE TABLE Administrasi (
 go;
 
 SELECT * FROM Role;
+SELECT * FROM Staff;
+SELECT * FROM [User];
 SELECT * FROM Administrasi;
 go;
 
