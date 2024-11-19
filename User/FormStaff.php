@@ -80,7 +80,7 @@
                         <div class="col-md-6 col-12">
                             <div class="card" style="width: 1280px; margin-left:30px">
                                 <div class="card-header">
-                                    <h4 class="card-title">Tambah Data Role</h4>
+                                    <h4 class="card-title">Tambah Data Staff</h4>
                                 </div>
                                 <div class="card-content">
                                     <div class="card-body">
@@ -89,30 +89,54 @@
                                                 <div class="row">
                                                     <div class="col-12">
                                                         <div class="form-group">
-                                                            <label for="first-name-vertical">NIP</label>
-                                                            <input type="text" class="form-control" name="Role_ID" placeholder="Masukkan id role">
+                                                            <label for="NIP">NIP</label>
+                                                            <input type="text" class="form-control" name="NIP" placeholder="Masukkan NIP">
                                                         </div>
                                                     </div>
                                                     <div class="col-12">
                                                         <div class="form-group">
-                                                            <label for="first-name-vertical">Nama Role</label>
-                                                            <input type="text" class="form-control" name="Nama_Role" placeholder="Masukkan jenis role">
+                                                            <label for="Nama">Nama</label>
+                                                            <input type="text" class="form-control" name="Nama" placeholder="Masukkan Nama">
                                                         </div>
                                                     </div>
                                                     <div class="col-12">
                                                         <div class="form-group">
-                                                            <label for="email-id-vertical">Level Akses</label>
-                                                            <input type="number" class="form-control" name="Level_Akses" placeholder="Masukkan level akses">
+                                                            <label for="Username">Username</label>
+                                                            <input type="text" class="form-control" name="Username" placeholder="Masukkan Nama">
                                                         </div>
                                                     </div>
                                                     <div class="col-12">
                                                         <div class="form-group">
-                                                            <label for="contact-info-vertical">Deskripsi</label>
-                                                            <textarea class="form-control" name="Deskripsi" rows="3"></textarea>
+                                                            <label for="Email">Email</label>
+                                                            <input type="email" class="form-control" name="Email" placeholder="Masukkan Email">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <div class="form-group">
+                                                            <label for="Password">Password</label>
+                                                            <input type="password" class="form-control" name="Password" placeholder="Masukkan Password">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <div class="form-group">
+                                                            <label for="Jabatan">Jabatan</label>
+                                                            <input type="text" class="form-control" name="Jabatan" placeholder="Masukkan Jabatan">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <div class="form-group">
+                                                            <label for="Alamat">Alamat</label>
+                                                            <textarea class="form-control" name="Alamat" rows="3"></textarea>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <div class="form-group">
+                                                            <label for="NoHp">No.Hp</label>
+                                                            <input type="text" class="form-control" name="NoHp" placeholder="Masukkan No Hp">
                                                         </div>
                                                     </div>
                                                     <div class="col-12 d-flex justify-content-end">
-                                                        <button type="submit" class="btn btn-primary me-1 mb-1" name="simpanRole">Simpan</button>
+                                                        <button type="submit" class="btn btn-primary me-1 mb-1" name="simpanStaff">Simpan</button>
                                                         <button type="reset" class="btn btn-light-secondary me-1 mb-1">Kembali</button>
                                                     </div>
                                                 </div>
