@@ -31,9 +31,6 @@ if (isset($_POST['simpanStaff'])) {
         $rowUserID = sqlsrv_fetch_array($stmtUser, SQLSRV_FETCH_ASSOC);
         $newUserID = $rowUserID['ID_User'];
 
-        // Debugging
-        echo "ID_User yang diambil: " . $newUserID;
-
         // Masukkan data ke tabel Staff
         $sqlStaff = "INSERT INTO Staff (NIP, Nama, Jabatan, Alamat, NoHp, ID_User) VALUES (?, ?, ?, ?, ?, ?)";
         $paramsStaff = [$NIP, $Nama, $Jabatan, $Alamat, $NoHp, $newUserID];
