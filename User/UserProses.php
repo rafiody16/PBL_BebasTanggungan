@@ -35,8 +35,8 @@ if (isset($_POST['simpanStaff'])) {
         echo "ID_User yang diambil: " . $newUserID;
 
         // Masukkan data ke tabel Staff
-        $sqlStaff = "INSERT INTO Staff (NIP, Nama, Jabatan, NoHp, ID_User) VALUES (?, ?, ?, ?, ?)";
-        $paramsStaff = [$NIP, $Nama, $Jabatan, $NoHp, $newUserID];
+        $sqlStaff = "INSERT INTO Staff (NIP, Nama, Jabatan, Alamat, NoHp, ID_User) VALUES (?, ?, ?, ?, ?, ?)";
+        $paramsStaff = [$NIP, $Nama, $Jabatan, $Alamat, $NoHp, $newUserID];
         $stmtStaff = sqlsrv_query($conn, $sqlStaff, $paramsStaff);
 
         if (!$stmtStaff) {
