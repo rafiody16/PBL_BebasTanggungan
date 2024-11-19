@@ -762,10 +762,29 @@
     </div>
     <section class="section">
         <div class="row">
+            <div class="col-12 col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title">Data Diri</h5>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="basicInput">Email</label>
+                                <input type="text" class="form-control" id="basicInput">
+                                <label for="basicInput">Nama Lengkap</label>
+                                <input type="text" class="form-control" id="basicInput">
+                                <label for="basicInput">NIM</label>
+                                <input type="text" class="form-control" id="basicInput">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="col-12 col-md-6">
                 <div class="card">
                     <div class="card-header">
-                        <h5 class="card-title">Basic File Uploader</h5>
+                        <h5 class="card-title">Bukti Distribusi Buku Skripsi / Laporan Akhir</h5>
                     </div>
                     <div class="card-content">
                         <div class="card-body">
@@ -781,57 +800,15 @@
             <div class="col-12 col-md-6">
                 <div class="card">
                     <div class="card-header">
-                        <h5 class="card-title">ImgBB Uploader</h5>
+                        <h5 class="card-title">Bukti Distribusi Laporan PKL</h5>
                     </div>
                     <div class="card-content">
                         <div class="card-body">
                             <p class="card-text">Using the basic file uploader up, upload here to see how
-                                <code>.imgbb-filepond</code>-based basic file uploader look. You must use
-                                <code>name=image</code> or by FormData fieldName for your
-                                input <code>type=file</code> to upload in imgBB.
+                                <code>.basic-filepond</code> look.
                             </p>
-                            <!-- imgBB file uploader -->
-                            <input type="file" name="image" class="imgbb-filepond">
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-12 col-md-12">
-                <div class="card">
-                    <div class="card-header">
-                        <h5 class="card-title">Multiple Files</h5>
-                    </div>
-                    <div class="card-content">
-                        <div class="card-body">
-                            <p class="card-text">Using the basic table up, upload here to see how
-                                <code>.multiple-files-filepond</code>-based basic file uploader look. You can use
-                                <code>allowMultiple</code> or <code>multiple</code> attribute too to implement multiple
-                                upload.
-                            </p>
-                            <!-- File uploader with multiple files upload -->
-                            <input type="file" class="multiple-files-filepond" multiple>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-12 col-md-12">
-                <div class="card">
-                    <div class="card-header">
-                        <h5 class="card-title">With Validation</h5>
-                    </div>
-                    <div class="card-content">
-                        <div class="card-body">
-                            <p class="card-text">Using the basic table up, upload here to see how
-                                <code>.with-validation-filepond</code>-based basic file uploader look. You can use
-                                <a href="https://pqina.nl/filepond/docs/patterns/plugins/file-validate-size/#properties"
-                                    target="_blank">see here</a>
-                                or <code>required (to make your input required), data-max-file-size (to limit your input file size), 
-                                data-max-files (to limit your uploaded files), etc (start with data-)</code> attribute
-                                too to implement validation.
-                            </p>
-                            <!-- File uploader with validation -->
-                            <input type="file" class="with-validation-filepond" required multiple
-                                data-max-file-size="1MB" data-max-files="3">
+                            <!-- Basic file uploader -->
+                            <input type="file" class="basic-filepond">
                         </div>
                     </div>
                 </div>
@@ -839,16 +816,15 @@
             <div class="col-12 col-md-6">
                 <div class="card">
                     <div class="card-header">
-                        <h5 class="card-title">Image Preview</h5>
+                        <h5 class="card-title">Bukti Bebas Kompen</h5>
                     </div>
                     <div class="card-content">
                         <div class="card-body">
-                            <p class="card-text">Using the basic table up, upload here to see how
-                                <code>.image-preview-filepond</code>-based basic file uploader look. This
-                                preview for uploaded or dropped images.
+                            <p class="card-text">Using the basic file uploader up, upload here to see how
+                                <code>.basic-filepond</code> look.
                             </p>
-                            <!-- File uploader with image preview -->
-                            <input type="file" class="image-preview-filepond">
+                            <!-- Basic file uploader -->
+                            <input type="file" class="basic-filepond">
                         </div>
                     </div>
                 </div>
@@ -856,69 +832,21 @@
             <div class="col-12 col-md-6">
                 <div class="card">
                     <div class="card-header">
-                        <h5 class="card-title">Image Exif Orientation</h5>
+                        <h5 class="card-title">Upload Scan TOEIC</h5>
                     </div>
                     <div class="card-content">
                         <div class="card-body">
-                            <p class="card-text">Using the basic table up, upload here to see how
-                                <code>.image-exif-filepond</code>-based basic file uploader look. This
-                                helps in correctly orienting photos taken on mobile devices.
+                            <p class="card-text">Using the basic file uploader up, upload here to see how
+                                <code>.basic-filepond</code> look.
                             </p>
-                            <!-- Auto image crop file uploader -->
-                            <input type="file" class="image-exif-filepond">
+                            <!-- Basic file uploader -->
+                            <input type="file" class="basic-filepond">
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-12 col-md-12">
-                <div class="card">
-                    <div class="card-header">
-                        <h5 class="card-title">Image Auto Crop</h5>
-                    </div>
-                    <div class="card-content">
-                        <div class="card-body">
-                            <p class="card-text">Using the basic table up, upload here to see how
-                                <code>.image-crop-filepond</code>-based basic file uploader look. You can use
-                                <code>imageCropAspectRatio</code> or <code>image-crop-aspect-ratio</code> to
-                                set aspect ratio.
-                            </p>
-                            <!-- Auto crop image file uploader -->
-                            <input type="file" class="image-crop-filepond" image-crop-aspect-ratio="1:1">
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-12 col-md-6">
-                <div class="card">
-                    <div class="card-header">
-                        <h5 class="card-title">Image Auto Filter</h5>
-                    </div>
-                    <div class="card-content">
-                        <div class="card-body">
-                            <p class="card-text">Using the basic table up, upload here to see how
-                                <code>.image-filter-filepond</code>-based basic file uploader look.
-                            </p>
-                            <!-- Auto filter image file uploader -->
-                            <input type="file" class="image-filter-filepond">
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-12 col-md-6">
-                <div class="card">
-                    <div class="card-header">
-                        <h5 class="card-title">Image Auto Resize</h5>
-                    </div>
-                    <div class="card-content">
-                        <div class="card-body">
-                            <p class="card-text">Using the basic table up, upload here to see how
-                                <code>.image-resize-filepond</code>-based basic file uploader look.
-                            </p>
-                            <!-- Auto resize image file uploader -->
-                            <input type="file" class="image-resize-filepond">
-                        </div>
-                    </div>
-                </div>
+            <div class="col-sm-12 d-flex justify-content-end">
+                <button type="submit" class="btn btn-primary me-1 mb-1">Submit</button>
             </div>
         </div>
     </section>
