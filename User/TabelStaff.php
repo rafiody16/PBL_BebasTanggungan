@@ -1,3 +1,23 @@
+<?php
+session_start();
+
+// Cek apakah pengguna sudah login
+if (!isset($_SESSION['Username'])) {
+    // Jika belum login, redirect ke halaman login
+    header("Location: ../Login/Login.php");
+    exit();
+}
+
+// Cek hak akses
+if ($_SESSION['Role_ID'] != 1) {
+    // Jika bukan admin, redirect atau tampilkan pesan error
+    echo "<script>alert('Anda tidak memiliki akses ke halaman ini.'); window.location.href = 'FormLogin.php';</script>";
+    exit();
+}
+
+// Kode halaman admin di sini
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -102,6 +122,7 @@
                                         <th>Jabatan</th>
                                         <th>Email</th>
                                         <th>No. HP</th>
+                                        <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -117,6 +138,13 @@
                                                 echo "<td>" . htmlspecialchars($row['Nama_Role']) . "</td>";
                                                 echo "<td>" . htmlspecialchars($row['Email']) . "</td>";
                                                 echo "<td>" . htmlspecialchars($row['NoHp']) . "</td>";
+                                                ?>
+                                                <td>
+                                                    <a href="#" class="btn btn-primary rounded-pill">Detail</a>
+                                                    <a href="#" class="btn btn-success rounded-pill">Edit</a>
+                                                    <a href="#" class="btn btn-danger rounded-pill">Hapus</a>
+                                                </td>
+                                                <?php
                                             echo "</tr>";
                                         } else {
                                             echo "Belum ada data";

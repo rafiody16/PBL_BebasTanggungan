@@ -119,12 +119,6 @@
                                                     </div>
                                                     <div class="col-12">
                                                         <div class="form-group">
-                                                            <label for="Jabatan">Jabatan</label>
-                                                            <input type="text" class="form-control" name="Jabatan" placeholder="Masukkan Jabatan">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-12">
-                                                        <div class="form-group">
                                                             <label for="Alamat">Alamat</label>
                                                             <textarea class="form-control" name="Alamat" rows="3"></textarea>
                                                         </div>

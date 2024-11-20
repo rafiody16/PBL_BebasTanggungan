@@ -1,6 +1,7 @@
 <?php 
 
     include "../Koneksi.php";
+    session_start();
     
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $Username = $_POST['Username'];
@@ -17,10 +18,11 @@
     
         if ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
             // Verifikasi password (gunakan password_hash dan password_verify untuk keamanan)
-            if ($row['Password'] === $Password) {
+            if (password_verify($Password, $row['Password'])) {
                 // Login berhasil
                 $_SESSION['Username'] = $Username;
-                echo "<script>alert('Selamat Datang ".$Username.".');  window.location.href = 'FormLogin.php'; </script>";
+                $_SESSION['Role_ID'] = $row['Role_ID'];
+                echo "<script>alert('Selamat Datang ".$Username.".');  window.location.href = '../User/TabelStaff.php'; </script>";
             } else {
                 echo "<script>alert('Username atau password salah.');  window.location.href = 'FormLogin.php'; </script>";
             }
