@@ -1,46 +1,58 @@
 <?php 
 
+
 include "../Koneksi.php";
 
-if (isset($_POST['simpanUser'])) {
-    $ID_User = $_POST['ID_User'] ?? null;
-    $Username = $_POST['Username'] ?? null;
-    $Email = $_POST['Email'] ?? null;
-    $Password = $_POST['Password'] ?? null;
-    $Role_ID = $_POST['Role_ID'] ?? null;
+if (isset($_POST['simpanStaff'])) {
+    $NIP = $_POST['NIP'];
+    $Nama = $_POST['Nama'];
+    $Username = $_POST['Username'];
+    $Email = $_POST['Email'];
+    $Password = password_hash($_POST['Password'], PASSWORD_BCRYPT); // Enkripsi password
+    $Alamat = $_POST['Alamat'];
+    $NoHp = $_POST['NoHp'];
+    $Role_ID = $_POST['Role_ID'];
 
-    // Validate that none of the required fields are empty
-    if (!$ID_User || !$Username || !$Email || !$Password || !$Role_ID) {
-        echo "<script>alert('Please fill in all required fields.'); window.location.href = 'FormLogin.php';</script>";
-        exit();
+    sqlsrv_begin_transaction($conn);
+
+    try {
+        // Masukkan data ke tabel User dan ambil ID_User yang baru
+        $sqlUser = "INSERT INTO [User] (Username, [Password], Email, Role_ID) 
+                    OUTPUT INSERTED.ID_User 
+                    VALUES (?, ?, ?, ?)";
+        $paramsUser = [$Username, $Password, $Email, $Role_ID];
+        $stmtUser = sqlsrv_query($conn, $sqlUser, $paramsUser);
+
+        if (!$stmtUser) {
+            throw new Exception('Gagal menyimpan data User: ' . print_r(sqlsrv_errors(), true));
+        }
+
+        $rowUserID = sqlsrv_fetch_array($stmtUser, SQLSRV_FETCH_ASSOC);
+        $newUserID = $rowUserID['ID_User'];
+
+        // Masukkan data ke tabel Staff
+        $sqlStaff = "INSERT INTO Staff (NIP, Nama, Alamat, NoHp, ID_User) VALUES (?, ?, ?, ?, ?)";
+        $paramsStaff = [$NIP, $Nama, $Alamat, $NoHp, $newUserID];
+        $stmtStaff = sqlsrv_query($conn, $sqlStaff, $paramsStaff);
+
+        if (!$stmtStaff) {
+            throw new Exception('Gagal menyimpan data Staff: ' . print_r(sqlsrv_errors(), true));
+        }
+
+        sqlsrv_commit($conn);
+        echo "<script>alert('Data berhasil disimpan!'); window.location.href = 'TabelUser.php';</script>";
+
+    } catch (Exception $e) {
+        sqlsrv_rollback($conn);
+        echo "<script>alert('Data gagal disimpan! ".$e->getMessage() .  "'); window.location.href = 'TabelUser.php';</script>";
     }
-
-    // Insert query using parameterized SQL to prevent SQL injection
-    $sql = "INSERT INTO [User] (ID_User, Username, Email, [Password], Role_ID) VALUES (?, ?, ?, ?, ?)";
-    $params = array($ID_User, $Username, $Email, $Password, $Role_ID);
-
-    // Execute the query
-    $input = sqlsrv_query($conn, $sql, $params);
-
-    if ($input === false) {
-        // Display SQL Server errors if the query fails
-        die(print_r(sqlsrv_errors(), true));
-    }
-
-    if ($input) {
-        echo "<script>alert('Data successfully saved.'); window.location.href = 'TabelUser.php';</script>";
-    } else {
-        echo "<script>alert('Data saving failed.'); window.location.href = 'FormLogin.php';</script>";
-    }
-
-    sqlsrv_free_stmt($input);
 }
 
-$sql = "SELECT u.ID_User, u.Username, u.Password, u.Email, r.Nama_Role FROM [User] as u INNER JOIN [Role] as r
-        ON u.Role_ID = r.Role_ID";
+
+$sql = "SELECT s.NIP, s.Nama, r.Nama_Role, u.Email, s.NoHp FROM Staff AS s
+        INNER JOIN [User] AS u ON s.ID_User = u.ID_User INNER JOIN Role AS r ON u.Role_ID = r.Role_ID";
 $stmt = sqlsrv_query($conn, $sql);
 
-// Check if query was successful
 if ($stmt === false) {
     die(print_r(sqlsrv_errors(), true));
 }
