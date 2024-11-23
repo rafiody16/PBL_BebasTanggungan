@@ -131,18 +131,19 @@ if ($_SESSION['Role_ID'] != 1) {
                                     $no = 1;
                                     while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
                                         if ($row != null) {
+                                            $nip = $row['NIP'];
                                             echo "<tr>";
                                                 echo "<td>" . htmlspecialchars($no++) . "</td>";
-                                                echo "<td>" . htmlspecialchars($row['NIP']) . "</td>";
+                                                echo "<td>" . htmlspecialchars($nip) . "</td>";
                                                 echo "<td>" . htmlspecialchars($row['Nama']) . "</td>";
                                                 echo "<td>" . htmlspecialchars($row['Nama_Role']) . "</td>";
                                                 echo "<td>" . htmlspecialchars($row['Email']) . "</td>";
                                                 echo "<td>" . htmlspecialchars($row['NoHp']) . "</td>";
                                                 ?>
                                                 <td>
-                                                    <a href="#" class="btn btn-primary rounded-pill">Detail</a>
-                                                    <a href="#" class="btn btn-success rounded-pill">Edit</a>
-                                                    <a href="#" class="btn btn-danger rounded-pill">Hapus</a>
+                                                    <button id="<?= $nip ?>" class="btn btn-primary rounded-pill detail_data">Detail</button>
+                                                    <button id="<?= $nip ?>" class="btn btn-warning rounded-pill edit_data">Edit</button>
+                                                    <button id="<?= $nip ?>" class="btn btn-danger rounded-pill hapus_data">Hapus</button>
                                                 </td>
                                                 <?php
                                             echo "</tr>";
