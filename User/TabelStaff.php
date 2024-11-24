@@ -192,10 +192,16 @@ if ($_SESSION['Role_ID'] != 1) {
         });
     });
 
-    // Edit data
     $(".btn-edit").click(function() {
         var nip = $(this).data("id");
-        window.location.href = "FormStaff.php?NIP=" + nip;
+        $.ajax({
+            url: "FormStaff.php",
+            type: "POST",
+            data: { NIP: nip, action: "edit" },
+            success: function(response) {
+                location.href = "FormStaff.php?NIP=" + nip;
+            }
+        })
     });
 
     // Hapus data
@@ -204,8 +210,8 @@ if ($_SESSION['Role_ID'] != 1) {
         if (confirm("Apakah Anda yakin ingin menghapus data ini?")) {
             $.ajax({
                 url: "UserProses.php",
-                type: "POST",
-                data: { NIP: nip },
+                type: "GET",
+                data: { NIP: nip, action: "delete" },
                 success: function(response) {
                     alert(response);
                     location.reload();

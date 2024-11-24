@@ -1,3 +1,27 @@
+<?php
+session_start();
+
+// Cek apakah pengguna sudah login
+if (!isset($_SESSION['Username'])) {
+    // Jika belum login, redirect ke halaman login
+    header("Location: ../Login/Login.php");
+    exit();
+}
+
+// Cek hak akses
+if ($_SESSION['Role_ID'] != 1) {
+    // Jika bukan admin, redirect atau tampilkan pesan error
+    echo "<script>alert('Anda tidak memiliki akses ke halaman ini.'); window.location.href = 'FormLogin.php';</script>";
+    exit();
+}
+
+include('UserProses.php');
+include('../Koneksi.php');
+
+editDataStaff();
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -87,30 +111,29 @@
                                     <div class="card-body">
                                         <form class="form form-vertical" action="UserProses.php" method="POST">
                                             <div class="form-body">
-                                                <?php include('UserProses.php') ?>
                                                 <div class="row">
                                                     <div class="col-12">
                                                         <div class="form-group">
                                                             <label for="NIP">NIP</label>
-                                                            <input type="text" class="form-control" value="<?= htmlspecialchars($nip) ?>" name="NIP" placeholder="Masukkan NIP">
+                                                            <input type="text" class="form-control" value="<?= isset($nip) ? htmlspecialchars($nip) : '' ?>" name="NIP" placeholder="Masukkan NIP">
                                                         </div>
                                                     </div>
                                                     <div class="col-12">
                                                         <div class="form-group">
                                                             <label for="Nama">Nama</label>
-                                                            <input type="text" class="form-control" value="<?= htmlspecialchars($nama) ?>" name="Nama" placeholder="Masukkan Nama">
+                                                            <input type="text" class="form-control" value="<?= isset($nama) ? htmlspecialchars($nama) : '' ?>" name="Nama" placeholder="Masukkan Nama">
                                                         </div>
                                                     </div>
                                                     <div class="col-12">
                                                         <div class="form-group">
                                                             <label for="Username">Username</label>
-                                                            <input type="text" class="form-control" value="<?= htmlspecialchars($username) ?>" name="Username" placeholder="Masukkan Nama">
+                                                            <input type="text" class="form-control" value="<?= isset($username) ? htmlspecialchars($username) : '' ?>" name="Username" placeholder="Masukkan Nama">
                                                         </div>
                                                     </div>
                                                     <div class="col-12">
                                                         <div class="form-group">
                                                             <label for="Email">Email</label>
-                                                            <input type="email" class="form-control" value="<?= htmlspecialchars($email) ?>" name="Email" placeholder="Masukkan Email">
+                                                            <input type="email" class="form-control" value="<?= isset($email) ? htmlspecialchars($email) : '' ?>" name="Email" placeholder="Masukkan Email">
                                                         </div>
                                                     </div>
                                                     <div class="col-12">
@@ -122,13 +145,13 @@
                                                     <div class="col-12">
                                                         <div class="form-group">
                                                             <label for="Alamat">Alamat</label>
-                                                            <textarea class="form-control" name="Alamat" rows="3"><?= htmlspecialchars($alamat) ?></textarea>
+                                                            <textarea class="form-control" name="Alamat" rows="3"><?= isset($alamat) ? htmlspecialchars($alamat) : '' ?></textarea>
                                                         </div>
                                                     </div>
                                                     <div class="col-12">
                                                         <div class="form-group">
                                                             <label for="NoHp">No.Hp</label>
-                                                            <input type="text" class="form-control" value="<?= htmlspecialchars($noHp) ?>" name="NoHp" placeholder="Masukkan No Hp">
+                                                            <input type="text" class="form-control" value="<?= isset($noHp) ? htmlspecialchars($noHp) : '' ?>" name="NoHp" placeholder="Masukkan No Hp">
                                                         </div>
                                                     </div>
                                                     <div class="col-12">
@@ -143,7 +166,7 @@
                                                                 
                                                                 while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
                                                                     $selected = ($row["Role_ID"] == $roleID) ? 'selected' : '';
-                                                                    echo '<option value="' . $row["Role_ID"] . '">' . $row["Nama_Role"] . '</option>';
+                                                                    echo '<option value="' . $row["Role_ID"] . '" ' . $selected . '>' . $row["Nama_Role"] . '</option>';
                                                                 }
                                                             ?>
                                                             </select>
