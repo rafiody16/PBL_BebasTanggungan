@@ -16,7 +16,7 @@ if (isset($_POST['simpanStaff'])) {
     sqlsrv_begin_transaction($conn);
 
     try {
-        // Masukkan data ke tabel User dan ambil ID_User yang baru
+      
         $sqlUser = "INSERT INTO [User] (Username, [Password], Email, Role_ID) 
                     OUTPUT INSERTED.ID_User 
                     VALUES (?, ?, ?, ?)";
@@ -29,8 +29,7 @@ if (isset($_POST['simpanStaff'])) {
 
         $rowUserID = sqlsrv_fetch_array($stmtUser, SQLSRV_FETCH_ASSOC);
         $newUserID = $rowUserID['ID_User'];
-
-        // Masukkan data ke tabel Staff
+ 
         $sqlStaff = "INSERT INTO Staff (NIP, Nama, Alamat, NoHp, ID_User) VALUES (?, ?, ?, ?, ?)";
         $paramsStaff = [$NIP, $Nama, $Alamat, $NoHp, $newUserID];
         $stmtStaff = sqlsrv_query($conn, $sqlStaff, $paramsStaff);
@@ -47,6 +46,46 @@ if (isset($_POST['simpanStaff'])) {
         echo "<script>alert('Data gagal disimpan! ".$e->getMessage() .  "'); window.location.href = 'TabelUser.php';</script>";
     }
 }
+
+if (isset($_POST['NIP'])) {
+    $nip = $_POST['NIP'];
+    $sql = "DELETE FROM Staff WHERE NIP = ?";
+    $stmt = sqlsrv_query($conn, $sql, [$nip]);
+
+    if ($stmt) {
+        echo "Data berhasil dihapus.";
+    } else {
+        echo "Gagal menghapus data.";
+    }
+}
+
+if (isset($_GET['NIP']) && !empty($_GET['NIP'])) {
+    $nip = $_GET['NIP'];
+    $sql = "SELECT Staff.Nama, Staff.Alamat, Staff.NoHp, [User].Username, [User].Email, [User].Role_ID FROM Staff INNER JOIN [User] ON Staff.ID_User = [User].ID_User WHERE Staff.NIP = ?";
+    $params = array($nip);
+    $stmt = sqlsrv_query($conn, $sql, $params);
+    
+    if ($stmt === false) {
+        echo "Query failed: ";
+        print_r(sqlsrv_errors());
+        exit;
+    }
+    
+    if ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+        // Populate the form fields with existing data
+        $nama = $row['Nama'];
+        $username = $row['Username'];
+        $email = $row['Email'];
+        $alamat = $row['Alamat'];
+        $noHp = $row['NoHp'];
+        $roleID = $row['Role_ID'];
+    } else {
+        echo "No data found for the given NIP.";
+    }
+} else {
+    echo "NIP is missing or invalid.";
+}
+
 
 
 $sql = "SELECT s.NIP, s.Nama, r.Nama_Role, u.Email, s.NoHp FROM Staff AS s

@@ -27,6 +27,7 @@ if ($_SESSION['Role_ID'] != 1) {
     <title>Checkout Page - Mazer Admin Dashboard</title>
     <link rel="stylesheet" crossorigin href="../assets/compiled/css/app.css">
     <link rel="stylesheet" crossorigin href="../assets/compiled/css/app-dark.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 <body>
@@ -113,7 +114,7 @@ if ($_SESSION['Role_ID'] != 1) {
                                 </div>
                                 <div class="card-body">
                                     <div class="table-responsive">
-                                        <table class="table table-lg">
+                            <table class="table table-lg">
                                 <thead>
                                     <tr>
                                         <th>#</th>
@@ -130,7 +131,7 @@ if ($_SESSION['Role_ID'] != 1) {
                                     include('UserProses.php');
                                     $no = 1;
                                     while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
-                                        if ($row != null) {
+                                        if ($row) {
                                             $nip = $row['NIP'];
                                             echo "<tr>";
                                                 echo "<td>" . htmlspecialchars($no++) . "</td>";
@@ -141,9 +142,9 @@ if ($_SESSION['Role_ID'] != 1) {
                                                 echo "<td>" . htmlspecialchars($row['NoHp']) . "</td>";
                                                 ?>
                                                 <td>
-                                                    <button id="<?= $nip ?>" class="btn btn-primary rounded-pill detail_data">Detail</button>
-                                                    <button id="<?= $nip ?>" class="btn btn-warning rounded-pill edit_data">Edit</button>
-                                                    <button id="<?= $nip ?>" class="btn btn-danger rounded-pill hapus_data">Hapus</button>
+                                                    <button data-id="<?= $nip ?>" class="btn-detail">Detail</button>
+                                                    <button data-id="<?= $nip ?>" class="btn-edit">Edit</button>
+                                                    <button data-id="<?= $nip ?>" class="btn btn-danger btn-delete">Hapus</button>
                                                 </td>
                                                 <?php
                                             echo "</tr>";
@@ -175,6 +176,51 @@ if ($_SESSION['Role_ID'] != 1) {
             </footer>
         </div>
     </div>
+    <script>
+        $(document).ready(function() {
+    // Lihat detail
+    $(".btn-detail").click(function() {
+        var nip = $(this).data("id");
+        $.ajax({
+            url: "DetailStaff.php",
+            type: "POST",
+            data: { NIP: nip },
+            success: function(response) {
+                $("#modalContent").html(response);
+                $("#modal").show();
+            }
+        });
+    });
+
+    // Edit data
+    $(".btn-edit").click(function() {
+        var nip = $(this).data("id");
+        window.location.href = "FormStaff.php?NIP=" + nip;
+    });
+
+    // Hapus data
+    $(".btn-delete").click(function() {
+        var nip = $(this).data("id");
+        if (confirm("Apakah Anda yakin ingin menghapus data ini?")) {
+            $.ajax({
+                url: "UserProses.php",
+                type: "POST",
+                data: { NIP: nip },
+                success: function(response) {
+                    alert(response);
+                    location.reload();
+                }
+            });
+        }
+    });
+
+    // Tutup modal
+    $("#modalClose").click(function() {
+        $("#modal").hide();
+    });
+});
+
+    </script>
     <script src="../assets/static/js/components/dark.js"></script>
     <script src="assets/extensions/perfect-scrollbar/perfect-scrollbar.min.js"></script>
     <script src="../assets/extensions/perfect-scrollbar/perfect-scrollbar.min.js"></script>

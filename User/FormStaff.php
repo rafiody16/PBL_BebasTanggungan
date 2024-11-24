@@ -6,6 +6,7 @@
     <title>Checkout Page - Mazer Admin Dashboard</title>
     <link rel="stylesheet" crossorigin href="../assets/compiled/css/app.css">
     <link rel="stylesheet" crossorigin href="../assets/compiled/css/app-dark.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 <body>
@@ -86,29 +87,30 @@
                                     <div class="card-body">
                                         <form class="form form-vertical" action="UserProses.php" method="POST">
                                             <div class="form-body">
+                                                <?php include('UserProses.php') ?>
                                                 <div class="row">
                                                     <div class="col-12">
                                                         <div class="form-group">
                                                             <label for="NIP">NIP</label>
-                                                            <input type="text" class="form-control" name="NIP" placeholder="Masukkan NIP">
+                                                            <input type="text" class="form-control" value="<?= htmlspecialchars($nip) ?>" name="NIP" placeholder="Masukkan NIP">
                                                         </div>
                                                     </div>
                                                     <div class="col-12">
                                                         <div class="form-group">
                                                             <label for="Nama">Nama</label>
-                                                            <input type="text" class="form-control" name="Nama" placeholder="Masukkan Nama">
+                                                            <input type="text" class="form-control" value="<?= htmlspecialchars($nama) ?>" name="Nama" placeholder="Masukkan Nama">
                                                         </div>
                                                     </div>
                                                     <div class="col-12">
                                                         <div class="form-group">
                                                             <label for="Username">Username</label>
-                                                            <input type="text" class="form-control" name="Username" placeholder="Masukkan Nama">
+                                                            <input type="text" class="form-control" value="<?= htmlspecialchars($username) ?>" name="Username" placeholder="Masukkan Nama">
                                                         </div>
                                                     </div>
                                                     <div class="col-12">
                                                         <div class="form-group">
                                                             <label for="Email">Email</label>
-                                                            <input type="email" class="form-control" name="Email" placeholder="Masukkan Email">
+                                                            <input type="email" class="form-control" value="<?= htmlspecialchars($email) ?>" name="Email" placeholder="Masukkan Email">
                                                         </div>
                                                     </div>
                                                     <div class="col-12">
@@ -120,13 +122,13 @@
                                                     <div class="col-12">
                                                         <div class="form-group">
                                                             <label for="Alamat">Alamat</label>
-                                                            <textarea class="form-control" name="Alamat" rows="3"></textarea>
+                                                            <textarea class="form-control" name="Alamat" rows="3"><?= htmlspecialchars($alamat) ?></textarea>
                                                         </div>
                                                     </div>
                                                     <div class="col-12">
                                                         <div class="form-group">
                                                             <label for="NoHp">No.Hp</label>
-                                                            <input type="text" class="form-control" name="NoHp" placeholder="Masukkan No Hp">
+                                                            <input type="text" class="form-control" value="<?= htmlspecialchars($noHp) ?>" name="NoHp" placeholder="Masukkan No Hp">
                                                         </div>
                                                     </div>
                                                     <div class="col-12">
@@ -140,6 +142,7 @@
                                                                 $stmt = sqlsrv_query($conn, $sql);
                                                                 
                                                                 while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+                                                                    $selected = ($row["Role_ID"] == $roleID) ? 'selected' : '';
                                                                     echo '<option value="' . $row["Role_ID"] . '">' . $row["Nama_Role"] . '</option>';
                                                                 }
                                                             ?>
