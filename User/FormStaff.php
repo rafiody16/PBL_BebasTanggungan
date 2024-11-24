@@ -18,7 +18,7 @@ if ($_SESSION['Role_ID'] != 1) {
 include('UserProses.php');
 include('../Koneksi.php');
 
-editDataStaff();
+getDataStaffByNip();
 
 ?>
 

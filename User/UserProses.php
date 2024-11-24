@@ -10,8 +10,11 @@ switch ($action) {
         deleteDataStaff($conn);
         break;
     case 'edit':
-        editDataStaff();
+        getDataStaffByNip();
         break;
+    case 'read':
+        getDataStaffByNip();
+        break;  
     default:
         # code...
         break;
@@ -99,11 +102,11 @@ function deleteDataStaff($conn) {
 }
 
 
-function editDataStaff() {
+function getDataStaffByNip() {
     global $conn;
-    global $nip, $nama, $username, $email, $alamat, $noHp, $roleID;
+    global $nip, $nama, $username, $email, $alamat, $noHp, $roleID, $Nama_Role;
     $nip = $_GET['NIP'];
-    $sql = "SELECT Staff.Nama, Staff.Alamat, Staff.NoHp, [User].Username, [User].Email, [User].Role_ID FROM Staff INNER JOIN [User] ON Staff.ID_User = [User].ID_User WHERE Staff.NIP = ?";
+    $sql = "SELECT Staff.Nama, Staff.Alamat, Staff.NoHp, [User].Username, [User].Email, [User].Role_ID, [Role].Nama_Role FROM Staff INNER JOIN [User] ON Staff.ID_User = [User].ID_User  INNER JOIN [Role] ON [User].Role_ID = [Role].Role_ID WHERE Staff.NIP = ?";
     $params = array($nip);
     $stmt = sqlsrv_query($conn, $sql, $params);
     
@@ -121,6 +124,7 @@ function editDataStaff() {
         $alamat = $row['Alamat'];
         $noHp = $row['NoHp'];
         $roleID = $row['Role_ID'];
+        $Nama_Role = $row['Nama_Role'];
     } else {
         echo "No data found for the given NIP.";
     }

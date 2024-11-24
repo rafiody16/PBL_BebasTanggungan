@@ -15,12 +15,15 @@ if ($_SESSION['Role_ID'] != 1) {
     exit();
 }
 
-// Kode halaman admin di sini
+include('UserProses.php');
+include('../Koneksi.php');
+
+getDataStaffByNip();
+
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -97,139 +100,91 @@ if ($_SESSION['Role_ID'] != 1) {
             </header>
             
             <div class="page-heading">
-                <div class="page-title">
-                    <div class="row">
-                        <div class="col-12 col-md-6 order-md-1 order-last">
-                            <h3>Tabel User</h3>
-                            <p class="text-subtitle text-muted">Data user.</p>
-                        </div>
-                    </div>
-                </div>
-                <section class="section">
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="card">
+                <section id="basic-vertical-layouts">
+                    <div class="row match-height">
+                        <div class="col-md-6 col-12">
+                            <div class="card" style="width: 1280px; margin-left:30px">
                                 <div class="card-header">
-                                    <h5 class="card-title">Tabel User</h5>
+                                    <h4 class="card-title">Data Staff</h4>
                                 </div>
-                                <div class="card-body">
-                                    <div class="table-responsive">
-                            <table class="table table-lg">
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>NIP</th>
-                                        <th>Nama</th>
-                                        <th>Jabatan</th>
-                                        <th>Email</th>
-                                        <th>No. HP</th>
-                                        <th>Aksi</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                <?php 
-                                    include('UserProses.php');
-                                    $no = 1;
-                                    while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
-                                        if ($row) {
-                                            $nip = $row['NIP'];
-                                            echo "<tr>";
-                                                echo "<td>" . htmlspecialchars($no++) . "</td>";
-                                                echo "<td>" . htmlspecialchars($nip) . "</td>";
-                                                echo "<td>" . htmlspecialchars($row['Nama']) . "</td>";
-                                                echo "<td>" . htmlspecialchars($row['Nama_Role']) . "</td>";
-                                                echo "<td>" . htmlspecialchars($row['Email']) . "</td>";
-                                                echo "<td>" . htmlspecialchars($row['NoHp']) . "</td>";
-                                                ?>
-                                                <td>
-                                                    <button data-id="<?= $nip ?>" class="btn-detail">Detail</button>
-                                                    <button data-id="<?= $nip ?>" class="btn-edit">Edit</button>
-                                                    <button data-id="<?= $nip ?>" class="btn btn-danger btn-delete">Hapus</button>
-                                                </td>
-                                                <?php
-                                            echo "</tr>";
-                                        } else {
-                                            echo "Belum ada data";
-                                        }
-                                    }
-                                ?>
-                                </tbody>
-                            </table>
+                                <div class="card-content">
+                                    <div class="card-body">
+                                        <form class="form form-vertical">
+                                            <div class="form-body">
+                                                <div class="row">
+                                                    <div class="col-md-6 col-12">
+                                                        <div class="form-group">
+                                                            <label for="NIP">NIP</label>
+                                                            <h3><?= isset($nip) ? htmlspecialchars($nip) : '' ?></h3>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6 col-12">
+                                                        <div class="form-group">
+                                                            <label for="Nama">Nama</label>
+                                                            <h3><?= isset($nama) ? htmlspecialchars($nama) : '' ?></h3>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6 col-12">
+                                                        <div class="form-group">
+                                                            <label for="Username">Username</label>
+                                                            <h3><?= isset($username) ? htmlspecialchars($username) : '' ?></h3>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6 col-12">
+                                                        <div class="form-group">
+                                                            <label for="Email">Email</label>
+                                                            <h3><?= isset($email) ? htmlspecialchars($email) : '' ?></h3>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6 col-12">
+                                                        <div class="form-group">
+                                                            <label for="Alamat">Alamat</label>
+                                                            <h3><?= isset($alamat) ? htmlspecialchars($alamat) : '' ?></h3>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6 col-12">
+                                                        <div class="form-group">
+                                                            <label for="NoHp">No.Hp</label>
+                                                            <h3><?= isset($noHp) ? htmlspecialchars($noHp) : '' ?></h3>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6 col-12">
+                                                        <div class="form-group">
+                                                            <label for="Role_ID">Jabatan</label>
+                                                            <h3><?= isset($Nama_Role) ? htmlspecialchars($Nama_Role) : '' ?></h3>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12 d-flex justify-content-end">
+                                                        <button type="submit" class="btn btn-primary me-1 mb-1" name="simpanStaff">Simpan</button>
+                                                        <button type="reset" class="btn btn-light-secondary me-1 mb-1">Kembali</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </section>
+                </section>
             </div>
 
             <footer>
                 <div class="footer clearfix mb-0 text-muted">
-        <div class="float-start">
-            <p>2023 &copy; Mazer</p>
-        </div>
-        <div class="float-end">
-            <p>Crafted with <span class="text-danger"><i class="bi bi-heart-fill icon-mid"></i></span>
-                by <a href="https://saugi.me">Saugi</a></p>
-        </div>
+                    <div class="float-start">
+                        <p>2023 &copy; Mazer</p>
+                    </div>
+                    <div class="float-end">
+                        <p>Crafted with <span class="text-danger"><i class="bi bi-heart-fill icon-mid"></i></span>
+                            by <a href="https://saugi.me">Saugi</a></p>
+                    </div>
                 </div>
             </footer>
         </div>
     </div>
-    <script>
-        $(document).ready(function() {
-    // Lihat detail
-    $(".btn-detail").click(function() {
-        var nip = $(this).data("id");
-        $.ajax({
-            url: "DetailStaff.php",
-            type: "POST",
-            data: { NIP: nip, action: "read" },
-            success: function(response) {
-                location.href = "DetailStaff.php?NIP=" + nip;
-            }
-        });
-    });
-
-    $(".btn-edit").click(function() {
-        var nip = $(this).data("id");
-        $.ajax({
-            url: "FormStaff.php",
-            type: "POST",
-            data: { NIP: nip, action: "edit" },
-            success: function(response) {
-                location.href = "FormStaff.php?NIP=" + nip;
-            }
-        })
-    });
-
-    // Hapus data
-    $(".btn-delete").click(function() {
-        var nip = $(this).data("id");
-        if (confirm("Apakah Anda yakin ingin menghapus data ini?")) {
-            $.ajax({
-                url: "UserProses.php",
-                type: "GET",
-                data: { NIP: nip, action: "delete" },
-                success: function(response) {
-                    alert(response);
-                    location.reload();
-                }
-            });
-        }
-    });
-
-    // Tutup modal
-    $("#modalClose").click(function() {
-        $("#modal").hide();
-    });
-});
-
-    </script>
     <script src="../assets/static/js/components/dark.js"></script>
     <script src="assets/extensions/perfect-scrollbar/perfect-scrollbar.min.js"></script>
     <script src="../assets/extensions/perfect-scrollbar/perfect-scrollbar.min.js"></script>
     <script src="../assets/compiled/js/app.js"></script>
 </body>
-
 </html>
