@@ -89,6 +89,56 @@ if (isset($_POST['simpanStaff'])) {
     }
 }
 
+if (isset($_POST['simpanMahasiswa'])) {
+    $NIM = $_POST['NIM'];
+    $Nama = $_POST['Nama'];
+    $Username = $_POST['Username'];
+    $Email = $_POST['Email'];
+    $Password = password_hash($_POST['Password'], PASSWORD_BCRYPT); // Enkripsi password
+    $Alamat = $_POST['Alamat'];
+    $NoHp = $_POST['NoHp'];
+    $JenisKelamin = $_POST['JenisKelamin'];
+    $Role_ID = 5;
+
+    // Mulai transaksi
+    sqlsrv_begin_transaction($conn);
+    try {
+        $sqlUser = "INSERT INTO [User] (Username, [Password], Email, Role_ID) 
+                    OUTPUT INSERTED.ID_User 
+                    VALUES (?, ?, ?, ?)";
+        $paramsUser = [$Username, $Password, $Email, $Role_ID];
+        $stmtUser = sqlsrv_query($conn, $sqlUser, $paramsUser);
+    
+        if (!$stmtUser) {
+            throw new Exception('Error in User query: ' . print_r(sqlsrv_errors(), true));
+        }
+    
+        $rowUserID = sqlsrv_fetch_array($stmtUser, SQLSRV_FETCH_ASSOC);
+        if (!$rowUserID) {
+            throw new Exception('No rows returned from User insert: ' . print_r(sqlsrv_errors(), true));
+        }
+        $newUserID = $rowUserID['ID_User'];
+    
+        $sqlMahasiswa = "INSERT INTO Mahasiswa (NIM, Nama, Alamat, NoHp, JenisKelamin, ID_User) 
+                         VALUES (?, ?, ?, ?, ?, ?)";
+        $paramsMahasiswa = [$NIM, $Nama, $Alamat, $NoHp, $JenisKelamin, $newUserID];
+        $stmtMahasiswa = sqlsrv_query($conn, $sqlMahasiswa, $paramsMahasiswa);
+    
+        if (!$stmtMahasiswa) {
+            throw new Exception('Error in Mahasiswa query: ' . print_r(sqlsrv_errors(), true));
+        }
+    
+        // Commit the transaction if all queries succeed
+        sqlsrv_commit($conn);
+        echo "<script>alert('Data berhasil disimpan!'); window.location.href = 'TabelMahasiswa.php';</script>";
+    
+    } catch (Exception $e) {
+        sqlsrv_rollback($conn);
+        die('Transaction failed: ' . $e->getMessage());
+    }
+    
+}
+
 function deleteDataStaff($conn) {
     $nip = $_GET['NIP'];
     $sql = "DELETE FROM Staff WHERE NIP = ?";
@@ -138,6 +188,14 @@ function getDataStaffByNip() {
 $sql = "SELECT s.NIP, s.Nama, r.Nama_Role, u.Email, s.NoHp FROM Staff AS s
         INNER JOIN [User] AS u ON s.ID_User = u.ID_User INNER JOIN Role AS r ON u.Role_ID = r.Role_ID";
 $stmt = sqlsrv_query($conn, $sql);
+
+if ($stmt === false) {
+    die(print_r(sqlsrv_errors(), true));
+}
+
+$sql2 = "SELECT m.NIM, m.Nama, m.JenisKelamin, u.Email, m.Alamat, m.NoHp FROM Mahasiswa AS m
+        INNER JOIN [User] AS u ON m.ID_User = u.ID_User INNER JOIN Role AS r ON u.Role_ID = r.Role_ID";
+$stmt2 = sqlsrv_query($conn, $sql2);
 
 if ($stmt === false) {
     die(print_r(sqlsrv_errors(), true));
