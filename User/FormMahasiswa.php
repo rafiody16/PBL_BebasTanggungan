@@ -18,6 +18,8 @@ if ($_SESSION['Role_ID'] != 1) {
 include('UserProses.php');
 include('../Koneksi.php');
 
+getDataMahasiswaByNim();
+
 ?>
 
 <!DOCTYPE html>
@@ -113,25 +115,25 @@ include('../Koneksi.php');
                                                     <div class="col-12">
                                                         <div class="form-group">
                                                             <label for="NIM">NIM</label>
-                                                            <input type="text" class="form-control" name="NIM" placeholder="Masukkan NIM">
+                                                            <input type="text" class="form-control" name="NIM" value="<?= isset($nim) ? htmlspecialchars($nim) : '' ?>" placeholder="Masukkan NIM">
                                                         </div>
                                                     </div>
                                                     <div class="col-12">
                                                         <div class="form-group">
                                                             <label for="Nama">Nama</label>
-                                                            <input type="text" class="form-control" name="Nama" placeholder="Masukkan Nama">
+                                                            <input type="text" class="form-control" name="Nama" value="<?= isset($nama) ? htmlspecialchars($nama) : '' ?>" placeholder="Masukkan Nama">
                                                         </div>
                                                     </div>
                                                     <div class="col-12">
                                                         <div class="form-group">
                                                             <label for="Username">Username</label>
-                                                            <input type="text" class="form-control" name="Username" placeholder="Masukkan Nama">
+                                                            <input type="text" class="form-control" name="Username" value="<?= isset($username) ? htmlspecialchars($username) : '' ?>" placeholder="Masukkan Nama">
                                                         </div>
                                                     </div>
                                                     <div class="col-12">
                                                         <div class="form-group">
                                                             <label for="Email">Email</label>
-                                                            <input type="email" class="form-control" name="Email" placeholder="Masukkan Email">
+                                                            <input type="email" class="form-control" name="Email" value="<?= isset($email) ? htmlspecialchars($email) : '' ?>" placeholder="Masukkan Email">
                                                         </div>
                                                     </div>
                                                     <div class="col-12">
@@ -143,13 +145,13 @@ include('../Koneksi.php');
                                                     <div class="col-12">
                                                         <div class="form-group">
                                                             <label for="Alamat">Alamat</label>
-                                                            <textarea class="form-control" name="Alamat" rows="3"></textarea>
+                                                            <textarea class="form-control" name="Alamat" rows="3"><?= isset($alamat) ? htmlspecialchars($alamat) : '' ?></textarea>
                                                         </div>
                                                     </div>
                                                     <div class="col-12">
                                                         <div class="form-group">
                                                             <label for="NoHp">No.Hp</label>
-                                                            <input type="text" class="form-control" name="NoHp" placeholder="Masukkan No Hp">
+                                                            <input type="text" class="form-control" name="NoHp" value="<?= isset($noHp) ? htmlspecialchars($noHp) : '' ?>" placeholder="Masukkan No Hp">
                                                         </div>
                                                     </div>
                                                     <div class="col-12">

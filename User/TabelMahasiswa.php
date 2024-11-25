@@ -182,37 +182,37 @@ if ($_SESSION['Role_ID'] != 1) {
         $(document).ready(function() {
     // Lihat detail
     $(".btn-detail").click(function() {
-        var nip = $(this).data("id");
+        var nim = $(this).data("id");
         $.ajax({
-            url: "DetailStaff.php",
+            url: "DetailMahasiswa.php",
             type: "POST",
-            data: { NIP: nip, action: "read" },
+            data: { NIM: nim, action: "readMahasiswa" },
             success: function(response) {
-                location.href = "DetailStaff.php?NIP=" + nip;
+                location.href = "DetailStaff.php?NIM=" + nim;
             }
         });
     });
 
     $(".btn-edit").click(function() {
-        var nip = $(this).data("id");
+        var nim = $(this).data("id");
         $.ajax({
-            url: "FormStaff.php",
+            url: "FormMahasiswa.php",
             type: "POST",
-            data: { NIP: nip, action: "edit" },
+            data: { NIM: nim, action: "editMahasiswa" },
             success: function(response) {
-                location.href = "FormStaff.php?NIP=" + nip;
+                location.href = "FormMahasiswa.php?NIM=" + nim;
             }
         })
     });
 
     // Hapus data
     $(".btn-delete").click(function() {
-        var nip = $(this).data("id");
+        var nim = $(this).data("id");
         if (confirm("Apakah Anda yakin ingin menghapus data ini?")) {
             $.ajax({
                 url: "UserProses.php",
                 type: "POST",
-                data: { NIP: nip, action: "delete" },
+                data: { NIM: nim, action: "deleteMahasiswa" },
                 success: function(response) {
                     location.reload();
                 }

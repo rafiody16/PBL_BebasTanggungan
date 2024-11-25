@@ -12,6 +12,9 @@ switch ($action) {
     case 'edit':
         getDataStaffByNip();
         break;
+    case 'editMahasiswa':
+        getDataMahasiswaByNim();
+        break;
     case 'read':
         getDataStaffByNip();
         break;  
@@ -179,8 +182,32 @@ function deleteDataStaff() {
     }
 }
 
-
-
+function getDataMahasiswaByNim() {
+    global $conn;
+    global $nim, $nama, $username, $email, $alamat, $noHp, $jeniskelamin;
+    $nim = $_GET['NIM'];
+    $sql = "SELECT Mahasiswa.Nama, Mahasiswa.Alamat, Mahasiswa.NoHp, [User].Username, [User].Email, Mahasiswa.JenisKelamin FROM Mahasiswa INNER JOIN [User] ON Staff.ID_User = [User].ID_User  WHERE Mahasiswa.NIM = ?";
+    $params = array($nim);
+    $stmt = sqlsrv_query($conn, $sql, $params);
+    
+    if ($stmt === false) {
+        echo "Query failed: ";
+        print_r(sqlsrv_errors());
+        exit;
+    }
+    
+    if ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+        // Populate the form fields with existing data
+        $nama = $row['Nama'];
+        $username = $row['Username'];
+        $email = $row['Email'];
+        $alamat = $row['Alamat'];
+        $noHp = $row['NoHp'];
+        $jeniskelamin = $row['JenisKelamin'];
+    } else {
+        echo "No data found for the given NIM.";
+    }
+}
 
 function getDataStaffByNip() {
     global $conn;
@@ -209,11 +236,6 @@ function getDataStaffByNip() {
         echo "No data found for the given NIP.";
     }
 }
-
-
-
-
-
 
 $sql = "SELECT s.NIP, s.Nama, r.Nama_Role, u.Email, s.NoHp FROM Staff AS s
         INNER JOIN [User] AS u ON s.ID_User = u.ID_User INNER JOIN Role AS r ON u.Role_ID = r.Role_ID";
