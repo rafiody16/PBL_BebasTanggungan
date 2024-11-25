@@ -195,14 +195,16 @@ if ($_SESSION['Role_ID'] != 1) {
 
     $(".btn-edit").click(function() {
         var nim = $(this).data("id");
-        $.ajax({
+        if (alert("Apakah anda ingin mengedit?")) {
+            $.ajax({
             url: "FormMahasiswa.php",
             type: "POST",
             data: { NIM: nim, action: "editMahasiswa" },
             success: function(response) {
                 location.href = "FormMahasiswa.php?NIM=" + nim;
             }
-        })
+        })   
+        }
     });
 
     // Hapus data
