@@ -7,7 +7,7 @@ $action = $_POST['action'] ?? '';
 
 switch ($action) {
     case 'delete':
-        deleteDataStaff($conn);
+        deleteDataStaff();
         break;
     case 'edit':
         getDataStaffByNip();
@@ -139,17 +139,47 @@ if (isset($_POST['simpanMahasiswa'])) {
     
 }
 
-function deleteDataStaff($conn) {
-    $nip = $_GET['NIP'];
-    $sql = "DELETE FROM Staff WHERE NIP = ?";
-    $stmt = sqlsrv_query($conn, $sql, [$nip]);
+function deleteDataStaff() {
+    global $conn;
 
-    if ($stmt) {
-        echo "Data berhasil dihapus.";
-    } else {
-        echo "Gagal menghapus data.";
+    $NIP = $_POST['NIP'];
+
+    sqlsrv_begin_transaction($conn);
+
+    try {
+        $checkUserSql = "SELECT ID_User FROM Staff WHERE NIP = ?";
+        $checkUserStmt = sqlsrv_query($conn, $checkUserSql, [$NIP]);
+        $existingUser = sqlsrv_fetch_array($checkUserStmt, SQLSRV_FETCH_ASSOC);
+
+        if ($existingUser) {
+            $ID_User = $existingUser['ID_User'];
+
+            $deleteStaffSql = "DELETE FROM Staff WHERE NIP = ?";
+            $stmtDeleteStaff = sqlsrv_query($conn, $deleteStaffSql, [$NIP]);
+
+            if (!$stmtDeleteStaff) {
+                throw new Exception('Gagal menghapus data Staff: ' . print_r(sqlsrv_errors(), true));
+            }
+
+            $deleteUserSql = "DELETE FROM [User] WHERE ID_User = ?";
+            $stmtDeleteUser = sqlsrv_query($conn, $deleteUserSql, [$ID_User]);
+
+            if (!$stmtDeleteUser) {
+                throw new Exception('Gagal menghapus data User: ' . print_r(sqlsrv_errors(), true));
+            }
+
+            sqlsrv_commit($conn);
+            echo "<script>alert('Data berhasil dihapus!'); window.location.href = 'TabelStaff.php';</script>";
+        } else {
+            throw new Exception('Data Staff dengan NIP tersebut tidak ditemukan.');
+        }
+    } catch (Exception $e) {
+        sqlsrv_rollback($conn);
+        echo "<script>alert('Data gagal dihapus! ".$e->getMessage() . "'); window.location.href = 'TabelStaff.php';</script>";
     }
 }
+
+
 
 
 function getDataStaffByNip() {
