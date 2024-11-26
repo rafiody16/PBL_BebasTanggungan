@@ -142,8 +142,8 @@ if ($_SESSION['Role_ID'] != 1) {
                                                 echo "<td>" . htmlspecialchars($row['NoHp']) . "</td>";
                                                 ?>
                                                 <td>
-                                                    <button data-id="<?= $nip ?>" class="btn-detail">Detail</button>
-                                                    <button data-id="<?= $nip ?>" class="btn-edit">Edit</button>
+                                                    <button data-id="<?= $nip ?>" class="btn btn-primary btn-detail">Detail</button>
+                                                    <button data-id="<?= $nip ?>" class="btn btn-warning btn-edit">Edit</button>
                                                     <button data-id="<?= $nip ?>" class="btn btn-danger btn-delete">Hapus</button>
                                                 </td>
                                                 <?php
