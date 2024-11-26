@@ -15,15 +15,12 @@ if ($_SESSION['Role_ID'] != 1) {
     exit();
 }
 
-include('UserProses.php');
-include('../Koneksi.php');
-
-getDataMahasiswaByNim();
-
+// Kode halaman admin di sini
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -100,99 +97,142 @@ getDataMahasiswaByNim();
             </header>
             
             <div class="page-heading">
-                <section id="basic-vertical-layouts">
-                    <div class="row match-height">
-                        <div class="col-md-6 col-12">
-                            <div class="card" style="width: 1280px; margin-left:30px">
-                                <div class="card-header">
-                                    <h4 class="card-title">Tambah Data Mahasiswa</h4>
-                                </div>
-                                <div class="card-content">
-                                    <div class="card-body">
-                                        <form class="form form-vertical" action="UserProses.php" method="POST">
-                                            <div class="form-body">
-                                                <div class="row">
-                                                    <div class="col-12">
-                                                        <div class="form-group">
-                                                            <label for="NIM">NIM</label>
-                                                            <input type="text" class="form-control" name="NIM" value="<?= isset($nim) ? htmlspecialchars($nim) : '' ?>" placeholder="Masukkan NIM">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-12">
-                                                        <div class="form-group">
-                                                            <label for="Nama">Nama</label>
-                                                            <input type="text" class="form-control" name="Nama" value="<?= isset($nama) ? htmlspecialchars($nama) : '' ?>" placeholder="Masukkan Nama">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-12">
-                                                        <div class="form-group">
-                                                            <label for="Username">Username</label>
-                                                            <input type="text" class="form-control" name="Username" value="<?= isset($username) ? htmlspecialchars($username) : '' ?>" placeholder="Masukkan Nama">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-12">
-                                                        <div class="form-group">
-                                                            <label for="Email">Email</label>
-                                                            <input type="email" class="form-control" name="Email" value="<?= isset($email) ? htmlspecialchars($email) : '' ?>" placeholder="Masukkan Email">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-12">
-                                                        <div class="form-group">
-                                                            <label for="Password">Password</label>
-                                                            <input type="password" class="form-control" name="Password" placeholder="Masukkan Password">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-12">
-                                                        <div class="form-group">
-                                                            <label for="Alamat">Alamat</label>
-                                                            <textarea class="form-control" name="Alamat" rows="3"><?= isset($alamat) ? htmlspecialchars($alamat) : '' ?></textarea>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-12">
-                                                        <div class="form-group">
-                                                            <label for="NoHp">No.Hp</label>
-                                                            <input type="text" class="form-control" name="NoHp" value="<?= isset($noHp) ? htmlspecialchars($noHp) : '' ?>" placeholder="Masukkan No Hp">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-12">
-                                                        <div class="form-group">
-                                                            <label for="JenisKelamin">Jenis Kelamin</label>
-                                                            <br>
-                                                            <input class="form-check-input" type="radio" name="JenisKelamin" id="jenkel1" value="L" required="true"> Laki-laki 
-                                                            <input class="form-check-input" type="radio" name="JenisKelamin" id="jenkel2" value="P"> Perempuan
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-12 d-flex justify-content-end">
-                                                        <button type="submit" class="btn btn-primary me-1 mb-1" name="simpanMahasiswa">Simpan</button>
-                                                        <button type="reset" class="btn btn-light-secondary me-1 mb-1">Kembali</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
+                <div class="page-title">
+                    <div class="row">
+                        <div class="col-12 col-md-6 order-md-1 order-last">
+                            <h3>Tabel Mahasiswa</h3>
+                            <p class="text-subtitle text-muted">Data mahasiswa.</p>
                         </div>
                     </div>
-                </section>
+                </div>
+                <section class="section">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5 class="card-title">Tabel Mahasiswa</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                            <table class="table table-lg">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>NIM</th>
+                                        <th>Nama</th>
+                                        <th>Alamat</th>
+                                        <th>Email</th>
+                                        <th>Jenis Kelamin</th>
+                                        <th>No. HP</th>
+                                        <th>Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                <?php 
+                                    include('UserProses.php');
+                                    $no = 1;
+                                    while ($row = sqlsrv_fetch_array($stmt2, SQLSRV_FETCH_ASSOC)) {
+                                        if ($row) {
+                                            $nim = $row['NIM'];
+                                            echo "<tr>";
+                                                echo "<td>" . htmlspecialchars($no++) . "</td>";
+                                                echo "<td>" . htmlspecialchars($nim) . "</td>";
+                                                echo "<td>" . htmlspecialchars($row['Nama']) . "</td>";
+                                                echo "<td>" . htmlspecialchars($row['Alamat']) . "</td>";
+                                                echo "<td>" . htmlspecialchars($row['Email']) . "</td>";
+                                                echo "<td>" . htmlspecialchars($row['JenisKelamin']) . "</td>";
+                                                echo "<td>" . htmlspecialchars($row['NoHp']) . "</td>";
+                                                ?>
+                                                <td>
+                                                    <button data-id="<?= $nip ?>" class="btn btn-primary btn-detail">Detail</button>
+                                                    <button data-id="<?= $nip ?>" class="btn btn-warning btn-edit">Edit</button>
+                                                    <button data-id="<?= $nip ?>" class="btn btn-danger btn-delete">Hapus</button>
+                                                </td>
+                                                <?php
+                                            echo "</tr>";
+                                        } else {
+                                            echo "Belum ada data";
+                                        }
+                                    }
+                                ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
             </div>
 
             <footer>
                 <div class="footer clearfix mb-0 text-muted">
-                    <div class="float-start">
-                        <p>2023 &copy; Mazer</p>
-                    </div>
-                    <div class="float-end">
-                        <p>Crafted with <span class="text-danger"><i class="bi bi-heart-fill icon-mid"></i></span>
-                            by <a href="https://saugi.me">Saugi</a></p>
-                    </div>
+        <div class="float-start">
+            <p>2023 &copy; Mazer</p>
+        </div>
+        <div class="float-end">
+            <p>Crafted with <span class="text-danger"><i class="bi bi-heart-fill icon-mid"></i></span>
+                by <a href="https://saugi.me">Saugi</a></p>
+        </div>
                 </div>
             </footer>
         </div>
     </div>
+    <script>
+        $(document).ready(function() {
+    // Lihat detail
+    $(".btn-detail").click(function() {
+        var nim = $(this).data("id");
+        $.ajax({
+            url: "DetailMahasiswa.php",
+            type: "POST",
+            data: { NIM: nim, action: "readMahasiswa" },
+            success: function(response) {
+                location.href = "DetailStaff.php?NIM=" + nim;
+            }
+        });
+    });
+
+    $(".btn-edit").click(function() {
+        var nim = $(this).data("id");
+        if (alert("Apakah anda ingin mengedit?")) {
+            $.ajax({
+            url: "FormMahasiswa.php",
+            type: "POST",
+            data: { NIM: nim, action: "editMahasiswa" },
+            success: function(response) {
+                location.href = "FormMahasiswa.php?NIM=" + nim;
+            }
+        })   
+        }
+    });
+
+    // Hapus data
+    $(".btn-delete").click(function() {
+        var nim = $(this).data("id");
+        if (confirm("Apakah Anda yakin ingin menghapus data ini?")) {
+            $.ajax({
+                url: "UserProses.php",
+                type: "POST",
+                data: { NIM: nim, action: "deleteMahasiswa" },
+                success: function(response) {
+                    location.reload();
+                }
+            });
+        }
+    });
+
+    // Tutup modal
+    $("#modalClose").click(function() {
+        $("#modal").hide();
+    });
+});
+
+    </script>
     <script src="../assets/static/js/components/dark.js"></script>
     <script src="assets/extensions/perfect-scrollbar/perfect-scrollbar.min.js"></script>
     <script src="../assets/extensions/perfect-scrollbar/perfect-scrollbar.min.js"></script>
     <script src="../assets/compiled/js/app.js"></script>
 </body>
+
 </html>

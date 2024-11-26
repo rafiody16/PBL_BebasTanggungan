@@ -20,6 +20,7 @@ include('../Koneksi.php');
 
 getDataStaffByNip();
 
+
 ?>
 
 <!DOCTYPE html>

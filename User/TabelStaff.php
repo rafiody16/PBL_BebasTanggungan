@@ -209,10 +209,10 @@ if ($_SESSION['Role_ID'] != 1) {
         if (confirm("Apakah Anda yakin ingin menghapus data ini?")) {
             $.ajax({
                 url: "UserProses.php",
-                type: "GET",
+                type: "POST",
                 data: { NIP: nip, action: "delete" },
                 success: function(response) {
-                    alert(response);
+                    alert(nip);
                     location.reload();
                 }
             });
