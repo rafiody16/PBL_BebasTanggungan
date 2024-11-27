@@ -105,6 +105,48 @@ FilePond.create(document.querySelector(".with-validation-filepond-program"), {
   storeAsFile: true,
 }) 
 
+const elements = document.querySelectorAll(".with-validation-filepond-admin1");
+elements.forEach(element => {
+  FilePond.create(element, {
+    credits: null,
+    allowImagePreview: false,
+    allowMultiple: false,
+    allowFileEncode: false,
+    required: true,
+    acceptedFileTypes: ["application/pdf"],
+    labelMaxFileSizeExceeded: 'Ukuran file terlalu besar',
+    labelMaxFileSize: 'Maksimum ukuran file adalah 10 MB',
+    labelFileTypeNotAllowed: 'Tipe file yang diunggah tidak valid',
+    fileValidateTypeLabelExpectedTypes: 'File yang diunggah harus berupa PDF',
+    fileValidateTypeDetectType: (source, type) =>
+      new Promise((resolve, reject) => {
+        resolve(type);
+      }),
+    storeAsFile: true,
+  });
+});
+
+const elements1 = document.querySelectorAll(".with-validation-filepond-admin2");
+elements1.forEach(element => {
+  FilePond.create(element, {
+    credits: null,
+    allowImagePreview: false,
+    allowMultiple: false,
+    allowFileEncode: false,
+    required: true,
+    acceptedFileTypes: ["application/pdf"],
+    labelMaxFileSizeExceeded: 'Ukuran file terlalu besar',
+    labelMaxFileSize: 'Maksimum ukuran file adalah 1 MB',
+    labelFileTypeNotAllowed: 'Tipe file yang diunggah tidak valid',
+    fileValidateTypeLabelExpectedTypes: 'File yang diunggah harus berupa PDF',
+    fileValidateTypeDetectType: (source, type) =>
+      new Promise((resolve, reject) => {
+        resolve(type);
+      }),
+    storeAsFile: true,
+  });
+});
+
 // const elements = document.querySelectorAll(".with-validation-filepond");
 // elements.forEach(element => {
 //   FilePond.create(element, {
