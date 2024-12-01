@@ -1,3 +1,23 @@
+<?php
+session_start();
+
+// Cek apakah pengguna sudah login
+if (!isset($_SESSION['Username'])) {
+    // Jika belum login, redirect ke halaman login
+    header("Location: ../Login/Login.php");
+    exit();
+}
+
+// Cek hak akses
+if ($_SESSION['Role_ID'] != 5) {
+    // Jika bukan admin, redirect atau tampilkan pesan error
+    echo "<script>alert('Anda tidak memiliki akses ke halaman ini.'); window.location.href = 'FormLogin.php';</script>";
+    exit();
+}
+
+include('../Koneksi.php');
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -144,7 +164,7 @@
     </div>
     <section class="section">
         <div class="row">
-        <form action="">
+        <form action="ProsesBerkas.php" method="POST">
         <div class="col-12 col-md-12">
                 <div class="card">
                     <div class="card-header">
@@ -155,7 +175,7 @@
                             <p class="card-text">Catatan: Upload dalam bentuk ZIP / RAR (Maksimal 100 MB)</p>
                             <!-- Basic file uploader -->
                             <div class="form-group position-relative has-icon-left">
-                                <input type="text" class="form-control is-invalid" placeholder="Input with icon left">
+                                <input type="text" class="form-control is-invalid" name="Laporan_Skripsi" placeholder="Link Laporan Skripsi">
                                 <div class="form-control-icon">
                                     <i class="bi bi-link-45deg"></i>
                                 </div>
@@ -174,7 +194,7 @@
                             <p class="card-text">Catatan: Upload dalam bentuk ZIP / RAR (Maksimal 100 MB)</p>
                             <!-- Basic file uploader -->
                             <div class="form-group position-relative has-icon-left">
-                                <input type="text" class="form-control is-invalid" placeholder="Input with icon left">
+                                <input type="text" class="form-control is-invalid" name="Laporan_Magang" placeholder="Link Laporan Magang">
                                 <div class="form-control-icon">
                                     <i class="bi bi-link-45deg"></i>
                                 </div>
@@ -193,7 +213,7 @@
                             <p class="card-text">Catatan: Upload dalam bentuk ZIP / RAR (Maksimal 100 MB)</p>
                             <!-- Basic file uploader -->
                             <div class="form-group position-relative has-icon-left">
-                                <input type="text" class="form-control is-invalid" placeholder="Input with icon left">
+                                <input type="text" class="form-control is-invalid" name="Bebas_Kompensasi" placeholder="Link Bebas Kompen">
                                 <div class="form-control-icon">
                                     <i class="bi bi-link-45deg"></i>
                                 </div>
@@ -212,7 +232,7 @@
                             <p class="card-text">Catatan: Upload dalam bentuk ZIP / RAR (Maksimal 100 MB)</p>
                             <!-- Basic file uploader -->
                             <div class="form-group position-relative has-icon-left">
-                                <input type="text" class="form-control is-invalid" placeholder="Input with icon left">
+                                <input type="text" class="form-control is-invalid" name="Scan_Toeic" placeholder="Link Scan Toeic">
                                 <div class="form-control-icon">
                                     <i class="bi bi-link-45deg"></i>
                                 </div>
@@ -242,7 +262,7 @@
                             </div>
                             <p class="card-text">Catatan: Upload dalam bentuk PDF dan sudah bertanda tangan (Maksimal 10 MB)</p>
                             <div class="form-group position-relative has-icon-left">
-                                <input type="text" class="form-control is-invalid" placeholder="Input with icon left">
+                                <input type="text" class="form-control is-invalid" name="Laporan_TA" placeholder="Link Laporan Tugas Akhir">
                                 <div class="form-control-icon">
                                     <i class="bi bi-link-45deg"></i>
                                 </div>
@@ -261,7 +281,7 @@
                             <p class="card-text">Catatan: Upload dalam bentuk ZIP / RAR (Maksimal 100 MB)</p>
                             <!-- Basic file uploader -->
                             <div class="form-group position-relative has-icon-left">
-                                <input type="text" class="form-control is-invalid" placeholder="Input with icon left">
+                                <input type="text" class="form-control is-invalid" name="File_Aplikasi" placeholder="Link File Aplikasi">
                                 <div class="form-control-icon">
                                     <i class="bi bi-link-45deg"></i>
                                 </div>
@@ -286,7 +306,7 @@
                             </p>
                             </p>
                             <div class="form-group position-relative has-icon-left">
-                                <input type="text" class="form-control is-invalid" placeholder="Input with icon left">
+                                <input type="text" class="form-control is-invalid" name="Pernyataan_Publikasi" placeholder="Link Laporan Pernyataan Publikasi">
                                 <div class="form-control-icon">
                                     <i class="bi bi-link-45deg"></i>
                                 </div>
@@ -300,8 +320,8 @@
                 <button type="submit" class="btn btn-primary me-2 mb-2" style="font-size: 1.3rem; padding: 1rem 2rem;" name="simpanBerkas">Submit</button>
                 <button type="reset" class="btn btn-light-secondary me-2 mb-2" style="font-size: 1.3rem; padding: 1rem 2rem;">Reset</button>
             </div>
-        </div>
         </form>
+        </div>
     </section>
 </div>
 
