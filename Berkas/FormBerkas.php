@@ -6,15 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Unggah Berkas - Berkas Tugas Akhir</title>
     
-    <link rel="shortcut icon" href="../../assets/img/logoJti.png" type="image/x-icon">
-    <link rel="shortcut icon" href="../../assets/img/logoJti.png" type="image/png">
+    <link rel="shortcut icon" href="../assets/img/logoJti.png" type="image/x-icon">
+    <link rel="shortcut icon" href="../assets/img/logoJti.png" type="image/png">
     
-<link rel="stylesheet" href="../../assets/extensions/filepond/filepond.css">
-<link rel="stylesheet" href="../../assets/extensions/filepond-plugin-image-preview/filepond-plugin-image-preview.css">
-<link rel="stylesheet" href="../../assets/extensions/toastify-js/src/toastify.css">
+<link rel="stylesheet" href="../assets/extensions/filepond/filepond.css">
+<link rel="stylesheet" href="../assets/extensions/filepond-plugin-image-preview/filepond-plugin-image-preview.css">
+<link rel="stylesheet" href="../assets/extensions/toastify-js/src/toastify.css">
 
-  <link rel="stylesheet" crossorigin href="../../assets/compiled/css/app.css">
-  <link rel="stylesheet" crossorigin href="../../assets/compiled/css/app-dark.css">
+  <link rel="stylesheet" crossorigin href="../assets/compiled/css/app.css">
+  <link rel="stylesheet" crossorigin href="../assets/compiled/css/app-dark.css">
 
   <style>
 
@@ -22,14 +22,14 @@
 </head>
 
 <body>
-    <script src="../../assets/static/js/initTheme.js"></script>
+    <script src="../assets/static/js/initTheme.js"></script>
     <div id="app">
         <div id="sidebar">
             <div class="sidebar-wrapper active">
     <div class="sidebar-header position-relative">
         <div class="d-flex justify-content-between align-items-center">
             <div class="logo">
-                <a href="dashboardUser.html"><img src="../../assets/img/logoBetati.png" alt="Logo" srcset=""></a>
+                <a href="dashboardUser.html"><img src="../assets/img/logoBetati.png" alt="Logo" srcset=""></a>
             </div>
             <div class="theme-toggle d-flex gap-2  align-items-center mt-2">
                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true"
@@ -78,24 +78,11 @@
 
             </li>
             
-            <li class="sidebar-item active has-sub">
+            <li class="sidebar-item active">
                 <a href="#" class="sidebar-link">
                   <i class="bi bi-file-earmark-medical-fill"></i>
                   <span>Unggah Berkas</span>
                 </a>
-
-                <ul class="submenu active">
-                  <li class="submenu-item active">
-                    <a href="berkasTA.html" class="submenu-link"
-                      >Berkas Tugas Akhir</a
-                    >
-                  </li>
-                  <li class="submenu-item">
-                    <a href="berkasAdmin.html" class="submenu-link"
-                      >Berkas Administrasi</a
-                    >
-                  </li>
-                </ul>
             </li>
 
             <li class="sidebar-item">
@@ -157,50 +144,79 @@
     </div>
     <section class="section">
         <div class="row">
-            <div class="col-12 col-md-12">
+        <form action="">
+        <div class="col-12 col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h5 class="card-title">Data Diri</h5>
+                        <h5 class="card-title">Laporan Skripsi</h5>
                     </div>
                     <div class="card-content">
                         <div class="card-body">
-                            <!-- <div class="form-group">
-                                <label for="basicInput">Email</label>
-                                <input type="text" class="form-control" id="basicInput" required>
-                                <br>
-                                <label for="basicInput">Nama Lengkap</label>
-                                <input type="text" class="form-control" id="basicInput" required>
-                                <br>
-                                <label for="basicInput">NIM</label>
-                                <input type="text" class="form-control" id="basicInput" required>
-                            </div> -->
-                            <form class="form" data-parsley-validate>
-                                <div class="form-group mandatory">
-                                    <label for="emailInput" class="form-label">Email</label>
-                                    <input type="email" class="form-control" id="emailInput" required 
-                                    name="emailInput"
-                                    placeholder="Email"
-                                    data-parsley-required="true">
-                                    <br>
+                            <p class="card-text">Catatan: Upload dalam bentuk ZIP / RAR (Maksimal 100 MB)</p>
+                            <!-- Basic file uploader -->
+                            <div class="form-group position-relative has-icon-left">
+                                <input type="text" class="form-control is-invalid" placeholder="Input with icon left">
+                                <div class="form-control-icon">
+                                    <i class="bi bi-link-45deg"></i>
                                 </div>
-
-                                <div class="form-group mandatory">
-                                    <label for="namaInput" class="form-label">Nama Lengkap</label>
-                                    <input type="text" class="form-control" id="namaInput" required 
-                                    name="namaInput"
-                                    placeholder="Nama Lengkap"
-                                    data-parsley-required="true">
-                                    <br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title">Laporan Magang</h5>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-body">
+                            <p class="card-text">Catatan: Upload dalam bentuk ZIP / RAR (Maksimal 100 MB)</p>
+                            <!-- Basic file uploader -->
+                            <div class="form-group position-relative has-icon-left">
+                                <input type="text" class="form-control is-invalid" placeholder="Input with icon left">
+                                <div class="form-control-icon">
+                                    <i class="bi bi-link-45deg"></i>
                                 </div>
-
-                                <div class="form-group mandatory">
-                                    <label for="nimInput" class="form-label">NIM</label>
-                                    <input type="number" class="form-control" id="nimInput" required 
-                                    name="nimInput""
-                                    placeholder="NIM"
-                                    data-parsley-required="true">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title">Bebas Kompen</h5>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-body">
+                            <p class="card-text">Catatan: Upload dalam bentuk ZIP / RAR (Maksimal 100 MB)</p>
+                            <!-- Basic file uploader -->
+                            <div class="form-group position-relative has-icon-left">
+                                <input type="text" class="form-control is-invalid" placeholder="Input with icon left">
+                                <div class="form-control-icon">
+                                    <i class="bi bi-link-45deg"></i>
                                 </div>
-                            </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title">Scan Toeic</h5>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-body">
+                            <p class="card-text">Catatan: Upload dalam bentuk ZIP / RAR (Maksimal 100 MB)</p>
+                            <!-- Basic file uploader -->
+                            <div class="form-group position-relative has-icon-left">
+                                <input type="text" class="form-control is-invalid" placeholder="Input with icon left">
+                                <div class="form-control-icon">
+                                    <i class="bi bi-link-45deg"></i>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -225,8 +241,12 @@
                                 </ul>
                             </div>
                             <p class="card-text">Catatan: Upload dalam bentuk PDF dan sudah bertanda tangan (Maksimal 10 MB)</p>
-                            <input type="file" class="with-validation-filepond-laporan" required 
-                                data-max-file-size="10MB" data-max-files="1">
+                            <div class="form-group position-relative has-icon-left">
+                                <input type="text" class="form-control is-invalid" placeholder="Input with icon left">
+                                <div class="form-control-icon">
+                                    <i class="bi bi-link-45deg"></i>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>  
@@ -240,8 +260,12 @@
                         <div class="card-body">
                             <p class="card-text">Catatan: Upload dalam bentuk ZIP / RAR (Maksimal 100 MB)</p>
                             <!-- Basic file uploader -->
-                            <input type="file" class="with-validation-filepond-program" required 
-                            data-max-file-size="100MB" data-max-files="1">
+                            <div class="form-group position-relative has-icon-left">
+                                <input type="text" class="form-control is-invalid" placeholder="Input with icon left">
+                                <div class="form-control-icon">
+                                    <i class="bi bi-link-45deg"></i>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -249,7 +273,7 @@
             <div class="col-12 col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h5 class="card-title">Bukti Publikasi</h5>
+                        <h5 class="card-title">Pernyataan Publikasi</h5>
                     </div>
                     <div class="card-content">
                         <div class="card-body">
@@ -261,18 +285,23 @@
                                 </a>
                             </p>
                             </p>
-                            <input type="file" class="with-validation-filepond-publikasi" required 
-                            data-max-file-size="1MB" data-max-files="1">
+                            <div class="form-group position-relative has-icon-left">
+                                <input type="text" class="form-control is-invalid" placeholder="Input with icon left">
+                                <div class="form-control-icon">
+                                    <i class="bi bi-link-45deg"></i>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
             
             <div class="col-sm-12 d-flex justify-content-end">
-                <button type="submit" class="btn btn-primary me-2 mb-2" style="font-size: 1.3rem; padding: 1rem 2rem;">Submit</button>
+                <button type="submit" class="btn btn-primary me-2 mb-2" style="font-size: 1.3rem; padding: 1rem 2rem;" name="simpanBerkas">Submit</button>
                 <button type="reset" class="btn btn-light-secondary me-2 mb-2" style="font-size: 1.3rem; padding: 1rem 2rem;">Reset</button>
             </div>
         </div>
+        </form>
     </section>
 </div>
 
@@ -289,27 +318,27 @@
 </footer>
         </div>
     </div>
-    <script src="../../assets/static/js/components/dark.js"></script>
-    <script src="../../assets/extensions/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+    <script src="../assets/static/js/components/dark.js"></script>
+    <script src="../assets/extensions/perfect-scrollbar/perfect-scrollbar.min.js"></script>
     
     
-    <script src="../../assets/compiled/js/app.js"></script>
+    <script src="../assets/compiled/js/app.js"></script>
     
 
     
-<script src="../../assets/extensions/filepond-plugin-file-validate-size/filepond-plugin-file-validate-size.min.js"></script>
-<script src="../../assets/extensions/filepond-plugin-file-validate-type/filepond-plugin-file-validate-type.min.js"></script>
-<script src="../../assets/extensions/filepond-plugin-image-crop/filepond-plugin-image-crop.min.js"></script>
-<script src="../../assets/extensions/filepond-plugin-image-exif-orientation/filepond-plugin-image-exif-orientation.min.js"></script>
-<script src="../../assets/extensions/filepond-plugin-image-filter/filepond-plugin-image-filter.min.js"></script>
-<script src="../../assets/extensions/filepond-plugin-image-preview/filepond-plugin-image-preview.min.js"></script>
-<script src="../../assets/extensions/filepond-plugin-image-resize/filepond-plugin-image-resize.min.js"></script>
-<script src="../../assets/extensions/filepond/filepond.js"></script>
-<script src="../../assets/extensions/toastify-js/src/toastify.js"></script>
-<script src="../../assets/static/js/pages/filepond.js"></script>
-<script src="../../assets/extensions/jquery/jquery.min.js"></script>
-<script src="../../assets/extensions/parsleyjs/parsley.min.js"></script>
-<script src="../../assets/static/js/pages/parsley.js"></script>
+<script src="../assets/extensions/filepond-plugin-file-validate-size/filepond-plugin-file-validate-size.min.js"></script>
+<script src="../assets/extensions/filepond-plugin-file-validate-type/filepond-plugin-file-validate-type.min.js"></script>
+<script src="../assets/extensions/filepond-plugin-image-crop/filepond-plugin-image-crop.min.js"></script>
+<script src="../assets/extensions/filepond-plugin-image-exif-orientation/filepond-plugin-image-exif-orientation.min.js"></script>
+<script src="../assets/extensions/filepond-plugin-image-filter/filepond-plugin-image-filter.min.js"></script>
+<script src="../assets/extensions/filepond-plugin-image-preview/filepond-plugin-image-preview.min.js"></script>
+<script src="../assets/extensions/filepond-plugin-image-resize/filepond-plugin-image-resize.min.js"></script>
+<script src="../assets/extensions/filepond/filepond.js"></script>
+<script src="../assets/extensions/toastify-js/src/toastify.js"></script>
+<script src="../assets/static/js/pages/filepond.js"></script>
+<script src="../assets/extensions/jquery/jquery.min.js"></script>
+<script src="../assets/extensions/parsleyjs/parsley.min.js"></script>
+<script src="../assets/static/js/pages/parsley.js"></script>
 
 </body>
 
