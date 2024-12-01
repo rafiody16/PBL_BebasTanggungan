@@ -32,8 +32,8 @@
             <div class="auth-logo">
             
               <div class="logo" style="font-weight: bold; font-size:25px">
-                <img src="../assets/img/logoJti.png">
-                SISTEM BEBAS TANGGUNGAN
+                <img src="../assets/img/logoBetati.png"><br>
+                <!-- SISTEM BEBAS TANGGUNGAN JURUSAN TEKNOLOGI INFORMASI -->
               </div>
             </div>
             <h1 class="auth-title">Log in</h1>

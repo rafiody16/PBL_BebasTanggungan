@@ -10,14 +10,25 @@ FilePond.registerPlugin(
 )
 
 // Filepond: Basic
-FilePond.create(document.querySelector(".basic-filepond"), {
-  credits: null,
-  allowImagePreview: false,
-  allowMultiple: false,
-  allowFileEncode: false,
-  required: false,
-  storeAsFile: true,
-})
+// FilePond.create(document.querySelector(".basic-filepond"), {
+//   credits: null,
+//   allowImagePreview: false,
+//   allowMultiple: false,
+//   allowFileEncode: false,
+//   required: false,
+//   storeAsFile: true,
+// })
+const filePondElements = document.querySelectorAll(".basic-filepond");
+filePondElements.forEach(element => {
+  FilePond.create(element, {
+    credits: null,
+    allowImagePreview: false,
+    allowMultiple: false,
+    allowFileEncode: false,
+    required: false,
+    storeAsFile: true,
+  });
+});
 
 // Filepond: Multiple Files
 FilePond.create(document.querySelector(".multiple-files-filepond"), {
@@ -30,20 +41,130 @@ FilePond.create(document.querySelector(".multiple-files-filepond"), {
 })
 
 // Filepond: With Validation
-FilePond.create(document.querySelector(".with-validation-filepond"), {
+// Validasi file laporan tugas akhir
+FilePond.create(document.querySelector(".with-validation-filepond-laporan"), {
   credits: null,
   allowImagePreview: false,
   allowMultiple: true,
   allowFileEncode: false,
   required: true,
-  acceptedFileTypes: ["image/png"],
+  acceptedFileTypes: ["application/pdf"],
+  labelMaxFileSizeExceeded: 'Ukuran file terlalu besar',
+  labelMaxFileSize: 'Maksimum ukuran file adalah 10 MB',
+  labelFileTypeNotAllowed: 'Tipe file yang diunggah tidak valid',
+  fileValidateTypeLabelExpectedTypes: 'File yang diunggah harus berupa PDF',
   fileValidateTypeDetectType: (source, type) =>
     new Promise((resolve, reject) => {
       // Do custom type detection here and return with promise
       resolve(type)
     }),
   storeAsFile: true,
-})
+}) 
+
+// Validasi file bukti publikasi
+FilePond.create(document.querySelector(".with-validation-filepond-publikasi"), {
+  credits: null,
+  allowImagePreview: false,
+  allowMultiple: false,
+  allowFileEncode: false,
+  required: true,
+  acceptedFileTypes: ["application/pdf"],
+  labelMaxFileSizeExceeded: 'Ukuran file terlalu besar',
+  labelMaxFileSize: 'Maksimum ukuran file adalah 1 MB',
+  labelFileTypeNotAllowed: 'Tipe file yang diunggah tidak valid',
+  fileValidateTypeLabelExpectedTypes: 'File yang diunggah harus berupa PDF',
+  fileValidateTypeDetectType: (source, type) =>
+    new Promise((resolve, reject) => {
+      // Do custom type detection here and return with promise
+      resolve(type)
+    }),
+  storeAsFile: true,
+}) 
+
+// Validasi file program / aplikasi /skripsi
+FilePond.create(document.querySelector(".with-validation-filepond-program"), {
+  credits: null,
+  allowImagePreview: false,
+  allowMultiple: false,
+  allowFileEncode: false,
+  required: true,
+  acceptedFileTypes: [  "application/zip", 
+    "application/x-zip-compressed", 
+    "application/x-rar-compressed", 
+    "application/rar"],
+  labelMaxFileSizeExceeded: 'Ukuran file terlalu besar',
+  labelMaxFileSize: 'Maksimum ukuran file adalah 100 MB',
+  labelFileTypeNotAllowed: 'Tipe file yang diunggah tidak valid',
+  fileValidateTypeLabelExpectedTypes: 'File yang diunggah harus berupa ZIP / RAR',
+  fileValidateTypeDetectType: (source, type) =>
+    new Promise((resolve, reject) => {
+      // Do custom type detection here and return with promise
+      resolve(type)
+    }),
+    
+  storeAsFile: true,
+}) 
+
+const elements = document.querySelectorAll(".with-validation-filepond-admin1");
+elements.forEach(element => {
+  FilePond.create(element, {
+    credits: null,
+    allowImagePreview: false,
+    allowMultiple: false,
+    allowFileEncode: false,
+    required: true,
+    acceptedFileTypes: ["application/pdf"],
+    labelMaxFileSizeExceeded: 'Ukuran file terlalu besar',
+    labelMaxFileSize: 'Maksimum ukuran file adalah 10 MB',
+    labelFileTypeNotAllowed: 'Tipe file yang diunggah tidak valid',
+    fileValidateTypeLabelExpectedTypes: 'File yang diunggah harus berupa PDF',
+    fileValidateTypeDetectType: (source, type) =>
+      new Promise((resolve, reject) => {
+        resolve(type);
+      }),
+    storeAsFile: true,
+  });
+});
+
+const elements1 = document.querySelectorAll(".with-validation-filepond-admin2");
+elements1.forEach(element => {
+  FilePond.create(element, {
+    credits: null,
+    allowImagePreview: false,
+    allowMultiple: false,
+    allowFileEncode: false,
+    required: true,
+    acceptedFileTypes: ["application/pdf"],
+    labelMaxFileSizeExceeded: 'Ukuran file terlalu besar',
+    labelMaxFileSize: 'Maksimum ukuran file adalah 1 MB',
+    labelFileTypeNotAllowed: 'Tipe file yang diunggah tidak valid',
+    fileValidateTypeLabelExpectedTypes: 'File yang diunggah harus berupa PDF',
+    fileValidateTypeDetectType: (source, type) =>
+      new Promise((resolve, reject) => {
+        resolve(type);
+      }),
+    storeAsFile: true,
+  });
+});
+
+// const elements = document.querySelectorAll(".with-validation-filepond");
+// elements.forEach(element => {
+//   FilePond.create(element, {
+//     credits: null,
+//     allowImagePreview: false,
+//     allowMultiple: true,
+//     allowFileEncode: false,
+//     required: true,
+//     acceptedFileTypes: ["pdf"],
+//     labelMaxFileSizeExceeded: 'Ukuran file terlalu besar',
+//     labelMaxFileSize: 'Maksimum ukuran file adalah 1 MB',
+//     fileValidateTypeDetectType: (source, type) =>
+//       new Promise((resolve, reject) => {
+//         resolve(type);
+//       }),
+//     storeAsFile: true,
+//   });
+// });
 
 // Filepond: ImgBB with server property
 FilePond.create(document.querySelector(".imgbb-filepond"), {
