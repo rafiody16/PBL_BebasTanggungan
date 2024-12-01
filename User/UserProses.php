@@ -15,6 +15,12 @@ switch ($action) {
     case 'editMahasiswa':
         getDataMahasiswaByNim();
         break;
+    case 'deleteMahasiswa':
+        deleteDataMahasiswa();
+        break;
+    case 'readMahasiswa':
+        getDataMahasiswaByNim();
+        break;
     case 'read':
         getDataStaffByNip();
         break;  
@@ -182,11 +188,51 @@ function deleteDataStaff() {
     }
 }
 
+function deleteDataMahasiswa() {
+    global $conn;
+
+    $NIM = $_POST['NIM'];
+
+    sqlsrv_begin_transaction($conn);
+
+    try {
+        $checkUserSql = "SELECT ID_User FROM Mahasiswa WHERE NIM = ?";
+        $checkUserStmt = sqlsrv_query($conn, $checkUserSql, [$NIM]);
+        $existingUser = sqlsrv_fetch_array($checkUserStmt, SQLSRV_FETCH_ASSOC);
+
+        if ($existingUser) {
+            $ID_User = $existingUser['ID_User'];
+
+            $deleteMahasiswaSql = "DELETE FROM Mahasiswa WHERE NIM = ?";
+            $stmtDeleteMahasiswa = sqlsrv_query($conn, $deleteMahasiswaSql, [$NIM]);
+
+            if (!$stmtDeleteMahasiswa) {
+                throw new Exception('Gagal menghapus data Mahasiswa: ' . print_r(sqlsrv_errors(), true));
+            }
+
+            $deleteUserSql = "DELETE FROM [User] WHERE ID_User = ?";
+            $stmtDeleteUser = sqlsrv_query($conn, $deleteUserSql, [$ID_User]);
+
+            if (!$stmtDeleteUser) {
+                throw new Exception('Gagal menghapus data User: ' . print_r(sqlsrv_errors(), true));
+            }
+
+            sqlsrv_commit($conn);
+            echo "<script>alert('Data berhasil dihapus!'); window.location.href = 'TabelMahasiswa.php';</script>";
+        } else {
+            throw new Exception('Data Mahasiswa dengan NIM tersebut tidak ditemukan.');
+        }
+    } catch (Exception $e) {
+        sqlsrv_rollback($conn);
+        echo "<script>alert('Data gagal dihapus! ".$e->getMessage() . "'); window.location.href = 'TabelMahasiswa.php';</script>";
+    }
+}
+
 function getDataMahasiswaByNim() {
     global $conn;
     global $nim, $nama, $username, $email, $alamat, $noHp, $jeniskelamin;
     $nim = $_GET['NIM'];
-    $sql = "SELECT Mahasiswa.Nama, Mahasiswa.Alamat, Mahasiswa.NoHp, [User].Username, [User].Email, Mahasiswa.JenisKelamin FROM Mahasiswa INNER JOIN [User] ON Staff.ID_User = [User].ID_User  WHERE Mahasiswa.NIM = ?";
+    $sql = "SELECT Mahasiswa.Nama, Mahasiswa.Alamat, Mahasiswa.NoHp, [User].Username, [User].Email, Mahasiswa.JenisKelamin FROM Mahasiswa INNER JOIN [User] ON Mahasiswa.ID_User = [User].ID_User  WHERE Mahasiswa.NIM = ?";
     $params = array($nim);
     $stmt = sqlsrv_query($conn, $sql, $params);
     
