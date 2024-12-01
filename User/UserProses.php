@@ -112,38 +112,56 @@ if (isset($_POST['simpanMahasiswa'])) {
     // Mulai transaksi
     sqlsrv_begin_transaction($conn);
     try {
-        $sqlUser = "INSERT INTO [User] (Username, [Password], Email, Role_ID) 
-                    OUTPUT INSERTED.ID_User 
-                    VALUES (?, ?, ?, ?)";
-        $paramsUser = [$Username, $Password, $Email, $Role_ID];
-        $stmtUser = sqlsrv_query($conn, $sqlUser, $paramsUser);
-    
-        if (!$stmtUser) {
-            throw new Exception('Error in User query: ' . print_r(sqlsrv_errors(), true));
+        $checkUserSql = "SELECT ID_User FROM Mahasiswa WHERE NIM = ?";
+        $checkUserStmt = sqlsrv_query($conn, $checkUserSql, [$NIM]);
+        $existingUser = sqlsrv_fetch_array($checkUserStmt, SQLSRV_FETCH_ASSOC);
+
+        if ($existingUser) {
+            $updateUserSql = "UPDATE [User] SET Username = ?, [Password] = ?, Email = ? WHERE ID_User = (SELECT ID_User FROM Mahasiswa WHERE NIM = ?)";
+            $paramsUserUpdate = [$Username, $Password, $Email, $NIM];
+            $stmtUserUpdate = sqlsrv_query($conn, $updateUserSql, $paramsUserUpdate);
+
+            if (!$stmtUserUpdate) {
+                throw new Exception('Gagal memperbarui data User: ' . print_r(sqlsrv_errors(), true));
+            }
+
+            $updateMahasiswaSql = "UPDATE Mahasiswa SET Nama = ?, Alamat = ?, NoHp = ?, JenisKelamin = ? WHERE NIM = ?";
+            $paramsMahasiswaUpdate = [$Nama, $Alamat, $NoHp, $JenisKelamin, $NIM];
+            $stmtMahasiswaUpdate = sqlsrv_query($conn, $updateMahasiswaSql, $paramsMahasiswaUpdate);
+
+            if (!$stmtMahasiswaUpdate) {
+                throw new Exception('Gagal memperbarui data Mahasiswa: ' . print_r(sqlsrv_errors(), true));
+            }
+        } else {
+            // Jika tidak ada, lakukan insert
+            $sqlUser = "INSERT INTO [User] (Username, [Password], Email, Role_ID) 
+                        OUTPUT INSERTED.ID_User 
+                        VALUES (?, ?, ?, ?)";
+            $paramsUser = [$Username, $Password, $Email, 5];
+            $stmtUser = sqlsrv_query($conn, $sqlUser, $paramsUser);
+
+            if (!$stmtUser) {
+                throw new Exception('Gagal menyimpan data User: ' . print_r(sqlsrv_errors(), true));
+            }
+
+            $rowUserID = sqlsrv_fetch_array($stmtUser, SQLSRV_FETCH_ASSOC);
+            $newUserID = $rowUserID['ID_User'];
+
+            $sqlMahasiswa = "INSERT INTO Mahasiswa (NIM, Nama, Alamat, NoHp, JenisKelamin, ID_User) VALUES (?, ?, ?, ?, ?, ?)";
+            $paramsMahasiswa = [$NIM, $Nama, $Alamat, $NoHp, $JenisKelamin, $newUserID];
+            $stmtMahasiswa = sqlsrv_query($conn, $sqlMahasiswa, $paramsMahasiswa);
+
+            if (!$stmtMahasiswa) {
+                throw new Exception('Gagal menyimpan data Mahasiswa: ' . print_r(sqlsrv_errors(), true));
+            }
         }
-    
-        $rowUserID = sqlsrv_fetch_array($stmtUser, SQLSRV_FETCH_ASSOC);
-        if (!$rowUserID) {
-            throw new Exception('No rows returned from User insert: ' . print_r(sqlsrv_errors(), true));
-        }
-        $newUserID = $rowUserID['ID_User'];
-    
-        $sqlMahasiswa = "INSERT INTO Mahasiswa (NIM, Nama, Alamat, NoHp, JenisKelamin, ID_User) 
-                         VALUES (?, ?, ?, ?, ?, ?)";
-        $paramsMahasiswa = [$NIM, $Nama, $Alamat, $NoHp, $JenisKelamin, $newUserID];
-        $stmtMahasiswa = sqlsrv_query($conn, $sqlMahasiswa, $paramsMahasiswa);
-    
-        if (!$stmtMahasiswa) {
-            throw new Exception('Error in Mahasiswa query: ' . print_r(sqlsrv_errors(), true));
-        }
-    
-        // Commit the transaction if all queries succeed
+
+        // Commit transaksi jika tidak ada error
         sqlsrv_commit($conn);
         echo "<script>alert('Data berhasil disimpan!'); window.location.href = 'TabelMahasiswa.php';</script>";
-    
     } catch (Exception $e) {
         sqlsrv_rollback($conn);
-        die('Transaction failed: ' . $e->getMessage());
+        echo "<script>alert('Data gagal disimpan! ".$e->getMessage() .  "'); window.location.href = 'TabelMahasiswa.php';</script>";
     }
     
 }
@@ -231,7 +249,7 @@ function deleteDataMahasiswa() {
 function getDataMahasiswaByNim() {
     global $conn;
     global $nim, $nama, $username, $email, $alamat, $noHp, $jeniskelamin;
-    $nim = $_GET['NIM'];
+    $nim = $_GET['NIM'] ?? null;
     $sql = "SELECT Mahasiswa.Nama, Mahasiswa.Alamat, Mahasiswa.NoHp, [User].Username, [User].Email, Mahasiswa.JenisKelamin FROM Mahasiswa INNER JOIN [User] ON Mahasiswa.ID_User = [User].ID_User  WHERE Mahasiswa.NIM = ?";
     $params = array($nim);
     $stmt = sqlsrv_query($conn, $sql, $params);
@@ -258,7 +276,7 @@ function getDataMahasiswaByNim() {
 function getDataStaffByNip() {
     global $conn;
     global $nip, $nama, $username, $email, $alamat, $noHp, $roleID, $Nama_Role;
-    $nip = $_GET['NIP'];
+    $nip = $_GET['NIP'] ?? null;
     $sql = "SELECT Staff.Nama, Staff.Alamat, Staff.NoHp, [User].Username, [User].Email, [User].Role_ID, [Role].Nama_Role FROM Staff INNER JOIN [User] ON Staff.ID_User = [User].ID_User  INNER JOIN [Role] ON [User].Role_ID = [Role].Role_ID WHERE Staff.NIP = ?";
     $params = array($nip);
     $stmt = sqlsrv_query($conn, $sql, $params);
