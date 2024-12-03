@@ -1,13 +1,14 @@
 <?php
 include "../Koneksi.php";
 
-session_start();
-
 $action = $_POST['action'] ?? '';
 
 switch ($action) {
     case 'verifikasiAdministrasi':
         VerifikasiAdministrasi();
+        break;
+    case 'tolakAdministrasi':
+        TolakAdministrasi();
         break;
     default:
         # code...
@@ -83,16 +84,37 @@ function VerifikasiAdministrasi() {
     $existingAdministrasi = sqlsrv_fetch_array($checkAdministrasiStmt, SQLSRV_FETCH_ASSOC);
 
     if ($existingAdministrasi) {
-        $updateAdministrasiSql = "UPDATE Administrasi SET Status_Verifikasi = ?, Tanggal_Verifikasi = ?
+        $updateAdministrasiSql = "UPDATE Administrasi SET Status_Verifikasi = ?, Tanggal_Verifikasi = ?, Keterangan = ?
                                   WHERE ID_Administrasi = ?";
-        $paramsAdministrasiUpdate = ['Terverifikasi', $tgl_verifikasi, $ID_Administrasi];
+        $paramsAdministrasiUpdate = ['Terverifikasi', $tgl_verifikasi, '',  $ID_Administrasi];
         $stmtAdministrasiUpdate = sqlsrv_query($conn, $updateAdministrasiSql, $paramsAdministrasiUpdate);
 
         if (!$stmtAdministrasiUpdate) {
             throw new Exception('Gagal memperbarui data Administrasi: ' . print_r(sqlsrv_errors(), true));
         }
     }
+}
 
+function TolakAdministrasi() {
+    global $conn;
+
+    $ID_Administrasi = $_POST['ID_Administrasi'];
+    $Keterangan = $_POST['Keterangan'];
+
+    $checkAdministrasiSql = "SELECT ID_Administrasi FROM Administrasi WHERE ID_Administrasi = ?";
+    $checkAdministrasiStmt = sqlsrv_query($conn, $checkAdministrasiSql, [$ID_Administrasi]);
+    $existingAdministrasi = sqlsrv_fetch_array($checkAdministrasiStmt, SQLSRV_FETCH_ASSOC);
+
+    if ($existingAdministrasi) {
+        $updateAdministrasiSql = "UPDATE Administrasi SET Status_Verifikasi = ?, Keterangan = ?
+                                  WHERE ID_Administrasi = ?";
+        $paramsAdministrasiUpdate = ['Ditolak', $Keterangan, $ID_Administrasi];
+        $stmtAdministrasiUpdate = sqlsrv_query($conn, $updateAdministrasiSql, $paramsAdministrasiUpdate);
+
+        if (!$stmtAdministrasiUpdate) {
+            throw new Exception('Gagal memperbarui data Administrasi: ' . print_r(sqlsrv_errors(), true));
+        }
+    }
 }
 
 $sql = "SELECT a.ID_Administrasi, m.NIM, m.Nama, a.Status_Verifikasi, a.Keterangan FROM Administrasi AS a

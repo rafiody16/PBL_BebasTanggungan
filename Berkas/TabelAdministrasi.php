@@ -203,7 +203,7 @@ session_start();
     <div class="modal-dialog modal-dialog-scrollable" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="myModalLabel1">Basic Modal</h5>
+                    <h5 class="modal-title" id="myModalLabel1">Tolak Verifikasi</h5>
                     <button type="button" class="close rounded-pill" data-bs-dismiss="modal"
                         aria-label="Close">
                         <i data-feather="x"></i>
@@ -278,18 +278,29 @@ session_start();
                 })   
             });
 
-            $(".btn-tolak").click(function() {
-                var nim = $(this).data("id");
-                if (confirm("Apakah Anda yakin ingin menghapus data ini?")) {
-                    $.ajax({
-                        url: "UserProses.php",
-                        type: "POST",
-                        data: { NIM: nim, action: "deleteMahasiswa" },
-                        success: function(response) {
-                            location.reload();
-                        }
-                    });
+            $('.btn-tolak').on('click', function () {
+                var ID_Administrasi = $(this).data('id');
+                var Keterangan = $("input[name='Keterangan']").val();
+                if (!Keterangan) {
+                    alert('Keterangan harus diisi!');
+                    return;
                 }
+                $.ajax({
+                    url: 'ProsesBerkas.php',
+                    type: 'POST',
+                    data: {
+                        action: 'tolakAdministrasi',
+                        ID_Administrasi: ID_Administrasi,
+                        Keterangan: Keterangan
+                    },
+                    success: function (response) {
+                        location.reload(); 
+                    },
+                    error: function (xhr, status, error) {
+                        console.error('Terjadi kesalahan:', error);
+                        alert('Gagal memproses data. Silakan coba lagi.');
+                    }
+                });
             });
 
             $("#modalClose").click(function() {
