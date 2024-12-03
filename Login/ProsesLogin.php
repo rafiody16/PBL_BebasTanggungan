@@ -39,12 +39,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             sqlsrv_free_stmt($stmtNim);
 
-            echo "<script>alert('Selamat Datang ".$Username.".'); window.location.href = '../index.php'; </script>";
+            echo "<script>alert('Selamat Datang ".$Username.".'); window.location.href = '../User/mahasiswa/dashboardUser.html'; </script>";
         } else {
-            echo "<script>alert('Username atau password salah.'); window.location.href = 'FormLogin.php'; </script>";
+            echo "<script>alert('Username atau password salah.'); window.location.href = 'Login.php'; </script>";
         }
     } else {
-        echo "<script>alert('Username atau password salah.'); window.location.href = 'FormLogin.php'; </script>";
+        echo "<script>alert('Username atau password salah.'); window.location.href = 'Login.php'; </script>";
     }
 
     sqlsrv_free_stmt($stmt);
