@@ -61,4 +61,12 @@ if (isset($_POST['simpanBerkas'])) {
     }
 }
 
+$sql = "SELECT m.NIM, m.Nama, a.Status_Verifikasi, a.Keterangan FROM Administrasi AS a
+        INNER JOIN Pengumpulan AS p ON a.ID_Pengumpulan = p.ID_Pengumpulan INNER JOIN Mahasiswa AS m ON p.NIM = m.NIM";
+$stmt = sqlsrv_query($conn, $sql);
+
+if ($stmt === false) {
+    die(print_r(sqlsrv_errors(), true));
+}
+
 ?>

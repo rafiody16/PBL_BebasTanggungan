@@ -190,51 +190,48 @@ if ($_SESSION['Role_ID'] != 1) {
     </div>
     <script>
         $(document).ready(function() {
-    // Lihat detail
-    $(".btn-detail").click(function() {
-        var nim = $(this).data("id");
-        $.ajax({
-            url: "DetailMahasiswa.php",
-            type: "POST",
-            data: { NIM: nim, action: "readMahasiswa" },
-            success: function(response) {
-                location.href = "DetailMahasiswa.php?NIM=" + nim;
-            }
-        });
-    });
-
-    $(".btn-edit").click(function() {
-        var nim = $(this).data("id");
-            $.ajax({
-            url: "FormMahasiswa.php",
-            type: "POST",
-            data: { NIM: nim, action: "editMahasiswa" },
-            success: function(response) {
-                location.href = "FormMahasiswa.php?NIM=" + nim;
-            }
-        })   
-    });
-
-    // Hapus data
-    $(".btn-delete").click(function() {
-        var nim = $(this).data("id");
-        if (confirm("Apakah Anda yakin ingin menghapus data ini?")) {
-            $.ajax({
-                url: "UserProses.php",
+            $(".btn-detail").click(function() {
+                var nim = $(this).data("id");
+                $.ajax({
+                url: "DetailMahasiswa.php",
                 type: "POST",
-                data: { NIM: nim, action: "deleteMahasiswa" },
-                success: function(response) {
-                    location.reload();
+                data: { NIM: nim, action: "readMahasiswa" },
+                    success: function(response) {
+                        location.href = "DetailMahasiswa.php?NIM=" + nim;
+                    }
+                });
+            });
+
+            $(".btn-edit").click(function() {
+                var nim = $(this).data("id");
+                    $.ajax({
+                    url: "FormMahasiswa.php",
+                    type: "POST",
+                    data: { NIM: nim, action: "editMahasiswa" },
+                    success: function(response) {
+                        location.href = "FormMahasiswa.php?NIM=" + nim;
+                    }
+                })   
+            });
+
+            $(".btn-delete").click(function() {
+                var nim = $(this).data("id");
+                if (confirm("Apakah Anda yakin ingin menghapus data ini?")) {
+                    $.ajax({
+                        url: "UserProses.php",
+                        type: "POST",
+                        data: { NIM: nim, action: "deleteMahasiswa" },
+                        success: function(response) {
+                            location.reload();
+                        }
+                    });
                 }
             });
-        }
-    });
 
-    // Tutup modal
-    $("#modalClose").click(function() {
-        $("#modal").hide();
-    });
-});
+            $("#modalClose").click(function() {
+                $("#modal").hide();
+            });
+        });
 
     </script>
     <script src="../assets/static/js/components/dark.js"></script>

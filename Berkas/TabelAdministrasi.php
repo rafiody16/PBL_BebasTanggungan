@@ -1,21 +1,6 @@
 <?php
 session_start();
 
-// Cek apakah pengguna sudah login
-if (!isset($_SESSION['Username'])) {
-    // Jika belum login, redirect ke halaman login
-    header("Location: ../Login/Login.php");
-    exit();
-}
-
-// Cek hak akses
-if ($_SESSION['Role_ID'] != 5) {
-    // Jika bukan admin, redirect atau tampilkan pesan error
-    echo "<script>alert('Anda tidak memiliki akses ke halaman ini.'); window.location.href = 'FormLogin.php';</script>";
-    exit();
-}
-
-include('../Koneksi.php');
 ?>
 
 <!DOCTYPE html>
@@ -149,8 +134,8 @@ include('../Koneksi.php');
     <div class="page-title">
         <div class="row">
             <div class="col-12 col-md-9 order-md-1 order-last">
-                <h3>Unggah Berkas Tugas Akhir</h3>
-                <p class="text-subtitle text-muted">Bagi mahasiswa lulusan Jurusan Teknologi Informasi yang bermasalah pada hosting, dapat mengganti hosting dengan Google Drive masing-masing!</p>
+                <h3>Verifikasi Administrasi Mahasiswa</h3>
+                <p class="text-subtitle text-muted">-</p>
             </div>
             <div class="col-12 col-md-3 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
@@ -166,7 +151,7 @@ include('../Koneksi.php');
         <div class="row">
             <div class="card">
                 <div class="card-header">
-                    <h5 class="card-title">Tabel Mahasiswa</h5>
+                    <h5 class="card-title">Tabel Administrasi</h5>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -176,33 +161,29 @@ include('../Koneksi.php');
                                         <th>#</th>
                                         <th>NIM</th>
                                         <th>Nama</th>
-                                        <th>Alamat</th>
-                                        <th>Email</th>
-                                        <th>Jenis Kelamin</th>
-                                        <th>No. HP</th>
+                                        <th>Status</th>
+                                        <th>Keterangan</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                 <?php 
-                                    include('UserProses.php');
+                                    include('ProsesBerkas.php');
                                     $no = 1;
-                                    while ($row = sqlsrv_fetch_array($stmt2, SQLSRV_FETCH_ASSOC)) {
+                                    while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
                                         if ($row) {
                                             $nim = $row['NIM'];
                                             echo "<tr>";
                                                 echo "<td>" . htmlspecialchars($no++) . "</td>";
                                                 echo "<td>" . htmlspecialchars($nim) . "</td>";
                                                 echo "<td>" . htmlspecialchars($row['Nama']) . "</td>";
-                                                echo "<td>" . htmlspecialchars($row['Alamat']) . "</td>";
-                                                echo "<td>" . htmlspecialchars($row['Email']) . "</td>";
-                                                echo "<td>" . htmlspecialchars($row['JenisKelamin']) . "</td>";
-                                                echo "<td>" . htmlspecialchars($row['NoHp']) . "</td>";
+                                                echo "<td>" . htmlspecialchars($row['Status_Verifikasi']) . "</td>";
+                                                echo "<td>" . htmlspecialchars($row['Keterangan']) . "</td>";
                                                 ?>
                                                 <td>
                                                     <button data-id="<?= $nim ?>" class="btn btn-primary btn-detail">Detail</button>
-                                                    <button data-id="<?= $nim ?>" class="btn btn-warning btn-edit">Edit</button>
-                                                    <button data-id="<?= $nim ?>" class="btn btn-danger btn-delete">Hapus</button>
+                                                    <button data-id="<?= $nim ?>" class="btn btn-success btn-edit">Verifikasi</button>
+                                                    <button data-id="<?= $nim ?>" class="btn btn-danger btn-delete">Tolak</button>
                                                 </td>
                                                 <?php
                                             echo "</tr>";
@@ -238,22 +219,69 @@ include('../Koneksi.php');
     
     
     <script src="../assets/compiled/js/app.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $(".btn-detail").click(function() {
+                var nim = $(this).data("id");
+                $.ajax({
+                url: "DetailMahasiswa.php",
+                type: "POST",
+                data: { NIM: nim, action: "readMahasiswa" },
+                    success: function(response) {
+                        location.href = "DetailMahasiswa.php?NIM=" + nim;
+                    }
+                });
+            });
+
+            $(".btn-edit").click(function() {
+                var nim = $(this).data("id");
+                    $.ajax({
+                    url: "FormMahasiswa.php",
+                    type: "POST",
+                    data: { NIM: nim, action: "editMahasiswa" },
+                    success: function(response) {
+                        location.href = "FormMahasiswa.php?NIM=" + nim;
+                    }
+                })   
+            });
+
+            $(".btn-delete").click(function() {
+                var nim = $(this).data("id");
+                if (confirm("Apakah Anda yakin ingin menghapus data ini?")) {
+                    $.ajax({
+                        url: "UserProses.php",
+                        type: "POST",
+                        data: { NIM: nim, action: "deleteMahasiswa" },
+                        success: function(response) {
+                            location.reload();
+                        }
+                    });
+                }
+            });
+
+            $("#modalClose").click(function() {
+                $("#modal").hide();
+            });
+        });
+
+    </script>
     
 
     
-<script src="../assets/extensions/filepond-plugin-file-validate-size/filepond-plugin-file-validate-size.min.js"></script>
-<script src="../assets/extensions/filepond-plugin-file-validate-type/filepond-plugin-file-validate-type.min.js"></script>
-<script src="../assets/extensions/filepond-plugin-image-crop/filepond-plugin-image-crop.min.js"></script>
-<script src="../assets/extensions/filepond-plugin-image-exif-orientation/filepond-plugin-image-exif-orientation.min.js"></script>
-<script src="../assets/extensions/filepond-plugin-image-filter/filepond-plugin-image-filter.min.js"></script>
-<script src="../assets/extensions/filepond-plugin-image-preview/filepond-plugin-image-preview.min.js"></script>
-<script src="../assets/extensions/filepond-plugin-image-resize/filepond-plugin-image-resize.min.js"></script>
-<script src="../assets/extensions/filepond/filepond.js"></script>
-<script src="../assets/extensions/toastify-js/src/toastify.js"></script>
-<script src="../assets/static/js/pages/filepond.js"></script>
-<script src="../assets/extensions/jquery/jquery.min.js"></script>
-<script src="../assets/extensions/parsleyjs/parsley.min.js"></script>
-<script src="../assets/static/js/pages/parsley.js"></script>
+    <script src="../assets/extensions/filepond-plugin-file-validate-size/filepond-plugin-file-validate-size.min.js"></script>
+    <script src="../assets/extensions/filepond-plugin-file-validate-type/filepond-plugin-file-validate-type.min.js"></script>
+    <script src="../assets/extensions/filepond-plugin-image-crop/filepond-plugin-image-crop.min.js"></script>
+    <script src="../assets/extensions/filepond-plugin-image-exif-orientation/filepond-plugin-image-exif-orientation.min.js"></script>
+    <script src="../assets/extensions/filepond-plugin-image-filter/filepond-plugin-image-filter.min.js"></script>
+    <script src="../assets/extensions/filepond-plugin-image-preview/filepond-plugin-image-preview.min.js"></script>
+    <script src="../assets/extensions/filepond-plugin-image-resize/filepond-plugin-image-resize.min.js"></script>
+    <script src="../assets/extensions/filepond/filepond.js"></script>
+    <script src="../assets/extensions/toastify-js/src/toastify.js"></script>
+    <script src="../assets/static/js/pages/filepond.js"></script>
+    <script src="../assets/extensions/jquery/jquery.min.js"></script>
+    <script src="../assets/extensions/parsleyjs/parsley.min.js"></script>
+    <script src="../assets/static/js/pages/parsley.js"></script>
 
 </body>
 
