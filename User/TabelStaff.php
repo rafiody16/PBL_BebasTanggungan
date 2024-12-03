@@ -24,7 +24,7 @@ if ($_SESSION['Role_ID'] != 1) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Checkout Page - Mazer Admin Dashboard</title>
+    <title>Admin - Data Staff</title>
     <link
       rel="shortcut icon"
       href="../assets/img/logoJti.png"
@@ -48,7 +48,7 @@ if ($_SESSION['Role_ID'] != 1) {
                 <div class="sidebar-header position-relative">
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="logo">
-                            <a href="index.html"><img src="../assets/img/logoBetati.png" alt="Logo" srcset=""></a>
+                            <a href="../index.php"><img src="../assets/img/logoBetati.png" alt="Logo" srcset=""></a>
                         </div>
                         <div class="theme-toggle d-flex gap-2  align-items-center mt-2">
                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true"
@@ -88,11 +88,45 @@ if ($_SESSION['Role_ID'] != 1) {
 
                 <li
                     class="sidebar-item  ">
-                    <a href="index.html" class='sidebar-link'>
+                    <a href="../index.php" class='sidebar-link'>
                         <i class="bi bi-grid-fill"></i>
                         <span>Dashboard</span>
                     </a>
 
+                </li>
+
+                <li class="sidebar-item has-sub">
+                <a href="#" class="sidebar-link">
+                  <i class="bi bi-file-earmark-medical-fill"></i>
+                  <span>Data Mahasiswa</span>
+                </a>
+
+                <ul class="submenu">
+                  <li class="submenu-item">
+                    <a href="FormMahasiswa.php" class="submenu-link"
+                      >Tambah Data</a>
+                  </li>
+                  <li class="submenu-item">
+                    <a href="TabelMahasiswa.php" class="submenu-link"
+                      >Lihat Data</a>
+                </li>
+                </ul>
+                </li>
+
+                <li class="sidebar-item active has-sub">
+                <a href="#" class="sidebar-link">
+                  <i class="bi bi-file-earmark-medical-fill"></i>
+                  <span>Data Staff</span>
+                </a>
+
+                <ul class="submenu active">
+                  <li class="submenu-item">
+                    <a href="FormStaff.php" class="submenu-link"
+                      >Tambah Data</a>
+                  </li>
+                  <li class="submenu-item active">
+                    <a href="TabelStaff.php" class="submenu-link"
+                      >Lihat Data</a>
                 </li>
 
             </ul>
@@ -110,8 +144,8 @@ if ($_SESSION['Role_ID'] != 1) {
                 <div class="page-title">
                     <div class="row">
                         <div class="col-12 col-md-6 order-md-1 order-last">
-                            <h3>Tabel User</h3>
-                            <p class="text-subtitle text-muted">Data user.</p>
+                            <h3>Tabel Staff</h3>
+                            <p class="text-subtitle text-muted">Data staff.</p>
                         </div>
                     </div>
                 </div>
@@ -176,11 +210,11 @@ if ($_SESSION['Role_ID'] != 1) {
             <footer>
                 <div class="footer clearfix mb-0 text-muted">
         <div class="float-start">
-            <p>2023 &copy; Mazer</p>
+            <p>2024 &copy; BeTaTI</p>
         </div>
         <div class="float-end">
             <p>Crafted with <span class="text-danger"><i class="bi bi-heart-fill icon-mid"></i></span>
-                by <a href="https://saugi.me">Saugi</a></p>
+                by <a href="https://github.com/rafiody16/PBL_BebasTanggungan">Kelompok 1</a></p>
         </div>
                 </div>
             </footer>
