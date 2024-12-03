@@ -3,6 +3,17 @@ include "../Koneksi.php";
 
 session_start();
 
+$action = $_POST['action'] ?? '';
+
+switch ($action) {
+    case 'verifikasiAdministrasi':
+        VerifikasiAdministrasi();
+        break;
+    default:
+        # code...
+        break;
+}
+
 if (isset($_POST['simpanBerkas'])) {
     $NIM = $_SESSION['NIM'] ?? null;
     $Tanggal_Pengumpulan = date("Y-m-d");
@@ -61,7 +72,30 @@ if (isset($_POST['simpanBerkas'])) {
     }
 }
 
-$sql = "SELECT m.NIM, m.Nama, a.Status_Verifikasi, a.Keterangan FROM Administrasi AS a
+function VerifikasiAdministrasi() {
+    global $conn;
+
+    $ID_Administrasi = $_POST['ID_Administrasi'];
+    $tgl_verifikasi = date("Y-m-d");
+
+    $checkAdministrasiSql = "SELECT ID_Administrasi FROM Administrasi WHERE ID_Administrasi = ?";
+    $checkAdministrasiStmt = sqlsrv_query($conn, $checkAdministrasiSql, [$ID_Administrasi]);
+    $existingAdministrasi = sqlsrv_fetch_array($checkAdministrasiStmt, SQLSRV_FETCH_ASSOC);
+
+    if ($existingAdministrasi) {
+        $updateAdministrasiSql = "UPDATE Administrasi SET Status_Verifikasi = ?, Tanggal_Verifikasi = ?
+                                  WHERE ID_Administrasi = ?";
+        $paramsAdministrasiUpdate = ['Terverifikasi', $tgl_verifikasi, $ID_Administrasi];
+        $stmtAdministrasiUpdate = sqlsrv_query($conn, $updateAdministrasiSql, $paramsAdministrasiUpdate);
+
+        if (!$stmtAdministrasiUpdate) {
+            throw new Exception('Gagal memperbarui data Administrasi: ' . print_r(sqlsrv_errors(), true));
+        }
+    }
+
+}
+
+$sql = "SELECT a.ID_Administrasi, m.NIM, m.Nama, a.Status_Verifikasi, a.Keterangan FROM Administrasi AS a
         INNER JOIN Pengumpulan AS p ON a.ID_Pengumpulan = p.ID_Pengumpulan INNER JOIN Mahasiswa AS m ON p.NIM = m.NIM";
 $stmt = sqlsrv_query($conn, $sql);
 

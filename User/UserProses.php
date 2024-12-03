@@ -43,13 +43,11 @@ if (isset($_POST['simpanStaff'])) {
     sqlsrv_begin_transaction($conn);
 
     try {
-        // Cek apakah NIP sudah ada di database
         $checkUserSql = "SELECT ID_User FROM Staff WHERE NIP = ?";
         $checkUserStmt = sqlsrv_query($conn, $checkUserSql, [$NIP]);
         $existingUser = sqlsrv_fetch_array($checkUserStmt, SQLSRV_FETCH_ASSOC);
 
         if ($existingUser) {
-            // Jika ada, update data User dan Staff
             $updateUserSql = "UPDATE [User] SET Username = ?, [Password] = ?, Email = ?, Role_ID = ? WHERE ID_User = (SELECT ID_User FROM Staff WHERE NIP = ?)";
             $paramsUserUpdate = [$Username, $Password, $Email, $Role_ID, $NIP];
             $stmtUserUpdate = sqlsrv_query($conn, $updateUserSql, $paramsUserUpdate);

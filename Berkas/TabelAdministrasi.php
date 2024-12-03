@@ -14,16 +14,13 @@ session_start();
     <link rel="shortcut icon" href="../assets/img/logoJti.png" type="image/x-icon">
     <link rel="shortcut icon" href="../assets/img/logoJti.png" type="image/png">
     
-<link rel="stylesheet" href="../assets/extensions/filepond/filepond.css">
-<link rel="stylesheet" href="../assets/extensions/filepond-plugin-image-preview/filepond-plugin-image-preview.css">
-<link rel="stylesheet" href="../assets/extensions/toastify-js/src/toastify.css">
+    <link rel="stylesheet" href="../assets/extensions/filepond/filepond.css">
+    <link rel="stylesheet" href="../assets/extensions/filepond-plugin-image-preview/filepond-plugin-image-preview.css">
+    <link rel="stylesheet" href="../assets/extensions/toastify-js/src/toastify.css">
 
-  <link rel="stylesheet" crossorigin href="../assets/compiled/css/app.css">
-  <link rel="stylesheet" crossorigin href="../assets/compiled/css/app-dark.css">
-
-  <style>
-
-</style>
+    <link rel="stylesheet" crossorigin href="../assets/compiled/css/app.css">
+    <link rel="stylesheet" crossorigin href="../assets/compiled/css/app-dark.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 <body>
@@ -172,8 +169,10 @@ session_start();
                                     $no = 1;
                                     while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
                                         if ($row) {
+                                            $ID_Administrasi = $row['ID_Administrasi'];
                                             $nim = $row['NIM'];
                                             echo "<tr>";
+                                                echo "<td style='display:none;'>" . htmlspecialchars($ID_Administrasi) . "</td>";
                                                 echo "<td>" . htmlspecialchars($no++) . "</td>";
                                                 echo "<td>" . htmlspecialchars($nim) . "</td>";
                                                 echo "<td>" . htmlspecialchars($row['Nama']) . "</td>";
@@ -181,9 +180,9 @@ session_start();
                                                 echo "<td>" . htmlspecialchars($row['Keterangan']) . "</td>";
                                                 ?>
                                                 <td>
-                                                    <button data-id="<?= $nim ?>" class="btn btn-primary btn-detail">Detail</button>
-                                                    <button data-id="<?= $nim ?>" class="btn btn-success btn-edit">Verifikasi</button>
-                                                    <button data-id="<?= $nim ?>" class="btn btn-danger btn-delete">Tolak</button>
+                                                    <button data-id="<?= $ID_Administrasi ?>" class="btn btn-primary btn-detail">Detail</button>
+                                                    <button data-id="<?= $ID_Administrasi ?>" class="btn btn-success btn-verifikasi">Verifikasi</button>
+                                                    <button data-bs-toggle="modal" data-bs-target="#default" class="btn btn-danger">Tolak</button>
                                                 </td>
                                                 <?php
                                             echo "</tr>";
@@ -200,6 +199,39 @@ session_start();
         </div>
     </section>
 </div>
+<div class="modal fade text-left" id="default" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="myModalLabel1">Basic Modal</h5>
+                    <button type="button" class="close rounded-pill" data-bs-dismiss="modal"
+                        aria-label="Close">
+                        <i data-feather="x"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="ProsesBerkas.php" method="POST">
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label for="Keterangan">Keterangan</label>
+                                <input type="text" class="form-control" name="Keterangan" placeholder="Masukkan Keterangan">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn" data-bs-dismiss="modal">
+                        <i class="bx bx-x d-block d-sm-none"></i>
+                        <span class="d-none d-sm-block">Tutup</span>
+                    </button>
+                    <button type="button" class="btn btn-primary btn-tolak" data-bs-dismiss="modal" data-id="<?= $ID_Administrasi ?>">
+                        <i class="bx bx-check d-block d-sm-none"></i>
+                        <span class="d-none d-sm-block">Unggah</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 
             <footer>
     <div class="footer clearfix mb-0 text-muted">
@@ -223,30 +255,30 @@ session_start();
     <script>
         $(document).ready(function() {
             $(".btn-detail").click(function() {
-                var nim = $(this).data("id");
+                var ID_Administrasi = $(this).data("id");
                 $.ajax({
-                url: "DetailMahasiswa.php",
+                url: "DetailAdministrasi.php",
                 type: "POST",
-                data: { NIM: nim, action: "readMahasiswa" },
+                data: { ID_Administrasi: ID_Administrasi, action: "readAdministrasi" },
                     success: function(response) {
-                        location.href = "DetailMahasiswa.php?NIM=" + nim;
+                        location.href = "DetailMahasiswa.php?NIM=" + ID_Administrasi;
                     }
                 });
             });
 
-            $(".btn-edit").click(function() {
-                var nim = $(this).data("id");
+            $(".btn-verifikasi").click(function() {
+                var ID_Administrasi = $(this).data("id");
                     $.ajax({
-                    url: "FormMahasiswa.php",
+                    url: "ProsesBerkas.php",
                     type: "POST",
-                    data: { NIM: nim, action: "editMahasiswa" },
+                    data: { ID_Administrasi: ID_Administrasi, action: "verifikasiAdministrasi" },
                     success: function(response) {
-                        location.href = "FormMahasiswa.php?NIM=" + nim;
+                        location.reload();
                     }
                 })   
             });
 
-            $(".btn-delete").click(function() {
+            $(".btn-tolak").click(function() {
                 var nim = $(this).data("id");
                 if (confirm("Apakah Anda yakin ingin menghapus data ini?")) {
                     $.ajax({
