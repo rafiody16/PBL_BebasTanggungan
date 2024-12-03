@@ -160,6 +160,12 @@ getDataMahasiswaByNim();
                                                     </div>
                                                     <div class="col-md-6 col-12">
                                                         <div class="form-group">
+                                                            <label for="Prodi">Prodi</label>
+                                                            <h3><?= isset($Prodi) ? htmlspecialchars($Prodi) : '' ?></h3>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6 col-12">
+                                                        <div class="form-group">
                                                             <label for="JenisKelamin">Jenis Kelamin</label>
                                                             <h3><?= isset($jeniskelamin) ? htmlspecialchars($jeniskelamin) : '' ?></h3>
                                                         </div>

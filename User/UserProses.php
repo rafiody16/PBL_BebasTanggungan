@@ -104,6 +104,7 @@ if (isset($_POST['simpanMahasiswa'])) {
     $Password = password_hash($_POST['Password'], PASSWORD_BCRYPT); // Enkripsi password
     $Alamat = $_POST['Alamat'];
     $NoHp = $_POST['NoHp'];
+    $Prodi = $_POST['Prodi'];
     $JenisKelamin = $_POST['JenisKelamin'];
     $Role_ID = 5;
 
@@ -123,8 +124,8 @@ if (isset($_POST['simpanMahasiswa'])) {
                 throw new Exception('Gagal memperbarui data User: ' . print_r(sqlsrv_errors(), true));
             }
 
-            $updateMahasiswaSql = "UPDATE Mahasiswa SET Nama = ?, Alamat = ?, NoHp = ?, JenisKelamin = ? WHERE NIM = ?";
-            $paramsMahasiswaUpdate = [$Nama, $Alamat, $NoHp, $JenisKelamin, $NIM];
+            $updateMahasiswaSql = "UPDATE Mahasiswa SET Nama = ?, Alamat = ?, NoHp = ?, JenisKelamin = ?, Prodi = ? WHERE NIM = ?";
+            $paramsMahasiswaUpdate = [$Nama, $Alamat, $NoHp, $JenisKelamin, $Prodi, $NIM];
             $stmtMahasiswaUpdate = sqlsrv_query($conn, $updateMahasiswaSql, $paramsMahasiswaUpdate);
 
             if (!$stmtMahasiswaUpdate) {
@@ -145,8 +146,8 @@ if (isset($_POST['simpanMahasiswa'])) {
             $rowUserID = sqlsrv_fetch_array($stmtUser, SQLSRV_FETCH_ASSOC);
             $newUserID = $rowUserID['ID_User'];
 
-            $sqlMahasiswa = "INSERT INTO Mahasiswa (NIM, Nama, Alamat, NoHp, JenisKelamin, ID_User) VALUES (?, ?, ?, ?, ?, ?)";
-            $paramsMahasiswa = [$NIM, $Nama, $Alamat, $NoHp, $JenisKelamin, $newUserID];
+            $sqlMahasiswa = "INSERT INTO Mahasiswa (NIM, Nama, Alamat, NoHp, JenisKelamin, ID_User, Prodi) VALUES (?, ?, ?, ?, ?, ?, ?)";
+            $paramsMahasiswa = [$NIM, $Nama, $Alamat, $NoHp, $JenisKelamin, $newUserID, $Prodi];
             $stmtMahasiswa = sqlsrv_query($conn, $sqlMahasiswa, $paramsMahasiswa);
 
             if (!$stmtMahasiswa) {
@@ -246,9 +247,9 @@ function deleteDataMahasiswa() {
 
 function getDataMahasiswaByNim() {
     global $conn;
-    global $nim, $nama, $username, $email, $alamat, $noHp, $jeniskelamin;
+    global $nim, $nama, $username, $email, $alamat, $noHp, $jeniskelamin, $Prodi;
     $nim = $_GET['NIM'] ?? null;
-    $sql = "SELECT Mahasiswa.Nama, Mahasiswa.Alamat, Mahasiswa.NoHp, [User].Username, [User].Email, Mahasiswa.JenisKelamin FROM Mahasiswa INNER JOIN [User] ON Mahasiswa.ID_User = [User].ID_User  WHERE Mahasiswa.NIM = ?";
+    $sql = "SELECT Mahasiswa.Nama, Mahasiswa.Alamat, Mahasiswa.NoHp, [User].Username, [User].Email, Mahasiswa.Prodi, Mahasiswa.JenisKelamin FROM Mahasiswa INNER JOIN [User] ON Mahasiswa.ID_User = [User].ID_User  WHERE Mahasiswa.NIM = ?";
     $params = array($nim);
     $stmt = sqlsrv_query($conn, $sql, $params);
     
@@ -265,6 +266,7 @@ function getDataMahasiswaByNim() {
         $email = $row['Email'];
         $alamat = $row['Alamat'];
         $noHp = $row['NoHp'];
+        $Prodi = $row['Prodi'];
         $jeniskelamin = $row['JenisKelamin'];
     } else {
         echo "No data found for the given NIM.";
@@ -307,7 +309,7 @@ if ($stmt === false) {
     die(print_r(sqlsrv_errors(), true));
 }
 
-$sql2 = "SELECT m.NIM, m.Nama, m.JenisKelamin, u.Email, m.Alamat, m.NoHp FROM Mahasiswa AS m
+$sql2 = "SELECT m.NIM, m.Nama, m.JenisKelamin, u.Email, m.Alamat, m.NoHp, m.Prodi FROM Mahasiswa AS m
         INNER JOIN [User] AS u ON m.ID_User = u.ID_User INNER JOIN Role AS r ON u.Role_ID = r.Role_ID";
 $stmt2 = sqlsrv_query($conn, $sql2);
 

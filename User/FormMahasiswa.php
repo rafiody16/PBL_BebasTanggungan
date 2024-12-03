@@ -166,6 +166,12 @@ getDataMahasiswaByNim();
                                                     </div>
                                                     <div class="col-12">
                                                         <div class="form-group">
+                                                            <label for="Prodi">Prodi</label>
+                                                            <input type="text" class="form-control" name="Prodi" value="<?= isset($Prodi) ? htmlspecialchars($Prodi) : '' ?>" placeholder="Masukkan Prodi">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <div class="form-group">
                                                             <label for="JenisKelamin">Jenis Kelamin</label>
                                                             <br>
                                                             <input class="form-check-input" type="radio" name="JenisKelamin" id="jenkel1" value="L" required="true"> Laki-laki 

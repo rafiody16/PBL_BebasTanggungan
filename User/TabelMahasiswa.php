@@ -131,7 +131,7 @@ if ($_SESSION['Role_ID'] != 1) {
                                         <th>NIM</th>
                                         <th>Nama</th>
                                         <th>Alamat</th>
-                                        <th>Email</th>
+                                        <th>Prodi</th>
                                         <th>Jenis Kelamin</th>
                                         <th>No. HP</th>
                                         <th>Aksi</th>
@@ -149,7 +149,7 @@ if ($_SESSION['Role_ID'] != 1) {
                                                 echo "<td>" . htmlspecialchars($nim) . "</td>";
                                                 echo "<td>" . htmlspecialchars($row['Nama']) . "</td>";
                                                 echo "<td>" . htmlspecialchars($row['Alamat']) . "</td>";
-                                                echo "<td>" . htmlspecialchars($row['Email']) . "</td>";
+                                                echo "<td>" . htmlspecialchars($row['Prodi']) . "</td>";
                                                 echo "<td>" . htmlspecialchars($row['JenisKelamin']) . "</td>";
                                                 echo "<td>" . htmlspecialchars($row['NoHp']) . "</td>";
                                                 ?>

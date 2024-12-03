@@ -117,6 +117,15 @@ function TolakAdministrasi() {
     }
 }
 
+function GetByIdAdministrasi() {
+    global $conn;
+
+    $ID_Administrasi = $_POST['ID_Administrasi'] ?? null;
+
+    $sql = "SELECT a.ID_Administrasi, ";
+
+}
+
 $sql = "SELECT a.ID_Administrasi, m.NIM, m.Nama, a.Status_Verifikasi, a.Keterangan FROM Administrasi AS a
         INNER JOIN Pengumpulan AS p ON a.ID_Pengumpulan = p.ID_Pengumpulan INNER JOIN Mahasiswa AS m ON p.NIM = m.NIM";
 $stmt = sqlsrv_query($conn, $sql);
