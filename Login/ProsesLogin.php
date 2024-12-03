@@ -23,38 +23,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['Username'] = $Username;
             $_SESSION['Role_ID'] = $row['Role_ID'];
             $_SESSION['ID_User'] = $row['ID_User'];
-    
-            // Ambil NIM jika role adalah mahasiswa
-            if ($row['Role_ID'] == '9') {
-                $sqlNim = "SELECT NIM FROM Mahasiswa WHERE ID_User = ?";
-                $paramsNim = array($row['ID_User']);
-                $stmtNim = sqlsrv_query($conn, $sqlNim, $paramsNim);
-    
-                if ($stmtNim === false) {
-                    die(print_r(sqlsrv_errors(), true));
-                }
-    
-                if ($rowNim = sqlsrv_fetch_array($stmtNim, SQLSRV_FETCH_ASSOC)) {
-                    $_SESSION['NIM'] = $rowNim['NIM'];
-                }
-    
-                sqlsrv_free_stmt($stmtNim);
-                echo "<script>alert('Selamat Datang ".$Username.".'); window.location.href = '../User/mahasiswa/dashboardUser.html'; </script>";
+
+            // Ambil NIM berdasarkan ID_User
+            $sqlNim = "SELECT NIM FROM Mahasiswa WHERE ID_User = ?";
+            $paramsNim = array($row['ID_User']);
+            $stmtNim = sqlsrv_query($conn, $sqlNim, $paramsNim);
+
+            if ($stmtNim === false) {
+                die(print_r(sqlsrv_errors(), true));
             }
-            // Tambahkan logika untuk role admin
-            else if ($row['Role_ID'] == '1') {
-                echo "<script>alert('Selamat Datang Admin ".$Username.".'); window.location.href = '../Admin/dashboardAdmin.html'; </script>";
+
+            if ($rowNim = sqlsrv_fetch_array($stmtNim, SQLSRV_FETCH_ASSOC)) {
+                $_SESSION['NIM'] = $rowNim['NIM'];
             }
-            // Tambahkan logika untuk role lainnya
-            else if ($row['Role_ID'] == '2') {
-                echo "<script>alert('Selamat Datang Dosen ".$Username.".'); window.location.href = '../Dosen/dashboardDosen.html'; </script>";
-            }
+
+            sqlsrv_free_stmt($stmtNim);
+
+            echo "<script>alert('Selamat Datang ".$Username.".'); window.location.href = '../User/mahasiswa/dashboardUser.html'; </script>";
+        } else {
+            echo "<script>alert('Username atau password salah.'); window.location.href = 'Login.php'; </script>";
+        }
     } else {
         echo "<script>alert('Username atau password salah.'); window.location.href = 'Login.php'; </script>";
     }
 
     sqlsrv_free_stmt($stmt);
-    }
 }
 
 sqlsrv_close($conn);
