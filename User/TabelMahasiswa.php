@@ -159,10 +159,10 @@ if ($_SESSION['Role_ID'] != 1) {
                             </table>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </section>
+                            </div>
+                        </div>
+                    </div>
+                </section>
             </div>
 
             <footer>
