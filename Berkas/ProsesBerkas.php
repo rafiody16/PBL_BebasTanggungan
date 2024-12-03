@@ -1,6 +1,10 @@
 <?php
 include "../Koneksi.php";
 
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
 $action = $_POST['action'] ?? '';
 
 switch ($action) {
@@ -9,6 +13,9 @@ switch ($action) {
         break;
     case 'tolakAdministrasi':
         TolakAdministrasi();
+        break;
+    case 'detailAdministrasi':
+        GetByIdAdministrasi();
         break;
     default:
         # code...
@@ -78,15 +85,16 @@ function VerifikasiAdministrasi() {
 
     $ID_Administrasi = $_POST['ID_Administrasi'];
     $tgl_verifikasi = date("Y-m-d");
+    $verifikator = $_SESSION['Nama'];
 
     $checkAdministrasiSql = "SELECT ID_Administrasi FROM Administrasi WHERE ID_Administrasi = ?";
     $checkAdministrasiStmt = sqlsrv_query($conn, $checkAdministrasiSql, [$ID_Administrasi]);
     $existingAdministrasi = sqlsrv_fetch_array($checkAdministrasiStmt, SQLSRV_FETCH_ASSOC);
 
     if ($existingAdministrasi) {
-        $updateAdministrasiSql = "UPDATE Administrasi SET Status_Verifikasi = ?, Tanggal_Verifikasi = ?, Keterangan = ?
+        $updateAdministrasiSql = "UPDATE Administrasi SET Status_Verifikasi = ?, Tanggal_Verifikasi = ?, Keterangan = ?, Verifikator = ?
                                   WHERE ID_Administrasi = ?";
-        $paramsAdministrasiUpdate = ['Terverifikasi', $tgl_verifikasi, '',  $ID_Administrasi];
+        $paramsAdministrasiUpdate = ['Terverifikasi', $tgl_verifikasi, '', $verifikator,  $ID_Administrasi];
         $stmtAdministrasiUpdate = sqlsrv_query($conn, $updateAdministrasiSql, $paramsAdministrasiUpdate);
 
         if (!$stmtAdministrasiUpdate) {
@@ -100,15 +108,16 @@ function TolakAdministrasi() {
 
     $ID_Administrasi = $_POST['ID_Administrasi'];
     $Keterangan = $_POST['Keterangan'];
+    $verifikator = $_SESSION['Nama'];
 
     $checkAdministrasiSql = "SELECT ID_Administrasi FROM Administrasi WHERE ID_Administrasi = ?";
     $checkAdministrasiStmt = sqlsrv_query($conn, $checkAdministrasiSql, [$ID_Administrasi]);
     $existingAdministrasi = sqlsrv_fetch_array($checkAdministrasiStmt, SQLSRV_FETCH_ASSOC);
 
     if ($existingAdministrasi) {
-        $updateAdministrasiSql = "UPDATE Administrasi SET Status_Verifikasi = ?, Keterangan = ?
+        $updateAdministrasiSql = "UPDATE Administrasi SET Status_Verifikasi = ?, Tanggal_Verifikasi = ?, Keterangan = ?, Verifikator = ?
                                   WHERE ID_Administrasi = ?";
-        $paramsAdministrasiUpdate = ['Ditolak', $Keterangan, $ID_Administrasi];
+        $paramsAdministrasiUpdate = ['Ditolak', NULL, $Keterangan, $verifikator, $ID_Administrasi];
         $stmtAdministrasiUpdate = sqlsrv_query($conn, $updateAdministrasiSql, $paramsAdministrasiUpdate);
 
         if (!$stmtAdministrasiUpdate) {
@@ -119,10 +128,36 @@ function TolakAdministrasi() {
 
 function GetByIdAdministrasi() {
     global $conn;
+    global $ID_Administrasi, $nim, $nama, $prodi, $laporanSkripsi, $laporanMagang, $bebasKompensasi, $scanToeic, $statusVerifikasi, $tanggalVerifikasi, $tanggalUpload, $keterangan, $verifikator;
+    $ID_Administrasi = $_GET['ID_Administrasi'] ?? null;
 
-    $ID_Administrasi = $_POST['ID_Administrasi'] ?? null;
+    $sql = "SELECT a.ID_Administrasi, m.NIM, m.Nama, m.Prodi, a.Laporan_Skripsi, a.Laporan_Magang, a.Bebas_Kompensasi, a.Scan_Toeic, 
+            a.Status_Verifikasi, a.Tanggal_Verifikasi, a.Tanggal_Upload, a.Keterangan, a.Verifikator FROM Administrasi AS a 
+            INNER JOIN Pengumpulan AS p ON a.ID_Pengumpulan = p.ID_Pengumpulan INNER JOIN Mahasiswa AS m ON p.NIM = m.NIM WHERE a.ID_Administrasi = ?";
+    $params = array($ID_Administrasi);
+    $stmt = sqlsrv_query($conn, $sql, $params);
 
-    $sql = "SELECT a.ID_Administrasi, ";
+    if ($stmt === false) {
+        die(print_r(sqlsrv_errors(), true));
+        exit;
+    }
+
+    if ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+        $nim = $row['NIM'];
+        $nama = $row['Nama'];
+        $prodi = $row['Prodi'];
+        $laporanSkripsi = $row['Laporan_Skripsi'];
+        $laporanMagang = $row['Laporan_Magang'];
+        $bebasKompensasi = $row['Bebas_Kompensasi'];
+        $scanToeic = $row['Scan_Toeic'];
+        $statusVerifikasi = $row['Status_Verifikasi'];
+        $tanggalVerifikasi = $row['Tanggal_Verifikasi'];
+        $tanggalUpload = $row['Tanggal_Upload'];
+        $keterangan = $row['Keterangan'];
+        $verifikator = $row['Verifikator'];
+    } else {
+        echo "No data found for the given ID.";
+    }
 
 }
 

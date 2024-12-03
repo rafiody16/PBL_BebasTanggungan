@@ -1,6 +1,10 @@
 <?php
 session_start();
 
+include('ProsesBerkas.php');
+
+GetByIdAdministrasi();
+
 ?>
 
 <!DOCTYPE html>
@@ -161,49 +165,21 @@ session_start();
                                         <div class="row">
                                             <div class="col-md-6 col-12">
                                                 <div class="form-group">
-                                                    <label for="NIP">NIP</label>
-                                                    <h3><?= isset($nip) ? htmlspecialchars($nip) : '' ?></h3>
+                                                    <label for="NIM">NIM</label>
+                                                    <div class="text-bold-500"><?= isset($nim) ? htmlspecialchars($nim) : '' ?></div>
                                                 </div>
                                             </div>
                                             <div class="col-md-6 col-12">
                                                 <div class="form-group">
                                                     <label for="Nama">Nama</label>
-                                                    <h3><?= isset($nama) ? htmlspecialchars($nama) : '' ?></h3>
+                                                    <div class="text-bold-500"><?= isset($nama) ? htmlspecialchars($nama) : '' ?></div>
                                                 </div>
                                             </div>
                                             <div class="col-md-6 col-12">
                                                 <div class="form-group">
-                                                    <label for="Username">Username</label>
-                                                    <h3><?= isset($username) ? htmlspecialchars($username) : '' ?></h3>
+                                                    <label for="Prodi">Prodi</label>
+                                                    <div class="text-bold-500"><?= isset($prodi) ? htmlspecialchars($prodi) : '' ?></div>
                                                 </div>
-                                            </div>
-                                            <div class="col-md-6 col-12">
-                                                <div class="form-group">
-                                                    <label for="Email">Email</label>
-                                                    <h3><?= isset($email) ? htmlspecialchars($email) : '' ?></h3>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6 col-12">
-                                                <div class="form-group">
-                                                    <label for="Alamat">Alamat</label>
-                                                    <h3><?= isset($alamat) ? htmlspecialchars($alamat) : '' ?></h3>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6 col-12">
-                                                <div class="form-group">
-                                                    <label for="NoHp">No.Hp</label>
-                                                    <h3><?= isset($noHp) ? htmlspecialchars($noHp) : '' ?></h3>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6 col-12">
-                                                <div class="form-group">
-                                                    <label for="Role_ID">Jabatan</label>
-                                                    <h3><?= isset($Nama_Role) ? htmlspecialchars($Nama_Role) : '' ?></h3>
-                                                </div>
-                                            </div>
-                                            <div class="col-12 d-flex justify-content-end">
-                                                <button type="submit" class="btn btn-primary me-1 mb-1" name="simpanStaff">Simpan</button>
-                                                <button type="reset" class="btn btn-light-secondary me-1 mb-1">Kembali</button>
                                             </div>
                                         </div>
                                     </div>
@@ -211,43 +187,80 @@ session_start();
                             </div>
                         </div>
                     </div>
-                </div>
-        </div>
-    </section>
-</div>
-<div class="modal fade text-left" id="default" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-scrollable" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="myModalLabel1">Tolak Verifikasi</h5>
-                    <button type="button" class="close rounded-pill" data-bs-dismiss="modal"
-                        aria-label="Close">
-                        <i data-feather="x"></i>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form action="ProsesBerkas.php" method="POST">
-                        <div class="col-12">
-                            <div class="form-group">
-                                <label for="Keterangan">Keterangan</label>
-                                <input type="text" class="form-control" name="Keterangan" placeholder="Masukkan Keterangan">
-                            </div>
+            </div>
+            <div class="col-12 col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                    </div>
+                    <div class="card-content">
+                        <div class="card-body">
+                            <form class="form form-vertical">
+                                <div class="form-body">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label for="Laporan_Skripsi">Link Laporan Skripsi</label>
+                                                <div class="text-bold-500"> <a href="<?= htmlspecialchars($laporanSkripsi) ?>" target="_blank"><?= htmlspecialchars($laporanSkripsi) ?></a></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label for="Laporan_Magang">Link Laporan Magang</label>
+                                                <div class="text-bold-500"><a href="<?= htmlspecialchars($laporanMagang) ?>"><?= isset($laporanMagang) ? htmlspecialchars($laporanMagang) : '' ?></a></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label for="Bebas_Kompensasi">Link Bebas Kompen</label>
+                                                <div class="text-bold-500"><a href="<?= htmlspecialchars($bebasKompensasi) ?>"><?= isset($bebasKompensasi) ? htmlspecialchars($bebasKompensasi) : '' ?></a></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label for="Laporan_Skripsi">Link Scan Toeic</label>
+                                                <div class="text-bold-500"><a href="<?= htmlspecialchars($scanToeic) ?>"><?= isset($scanToeic) ? htmlspecialchars($scanToeic) : '' ?></a></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label for="Tanggal_Upload">Tanggal Upload</label>
+                                                <div class="text-bold-500"><?= isset($tanggalUpload) ? htmlspecialchars($tanggalUpload instanceof DateTime ? $tanggalUpload->format('d-m-Y') : $tanggalUpload) : '' ?></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label for="Status_Verifikasi">Status Verifikasi</label>
+                                                <div class="text-bold-500"><?= isset($statusVerifikasi) ? htmlspecialchars($statusVerifikasi) : '' ?></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label for="Tanggal_Verifikasi">Tanggal Verifikasi</label>
+                                                <div class="text-bold-500"><?= isset($tanggalVerifikasi) ? htmlspecialchars($tanggalVerifikasi instanceof DateTime ? $tanggalVerifikasi->format('d-m-Y') : $tanggalVerifikasi) : '-' ?></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label for="Keterangan">Keterangan</label>
+                                                <div class="text-bold-500"><?= isset($keterangan) ? htmlspecialchars($keterangan) : '' ?></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label for="Verifikator">Verifikator</label>
+                                                <div class="text-bold-500"><?= isset($verifikator) ? htmlspecialchars($verifikator) : 'Belum Diverifikasi' ?></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn" data-bs-dismiss="modal">
-                        <i class="bx bx-x d-block d-sm-none"></i>
-                        <span class="d-none d-sm-block">Tutup</span>
-                    </button>
-                    <button type="button" class="btn btn-primary btn-tolak" data-bs-dismiss="modal" data-id="<?= $ID_Administrasi ?>">
-                        <i class="bx bx-check d-block d-sm-none"></i>
-                        <span class="d-none d-sm-block">Unggah</span>
-                    </button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
+</div>
 
             <footer>
     <div class="footer clearfix mb-0 text-muted">

@@ -1,6 +1,9 @@
 <?php
 session_start();
 
+
+echo "Selamat Datang " . $_SESSION['Nama'];
+
 ?>
 
 <!DOCTYPE html>
@@ -258,10 +261,10 @@ session_start();
                 var ID_Administrasi = $(this).data("id");
                 $.ajax({
                 url: "DetailAdministrasi.php",
-                type: "POST",
-                data: { ID_Administrasi: ID_Administrasi, action: "readAdministrasi" },
+                type: "GET",
+                data: { ID_Administrasi: ID_Administrasi, action: "detailAdministrasi" },
                     success: function(response) {
-                        location.href = "DetailMahasiswa.php?NIM=" + ID_Administrasi;
+                        location.href = "DetailAdministrasi.php?ID_Administrasi=" + ID_Administrasi;
                     }
                 });
             });

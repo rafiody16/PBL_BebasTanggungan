@@ -119,5 +119,12 @@ SELECT * FROM Role;
 ALTER TABLE Staff
 DROP COLUMN Jabatan;
 
+ALTER TABLE Mahasiswa
+ADD Prodi VARCHAR(50);
 
+SELECT * FROM Administrasi;
 
+ALTER TABLE Administrasi
+ADD Verifikator VARCHAR(50);
+
+SELECT * FROM Staff;
