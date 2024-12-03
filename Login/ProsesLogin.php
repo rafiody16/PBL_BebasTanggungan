@@ -18,7 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
         // Verifikasi password (gunakan password_hash dan password_verify untuk keamanan)
-        if (password_verify($Password, $row['Password'])) {
+        if (password_verify($Password, $row['Password']) && $row['Role_ID'] == 9) {
             // Login berhasil
             $_SESSION['Username'] = $Username;
             $_SESSION['Role_ID'] = $row['Role_ID'];
@@ -40,6 +40,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             sqlsrv_free_stmt($stmtNim);
 
             echo "<script>alert('Selamat Datang ".$Username.".'); window.location.href = '../User/mahasiswa/dashboardUser.html'; </script>";
+        } else if ($row['Role_ID'] == 1) {
+            echo "<script>alert('Selamat Datang Admin ".$Username.".'); window.location.href = '../index.php'; </script>";
+        } else if ($row['Role_ID'] == 2) {
+            echo "<script>alert('Selamat Datang Dosen ".$Username.".'); window.location.href = '../Dosen/dashboardDosen.html'; </script>";
+        } else if ($row['Role_ID'] == 3) {
+            echo "<script>alert('Selamat Datang Admin ".$Username.".'); window.location.href = '../index.php'; </script>";
+        } else if ($row['Role_ID'] == 4) {
+            echo "<script>alert('Selamat Datang Admin ".$Username.".'); window.location.href = '../index.php'; </script>";
+        } else if ($row['Role_ID'] == 5) {
+            echo "<script>alert('Selamat Datang Admin ".$Username.".'); window.location.href = '../index.php'; </script>";
+        } else if ($row['Role_ID'] == 6) {
+            echo "<script>alert('Selamat Datang Admin ".$Username.".'); window.location.href = '../index.php'; </script>";
+        } else if ($row['Role_ID'] == 7) {
+            echo "<script>alert('Selamat Datang Admin ".$Username.".'); window.location.href = '../index.php'; </script>";
+        } else if ($row['Role_ID'] == 8) {
+            echo "<script>alert('Selamat Datang Admin ".$Username.".'); window.location.href = '../index.php'; </script>";
+        } else if ($row['Role_ID'] == 9) {
+            echo "<script>alert('Selamat Datang Admin ".$Username.".'); window.location.href = '../index.php'; </script>";
         } else {
             echo "<script>alert('Username atau password salah.'); window.location.href = 'Login.php'; </script>";
         }
