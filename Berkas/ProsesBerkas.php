@@ -161,11 +161,54 @@ function GetByIdAdministrasi() {
 
 }
 
+function GetByIdTA() {
+    global $conn;
+    global $ID_Aplikasi, $nim, $nama, $prodi, $fileaplikasi, $laporanta, $pertanyaanpublikasi, $scanToeic, $statusVerifikasi, $tanggalVerifikasi, $tanggalUpload, $keterangan, $verifikator;
+    $ID_Aplikasi = $_GET['ID_Aplikasi'] ?? null;
+
+    $sql = "SELECT a.ID_Administrasi, m.NIM, m.Nama, m.Prodi, a.Laporan_Skripsi, a.Laporan_Magang, a.Bebas_Kompensasi, a.Scan_Toeic, 
+            a.Status_Verifikasi, a.Tanggal_Verifikasi, a.Tanggal_Upload, a.Keterangan, a.Verifikator FROM Administrasi AS a 
+            INNER JOIN Pengumpulan AS p ON a.ID_Pengumpulan = p.ID_Pengumpulan INNER JOIN Mahasiswa AS m ON p.NIM = m.NIM WHERE a.ID_Administrasi = ?";
+    $params = array($ID_Administrasi);
+    $stmt = sqlsrv_query($conn, $sql, $params);
+
+    if ($stmt === false) {
+        die(print_r(sqlsrv_errors(), true));
+        exit;
+    }
+
+    if ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+        $nim = $row['NIM'];
+        $nama = $row['Nama'];
+        $prodi = $row['Prodi'];
+        $laporanSkripsi = $row['Laporan_Skripsi'];
+        $laporanMagang = $row['Laporan_Magang'];
+        $bebasKompensasi = $row['Bebas_Kompensasi'];
+        $scanToeic = $row['Scan_Toeic'];
+        $statusVerifikasi = $row['Status_Verifikasi'];
+        $tanggalVerifikasi = $row['Tanggal_Verifikasi'];
+        $tanggalUpload = $row['Tanggal_Upload'];
+        $keterangan = $row['Keterangan'];
+        $verifikator = $row['Verifikator'];
+    } else {
+        echo "No data found for the given ID.";
+    }
+
+}
+
 $sql = "SELECT a.ID_Administrasi, m.NIM, m.Nama, a.Status_Verifikasi, a.Keterangan FROM Administrasi AS a
         INNER JOIN Pengumpulan AS p ON a.ID_Pengumpulan = p.ID_Pengumpulan INNER JOIN Mahasiswa AS m ON p.NIM = m.NIM";
 $stmt = sqlsrv_query($conn, $sql);
 
 if ($stmt === false) {
+    die(print_r(sqlsrv_errors(), true));
+}
+
+$sql2 = "SELECT a.ID_Aplikasi, m.NIM, m.Nama, a.Status_Verifikasi, a.Keterangan FROM TugasAkhir AS a
+        INNER JOIN Pengumpulan AS p ON a.ID_Pengumpulan = p.ID_Pengumpulan INNER JOIN Mahasiswa AS m ON p.NIM = m.NIM";
+$stmt2 = sqlsrv_query($conn, $sql2);
+
+if ($stmt2 === false) {
     die(print_r(sqlsrv_errors(), true));
 }
 

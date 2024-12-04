@@ -127,4 +127,8 @@ SELECT * FROM Administrasi;
 ALTER TABLE Administrasi
 ADD Verifikator VARCHAR(50);
 
+ALTER TABLE TugasAkhir
+ADD Verifikator VARCHAR(50);
+
 SELECT * FROM Staff;
+SELECT * FROM [User];
