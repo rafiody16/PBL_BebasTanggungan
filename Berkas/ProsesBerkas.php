@@ -26,6 +26,9 @@ switch ($action) {
     case 'tolakTA':
         TolakTA();
         break;
+    case 'tampilBerkas':
+        GetAllBerkas();
+        break;
     default:
         # code...
         break;
@@ -82,7 +85,7 @@ if (isset($_POST['simpanBerkas'])) {
         }
 
         sqlsrv_commit($conn);
-        echo "<script>alert('Data berhasil disimpan!'); window.location.href = 'FormBerkas.php';</script>";
+        echo "<script>alert('Data berhasil disimpan!'); window.location.href = 'DetailBerkas.php?NIM=".urlencode($NIM)."';</script>";
     } catch (Exception $e) {
         sqlsrv_rollback($conn);
         echo "Data gagal disimpan: " . $e->getMessage();
@@ -252,11 +255,36 @@ function GetByIdTA() {
 
 function GetAllBerkas() {
     global $conn;
-    global $Laporan_Skripsi, $Laporan_Magang, $Bebas_Kompensasi, $Scan_Toeic, $File_Aplikasi, $Laporan_TA, $Pernyataan_Publikasi;
+    global $Laporan_Skripsi, $Laporan_Magang, $Bebas_Kompensasi, $Scan_Toeic, $File_Aplikasi, $Laporan_TA, $Pernyataan_Publikasi, 
+           $Tanggal_Upload, $Status_Verifikasi, $Keterangan, $Tanggal_Verifikasi;
 
-    $sql = "SELECT a.Laporan_Skripsi, a.Laporan_Magang, a.Bebas_Kompensasi, a.Scan_Toeic, t.File_Aplikasi, t.Laporan_TA, p.Status_Verifikasi, p.Keterangan, p.Tanggal_Verifikasi 
-            a.Status_Verifikasi, a.Tanggal_Verifikasi, a.Tanggal_Upload, a.Keterangan, a.Verifikator FROM Administrasi AS a 
-            INNER JOIN Pengumpulan AS p ON a.ID_Pengumpulan = p.ID_Pengumpulan INNER JOIN Mahasiswa AS m ON p.NIM = m.NIM WHERE a.ID_Administrasi = ?";
+    $NIM = $_GET['NIM'];
+
+    $sql = "SELECT a.Laporan_Skripsi, a.Laporan_Magang, a.Bebas_Kompensasi, a.Scan_Toeic, t.File_Aplikasi, t.Laporan_TA, t.Pernyataan_Publikasi, 
+            p.Tanggal_Pengumpulan, p.Status_Pengumpulan, p.Keterangan, p.Tanggal_Verifikasi FROM Administrasi AS a INNER JOIN Pengumpulan AS p ON a.ID_Pengumpulan = p.ID_Pengumpulan 
+            INNER JOIN TugasAKhir AS t ON t.ID_Pengumpulan = p.ID_Pengumpulan INNER JOIN Mahasiswa AS m ON p.NIM = m.NIM WHERE m.NIM = ?";
+    $params = array($NIM);
+    $stmt = sqlsrv_query($conn, $sql, $params);
+
+    if ($stmt === false) {
+        die(print_r(sqlsrv_errors(), true));
+    }
+
+    if ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+        $Laporan_Skripsi = $row['Laporan_Skripsi'];
+        $Laporan_Magang = $row['Laporan_Magang'];
+        $Bebas_Kompensasi = $row['Bebas_Kompensasi'];
+        $Scan_Toeic = $row['Scan_Toeic'];
+        $File_Aplikasi = $row['File_Aplikasi'];
+        $Laporan_TA = $row['Laporan_TA'];
+        $Pernyataan_Publikasi = $row['Pernyataan_Publikasi'];
+        $Tanggal_Upload = $row['Tanggal_Pengumpulan'];
+        $Status_Verifikasi = $row['Status_Pengumpulan'];
+        $Keterangan = $row['Keterangan'];
+        $Tanggal_Verifikasi = $row['Tanggal_Verifikasi'];
+    } else {
+        echo "No data found for the given ID.";
+    }    
 
 
 }

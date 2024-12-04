@@ -15,7 +15,9 @@ if ($_SESSION['Role_ID'] != 5) {
     exit();
 }
 
-include('../Koneksi.php');
+include('ProsesBerkas.php');
+GetAllBerkas();
+
 ?>
 
 <!DOCTYPE html>
@@ -164,7 +166,53 @@ include('../Koneksi.php');
     </div>
     <section class="section">
         <div class="row">
-        <form action="ProsesBerkas.php" method="POST">
+        <form>
+        <div class="col-12 col-md-12">
+        <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">Tabel Tugas Akhir</h5>
+                </div>
+                <div class="card-body">
+                        <div class="card-header">
+                            <h4 class="card-title">Detail Tugas Akhir</h4>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-body">
+                                <form class="form form-vertical">
+                                    <div class="form-body">
+                                        <div class="row">
+                                            <div class="col-md-6 col-12">
+                                                <div class="form-group">
+                                                    <label for="Tanggal_Pengumpulan">Tanggal Upload</label>
+                                                    <div class="text-bold-500"><?= isset($Tanggal_Upload) ? htmlspecialchars($Tanggal_Upload instanceof DateTime ? $Tanggal_Upload->format('d-m-Y') : $Tanggal_Upload) : '' ?></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-12">
+                                                <div class="form-group">
+                                                    <label for="Status_Pengumpulan">Status Verifikasi</label>
+                                                    <div class="text-bold-500"><?= isset($Status_Verifikasi) ? htmlspecialchars($Status_Verifikasi) : '' ?></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-12">
+                                                <div class="form-group">
+                                                    <label for="Tanggal_Verifikasi">Tanggal_Verifikasi</label>
+                                                    <div class="text-bold-500"><?= isset($Tanggal_Verifikasi) ? htmlspecialchars($Tanggal_Verifikasi instanceof DateTime ? $Tanggal_Verifikasi->format('d-m-Y') : $Tanggal_Verifikasi) : 'Belum Terverifikasi' ?></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-12">
+                                                <div class="form-group">
+                                                    <label for="Keterangan">Keterangan</label>
+                                                    <div class="text-bold-500"><?= isset($Keterangan) ? htmlspecialchars($Keterangan) : '' ?></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        </div>
         <div class="col-12 col-md-12">
                 <div class="card">
                     <div class="card-header">
@@ -175,10 +223,7 @@ include('../Koneksi.php');
                             <p class="card-text">Catatan: Upload dalam bentuk ZIP / RAR (Maksimal 100 MB)</p>
                             <!-- Basic file uploader -->
                             <div class="form-group position-relative has-icon-left">
-                                <input type="text" class="form-control is-invalid" name="Laporan_Skripsi" placeholder="Link Laporan Skripsi">
-                                <div class="form-control-icon">
-                                    <i class="bi bi-link-45deg"></i>
-                                </div>
+                            <div class="text-bold-500"> <a href="<?= htmlspecialchars($Laporan_Skripsi) ?>" target="_blank"><?= htmlspecialchars($Laporan_Skripsi) ?></a></div>
                             </div>
                         </div>
                     </div>
@@ -194,10 +239,7 @@ include('../Koneksi.php');
                             <p class="card-text">Catatan: Upload dalam bentuk ZIP / RAR (Maksimal 100 MB)</p>
                             <!-- Basic file uploader -->
                             <div class="form-group position-relative has-icon-left">
-                                <input type="text" class="form-control is-invalid" name="Laporan_Magang" placeholder="Link Laporan Magang">
-                                <div class="form-control-icon">
-                                    <i class="bi bi-link-45deg"></i>
-                                </div>
+                                <div class="text-bold-500"> <a href="<?= htmlspecialchars($Laporan_Magang) ?>" target="_blank"><?= htmlspecialchars($Laporan_Magang) ?></a></div>
                             </div>
                         </div>
                     </div>
@@ -213,10 +255,7 @@ include('../Koneksi.php');
                             <p class="card-text">Catatan: Upload dalam bentuk ZIP / RAR (Maksimal 100 MB)</p>
                             <!-- Basic file uploader -->
                             <div class="form-group position-relative has-icon-left">
-                                <input type="text" class="form-control is-invalid" name="Bebas_Kompensasi" placeholder="Link Bebas Kompen">
-                                <div class="form-control-icon">
-                                    <i class="bi bi-link-45deg"></i>
-                                </div>
+                                <div class="text-bold-500"> <a href="<?= htmlspecialchars($Bebas_Kompensasi) ?>" target="_blank"><?= htmlspecialchars($Bebas_Kompensasi) ?></a></div>
                             </div>
                         </div>
                     </div>
@@ -232,10 +271,7 @@ include('../Koneksi.php');
                             <p class="card-text">Catatan: Upload dalam bentuk ZIP / RAR (Maksimal 100 MB)</p>
                             <!-- Basic file uploader -->
                             <div class="form-group position-relative has-icon-left">
-                                <input type="text" class="form-control is-invalid" name="Scan_Toeic" placeholder="Link Scan Toeic">
-                                <div class="form-control-icon">
-                                    <i class="bi bi-link-45deg"></i>
-                                </div>
+                                <div class="text-bold-500"> <a href="<?= htmlspecialchars($Scan_Toeic) ?>" target="_blank"><?= htmlspecialchars($Scan_Toeic) ?></a></div>
                             </div>
                         </div>
                     </div>
@@ -262,10 +298,7 @@ include('../Koneksi.php');
                             </div>
                             <p class="card-text">Catatan: Upload dalam bentuk PDF dan sudah bertanda tangan (Maksimal 10 MB)</p>
                             <div class="form-group position-relative has-icon-left">
-                                <input type="text" class="form-control is-invalid" name="Laporan_TA" placeholder="Link Laporan Tugas Akhir">
-                                <div class="form-control-icon">
-                                    <i class="bi bi-link-45deg"></i>
-                                </div>
+                                <div class="text-bold-500"> <a href="<?= htmlspecialchars($Laporan_TA) ?>" target="_blank"><?= htmlspecialchars($Laporan_TA) ?></a></div>
                             </div>
                         </div>
                     </div>
@@ -281,10 +314,7 @@ include('../Koneksi.php');
                             <p class="card-text">Catatan: Upload dalam bentuk ZIP / RAR (Maksimal 100 MB)</p>
                             <!-- Basic file uploader -->
                             <div class="form-group position-relative has-icon-left">
-                                <input type="text" class="form-control is-invalid" name="File_Aplikasi" placeholder="Link File Aplikasi">
-                                <div class="form-control-icon">
-                                    <i class="bi bi-link-45deg"></i>
-                                </div>
+                                <div class="text-bold-500"> <a href="<?= htmlspecialchars($File_Aplikasi) ?>" target="_blank"><?= htmlspecialchars($File_Aplikasi) ?></a></div>
                             </div>
                         </div>
                     </div>
@@ -306,10 +336,7 @@ include('../Koneksi.php');
                             </p>
                             </p>
                             <div class="form-group position-relative has-icon-left">
-                                <input type="text" class="form-control is-invalid" name="Pernyataan_Publikasi" placeholder="Link Laporan Pernyataan Publikasi">
-                                <div class="form-control-icon">
-                                    <i class="bi bi-link-45deg"></i>
-                                </div>
+                                <div class="text-bold-500"> <a href="<?= htmlspecialchars($Pernyataan_Publikasi) ?>" target="_blank"><?= htmlspecialchars($Pernyataan_Publikasi) ?></a></div>
                             </div>
                         </div>
                     </div>
