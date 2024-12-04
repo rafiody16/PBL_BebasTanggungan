@@ -1,5 +1,6 @@
 <?php
 session_start();
+include('../Koneksi.php');
 
 // Cek apakah pengguna sudah login
 if (!isset($_SESSION['Username'])) {
@@ -15,7 +16,18 @@ if ($_SESSION['Role_ID'] != 5) {
     exit();
 }
 
-include('../Koneksi.php');
+$NIM = $_SESSION['NIM'];
+
+$sqlCheck = "SELECT COUNT(*) AS total FROM Pengumpulan WHERE NIM = ?";
+$paramsCheck = [$NIM];
+$stmtCheck = sqlsrv_query($conn, $sqlCheck, $paramsCheck);
+
+$rowCheck = sqlsrv_fetch_array($stmtCheck, SQLSRV_FETCH_ASSOC);
+if ($rowCheck['total'] > 0) {
+    echo "<script>window.location.href = 'DetailBerkas.php?NIM=".urlencode($NIM)."';</script>";
+}
+
+
 ?>
 
 <!DOCTYPE html>

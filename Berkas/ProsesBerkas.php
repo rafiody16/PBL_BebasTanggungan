@@ -43,7 +43,16 @@ if (isset($_POST['simpanBerkas'])) {
         exit;
     }
 
+    $sqlCheck = "SELECT COUNT(*) FROM Pengumpulan WHERE NIM = ?";
+    $paramsCheck = [$NIM];
+    $stmtCheck = sqlsrv_query($conn, $sqlCheck, $paramsCheck);
+
     $uploadDir = "../Uploads/";
+
+    $rowCheck = sqlsrv_fetch_array($stmtCheck, SQLSRV_FETCH_ASSOC);
+    if ($rowCheck['COUNT(*)'] > 0) {
+        echo "<script>window.location.href = 'DetailBerkas.php?NIM=".urlencode($NIM)."';</script>";
+    }
 
     function uploadFile($file, $uploadDir) {
         $fileName = basename($file['name']);
