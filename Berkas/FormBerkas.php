@@ -61,7 +61,7 @@ if ($rowCheck['total'] > 0) {
     <div class="sidebar-header position-relative">
         <div class="d-flex justify-content-between align-items-center">
             <div class="logo">
-                <a href="dashboardUser.html"><img src="../assets/img/logoBetati.png" alt="Logo" srcset=""></a>
+                <a href="../User/mahasiswa/dashboardUser.html"><img src="../assets/img/logoBetati.png" alt="Logo" srcset=""></a>
             </div>
             <div class="theme-toggle d-flex gap-2  align-items-center mt-2">
                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true"
@@ -102,7 +102,7 @@ if ($rowCheck['total'] > 0) {
             
             <li
                 class="sidebar-item  ">
-                <a href="dashboardUser.html" class='sidebar-link'>
+                <a href="../User/mahasiswa/dashboardUser.html" class='sidebar-link'>
                     <i class="bi bi-grid-fill"></i>
                     <span>Dashboard</span>
                 </a>
@@ -118,7 +118,7 @@ if ($rowCheck['total'] > 0) {
             </li>
 
             <li class="sidebar-item">
-                <a href="cek-status.html" class="sidebar-link">
+                <a href="../User/mahasiswa/cek-status.html" class="sidebar-link">
                   <i class="bi bi-journal-check"></i>
                   <span>Cek Status</span>
                 </a>
@@ -134,12 +134,12 @@ if ($rowCheck['total'] > 0) {
                 <ul class="submenu ">
                     
                     <li class="submenu-item  ">
-                        <a href="profil-mahasiswa.html" class="submenu-link">Profil Saya</a>
+                        <a href="../User/mahasiswa/profil-mahasiswa.html" class="submenu-link">Profil Saya</a>
                         
                     </li>
                     
                     <li class="submenu-item  ">
-                        <a href="ubahPasswordMhs.html" class="submenu-link">Ubah Password</a>
+                        <a href="../User/mahasiswa/ubahPasswordMhs.html" class="submenu-link">Ubah Password</a>
                         
                     </li>
                     
@@ -180,14 +180,14 @@ if ($rowCheck['total'] > 0) {
         <div class="col-12 col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h5 class="card-title">Laporan Skripsi</h5>
+                        <h5 class="card-title">Bukti Distribusi Buku Skripsi / Laporan Akhir</h5>
                     </div>
                     <div class="card-content">
                         <div class="card-body">
-                            <p class="card-text">Catatan: Upload dalam bentuk ZIP / RAR (Maksimal 100 MB)</p>
+                            <p class="card-text">Catatan : Upload dalam bentuk pdf (Maksimal 10 MB)</p>
                             <!-- Basic file uploader -->
                             <div class="form-group position-relative has-icon-left">
-                                <input type="file" class="with-validation-filepond-laporan" required 
+                                <input type="file" class="with-validation-filepond-admin1" required 
                                 data-max-file-size="10MB" name="Laporan_Skripsi" data-max-files="1">
                             </div>
                         </div>
@@ -197,13 +197,13 @@ if ($rowCheck['total'] > 0) {
             <div class="col-12 col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h5 class="card-title">Laporan Magang</h5>
+                        <h5 class="card-title">Bukti Distribusi Laporan PKL</h5>
                     </div>
                     <div class="card-content">
                         <div class="card-body">
-                            <p class="card-text">Catatan: Upload dalam bentuk ZIP / RAR (Maksimal 100 MB)</p>
+                            <p class="card-text">Catatan : Upload dalam bentuk pdf (Maksimal 10 MB)</p>
                             <div class="form-group position-relative has-icon-left">
-                                <input type="file" class="with-validation-filepond-laporan" required 
+                                <input type="file" class="with-validation-filepond-admin1" required 
                                 data-max-file-size="10MB" name="Laporan_Magang" data-max-files="1">
                             </div>
                         </div>
@@ -213,14 +213,14 @@ if ($rowCheck['total'] > 0) {
             <div class="col-12 col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h5 class="card-title">Bebas Kompen</h5>
+                        <h5 class="card-title">Bukti Bebas Kompen</h5>
                     </div>
                     <div class="card-content">
                         <div class="card-body">
-                            <p class="card-text">Catatan: Upload dalam bentuk ZIP / RAR (Maksimal 100 MB)</p>
+                            <p class="card-text">Catatan : Upload dalam bentuk pdf (Maksimal 1 MB)</p>
                             <!-- Basic file uploader -->
-                            <input type="file" class="with-validation-filepond-laporan" required 
-                            data-max-file-size="10MB" name="Bebas_Kompensasi" data-max-files="1">
+                            <input type="file" class="with-validation-filepond-admin2" required 
+                            data-max-file-size="1MB" name="Bebas_Kompensasi" data-max-files="1">
                         </div>
                     </div>
                 </div>
@@ -232,10 +232,10 @@ if ($rowCheck['total'] > 0) {
                     </div>
                     <div class="card-content">
                         <div class="card-body">
-                            <p class="card-text">Catatan: Upload dalam bentuk ZIP / RAR (Maksimal 100 MB)</p>
+                            <p class="card-text">Catatan : Upload dalam bentuk pdf (Maksimal 1 MB)</p>
                             <!-- Basic file uploader -->
-                            <input type="file" class="with-validation-filepond-laporan" required 
-                            data-max-file-size="10MB" name="Scan_Toeic" data-max-files="1">
+                            <input type="file" class="with-validation-filepond-admin2" required 
+                            data-max-file-size="1MB" name="Scan_Toeic" data-max-files="1">
                         </div>
                     </div>
                 </div>
@@ -275,8 +275,8 @@ if ($rowCheck['total'] > 0) {
                         <div class="card-body">
                             <p class="card-text">Catatan: Upload dalam bentuk ZIP / RAR (Maksimal 100 MB)</p>
                             <!-- Basic file uploader -->
-                            <input type="file" class="with-validation-filepond-laporan" required 
-                            data-max-file-size="10MB" name="File_Aplikasi" data-max-files="1">
+                            <input type="file" class="with-validation-filepond-program" required 
+                            data-max-file-size="100MB" name="File_Aplikasi" data-max-files="1">
                         </div>
                     </div>
                 </div>
@@ -284,7 +284,7 @@ if ($rowCheck['total'] > 0) {
             <div class="col-12 col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h5 class="card-title">Pernyataan Publikasi</h5>
+                        <h5 class="card-title">Bukti Publikasi</h5>
                     </div>
                     <div class="card-content">
                         <div class="card-body">
@@ -297,8 +297,8 @@ if ($rowCheck['total'] > 0) {
                             </p>
                             </p>
                             <div  class="form-group position-relative has-icon-left">
-                                <input type="file" class="with-validation-filepond-laporan" required 
-                                data-max-file-size="10MB" name="Pernyataan_Publikasi" data-max-files="1">
+                                <input type="file" class="with-validation-filepond-publikasi" required 
+                                data-max-file-size="1MB" name="Pernyataan_Publikasi" data-max-files="1">
                             </div>
                         </div>
                     </div>
