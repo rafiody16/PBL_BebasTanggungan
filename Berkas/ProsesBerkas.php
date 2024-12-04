@@ -206,7 +206,9 @@ function TolakAdministrasi() {
 
 function GetByIdAdministrasi() {
     global $conn;
-    global $ID_Administrasi, $nim, $nama, $prodi, $laporanSkripsi, $laporanMagang, $bebasKompensasi, $scanToeic, $statusVerifikasi, $tanggalVerifikasi, $tanggalUpload, $keterangan, $verifikator;
+    global $ID_Administrasi, $nim, $nama, $prodi, $laporanSkripsi, $laporanMagang, $bebasKompensasi, $scanToeic, 
+           $statusVerifikasi, $tanggalVerifikasi, $tanggalUpload, $keterangan, $verifikator, $laporanSkripsiurl,
+           $laporanMagangurl, $bebasKompensasiurl, $scanToeicurl;
     $ID_Administrasi = $_GET['ID_Administrasi'] ?? null;
 
     $sql = "SELECT a.ID_Administrasi, m.NIM, m.Nama, m.Prodi, a.Laporan_Skripsi, a.Laporan_Magang, a.Bebas_Kompensasi, a.Scan_Toeic, 
@@ -225,9 +227,13 @@ function GetByIdAdministrasi() {
         $nama = $row['Nama'];
         $prodi = $row['Prodi'];
         $laporanSkripsi = $row['Laporan_Skripsi'];
+        $laporanSkripsiurl = '../Uploads/' . basename($laporanSkripsi);
         $laporanMagang = $row['Laporan_Magang'];
+        $laporanMagangurl = '../Uploads/' . basename($laporanMagang);
         $bebasKompensasi = $row['Bebas_Kompensasi'];
+        $bebasKompensasiurl = '../Uploads/' . basename($bebasKompensasi);
         $scanToeic = $row['Scan_Toeic'];
+        $scanToeicurl = '../Uploads' . basename($scanToeic);
         $statusVerifikasi = $row['Status_Verifikasi'];
         $tanggalVerifikasi = $row['Tanggal_Verifikasi'];
         $tanggalUpload = $row['Tanggal_Upload'];

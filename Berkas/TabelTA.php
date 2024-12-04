@@ -134,7 +134,7 @@ echo "Selamat Datang " . $_SESSION['Nama'];
     <div class="page-title">
         <div class="row">
             <div class="col-12 col-md-9 order-md-1 order-last">
-                <h3>Verifikasi Administrasi Mahasiswa</h3>
+                <h3>Verifikasi Tugas Akhir Mahasiswa</h3>
                 <p class="text-subtitle text-muted">-</p>
             </div>
             <div class="col-12 col-md-3 order-md-2 order-first">

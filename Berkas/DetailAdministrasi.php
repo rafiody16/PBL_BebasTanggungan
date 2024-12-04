@@ -199,26 +199,26 @@ GetByIdAdministrasi();
                                     <div class="row">
                                         <div class="col-12">
                                             <div class="form-group">
-                                                <label for="Laporan_Skripsi">Link Laporan Skripsi</label>
-                                                <div class="text-bold-500"> <a href="<?= htmlspecialchars($laporanSkripsi) ?>" target="_blank"><?= htmlspecialchars($laporanSkripsi) ?></a></div>
+                                                <label for="Laporan_Skripsi">Laporan Skripsi</label>
+                                                <div class="text-bold-500"> <a href="<?= htmlspecialchars($laporanSkripsiurl) ?>" target="_blank"><?= htmlspecialchars($laporanSkripsi) ?></a></div>
                                             </div>
                                         </div>
                                         <div class="col-12">
                                             <div class="form-group">
-                                                <label for="Laporan_Magang">Link Laporan Magang</label>
-                                                <div class="text-bold-500"><a href="<?= htmlspecialchars($laporanMagang) ?>"><?= isset($laporanMagang) ? htmlspecialchars($laporanMagang) : '' ?></a></div>
+                                                <label for="Laporan_Magang">Laporan Magang</label>
+                                                <div class="text-bold-500"><a href="<?= htmlspecialchars($laporanMagangurl) ?>"><?= isset($laporanMagang) ? htmlspecialchars($laporanMagang) : '' ?></a></div>
                                             </div>
                                         </div>
                                         <div class="col-12">
                                             <div class="form-group">
-                                                <label for="Bebas_Kompensasi">Link Bebas Kompen</label>
-                                                <div class="text-bold-500"><a href="<?= htmlspecialchars($bebasKompensasi) ?>"><?= isset($bebasKompensasi) ? htmlspecialchars($bebasKompensasi) : '' ?></a></div>
+                                                <label for="Bebas_Kompensasi">Bebas Kompen</label>
+                                                <div class="text-bold-500"><a href="<?= htmlspecialchars($bebasKompensasiurl) ?>"><?= isset($bebasKompensasi) ? htmlspecialchars($bebasKompensasi) : '' ?></a></div>
                                             </div>
                                         </div>
                                         <div class="col-12">
                                             <div class="form-group">
-                                                <label for="Laporan_Skripsi">Link Scan Toeic</label>
-                                                <div class="text-bold-500"><a href="<?= htmlspecialchars($scanToeic) ?>"><?= isset($scanToeic) ? htmlspecialchars($scanToeic) : '' ?></a></div>
+                                                <label for="Laporan_Skripsi">Scan Toeic</label>
+                                                <div class="text-bold-500"><a href="<?= htmlspecialchars($scanToeicurl) ?>"><?= isset($scanToeic) ? htmlspecialchars($scanToeic) : '' ?></a></div>
                                             </div>
                                         </div>
                                         <div class="col-12">
