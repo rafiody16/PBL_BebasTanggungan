@@ -175,10 +175,8 @@ include('../Koneksi.php');
                             <p class="card-text">Catatan: Upload dalam bentuk ZIP / RAR (Maksimal 100 MB)</p>
                             <!-- Basic file uploader -->
                             <div class="form-group position-relative has-icon-left">
-                                <input type="text" class="form-control is-invalid" name="Laporan_Skripsi" placeholder="Link Laporan Skripsi">
-                                <div class="form-control-icon">
-                                    <i class="bi bi-link-45deg"></i>
-                                </div>
+                                <input type="file" class="with-validation-filepond-laporan" required 
+                                data-max-file-size="10MB" name="Laporan_Skripsi" data-max-files="1">
                             </div>
                         </div>
                     </div>
@@ -194,10 +192,8 @@ include('../Koneksi.php');
                             <p class="card-text">Catatan: Upload dalam bentuk ZIP / RAR (Maksimal 100 MB)</p>
                             <!-- Basic file uploader -->
                             <div class="form-group position-relative has-icon-left">
-                                <input type="text" class="form-control is-invalid" name="Laporan_Magang" placeholder="Link Laporan Magang">
-                                <div class="form-control-icon">
-                                    <i class="bi bi-link-45deg"></i>
-                                </div>
+                                <input type="file" class="with-validation-filepond-laporan" required 
+                                data-max-file-size="10MB" name="Laporan_Magang" data-max-files="1">
                             </div>
                         </div>
                     </div>
@@ -212,12 +208,8 @@ include('../Koneksi.php');
                         <div class="card-body">
                             <p class="card-text">Catatan: Upload dalam bentuk ZIP / RAR (Maksimal 100 MB)</p>
                             <!-- Basic file uploader -->
-                            <div class="form-group position-relative has-icon-left">
-                                <input type="text" class="form-control is-invalid" name="Bebas_Kompensasi" placeholder="Link Bebas Kompen">
-                                <div class="form-control-icon">
-                                    <i class="bi bi-link-45deg"></i>
-                                </div>
-                            </div>
+                            <input type="file" class="with-validation-filepond-laporan" required 
+                            data-max-file-size="10MB" name="Bebas_Kompensasi" data-max-files="1">
                         </div>
                     </div>
                 </div>
@@ -231,12 +223,8 @@ include('../Koneksi.php');
                         <div class="card-body">
                             <p class="card-text">Catatan: Upload dalam bentuk ZIP / RAR (Maksimal 100 MB)</p>
                             <!-- Basic file uploader -->
-                            <div class="form-group position-relative has-icon-left">
-                                <input type="text" class="form-control is-invalid" name="Scan_Toeic" placeholder="Link Scan Toeic">
-                                <div class="form-control-icon">
-                                    <i class="bi bi-link-45deg"></i>
-                                </div>
-                            </div>
+                            <input type="file" class="with-validation-filepond-laporan" required 
+                            data-max-file-size="10MB" name="Scan_Toeic" data-max-files="1">
                         </div>
                     </div>
                 </div>
@@ -261,12 +249,8 @@ include('../Koneksi.php');
                                 </ul>
                             </div>
                             <p class="card-text">Catatan: Upload dalam bentuk PDF dan sudah bertanda tangan (Maksimal 10 MB)</p>
-                            <div class="form-group position-relative has-icon-left">
-                                <input type="text" class="form-control is-invalid" name="Laporan_TA" placeholder="Link Laporan Tugas Akhir">
-                                <div class="form-control-icon">
-                                    <i class="bi bi-link-45deg"></i>
-                                </div>
-                            </div>
+                            <input type="file" class="with-validation-filepond-laporan" required 
+                            data-max-file-size="10MB" name="Laporan_TA" data-max-files="1">
                         </div>
                     </div>
                 </div>  
@@ -280,12 +264,8 @@ include('../Koneksi.php');
                         <div class="card-body">
                             <p class="card-text">Catatan: Upload dalam bentuk ZIP / RAR (Maksimal 100 MB)</p>
                             <!-- Basic file uploader -->
-                            <div class="form-group position-relative has-icon-left">
-                                <input type="text" class="form-control is-invalid" name="File_Aplikasi" placeholder="Link File Aplikasi">
-                                <div class="form-control-icon">
-                                    <i class="bi bi-link-45deg"></i>
-                                </div>
-                            </div>
+                            <input type="file" class="with-validation-filepond-laporan" required 
+                            data-max-file-size="10MB" name="File_Aplikasi" data-max-files="1">
                         </div>
                     </div>
                 </div>
@@ -306,10 +286,8 @@ include('../Koneksi.php');
                             </p>
                             </p>
                             <div class="form-group position-relative has-icon-left">
-                                <input type="text" class="form-control is-invalid" name="Pernyataan_Publikasi" placeholder="Link Laporan Pernyataan Publikasi">
-                                <div class="form-control-icon">
-                                    <i class="bi bi-link-45deg"></i>
-                                </div>
+                                <input type="file" class="with-validation-filepond-laporan" required 
+                                data-max-file-size="10MB" name="Pernyataan_Publikasi" data-max-files="1">
                             </div>
                         </div>
                     </div>

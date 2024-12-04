@@ -140,6 +140,9 @@ ADD Tanggal_Verifikasi DATE;
 ALTER TABLE Mahasiswa
 DROP COLUMN Email;
 
+ALTER TABLE Mahasiswa
+ADD Tahun_Angkatan INT;
+
 SELECT * FROM Mahasiswa;
 
 SELECT * FROM Staff;
