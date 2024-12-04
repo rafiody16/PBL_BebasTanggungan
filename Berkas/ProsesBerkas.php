@@ -17,6 +17,15 @@ switch ($action) {
     case 'detailAdministrasi':
         GetByIdAdministrasi();
         break;
+    case 'detailTA':
+        GetByIdAdministrasi();
+        break;
+    case 'verifikasiTA':
+        VerifikasiTA();
+        break;
+    case 'tolakTA':
+        TolakTA();
+        break;
     default:
         # code...
         break;
@@ -94,11 +103,57 @@ function VerifikasiAdministrasi() {
     if ($existingAdministrasi) {
         $updateAdministrasiSql = "UPDATE Administrasi SET Status_Verifikasi = ?, Tanggal_Verifikasi = ?, Keterangan = ?, Verifikator = ?
                                   WHERE ID_Administrasi = ?";
-        $paramsAdministrasiUpdate = ['Terverifikasi', $tgl_verifikasi, '', $verifikator,  $ID_Administrasi];
+        $paramsAdministrasiUpdate = ['Terverifikasi', $tgl_verifikasi, '-', $verifikator,  $ID_Administrasi];
         $stmtAdministrasiUpdate = sqlsrv_query($conn, $updateAdministrasiSql, $paramsAdministrasiUpdate);
 
         if (!$stmtAdministrasiUpdate) {
             throw new Exception('Gagal memperbarui data Administrasi: ' . print_r(sqlsrv_errors(), true));
+        }
+    }
+}
+
+function VerifikasiTA() {
+    global $conn;
+
+    $ID_Aplikasi = $_POST['ID_Aplikasi'];
+    $tgl_verifikasi = date("Y-m-d");
+    $verifikator = $_SESSION['Nama'];
+
+    $checkTASql = "SELECT ID_Aplikasi FROM TugasAkhir WHERE ID_Aplikasi = ?";
+    $checkTAStmt = sqlsrv_query($conn, $checkTASql, [$ID_Aplikasi]);
+    $existingTA = sqlsrv_fetch_array($checkTAStmt, SQLSRV_FETCH_ASSOC);
+
+    if ($existingTA) {
+        $updateTASql = "UPDATE TugasAkhir SET Status_Verifikasi = ?, Tanggal_Verifikasi = ?, Keterangan = ?, Verifikator = ?
+                                  WHERE ID_Aplikasi = ?";
+        $paramsTAUpdate = ['Terverifikasi', $tgl_verifikasi, '-', $verifikator,  $ID_Aplikasi];
+        $stmtTAUpdate = sqlsrv_query($conn, $updateTASql, $paramsTAUpdate);
+
+        if (!$stmtTAUpdate) {
+            throw new Exception('Gagal memperbarui data TA: ' . print_r(sqlsrv_errors(), true));
+        }
+    }
+}
+
+function TolakTA() {
+    global $conn;
+
+    $ID_Aplikasi = $_POST['ID_Aplikasi'];
+    $Keterangan = $_POST['Keterangan'];
+    $verifikator = $_SESSION['Nama'];
+
+    $checkTASql = "SELECT ID_Aplikasi FROM TugasAkhir WHERE ID_Aplikasi = ?";
+    $checkTAStmt = sqlsrv_query($conn, $checkTASql, [$ID_Aplikasi]);
+    $existingTA = sqlsrv_fetch_array($checkTAStmt, SQLSRV_FETCH_ASSOC);
+
+    if ($existingTA) {
+        $updateTASql = "UPDATE TugasAkhir SET Status_Verifikasi = ?, Tanggal_Verifikasi = ?, Keterangan = ?, Verifikator = ?
+                        WHERE ID_Aplikasi = ?";
+        $paramsTAUpdate = ['Ditolak', NULL, $Keterangan, $verifikator, $ID_Aplikasi];
+        $stmtTAUpdate = sqlsrv_query($conn, $updateTASql, $paramsTAUpdate);
+
+        if (!$stmtTAUpdate) {
+            throw new Exception('Gagal memperbarui data TA: ' . print_r(sqlsrv_errors(), true));
         }
     }
 }
@@ -163,13 +218,13 @@ function GetByIdAdministrasi() {
 
 function GetByIdTA() {
     global $conn;
-    global $ID_Aplikasi, $nim, $nama, $prodi, $fileaplikasi, $laporanta, $pertanyaanpublikasi, $scanToeic, $statusVerifikasi, $tanggalVerifikasi, $tanggalUpload, $keterangan, $verifikator;
+    global $ID_Aplikasi, $nim, $nama, $prodi, $fileaplikasi, $laporanta, $pernyataanpublikasi, $statusVerifikasi, $tanggalVerifikasi, $tanggalUpload, $keterangan, $verifikator;
     $ID_Aplikasi = $_GET['ID_Aplikasi'] ?? null;
 
-    $sql = "SELECT a.ID_Administrasi, m.NIM, m.Nama, m.Prodi, a.Laporan_Skripsi, a.Laporan_Magang, a.Bebas_Kompensasi, a.Scan_Toeic, 
-            a.Status_Verifikasi, a.Tanggal_Verifikasi, a.Tanggal_Upload, a.Keterangan, a.Verifikator FROM Administrasi AS a 
-            INNER JOIN Pengumpulan AS p ON a.ID_Pengumpulan = p.ID_Pengumpulan INNER JOIN Mahasiswa AS m ON p.NIM = m.NIM WHERE a.ID_Administrasi = ?";
-    $params = array($ID_Administrasi);
+    $sql = "SELECT a.ID_Aplikasi, m.NIM, m.Nama, m.Prodi, a.File_Aplikasi, a.Laporan_TA, a.Pernyataan_Publikasi, 
+            a.Status_Verifikasi, a.Tanggal_Verifikasi, a.Tanggal_Upload, a.Keterangan, a.Verifikator FROM TugasAkhir AS a 
+            INNER JOIN Pengumpulan AS p ON a.ID_Pengumpulan = p.ID_Pengumpulan INNER JOIN Mahasiswa AS m ON p.NIM = m.NIM WHERE a.ID_Aplikasi = ?";
+    $params = array($ID_Aplikasi);
     $stmt = sqlsrv_query($conn, $sql, $params);
 
     if ($stmt === false) {
@@ -181,10 +236,9 @@ function GetByIdTA() {
         $nim = $row['NIM'];
         $nama = $row['Nama'];
         $prodi = $row['Prodi'];
-        $laporanSkripsi = $row['Laporan_Skripsi'];
-        $laporanMagang = $row['Laporan_Magang'];
-        $bebasKompensasi = $row['Bebas_Kompensasi'];
-        $scanToeic = $row['Scan_Toeic'];
+        $fileaplikasi = $row['File_Aplikasi'];
+        $laporanta = $row['Laporan_TA'];
+        $pernyataanpublikasi = $row['Pernyataan_Publikasi'];
         $statusVerifikasi = $row['Status_Verifikasi'];
         $tanggalVerifikasi = $row['Tanggal_Verifikasi'];
         $tanggalUpload = $row['Tanggal_Upload'];

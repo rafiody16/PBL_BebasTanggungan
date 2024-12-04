@@ -258,23 +258,23 @@ echo "Selamat Datang " . $_SESSION['Nama'];
     <script>
         $(document).ready(function() {
             $(".btn-detail").click(function() {
-                var ID_Administrasi = $(this).data("id");
+                var ID_Aplikasi = $(this).data("id");
                 $.ajax({
-                url: "DetailAdministrasi.php",
+                url: "DetailTA.php",
                 type: "GET",
-                data: { ID_Administrasi: ID_Administrasi, action: "detailAdministrasi" },
+                data: { ID_Aplikasi: ID_Aplikasi, action: "detailTA" },
                     success: function(response) {
-                        location.href = "DetailAdministrasi.php?ID_Administrasi=" + ID_Administrasi;
+                        location.href = "DetailTA.php?ID_Aplikasi=" + ID_Aplikasi;
                     }
                 });
             });
 
             $(".btn-verifikasi").click(function() {
-                var ID_Administrasi = $(this).data("id");
+                var ID_Aplikasi = $(this).data("id");
                     $.ajax({
                     url: "ProsesBerkas.php",
                     type: "POST",
-                    data: { ID_Administrasi: ID_Administrasi, action: "verifikasiAdministrasi" },
+                    data: { ID_Aplikasi: ID_Aplikasi, action: "verifikasiTA" },
                     success: function(response) {
                         location.reload();
                     }
@@ -282,7 +282,7 @@ echo "Selamat Datang " . $_SESSION['Nama'];
             });
 
             $('.btn-tolak').on('click', function () {
-                var ID_Administrasi = $(this).data('id');
+                var ID_Aplikasi = $(this).data('id');
                 var Keterangan = $("input[name='Keterangan']").val();
                 if (!Keterangan) {
                     alert('Keterangan harus diisi!');
@@ -292,8 +292,8 @@ echo "Selamat Datang " . $_SESSION['Nama'];
                     url: 'ProsesBerkas.php',
                     type: 'POST',
                     data: {
-                        action: 'tolakAdministrasi',
-                        ID_Administrasi: ID_Administrasi,
+                        action: 'tolakTA',
+                        ID_Aplikasi: ID_Aplikasi,
                         Keterangan: Keterangan
                     },
                     success: function (response) {
