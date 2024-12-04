@@ -37,20 +37,40 @@ switch ($action) {
 if (isset($_POST['simpanBerkas'])) {
     $NIM = $_SESSION['NIM'] ?? null;
     $Tanggal_Pengumpulan = date("Y-m-d");
-    $Laporan_Skripsi = $_POST['Laporan_Skripsi'] ?? '';
-    $Laporan_Magang = $_POST['Laporan_Magang'] ?? '';
-    $Bebas_Kompensasi = $_POST['Bebas_Kompensasi'] ?? '';
-    $Scan_Toeic = $_POST['Scan_Toeic'] ?? '';
-    $File_Aplikasi = $_POST['File_Aplikasi'] ?? '';
-    $Laporan_TA = $_POST['Laporan_TA'] ?? '';
-    $Pernyataan_Publikasi = $_POST['Pernyataan_Publikasi'] ?? '';
 
     if (!$NIM) {
         echo "Session tidak valid atau NIM kosong.";
         exit;
     }
 
-    sqlsrv_begin_transaction($conn);
+    $uploadDir = "../Uploads/";
+
+    function uploadFile($file, $uploadDir) {
+        $fileName = basename($file['name']);
+        $targetFilePath = $uploadDir . $fileName;
+
+        if (move_uploaded_file($file['tmp_name'], $targetFilePath)) {
+            return $fileName; 
+        } else {
+            return false; 
+        }
+    }
+
+    $Laporan_Skripsi = uploadFile($_FILES['Laporan_Skripsi'], $uploadDir);
+    $Laporan_Magang = uploadFile($_FILES['Laporan_Magang'], $uploadDir);
+    $Bebas_Kompensasi = uploadFile($_FILES['Bebas_Kompensasi'], $uploadDir);
+    $Scan_Toeic = uploadFile($_FILES['Scan_Toeic'], $uploadDir);
+    $File_Aplikasi = uploadFile($_FILES['File_Aplikasi'], $uploadDir);
+    $Laporan_TA = uploadFile($_FILES['Laporan_TA'], $uploadDir);
+    $Pernyataan_Publikasi = uploadFile($_FILES['Pernyataan_Publikasi'], $uploadDir);
+
+    if (
+        !$Laporan_Skripsi || !$Laporan_Magang || !$Bebas_Kompensasi ||
+        !$Scan_Toeic || !$File_Aplikasi || !$Laporan_TA || !$Pernyataan_Publikasi
+    ) {
+        echo "Gagal mengunggah salah satu file. Pastikan ukuran file tidak melebihi batas.";
+        exit;
+    }
 
     try {
         $sqlPengumpulan = "INSERT INTO Pengumpulan (NIM, Tanggal_Pengumpulan, Status_Pengumpulan, Keterangan) 
@@ -221,7 +241,8 @@ function GetByIdAdministrasi() {
 
 function GetByIdTA() {
     global $conn;
-    global $ID_Aplikasi, $nim, $nama, $prodi, $fileaplikasi, $laporanta, $pernyataanpublikasi, $statusVerifikasi, $tanggalVerifikasi, $tanggalUpload, $keterangan, $verifikator;
+    global $ID_Aplikasi, $nim, $nama, $prodi, $fileaplikasi, $laporanta, $pernyataanpublikasi, $statusVerifikasi, 
+           $tanggalVerifikasi, $tanggalUpload, $keterangan, $verifikator, $fileaplikasiurl, $laporantaurl, $pernyataanpublikasiurl;
     $ID_Aplikasi = $_GET['ID_Aplikasi'] ?? null;
 
     $sql = "SELECT a.ID_Aplikasi, m.NIM, m.Nama, m.Prodi, a.File_Aplikasi, a.Laporan_TA, a.Pernyataan_Publikasi, 
@@ -240,8 +261,11 @@ function GetByIdTA() {
         $nama = $row['Nama'];
         $prodi = $row['Prodi'];
         $fileaplikasi = $row['File_Aplikasi'];
+        $fileaplikasiurl = '../Uploads/' . basename($fileaplikasi);
         $laporanta = $row['Laporan_TA'];
+        $laporantaurl = '../Uploads/' . basename($laporanta);
         $pernyataanpublikasi = $row['Pernyataan_Publikasi'];
+        $pernyataanpublikasiurl = '../Uploads/' . basename($pernyataanpublikasi);
         $statusVerifikasi = $row['Status_Verifikasi'];
         $tanggalVerifikasi = $row['Tanggal_Verifikasi'];
         $tanggalUpload = $row['Tanggal_Upload'];

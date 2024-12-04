@@ -164,7 +164,7 @@ include('../Koneksi.php');
     </div>
     <section class="section">
         <div class="row">
-        <form action="ProsesBerkas.php" method="POST">
+        <form action="ProsesBerkas.php" method="POST" enctype="multipart/form-data">
         <div class="col-12 col-md-12">
                 <div class="card">
                     <div class="card-header">
@@ -190,7 +190,6 @@ include('../Koneksi.php');
                     <div class="card-content">
                         <div class="card-body">
                             <p class="card-text">Catatan: Upload dalam bentuk ZIP / RAR (Maksimal 100 MB)</p>
-                            <!-- Basic file uploader -->
                             <div class="form-group position-relative has-icon-left">
                                 <input type="file" class="with-validation-filepond-laporan" required 
                                 data-max-file-size="10MB" name="Laporan_Magang" data-max-files="1">
@@ -285,7 +284,7 @@ include('../Koneksi.php');
                                 </a>
                             </p>
                             </p>
-                            <div class="form-group position-relative has-icon-left">
+                            <div  class="form-group position-relative has-icon-left">
                                 <input type="file" class="with-validation-filepond-laporan" required 
                                 data-max-file-size="10MB" name="Pernyataan_Publikasi" data-max-files="1">
                             </div>
@@ -321,6 +320,26 @@ include('../Koneksi.php');
     
     
     <script src="../assets/compiled/js/app.js"></script>
+    <script>
+        document.querySelector('.with-validation-filepond-laporan').addEventListener('change', function(event) {
+            const fileInput = event.target;
+            const file = fileInput.files[0];
+            const linkElement = document.getElementById('uploaded-file-link');
+
+            if (file) {
+                const fileURL = URL.createObjectURL(file);
+
+                linkElement.href = fileURL;
+                linkElement.textContent = file.name;
+
+                fileInput.addEventListener('change', () => URL.revokeObjectURL(fileURL));
+            } else {
+           
+                linkElement.href = "#";
+                linkElement.textContent = "Tidak ada file";
+            }
+        });
+    </script>
     
 
     

@@ -199,20 +199,20 @@ GetByIdTA();
                                     <div class="row">
                                         <div class="col-12">
                                             <div class="form-group">
-                                                <label for="Laporan_Skripsi">Link File Aplikasi</label>
-                                                <div class="text-bold-500"> <a href="<?= htmlspecialchars($fileaplikasi) ?>" target="_blank"><?= htmlspecialchars($fileaplikasi) ?></a></div>
+                                                <label for="Laporan_Skripsi">File Aplikasi</label>
+                                                <div class="text-bold-500"> <a href="<?= htmlspecialchars($fileaplikasiurl) ?>" target="_blank"><?= htmlspecialchars($fileaplikasi) ?></a></div>
                                             </div>
                                         </div>
                                         <div class="col-12">
                                             <div class="form-group">
-                                                <label for="Laporan_Magang">Link Laporan Tugas Akhir</label>
-                                                <div class="text-bold-500"><a href="<?= htmlspecialchars($laporanta) ?>"><?= isset($laporanta) ? htmlspecialchars($laporanta) : '' ?></a></div>
+                                                <label for="Laporan_Magang">Laporan Tugas Akhir</label>
+                                                <div class="text-bold-500"><a href="<?= htmlspecialchars($laporantaurl) ?>"><?= isset($laporanta) ? htmlspecialchars($laporanta) : '' ?></a></div>
                                             </div>
                                         </div>
                                         <div class="col-12">
                                             <div class="form-group">
                                                 <label for="Bebas_Kompensasi">Link Pernyataan Publikasi</label>
-                                                <div class="text-bold-500"><a href="<?= htmlspecialchars($pernyataanpublikasi) ?>"><?= isset($pernyataanpublikasi) ? htmlspecialchars($pernyataanpublikasi) : '' ?></a></div>
+                                                <div class="text-bold-500"><a href="<?= htmlspecialchars($pernyataanpublikasiurl) ?>"><?= isset($pernyataanpublikasi) ? htmlspecialchars($pernyataanpublikasi) : '' ?></a></div>
                                             </div>
                                         </div>
                                         <div class="col-12">
