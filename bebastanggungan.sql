@@ -119,5 +119,28 @@ SELECT * FROM Role;
 ALTER TABLE Staff
 DROP COLUMN Jabatan;
 
+ALTER TABLE Mahasiswa
+ADD Prodi VARCHAR(50);
+
+SELECT * FROM Administrasi;
+
+ALTER TABLE Administrasi
+ADD Verifikator VARCHAR(50);
+
+ALTER TABLE TugasAkhir
+ADD Verifikator VARCHAR(50);
+
+ALTER TABLE TugasAkhir
+ADD Verifikator VARCHAR(50);
+
+ALTER TABLE Pengumpulan
+ADD Tanggal_Verifikasi DATE;
 
 
+ALTER TABLE Mahasiswa
+DROP COLUMN Email;
+
+SELECT * FROM Mahasiswa;
+
+SELECT * FROM Staff;
+SELECT * FROM [User];

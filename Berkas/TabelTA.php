@@ -1,9 +1,8 @@
 <?php
 session_start();
 
-include('ProsesBerkas.php');
 
-GetByIdAdministrasi();
+echo "Selamat Datang " . $_SESSION['Nama'];
 
 ?>
 
@@ -152,115 +151,90 @@ GetByIdAdministrasi();
         <div class="row">
             <div class="card">
                 <div class="card-header">
-                    <h5 class="card-title">Tabel Administrasi</h5>
+                    <h5 class="card-title">Tabel Tugas Akhir</h5>
                 </div>
                 <div class="card-body">
-                        <div class="card-header">
-                            <h4 class="card-title">Detail Administrasi</h4>
-                        </div>
-                        <div class="card-content">
-                            <div class="card-body">
-                                <form class="form form-vertical">
-                                    <div class="form-body">
-                                        <div class="row">
-                                            <div class="col-md-6 col-12">
-                                                <div class="form-group">
-                                                    <label for="NIM">NIM</label>
-                                                    <div class="text-bold-500"><?= isset($nim) ? htmlspecialchars($nim) : '' ?></div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6 col-12">
-                                                <div class="form-group">
-                                                    <label for="Nama">Nama</label>
-                                                    <div class="text-bold-500"><?= isset($nama) ? htmlspecialchars($nama) : '' ?></div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6 col-12">
-                                                <div class="form-group">
-                                                    <label for="Prodi">Prodi</label>
-                                                    <div class="text-bold-500"><?= isset($prodi) ? htmlspecialchars($prodi) : '' ?></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-            </div>
-            <div class="col-12 col-md-12">
-                <div class="card">
-                    <div class="card-header">
-                    </div>
-                    <div class="card-content">
-                        <div class="card-body">
-                            <form class="form form-vertical">
-                                <div class="form-body">
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <div class="form-group">
-                                                <label for="Laporan_Skripsi">Link Laporan Skripsi</label>
-                                                <div class="text-bold-500"> <a href="<?= htmlspecialchars($laporanSkripsi) ?>" target="_blank"><?= htmlspecialchars($laporanSkripsi) ?></a></div>
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
-                                            <div class="form-group">
-                                                <label for="Laporan_Magang">Link Laporan Magang</label>
-                                                <div class="text-bold-500"><a href="<?= htmlspecialchars($laporanMagang) ?>"><?= isset($laporanMagang) ? htmlspecialchars($laporanMagang) : '' ?></a></div>
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
-                                            <div class="form-group">
-                                                <label for="Bebas_Kompensasi">Link Bebas Kompen</label>
-                                                <div class="text-bold-500"><a href="<?= htmlspecialchars($bebasKompensasi) ?>"><?= isset($bebasKompensasi) ? htmlspecialchars($bebasKompensasi) : '' ?></a></div>
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
-                                            <div class="form-group">
-                                                <label for="Laporan_Skripsi">Link Scan Toeic</label>
-                                                <div class="text-bold-500"><a href="<?= htmlspecialchars($scanToeic) ?>"><?= isset($scanToeic) ? htmlspecialchars($scanToeic) : '' ?></a></div>
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
-                                            <div class="form-group">
-                                                <label for="Tanggal_Upload">Tanggal Upload</label>
-                                                <div class="text-bold-500"><?= isset($tanggalUpload) ? htmlspecialchars($tanggalUpload instanceof DateTime ? $tanggalUpload->format('d-m-Y') : $tanggalUpload) : '' ?></div>
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
-                                            <div class="form-group">
-                                                <label for="Status_Verifikasi">Status Verifikasi</label>
-                                                <div class="text-bold-500"><?= isset($statusVerifikasi) ? htmlspecialchars($statusVerifikasi) : '' ?></div>
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
-                                            <div class="form-group">
-                                                <label for="Tanggal_Verifikasi">Tanggal Verifikasi</label>
-                                                <div class="text-bold-500"><?= isset($tanggalVerifikasi) ? htmlspecialchars($tanggalVerifikasi instanceof DateTime ? $tanggalVerifikasi->format('d-m-Y') : $tanggalVerifikasi) : '-' ?></div>
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
-                                            <div class="form-group">
-                                                <label for="Keterangan">Keterangan</label>
-                                                <div class="text-bold-500"><?= isset($keterangan) ? htmlspecialchars($keterangan) : '' ?></div>
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
-                                            <div class="form-group">
-                                                <label for="Verifikator">Verifikator</label>
-                                                <div class="text-bold-500"><?= isset($verifikator) ? htmlspecialchars($verifikator) : 'Belum Diverifikasi' ?></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
+                    <div class="table-responsive">
+                            <table class="table table-lg">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>NIM</th>
+                                        <th>Nama</th>
+                                        <th>Status</th>
+                                        <th>Keterangan</th>
+                                        <th>Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                <?php 
+                                    include('ProsesBerkas.php');
+                                    $no = 1;
+                                    while ($row = sqlsrv_fetch_array($stmt2, SQLSRV_FETCH_ASSOC)) {
+                                        if ($row) {
+                                            $ID_Aplikasi = $row['ID_Aplikasi'];
+                                            $nim = $row['NIM'];
+                                            echo "<tr>";
+                                                echo "<td style='display:none;'>" . htmlspecialchars($ID_Aplikasi) . "</td>";
+                                                echo "<td>" . htmlspecialchars($no++) . "</td>";
+                                                echo "<td>" . htmlspecialchars($nim) . "</td>";
+                                                echo "<td>" . htmlspecialchars($row['Nama']) . "</td>";
+                                                echo "<td>" . htmlspecialchars($row['Status_Verifikasi']) . "</td>";
+                                                echo "<td>" . htmlspecialchars($row['Keterangan']) . "</td>";
+                                                ?>
+                                                <td>
+                                                    <button data-id="<?= $ID_Aplikasi ?>" class="btn btn-primary btn-detail">Detail</button>
+                                                    <button data-id="<?= $ID_Aplikasi ?>" class="btn btn-success btn-verifikasi">Verifikasi</button>
+                                                    <button data-bs-toggle="modal" data-bs-target="#default" class="btn btn-danger">Tolak</button>
+                                                </td>
+                                                <?php
+                                            echo "</tr>";
+                                        } else {
+                                            echo "Belum ada data";
+                                        }
+                                    }
+                                ?>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
-            </div>
         </div>
     </section>
 </div>
+<div class="modal fade text-left" id="default" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="myModalLabel1">Tolak Verifikasi</h5>
+                    <button type="button" class="close rounded-pill" data-bs-dismiss="modal"
+                        aria-label="Close">
+                        <i data-feather="x"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="ProsesBerkas.php" method="POST">
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label for="Keterangan">Keterangan</label>
+                                <input type="text" class="form-control" name="Keterangan" placeholder="Masukkan Keterangan">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn" data-bs-dismiss="modal">
+                        <i class="bx bx-x d-block d-sm-none"></i>
+                        <span class="d-none d-sm-block">Tutup</span>
+                    </button>
+                    <button type="button" class="btn btn-primary btn-tolak" data-bs-dismiss="modal" data-id="<?= $ID_Aplikasi ?>">
+                        <i class="bx bx-check d-block d-sm-none"></i>
+                        <span class="d-none d-sm-block">Unggah</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 
             <footer>
     <div class="footer clearfix mb-0 text-muted">
@@ -284,23 +258,23 @@ GetByIdAdministrasi();
     <script>
         $(document).ready(function() {
             $(".btn-detail").click(function() {
-                var ID_Administrasi = $(this).data("id");
+                var ID_Aplikasi = $(this).data("id");
                 $.ajax({
-                url: "DetailAdministrasi.php",
-                type: "POST",
-                data: { ID_Administrasi: ID_Administrasi, action: "readAdministrasi" },
+                url: "DetailTA.php",
+                type: "GET",
+                data: { ID_Aplikasi: ID_Aplikasi, action: "detailTA" },
                     success: function(response) {
-                        location.href = "DetailMahasiswa.php?NIM=" + ID_Administrasi;
+                        location.href = "DetailTA.php?ID_Aplikasi=" + ID_Aplikasi;
                     }
                 });
             });
 
             $(".btn-verifikasi").click(function() {
-                var ID_Administrasi = $(this).data("id");
+                var ID_Aplikasi = $(this).data("id");
                     $.ajax({
                     url: "ProsesBerkas.php",
                     type: "POST",
-                    data: { ID_Administrasi: ID_Administrasi, action: "verifikasiAdministrasi" },
+                    data: { ID_Aplikasi: ID_Aplikasi, action: "verifikasiTA" },
                     success: function(response) {
                         location.reload();
                     }
@@ -308,7 +282,7 @@ GetByIdAdministrasi();
             });
 
             $('.btn-tolak').on('click', function () {
-                var ID_Administrasi = $(this).data('id');
+                var ID_Aplikasi = $(this).data('id');
                 var Keterangan = $("input[name='Keterangan']").val();
                 if (!Keterangan) {
                     alert('Keterangan harus diisi!');
@@ -318,8 +292,8 @@ GetByIdAdministrasi();
                     url: 'ProsesBerkas.php',
                     type: 'POST',
                     data: {
-                        action: 'tolakAdministrasi',
-                        ID_Administrasi: ID_Administrasi,
+                        action: 'tolakTA',
+                        ID_Aplikasi: ID_Aplikasi,
                         Keterangan: Keterangan
                     },
                     success: function (response) {

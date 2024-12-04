@@ -3,7 +3,7 @@ session_start();
 
 include('ProsesBerkas.php');
 
-GetByIdAdministrasi();
+GetByIdTA();
 
 ?>
 
@@ -135,7 +135,7 @@ GetByIdAdministrasi();
     <div class="page-title">
         <div class="row">
             <div class="col-12 col-md-9 order-md-1 order-last">
-                <h3>Verifikasi Administrasi Mahasiswa</h3>
+                <h3>Verifikasi Tugas Akhir Mahasiswa</h3>
                 <p class="text-subtitle text-muted">-</p>
             </div>
             <div class="col-12 col-md-3 order-md-2 order-first">
@@ -152,11 +152,11 @@ GetByIdAdministrasi();
         <div class="row">
             <div class="card">
                 <div class="card-header">
-                    <h5 class="card-title">Tabel Administrasi</h5>
+                    <h5 class="card-title">Tabel Tugas Akhir</h5>
                 </div>
                 <div class="card-body">
                         <div class="card-header">
-                            <h4 class="card-title">Detail Administrasi</h4>
+                            <h4 class="card-title">Detail Tugas Akhir</h4>
                         </div>
                         <div class="card-content">
                             <div class="card-body">
@@ -199,26 +199,20 @@ GetByIdAdministrasi();
                                     <div class="row">
                                         <div class="col-12">
                                             <div class="form-group">
-                                                <label for="Laporan_Skripsi">Link Laporan Skripsi</label>
-                                                <div class="text-bold-500"> <a href="<?= htmlspecialchars($laporanSkripsi) ?>" target="_blank"><?= htmlspecialchars($laporanSkripsi) ?></a></div>
+                                                <label for="Laporan_Skripsi">Link File Aplikasi</label>
+                                                <div class="text-bold-500"> <a href="<?= htmlspecialchars($fileaplikasi) ?>" target="_blank"><?= htmlspecialchars($fileaplikasi) ?></a></div>
                                             </div>
                                         </div>
                                         <div class="col-12">
                                             <div class="form-group">
-                                                <label for="Laporan_Magang">Link Laporan Magang</label>
-                                                <div class="text-bold-500"><a href="<?= htmlspecialchars($laporanMagang) ?>"><?= isset($laporanMagang) ? htmlspecialchars($laporanMagang) : '' ?></a></div>
+                                                <label for="Laporan_Magang">Link Laporan Tugas Akhir</label>
+                                                <div class="text-bold-500"><a href="<?= htmlspecialchars($laporanta) ?>"><?= isset($laporanta) ? htmlspecialchars($laporanta) : '' ?></a></div>
                                             </div>
                                         </div>
                                         <div class="col-12">
                                             <div class="form-group">
-                                                <label for="Bebas_Kompensasi">Link Bebas Kompen</label>
-                                                <div class="text-bold-500"><a href="<?= htmlspecialchars($bebasKompensasi) ?>"><?= isset($bebasKompensasi) ? htmlspecialchars($bebasKompensasi) : '' ?></a></div>
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
-                                            <div class="form-group">
-                                                <label for="Laporan_Skripsi">Link Scan Toeic</label>
-                                                <div class="text-bold-500"><a href="<?= htmlspecialchars($scanToeic) ?>"><?= isset($scanToeic) ? htmlspecialchars($scanToeic) : '' ?></a></div>
+                                                <label for="Bebas_Kompensasi">Link Pernyataan Publikasi</label>
+                                                <div class="text-bold-500"><a href="<?= htmlspecialchars($pernyataanpublikasi) ?>"><?= isset($pernyataanpublikasi) ? htmlspecialchars($pernyataanpublikasi) : '' ?></a></div>
                                             </div>
                                         </div>
                                         <div class="col-12">

@@ -24,7 +24,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['Role_ID'] = $row['Role_ID'];
             $_SESSION['ID_User'] = $row['ID_User'];
 
-            // Ambil NIM berdasarkan ID_User
             $sqlNim = "SELECT NIM FROM Mahasiswa WHERE ID_User = ?";
             $paramsNim = array($row['ID_User']);
             $stmtNim = sqlsrv_query($conn, $sqlNim, $paramsNim);
@@ -35,6 +34,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             if ($rowNim = sqlsrv_fetch_array($stmtNim, SQLSRV_FETCH_ASSOC)) {
                 $_SESSION['NIM'] = $rowNim['NIM'];
+            }
+
+            $sqlVrf = "SELECT Nama FROM Staff WHERE ID_User = ?";
+            $paramsVrf = array($row['ID_User']);
+            $stmtVrf = sqlsrv_query($conn, $sqlVrf, $paramsVrf);
+
+            if ($stmtVrf === false) {
+                die(print_r(sqlsrv_errors(), true));
+            }
+
+            if ($rowVrf = sqlsrv_fetch_array($stmtVrf, SQLSRV_FETCH_ASSOC)) {
+                $_SESSION['Nama'] = $rowVrf['Nama'];
             }
 
             sqlsrv_free_stmt($stmtNim);
