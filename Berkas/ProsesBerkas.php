@@ -250,6 +250,17 @@ function GetByIdTA() {
 
 }
 
+function GetAllBerkas() {
+    global $conn;
+    global $Laporan_Skripsi, $Laporan_Magang, $Bebas_Kompensasi, $Scan_Toeic, $File_Aplikasi, $Laporan_TA, $Pernyataan_Publikasi;
+
+    $sql = "SELECT a.Laporan_Skripsi, a.Laporan_Magang, a.Bebas_Kompensasi, a.Scan_Toeic, t.File_Aplikasi, t.Laporan_TA, p.Status_Verifikasi, p.Keterangan, p.Tanggal_Verifikasi 
+            a.Status_Verifikasi, a.Tanggal_Verifikasi, a.Tanggal_Upload, a.Keterangan, a.Verifikator FROM Administrasi AS a 
+            INNER JOIN Pengumpulan AS p ON a.ID_Pengumpulan = p.ID_Pengumpulan INNER JOIN Mahasiswa AS m ON p.NIM = m.NIM WHERE a.ID_Administrasi = ?";
+
+
+}
+
 $sql = "SELECT a.ID_Administrasi, m.NIM, m.Nama, a.Status_Verifikasi, a.Keterangan FROM Administrasi AS a
         INNER JOIN Pengumpulan AS p ON a.ID_Pengumpulan = p.ID_Pengumpulan INNER JOIN Mahasiswa AS m ON p.NIM = m.NIM";
 $stmt = sqlsrv_query($conn, $sql);

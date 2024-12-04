@@ -133,6 +133,9 @@ ADD Verifikator VARCHAR(50);
 ALTER TABLE TugasAkhir
 ADD Verifikator VARCHAR(50);
 
+ALTER TABLE Pengumpulan
+ADD Tanggal_Verifikasi DATE;
+
 
 ALTER TABLE Mahasiswa
 DROP COLUMN Email;
