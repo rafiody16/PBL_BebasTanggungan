@@ -127,4 +127,10 @@ SELECT * FROM Administrasi;
 ALTER TABLE Administrasi
 ADD Verifikator VARCHAR(50);
 
+
+ALTER TABLE Mahasiswa
+DROP COLUMN Email;
+
+SELECT * FROM Mahasiswa;
+
 SELECT * FROM Staff;
