@@ -300,8 +300,8 @@ function GetAllBerkas() {
 
     $NIM = $_GET['NIM'];
 
-    $sql = "SELECT a.Laporan_Skripsi, a.Laporan_Magang, a.Bebas_Kompensasi, a.Scan_Toeic, a.Tanggal_Upload, a.Tanggal_Verifikasi, a.Status_Verifikasi, a.Keterangan,
-            t.File_Aplikasi, t.Laporan_TA, t.Pernyataan_Publikasi, t.Tanggal_Upload, t.Tanggal_Verifikasi, t.Status_Verifikasi, t.Keterangan, p.Tanggal_Pengumpulan, 
+    $sql = "SELECT a.Laporan_Skripsi, a.Laporan_Magang, a.Bebas_Kompensasi, a.Scan_Toeic,
+            t.File_Aplikasi, t.Laporan_TA, t.Pernyataan_Publikasi, p.Tanggal_Pengumpulan, 
             p.Status_Pengumpulan, p.Keterangan, p.Tanggal_Verifikasi FROM Administrasi AS a INNER JOIN Pengumpulan AS p ON a.ID_Pengumpulan = p.ID_Pengumpulan INNER JOIN 
             TugasAKhir AS t ON t.ID_Pengumpulan = p.ID_Pengumpulan INNER JOIN Mahasiswa AS m ON p.NIM = m.NIM WHERE m.NIM = ?";
     $params = array($NIM);
@@ -323,17 +323,41 @@ function GetAllBerkas() {
         $Status_Verifikasi = $row['Status_Pengumpulan'];
         $Keterangan = $row['Keterangan'];
         $Tanggal_Verifikasi = $row['Tanggal_Verifikasi'];
-        $Tanggal_UploadAdm = $row['Tanggal_Upload'];
-        $Status_VerifikasiAdm = $row['Status_Verifikasi'];
-        $KeteranganAdm = $row['Keterangan'];
-        $Tanggal_VerifikasiAdm = $row['Tanggal_Verifikasi'];
-        $Tanggal_UploadTA = $row['Tanggal_Upload'];
-        $Status_VerifikasiTA = $row['Status_Verifikasi'];
-        $KeteranganTA = $row['Keterangan'];
-        $Tanggal_VerifikasiTA = $row['Tanggal_Verifikasi'];
     } else {
         echo "No data found for the given ID.";
     }    
+
+    $sqlTA = "SELECT t.Tanggal_Upload, t.Status_Verifikasi, t.Keterangan, t.Tanggal_Verifikasi FROM TugasAkhir AS t
+             INNER JOIN Pengumpulan AS p ON t.ID_Pengumpulan = p.ID_Pengumpulan INNER JOIN Mahasiswa AS m ON p.NIM = m.NIM";
+    $paramsTA = array($NIM);
+    $stmtTA = sqlsrv_query($conn, $sqlTA, $paramsTA);
+
+    if ($stmtTA === false) {
+        die(print_r(sqlsrv_errors(), true));
+    }
+
+    if ($rowTA = sqlsrv_fetch_array($stmtTA, SQLSRV_FETCH_ASSOC)) {
+        $Tanggal_UploadTA = $rowTA['Tanggal_Upload'];
+        $Status_VerifikasiTA = $rowTA['Status_Verifikasi'];
+        $Tanggal_VerifikasiTA = $rowTA['Tanggal_Verifikasi'];
+        $KeteranganTA = $rowTA['Keterangan'];
+    }
+
+    $sqlAdm = "SELECT a.Tanggal_Upload, a.Status_Verifikasi, a.Keterangan, a.Tanggal_Verifikasi FROM Administrasi AS a
+             INNER JOIN Pengumpulan AS p ON a.ID_Pengumpulan = p.ID_Pengumpulan INNER JOIN Mahasiswa AS m ON p.NIM = m.NIM";
+    $paramsAdm = array($NIM);
+    $stmtAdm = sqlsrv_query($conn, $sqlAdm, $paramsAdm);
+
+    if ($stmtAdm === false) {
+        die(print_r(sqlsrv_errors(), true));
+    }
+
+    if ($rowAdm = sqlsrv_fetch_array($stmtAdm, SQLSRV_FETCH_ASSOC)) {
+        $Tanggal_UploadAdm = $rowAdm['Tanggal_Upload'];
+        $Status_VerifikasiAdm = $rowAdm['Status_Verifikasi'];
+        $Tanggal_VerifikasiAdm = $rowAdm['Tanggal_Verifikasi'];
+        $KeteranganAdm = $rowAdm['Keterangan'];
+    }
 
 
 }

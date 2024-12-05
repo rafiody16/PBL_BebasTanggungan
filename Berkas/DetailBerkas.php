@@ -31,12 +31,13 @@ GetAllBerkas();
     <link rel="shortcut icon" href="../assets/img/logoJti.png" type="image/x-icon">
     <link rel="shortcut icon" href="../assets/img/logoJti.png" type="image/png">
     
-<link rel="stylesheet" href="../assets/extensions/filepond/filepond.css">
-<link rel="stylesheet" href="../assets/extensions/filepond-plugin-image-preview/filepond-plugin-image-preview.css">
-<link rel="stylesheet" href="../assets/extensions/toastify-js/src/toastify.css">
+    <link rel="stylesheet" href="../assets/extensions/filepond/filepond.css">
+    <link rel="stylesheet" href="../assets/extensions/filepond-plugin-image-preview/filepond-plugin-image-preview.css">
+    <link rel="stylesheet" href="../assets/extensions/toastify-js/src/toastify.css">
 
-  <link rel="stylesheet" crossorigin href="../assets/compiled/css/app.css">
-  <link rel="stylesheet" crossorigin href="../assets/compiled/css/app-dark.css">
+    <link rel="stylesheet" crossorigin href="../assets/compiled/css/app.css">
+    <link rel="stylesheet" crossorigin href="../assets/compiled/css/app-dark.css">
+
 
   <style>
 
@@ -204,15 +205,9 @@ GetAllBerkas();
                                                         <tr>
                                                             <td class="text-bold-500">2</td>
                                                             <td class="text-bold-500">Administrasi Program Studi</td>
-                                                            <td class="text-bold-500"><?= isset($Tanggal_UploadAdm) ? htmlspecialchars($Tanggal_UploadTA instanceof DateTime ? $Tanggal_UploadAdm->format('d-m-Y') : $Tanggal_UploadAdm) : '' ?></td>
-                                                            <td class="text-bold-500"><?= isset($Tanggal_VerifikasiAdm) ? htmlspecialchars($Tanggal_VerifikasiTA instanceof DateTime ? $Tanggal_VerifikasiAdm->format('d-m-Y') : $Tanggal_VerifikasiAdm) : 'Belum Terverifikasi' ?></td>
-                                                            <td class="text-bold-50">
-                                                                <?php if ($Status_VerifikasiAdm == 'Menunggu') { ?>
-                                                                    <span class="badge badge-warning"><?= htmlspecialchars($Status_VerifikasiAdm) ?></span>
-                                                                <?php } else { ?>
-                                                                    <?= htmlspecialchars($Status_VerifikasiAdm) ?>
-                                                                <?php } ?>
-                                                            </td>
+                                                            <td class="text-bold-500"><?= isset($Tanggal_UploadAdm) ? htmlspecialchars($Tanggal_UploadAdm instanceof DateTime ? $Tanggal_UploadAdm->format('d-m-Y') : $Tanggal_UploadAdm) : '' ?></td>
+                                                            <td class="text-bold-500"><?= isset($Tanggal_VerifikasiAdm) ? htmlspecialchars($Tanggal_VerifikasiAdm instanceof DateTime ? $Tanggal_VerifikasiAdm->format('d-m-Y') : $Tanggal_VerifikasiAdm) : 'Belum Terverifikasi' ?></td>
+                                                            <td class="text-bold-500"><?= htmlspecialchars($Status_VerifikasiAdm) ?></td>
                                                             <td class="text-bold-500"><?= htmlspecialchars($KeteranganAdm) ?></td>
                                                             <td><button class="btn btn-warning">Edit</buttonc></td>
                                                         </tr>
