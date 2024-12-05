@@ -181,29 +181,46 @@ GetAllBerkas();
                                 <form class="form form-vertical">
                                     <div class="form-body">
                                         <div class="row">
-                                            <div class="col-md-6 col-12">
-                                                <div class="form-group">
-                                                    <label for="Tanggal_Pengumpulan">Tanggal Upload</label>
-                                                    <div class="text-bold-500"><?= isset($Tanggal_Upload) ? htmlspecialchars($Tanggal_Upload instanceof DateTime ? $Tanggal_Upload->format('d-m-Y') : $Tanggal_Upload) : '' ?></div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6 col-12">
-                                                <div class="form-group">
-                                                    <label for="Status_Pengumpulan">Status Verifikasi</label>
-                                                    <div class="text-bold-500"><?= isset($Status_Verifikasi) ? htmlspecialchars($Status_Verifikasi) : '' ?></div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6 col-12">
-                                                <div class="form-group">
-                                                    <label for="Tanggal_Verifikasi">Tanggal_Verifikasi</label>
-                                                    <div class="text-bold-500"><?= isset($Tanggal_Verifikasi) ? htmlspecialchars($Tanggal_Verifikasi instanceof DateTime ? $Tanggal_Verifikasi->format('d-m-Y') : $Tanggal_Verifikasi) : 'Belum Terverifikasi' ?></div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6 col-12">
-                                                <div class="form-group">
-                                                    <label for="Keterangan">Keterangan</label>
-                                                    <div class="text-bold-500"><?= isset($Keterangan) ? htmlspecialchars($Keterangan) : '' ?></div>
-                                                </div>
+                                            <div class="table-responsive">
+                                                <table class="table table-bordered mb-0" style="border: 1px solid black;">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>#</th>
+                                                            <th>SUB BAGIAN</th>
+                                                            <th>TANGGAL UPLOAD</th>
+                                                            <th>TANGGAL VERIFIKASI</th>
+                                                            <th>STATUS</th>
+                                                            <th>KETERANGAN</th>
+                                                            <th>AKSI</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td class="text-bold-500">1</td>
+                                                            <td class="text-bold-500">Tugas Akhir</td>
+                                                            <td class="text-bold-500"><?= isset($Tanggal_UploadTA) ? htmlspecialchars($Tanggal_UploadTA instanceof DateTime ? $Tanggal_UploadTA->format('d-m-Y') : $Tanggal_UploadTA) : '' ?></td>
+                                                            <td class="text-bold-500"><?= isset($Tanggal_VerifikasiTA) ? htmlspecialchars($Tanggal_VerifikasiTA instanceof DateTime ? $Tanggal_VerifikasiTA->format('d-m-Y') : $Tanggal_VerifikasiTA) : 'Belum Terverifikasi' ?></td>
+                                                            <td class="text-bold-500"><?= htmlspecialchars($Status_VerifikasiTA) ?></td>
+                                                            <td class="text-bold-500"><?= htmlspecialchars($KeteranganTA) ?></td>
+                                                            <td><button>Edit</button></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="text-bold-500">2</td>
+                                                            <td class="text-bold-500">Administrasi Program Studi</td>
+                                                            <td class="text-bold-500"><?= isset($Tanggal_UploadAdm) ? htmlspecialchars($Tanggal_UploadTA instanceof DateTime ? $Tanggal_UploadAdm->format('d-m-Y') : $Tanggal_UploadAdm) : '' ?></td>
+                                                            <td class="text-bold-500"><?= isset($Tanggal_VerifikasiAdm) ? htmlspecialchars($Tanggal_VerifikasiTA instanceof DateTime ? $Tanggal_VerifikasiAdm->format('d-m-Y') : $Tanggal_VerifikasiAdm) : 'Belum Terverifikasi' ?></td>
+                                                            <td class="text-bold-50">
+                                                                <?php if ($Status_VerifikasiAdm == 'Menunggu'): ?>
+                                                                    <span class="badge badge-warning"><?= htmlspecialchars($Status_VerifikasiAdm) ?></span>
+                                                                <?php else: ?>
+                                                                    <?= htmlspecialchars($Status_VerifikasiAdm) ?>
+                                                                <?php endif; ?>
+                                                            </td>
+                                                            <td class="text-bold-500"><?= htmlspecialchars($KeteranganAdm) ?></td>
+                                                            <td><button>Edit</button></td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
                                             </div>
                                         </div>
                                     </div>
@@ -223,7 +240,7 @@ GetAllBerkas();
                             <p class="card-text">Catatan: Upload dalam bentuk ZIP / RAR (Maksimal 100 MB)</p>
                             <!-- Basic file uploader -->
                             <div class="form-group position-relative has-icon-left">
-                            <div class="text-bold-500"> <a href="<?= htmlspecialchars($Laporan_Skripsi) ?>" target="_blank"><?= htmlspecialchars($Laporan_Skripsi) ?></a></div>
+                            <div class="text-bold-500"> <a href="<?= htmlspecialchars('../Uploads/' . basename($Laporan_Skripsi)) ?>" target="_blank"><?= htmlspecialchars($Laporan_Skripsi) ?></a></div>
                             </div>
                         </div>
                     </div>
@@ -239,7 +256,7 @@ GetAllBerkas();
                             <p class="card-text">Catatan: Upload dalam bentuk ZIP / RAR (Maksimal 100 MB)</p>
                             <!-- Basic file uploader -->
                             <div class="form-group position-relative has-icon-left">
-                                <div class="text-bold-500"> <a href="<?= htmlspecialchars($Laporan_Magang) ?>" target="_blank"><?= htmlspecialchars($Laporan_Magang) ?></a></div>
+                                <div class="text-bold-500"> <a href="<?= htmlspecialchars('../Uploads/' . basename($Laporan_Magang)) ?>" target="_blank"><?= htmlspecialchars($Laporan_Magang) ?></a></div>
                             </div>
                         </div>
                     </div>
@@ -255,7 +272,7 @@ GetAllBerkas();
                             <p class="card-text">Catatan: Upload dalam bentuk ZIP / RAR (Maksimal 100 MB)</p>
                             <!-- Basic file uploader -->
                             <div class="form-group position-relative has-icon-left">
-                                <div class="text-bold-500"> <a href="<?= htmlspecialchars($Bebas_Kompensasi) ?>" target="_blank"><?= htmlspecialchars($Bebas_Kompensasi) ?></a></div>
+                                <div class="text-bold-500"> <a href="<?= htmlspecialchars('../Uploads/' . basename($Bebas_Kompensasi)) ?>" target="_blank"><?= htmlspecialchars($Bebas_Kompensasi) ?></a></div>
                             </div>
                         </div>
                     </div>
@@ -271,7 +288,7 @@ GetAllBerkas();
                             <p class="card-text">Catatan: Upload dalam bentuk ZIP / RAR (Maksimal 100 MB)</p>
                             <!-- Basic file uploader -->
                             <div class="form-group position-relative has-icon-left">
-                                <div class="text-bold-500"> <a href="<?= htmlspecialchars($Scan_Toeic) ?>" target="_blank"><?= htmlspecialchars($Scan_Toeic) ?></a></div>
+                                <div class="text-bold-500"> <a href="<?= htmlspecialchars('../Uploads/' . basename($Scan_Toeic)) ?>" target="_blank"><?= htmlspecialchars($Scan_Toeic) ?></a></div>
                             </div>
                         </div>
                     </div>
@@ -298,7 +315,7 @@ GetAllBerkas();
                             </div>
                             <p class="card-text">Catatan: Upload dalam bentuk PDF dan sudah bertanda tangan (Maksimal 10 MB)</p>
                             <div class="form-group position-relative has-icon-left">
-                                <div class="text-bold-500"> <a href="<?= htmlspecialchars($Laporan_TA) ?>" target="_blank"><?= htmlspecialchars($Laporan_TA) ?></a></div>
+                                <div class="text-bold-500"> <a href="<?= htmlspecialchars('../Uploads/' . basename($Laporan_TA)) ?>" target="_blank"><?= htmlspecialchars($Laporan_TA) ?></a></div>
                             </div>
                         </div>
                     </div>
@@ -314,7 +331,7 @@ GetAllBerkas();
                             <p class="card-text">Catatan: Upload dalam bentuk ZIP / RAR (Maksimal 100 MB)</p>
                             <!-- Basic file uploader -->
                             <div class="form-group position-relative has-icon-left">
-                                <div class="text-bold-500"> <a href="<?= htmlspecialchars($File_Aplikasi) ?>" target="_blank"><?= htmlspecialchars($File_Aplikasi) ?></a></div>
+                                <div class="text-bold-500"> <a href="<?= htmlspecialchars('../Uploads/' . basename($File_Aplikasi)) ?>" target="_blank"><?= htmlspecialchars($File_Aplikasi) ?></a></div>
                             </div>
                         </div>
                     </div>
@@ -336,7 +353,7 @@ GetAllBerkas();
                             </p>
                             </p>
                             <div class="form-group position-relative has-icon-left">
-                                <div class="text-bold-500"> <a href="<?= htmlspecialchars($Pernyataan_Publikasi) ?>" target="_blank"><?= htmlspecialchars($Pernyataan_Publikasi) ?></a></div>
+                                <div class="text-bold-500"> <a href="<?= htmlspecialchars('../Uploads/' . basename($Pernyataan_Publikasi)) ?>" target="_blank"><?= htmlspecialchars($Pernyataan_Publikasi) ?></a></div>
                             </div>
                         </div>
                     </div>

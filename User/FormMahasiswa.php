@@ -205,6 +205,12 @@ getDataMahasiswaByNim();
                                                     </div>
                                                     <div class="col-12">
                                                         <div class="form-group">
+                                                            <label for="Tahun_Angkatan">Tahun Angkatan</label>
+                                                            <input type="text" class="form-control" name="Tahun_Angkatan" value="<?= isset($Tahun_Angkatan) ? htmlspecialchars($Tahun_Angkatan) : '' ?>" placeholder="Masukkan Tahun Angkatam">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <div class="form-group">
                                                             <label for="JenisKelamin">Jenis Kelamin</label>
                                                             <br>
                                                             <input class="form-check-input" type="radio" name="JenisKelamin" id="jenkel1" value="L" required="true"> Laki-laki 
