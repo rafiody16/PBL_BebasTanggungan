@@ -161,14 +161,14 @@ if ($rowCheck['total'] > 0) {
     <div class="page-title">
         <div class="row">
             <div class="col-12 col-md-9 order-md-1 order-last">
-                <h3>Unggah Berkas Tugas Akhir</h3>
+                <h3>Unggah Berkas</h3>
                 <p class="text-subtitle text-muted">Bagi mahasiswa lulusan Jurusan Teknologi Informasi yang bermasalah pada hosting, dapat mengganti hosting dengan Google Drive masing-masing!</p>
             </div>
             <div class="col-12 col-md-3 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="dashboardUser.html">Dashboard</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Berkas Tugas Akhir</li>
+                        <li class="breadcrumb-item active" aria-current="page">Unggah Berkas</li>
                     </ol>
                 </nav>
             </div>
