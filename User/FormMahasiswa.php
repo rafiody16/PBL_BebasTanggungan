@@ -197,6 +197,18 @@ getDataMahasiswaByNim();
                                                             <input type="text" class="form-control" name="NoHp" value="<?= isset($noHp) ? htmlspecialchars($noHp) : '' ?>" placeholder="Masukkan No Hp">
                                                         </div>
                                                     </div>
+                                                    <div class="col-md-6 col-12">
+                                                        <div class="form-group">
+                                                            <label for="Tempat_Lahir">Tempat Lahir</label>
+                                                            <input type="text" class="form-control" value="<?= isset($Tempat_Lahir) ? htmlspecialchars($Tempat_Lahir) : '' ?>" name="Tempat_Lahir" placeholder="Masukkan Tempat Lahir"> 
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6 col-12">
+                                                        <div class="form-group">
+                                                            <label for="Tanggal_Lahir">Tanggal Lahir</label>
+                                                            <input type="date" class="form-control flatpickr-always-open" name="Tanggal_Lahir" placeholder="Select date..">
+                                                        </div>
+                                                    </div>
                                                     <div class="col-12">
                                                         <div class="form-group">
                                                             <label for="Prodi">Prodi</label>

@@ -80,8 +80,8 @@ if (isset($_POST['simpanStaff'])) {
             $rowUserID = sqlsrv_fetch_array($stmtUser, SQLSRV_FETCH_ASSOC);
             $newUserID = $rowUserID['ID_User'];
 
-            $sqlStaff = "INSERT INTO Staff (NIP, Nama, Alamat, NoHp, ID_User) VALUES (?, ?, ?, ?, ?)";
-            $paramsStaff = [$NIP, $Nama, $Alamat, $NoHp, $newUserID];
+            $sqlStaff = "INSERT INTO Staff (NIP, Nama, Alamat, NoHp, Tempat_Lahir, Tanggal_Lahir, ID_User) VALUES (?, ?, ?, ?, ?, ?, ?)";
+            $paramsStaff = [$NIP, $Nama, $Alamat, $NoHp, $Tempat_Lahir, $Tanggal_Lahir, $newUserID];
             $stmtStaff = sqlsrv_query($conn, $sqlStaff, $paramsStaff);
 
             if (!$stmtStaff) {
@@ -107,6 +107,8 @@ if (isset($_POST['simpanMahasiswa'])) {
     $Alamat = $_POST['Alamat'];
     $NoHp = $_POST['NoHp'];
     $Prodi = $_POST['Prodi'];
+    $Tempat_Lahir = $_POST['Tempat_Lahir'];
+    $Tanggal_Lahir = $_POST['Tanggal_Lahir'];
     $Tahun_Angkatan = $_POST['Tahun_Angkatan'];
     $JenisKelamin = $_POST['JenisKelamin'];
     $Role_ID = 5;
@@ -127,8 +129,8 @@ if (isset($_POST['simpanMahasiswa'])) {
                 throw new Exception('Gagal memperbarui data User: ' . print_r(sqlsrv_errors(), true));
             }
 
-            $updateMahasiswaSql = "UPDATE Mahasiswa SET Nama = ?, Alamat = ?, NoHp = ?, JenisKelamin = ?, Prodi = ?, Tahun_Angkatan = ? WHERE NIM = ?";
-            $paramsMahasiswaUpdate = [$Nama, $Alamat, $NoHp, $JenisKelamin, $Prodi, $Tahun_Angkatan, $NIM];
+            $updateMahasiswaSql = "UPDATE Mahasiswa SET Nama = ?, Alamat = ?, NoHp = ?, JenisKelamin = ?, Prodi = ?, Tempat_Lahir = ?, Tanggal_Lahir = ?, Tahun_Angkatan = ? WHERE NIM = ?";
+            $paramsMahasiswaUpdate = [$Nama, $Alamat, $NoHp, $JenisKelamin, $Prodi, $Tempat_Lahir, $Tanggal_Lahir, $Tahun_Angkatan, $NIM];
             $stmtMahasiswaUpdate = sqlsrv_query($conn, $updateMahasiswaSql, $paramsMahasiswaUpdate);
 
             if (!$stmtMahasiswaUpdate) {
@@ -149,8 +151,8 @@ if (isset($_POST['simpanMahasiswa'])) {
             $rowUserID = sqlsrv_fetch_array($stmtUser, SQLSRV_FETCH_ASSOC);
             $newUserID = $rowUserID['ID_User'];
 
-            $sqlMahasiswa = "INSERT INTO Mahasiswa (NIM, Nama, Alamat, NoHp, JenisKelamin, ID_User, Prodi, Tahun_Angkatan) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-            $paramsMahasiswa = [$NIM, $Nama, $Alamat, $NoHp, $JenisKelamin, $newUserID, $Prodi, $Tahun_Angkatan];
+            $sqlMahasiswa = "INSERT INTO Mahasiswa (NIM, Nama, Alamat, NoHp, JenisKelamin, ID_User, Prodi, Tempat_Lahir, Tanggal_Lahir, Tahun_Angkatan) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            $paramsMahasiswa = [$NIM, $Nama, $Alamat, $NoHp, $JenisKelamin, $newUserID, $Prodi, $Tempat_Lahir, $Tanggal_Lahir, $Tahun_Angkatan];
             $stmtMahasiswa = sqlsrv_query($conn, $sqlMahasiswa, $paramsMahasiswa);
 
             if (!$stmtMahasiswa) {
@@ -250,9 +252,10 @@ function deleteDataMahasiswa() {
 
 function getDataMahasiswaByNim() {
     global $conn;
-    global $nim, $nama, $username, $email, $alamat, $noHp, $jeniskelamin, $Prodi, $TahunAngkatan;
+    global $nim, $nama, $username, $email, $alamat, $noHp, $jeniskelamin, $Prodi, $TahunAngkatan, $Tempat_Lahir, $Tanggal_Lahir;
     $nim = $_GET['NIM'] ?? null;
-    $sql = "SELECT Mahasiswa.Nama, Mahasiswa.Alamat, Mahasiswa.NoHp, [User].Username, [User].Email, Mahasiswa.Prodi, Mahasiswa.Tahun_Angkatan, Mahasiswa.JenisKelamin FROM Mahasiswa INNER JOIN [User] ON Mahasiswa.ID_User = [User].ID_User  WHERE Mahasiswa.NIM = ?";
+    $sql = "SELECT Mahasiswa.Nama, Mahasiswa.Alamat, Mahasiswa.NoHp, [User].Username, [User].Email, Mahasiswa.Prodi, Mahasiswa.Tahun_Angkatan, 
+            Mahasiswa.JenisKelamin, Mahasiswa.Tempat_Lahir, Mahasiswa_Tanggal_Lahir FROM Mahasiswa INNER JOIN [User] ON Mahasiswa.ID_User = [User].ID_User  WHERE Mahasiswa.NIM = ?";
     $params = array($nim);
     $stmt = sqlsrv_query($conn, $sql, $params);
     
@@ -270,6 +273,8 @@ function getDataMahasiswaByNim() {
         $alamat = $row['Alamat'];
         $noHp = $row['NoHp'];
         $Prodi = $row['Prodi'];
+        $Tempat_Lahir = $row['Tempat_Lahir'];
+        $Tanggal_Lahir = $row['Tanggal_Lahir'];
         $TahunAngkatan = $row['Tahun_Angkatan'];
         $jeniskelamin = $row['JenisKelamin'];
     } else {
