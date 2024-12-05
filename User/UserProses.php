@@ -254,8 +254,7 @@ function getDataMahasiswaByNim() {
     global $conn;
     global $nim, $nama, $username, $email, $alamat, $noHp, $jeniskelamin, $Prodi, $TahunAngkatan, $Tempat_Lahir, $Tanggal_Lahir;
     $nim = $_GET['NIM'] ?? null;
-    $sql = "SELECT Mahasiswa.Nama, Mahasiswa.Alamat, Mahasiswa.NoHp, [User].Username, [User].Email, Mahasiswa.Prodi, Mahasiswa.Tahun_Angkatan, 
-            Mahasiswa.JenisKelamin, Mahasiswa.Tempat_Lahir, Mahasiswa_Tanggal_Lahir FROM Mahasiswa INNER JOIN [User] ON Mahasiswa.ID_User = [User].ID_User  WHERE Mahasiswa.NIM = ?";
+    $sql = "SELECT Mahasiswa.Nama, Mahasiswa.Alamat, Mahasiswa.NoHp, [User].Username, [User].Email, Mahasiswa.Prodi,    Mahasiswa.Tahun_Angkatan, Mahasiswa.JenisKelamin, Mahasiswa.Tempat_Lahir, Mahasiswa.Tanggal_Lahir FROM Mahasiswa   INNER JOIN [User] ON Mahasiswa.ID_User = [User].ID_User  WHERE Mahasiswa.NIM = ?";
     $params = array($nim);
     $stmt = sqlsrv_query($conn, $sql, $params);
     

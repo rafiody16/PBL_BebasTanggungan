@@ -199,6 +199,12 @@ getDataMahasiswaByNim();
                                                     </div>
                                                     <div class="col-md-6 col-12">
                                                         <div class="form-group">
+                                                            <label for="TempatTanggalLahir">Tempat Tanggal Lahir</label>
+                                                            <h3><?= isset($Tempat_Lahir) ? htmlspecialchars($Tempat_Lahir) : '' ?> / <?= isset($Tanggal_Lahir) ? htmlspecialchars($Tanggal_Lahir instanceof DateTime ? $Tanggal_Lahir->format('d-m-Y') : $Tanggal_Lahir) : '' ?></h3>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6 col-12">
+                                                        <div class="form-group">
                                                             <label for="Prodi">Prodi</label>
                                                             <h3><?= isset($Prodi) ? htmlspecialchars($Prodi) : '' ?></h3>
                                                         </div>
