@@ -42,7 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     sqlsrv_free_stmt($stmtVrf);
                     break;
                 case 2:
-                    echo "<script>alert('Selamat Datang Ketua Jurusan TI ".$Username.".'); window.location.href = '../Dosen/dashboardDosen.html'; </script>";
+                    echo "<script>alert('Selamat Datang Kepala Jurusan TI ".$Username.".'); window.location.href = '../Dosen/dashboardDosen.html'; </script>";
                     break;
                 case 3:
                     echo "<script>alert('Selamat Datang Kaprodi TI ".$Username.".'); window.location.href = '../User/mahasiswa/dashboardUser.html'; </script>";
@@ -51,7 +51,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     echo "<script>alert('Selamat Datang Kaprodi SIB ".$Username.".'); window.location.href = '../Role4/dashboardRole4.html'; </script>";
                     break;
                 case 5:
-                    echo "<script>alert('Selamat Datang Mahasiswa ".$Username.".'); window.location.href = '../User/mahasiswa/dashboardUser.html'; </script>";
+                    echo "<script>alert('Selamat Datang Kaprodi PPLS ".$Username.".'); window.location.href = '../Role4/dashboardRole4.html'; </script>";
+                    break;
+                case 6:
+                    echo "<script>alert('Selamat Datang Admin TA ".$Username.".'); window.location.href = '../Role4/dashboardRole4.html'; </script>";
+                    break;
+                case 7:
+                    echo "<script>alert('Selamat Datang Admin Jurusan ".$Username.".'); window.location.href = '../Role4/dashboardRole4.html'; </script>";
+                    break;
+                case 8:
+                    echo "<script>alert('Selamat Datang Mahasiswa ".$Username.".'); window.location.href = '../User/mahasiswa/dashboardMHS.php'; </script>";
                     // Ambil NIM berdasarkan ID_User
                     $sqlNim = "SELECT NIM FROM Mahasiswa WHERE ID_User = ?";
                     $paramsNim = array($row['ID_User']);
@@ -66,15 +75,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     }
 
                     sqlsrv_free_stmt($stmtNim);
-                    break;
-                case 6:
-                    echo "<script>alert('Selamat Datang Verifikator Tugas Akhir ".$Username.".'); window.location.href = '../Role6/dashboardRole6.html'; </script>";
-                    break;
-                case 7:
-                    echo "<script>alert('Selamat Datang Verifikator Administrasi ".$Username.".'); window.location.href = '../Role7/dashboardRole7.html'; </script>";
-                    break;
-                case 8:
-                    echo "<script>alert('Selamat Datang Kaprodi PPLS ".$Username.".'); window.location.href = '../Role8/dashboardRole8.html'; </script>";
                     break;
                 default:
                     echo "<script>alert('Role tidak dikenali.'); window.location.href = 'Login.php'; </script>";
