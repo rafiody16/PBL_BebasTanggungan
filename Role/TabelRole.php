@@ -109,7 +109,6 @@
                                                     <th>#</th>
                                                     <th>ID Role</th>
                                                     <th>Nama Role</th>
-                                                    <th>Level Akses</th>
                                                     <th>Deskripsi</th>
                                                     <th>Aksi</th>
                                                 </tr>
@@ -124,7 +123,6 @@
                                                         echo "<td>" . htmlspecialchars($no++) . "</td>";
                                                         echo "<td>" . htmlspecialchars($row['Role_ID']) . "</td>";
                                                         echo "<td>" . htmlspecialchars($row['Nama_Role']) . "</td>";
-                                                        echo "<td>" . htmlspecialchars($row['Level_Akses']) . "</td>";
                                                         echo "<td>" . htmlspecialchars($row['Deskripsi']) . "</td>";
                                                         ?>
                                                 <td><a href="#" class="btn btn-primary rounded-pill" style="margin-right:-10px">Primary</a></td>

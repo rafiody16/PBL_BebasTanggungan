@@ -25,21 +25,21 @@
 </head>
 
 <?php
-session_start();
+// session_start();
 
-// Cek apakah pengguna sudah login
-if (!isset($_SESSION['Username'])) {
-    // Jika belum login, redirect ke halaman login
-    header("Location: ../Login/Login.php");
-    exit();
-}
+// // Cek apakah pengguna sudah login
+// if (!isset($_SESSION['Username'])) {
+//     // Jika belum login, redirect ke halaman login
+//     header("Location: ../Login/Login.php");
+//     exit();
+// }
 
-// Cek hak akses
-if ($_SESSION['Role_ID'] != 1) {
-    // Jika bukan admin, redirect atau tampilkan pesan error
-    echo "<script>alert('Anda tidak memiliki akses ke halaman ini.'); window.location.href = 'FormLogin.php';</script>";
-    exit();
-}
+// // Cek hak akses
+// if ($_SESSION['Role_ID'] != 1) {
+//     // Jika bukan admin, redirect atau tampilkan pesan error
+//     echo "<script>alert('Anda tidak memiliki akses ke halaman ini.'); window.location.href = 'FormLogin.php';</script>";
+//     exit();
+// }
 
 include('UserProses.php');
 include('../Koneksi.php');
@@ -195,6 +195,12 @@ getDataStaffByNip();
                                                         <div class="form-group">
                                                             <label for="NoHp">No.Hp</label>
                                                             <h3><?= isset($noHp) ? htmlspecialchars($noHp) : '' ?></h3>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6 col-12">
+                                                        <div class="form-group">
+                                                            <label for="TempatTanggalLahir">Tempat Tanggal Lahir</label>
+                                                            <h3><?= isset($Tempat_Lahir) ? htmlspecialchars($Tempat_Lahir) : '' ?> / <?= isset($Tanggal_Lahir) ? htmlspecialchars($Tanggal_Lahir instanceof DateTime ? $Tanggal_Lahir->format('d-m-Y') : $Tanggal_Lahir) : '' ?></h3>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6 col-12">

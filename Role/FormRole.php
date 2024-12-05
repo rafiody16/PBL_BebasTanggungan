@@ -105,12 +105,6 @@
                                                     </div>
                                                     <div class="col-12">
                                                         <div class="form-group">
-                                                            <label for="email-id-vertical">Level Akses</label>
-                                                            <input type="number" class="form-control" name="Level_Akses" placeholder="Masukkan level akses">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-12">
-                                                        <div class="form-group">
                                                             <label for="contact-info-vertical">Deskripsi</label>
                                                             <textarea class="form-control" name="Deskripsi" rows="3"></textarea>
                                                         </div>

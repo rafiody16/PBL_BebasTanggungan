@@ -1,19 +1,19 @@
 <?php
-session_start();
+// session_start();
 
-// Cek apakah pengguna sudah login
-if (!isset($_SESSION['Username'])) {
-    // Jika belum login, redirect ke halaman login
-    header("Location: ../Login/Login.php");
-    exit();
-}
+// // Cek apakah pengguna sudah login
+// if (!isset($_SESSION['Username'])) {
+//     // Jika belum login, redirect ke halaman login
+//     header("Location: ../Login/Login.php");
+//     exit();
+// }
 
-// Cek hak akses
-if ($_SESSION['Role_ID'] != 1) {
-    // Jika bukan admin, redirect atau tampilkan pesan error
-    echo "<script>alert('Anda tidak memiliki akses ke halaman ini.'); window.location.href = 'FormLogin.php';</script>";
-    exit();
-}
+// // Cek hak akses
+// if ($_SESSION['Role_ID'] != 1) {
+//     // Jika bukan admin, redirect atau tampilkan pesan error
+//     echo "<script>alert('Anda tidak memiliki akses ke halaman ini.'); window.location.href = 'FormLogin.php';</script>";
+//     exit();
+// }
 
 include('UserProses.php');
 include('../Koneksi.php');
@@ -196,6 +196,26 @@ getDataStaffByNip();
                                                         <div class="form-group">
                                                             <label for="NoHp">No.Hp</label>
                                                             <input type="text" class="form-control" value="<?= isset($noHp) ? htmlspecialchars($noHp) : '' ?>" name="NoHp" placeholder="Masukkan No Hp">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <div class="form-group">
+                                                            <label for="JenisKelamin">Jenis Kelamin</label>
+                                                            <br>
+                                                            <input class="form-check-input" type="radio" name="JenisKelamin" id="jenkel1" value="L" required="true"> Laki-laki 
+                                                            <input class="form-check-input" type="radio" name="JenisKelamin" id="jenkel2" value="P"> Perempuan
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6 col-12">
+                                                        <div class="form-group">
+                                                            <label for="Tempat_Lahir">Tempat Lahir</label>
+                                                            <input type="text" class="form-control" value="<?= isset($Tempat_Lahir) ? htmlspecialchars($Tempat_Lahir) : '' ?>" name="Tempat_Lahir" placeholder="Masukkan Tempat Lahir"> 
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6 col-12">
+                                                        <div class="form-group">
+                                                            <label for="Tanggal_Lahir">Tanggal Lahir</label>
+                                                            <input type="date" class="form-control flatpickr-always-open" name="Tanggal_Lahir" placeholder="Select date..">
                                                         </div>
                                                     </div>
                                                     <div class="col-12">

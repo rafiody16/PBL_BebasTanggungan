@@ -5,10 +5,9 @@ include "../Koneksi.php";
 if (isset($_POST['simpanRole'])) {
     $Nama_Role = $_POST['Nama_Role'] ?? null;
     $Deskripsi = $_POST['Deskripsi'] ?? null;
-    $Level_Akses = $_POST['Level_Akses'] ?? null;
 
-    $sql = "INSERT INTO Role (Nama_Role, Deskripsi, Level_Akses) VALUES (?, ?, ?)";
-    $params = array($Nama_Role, $Deskripsi, $Level_Akses);
+    $sql = "INSERT INTO Role (Nama_Role, Deskripsi) VALUES (?, ?)";
+    $params = array($Nama_Role, $Deskripsi);
 
 
     $input = sqlsrv_query($conn, $sql, $params);

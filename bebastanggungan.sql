@@ -3,41 +3,44 @@ CREATE DATABASE PBLBebasTanggungan;
 USE PBLBebasTanggungan;
 GO;
 
-CREATE TABLE Role (
+CREATE TABLE [Role] (
     Role_ID INT PRIMARY KEY,
     Nama_Role VARCHAR(100) NOT NULL,
     Deskripsi TEXT,
-    Level_Akses INT
 );
 
 CREATE TABLE [User] (
     ID_User INT PRIMARY KEY,
     Username VARCHAR(100) NOT NULL,
-    [Password] VARCHAR(255) NOT NULL,
+    [Password] VARCHAR(255),
     Email VARCHAR(100) NOT NULL,
     Role_ID INT,
-    FOREIGN KEY (Role_ID) REFERENCES Role(Role_ID)
+    FOREIGN KEY (Role_ID) REFERENCES Role(Role_ID) ON DELETE CASCADE
 );
 
 CREATE TABLE Mahasiswa (
     NIM INT PRIMARY KEY,
     Nama VARCHAR(100) NOT NULL,
-    Email VARCHAR(100),
     Alamat TEXT,
     NoHp VARCHAR(15),
-    JenisKelamin CHAR(1),
+    JenisKelamin VARCHAR(10),
+	Tahun_Angkatan INT,
+	Tempat_Lahir VARCHAR(25),
+	Tanggal_Lahir DATE,
     ID_User INT,
-    FOREIGN KEY (ID_User) REFERENCES [User](ID_User)
+    FOREIGN KEY (ID_User) REFERENCES [User](ID_User) ON DELETE CASCADE
 );
 
 CREATE TABLE Staff (
     NIP INT PRIMARY KEY,
     Nama VARCHAR(100) NOT NULL,
-    Jabatan VARCHAR(100),
     Alamat TEXT,
     NoHp VARCHAR(15),
+	JenisKelamin VARCHAR(10),
+	Tempat_Lahir VARCHAR(25),
+	Tanggal_Lahir DATE,
     ID_User INT,
-    FOREIGN KEY (ID_User) REFERENCES [User](ID_User)
+    FOREIGN KEY (ID_User) REFERENCES [User](ID_User) ON DELETE CASCADE
 );
 
 CREATE TABLE Pengumpulan (
@@ -45,8 +48,11 @@ CREATE TABLE Pengumpulan (
     NIM INT,
     Tanggal_Pengumpulan DATE,
     Status_Pengumpulan VARCHAR(50),  -- Belum Upload, Menunggu verifikasi, Terverifikasi, Ditolak
+	Tanggal_Verifikasi DATE,
     Keterangan TEXT,
-    FOREIGN KEY (NIM) REFERENCES Mahasiswa(NIM)
+	VerifikatorKajur VARCHAR(50),
+	VerifikatorKaprodi VARCHAR(50),
+    FOREIGN KEY (NIM) REFERENCES Mahasiswa(NIM) ON DELETE CASCADE
 );
 
 CREATE TABLE TugasAkhir (
@@ -59,7 +65,8 @@ CREATE TABLE TugasAkhir (
     Tanggal_Verifikasi DATE,
     Tanggal_Upload DATE,
     Keterangan TEXT,
-    FOREIGN KEY (ID_Pengumpulan) REFERENCES Pengumpulan(ID_Pengumpulan)
+	Verifikator VARCHAR(50),
+    FOREIGN KEY (ID_Pengumpulan) REFERENCES Pengumpulan(ID_Pengumpulan) ON DELETE CASCADE
 );
 
 CREATE TABLE Administrasi (
@@ -73,7 +80,8 @@ CREATE TABLE Administrasi (
     Tanggal_Verifikasi DATE,
     Tanggal_Upload DATE,
     Keterangan TEXT,
-    FOREIGN KEY (ID_Pengumpulan) REFERENCES Pengumpulan(ID_Pengumpulan)
+	Verifikator VARCHAR(50),
+    FOREIGN KEY (ID_Pengumpulan) REFERENCES Pengumpulan(ID_Pengumpulan) ON DELETE CASCADE
 );
 
 go;
@@ -88,31 +96,28 @@ go;
 
 
 INSERT INTO Role
-VALUES (1, 'admin', 'dapat mengakses semua', '1');
+VALUES (1, 'Admin', 'dapat mengakses semua');
 
 INSERT INTO Role
-VALUES (2, 'kajur', 'dapat mengakses data TI, SIB, RPL', '2');
+VALUES (2, 'Kepala Jurusan', 'dapat mengakses data TI, SIB, RPL');
 
 INSERT INTO Role
-VALUES (3, 'kaprodiTI', 'hanya dapat mengakses data TI', '3');
+VALUES (3, 'Kaprodi TI', 'hanya dapat mengakses data TI');
 
 INSERT INTO Role
-VALUES (4, 'kaprodiSIB', 'hanya dapat mengakses data SIB', '4');
+VALUES (4, 'Kaprodi SIB', 'hanya dapat mengakses data SIB');
 
 INSERT INTO Role
-VALUES (5, 'kaprodiTI', 'hanya dapat mengakses data RPL', '5');
+VALUES (5, 'Kaprodi PPLS', 'hanya dapat mengakses data RPL');
 
 INSERT INTO Role
-VALUES (6, 'kaprodiTI', 'hanya dapat mengakses data TI', '6');
+VALUES (6, 'Admin TA', 'hanya dapat mengakses data TA');
 
 INSERT INTO Role
-VALUES (7, 'adminTA', 'hanya dapat mengakses data TA', '7');
+VALUES (7, 'Admin Jurusan', 'hanya dapat mengakses data administrasi prodi');
 
 INSERT INTO Role
-VALUES (8, 'adminProdi', 'hanya dapat mengakses data administrasi prodi', '8');
-
-INSERT INTO Role
-VALUES (9, 'mahasiswa', 'hanya dapat upload data', '9');
+VALUES (8, 'Mahasiswa', 'hanya dapat upload data');
 
 SELECT * FROM Role;
 
@@ -147,3 +152,4 @@ SELECT * FROM Mahasiswa;
 
 SELECT * FROM Staff;
 SELECT * FROM [User];
+
