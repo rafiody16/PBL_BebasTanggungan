@@ -118,7 +118,19 @@ if (isset($_POST['simpanMahasiswa'])) {
     try {
         $checkUserSql = "SELECT ID_User FROM Mahasiswa WHERE NIM = ?";
         $checkUserStmt = sqlsrv_query($conn, $checkUserSql, [$NIM]);
-        $existingUser = sqlsrv_fetch_array($checkUserStmt, SQLSRV_FETCH_ASSOC);
+
+        if ($checkUserStmt === false) {
+            $errors = sqlsrv_errors();
+            foreach ($errors as $error) {
+                echo "SQLSTATE: " . $error['SQLSTATE'] . "<br />";
+                echo "Code: " . $error['code'] . "<br />";
+                echo "Message: " . $error['message'] . "<br />";
+            }
+            exit;
+        }
+
+        $existingUser  = sqlsrv_fetch_array($checkUserStmt, SQLSRV_FETCH_ASSOC);
+
 
         if ($existingUser) {
             $updateUserSql = "UPDATE [User] SET Username = ?, Email = ? WHERE ID_User = (SELECT ID_User FROM Mahasiswa WHERE NIM = ?)";
