@@ -151,7 +151,7 @@ GetAllBerkas();
     <div class="page-title">
         <div class="row">
             <div class="col-12 col-md-9 order-md-1 order-last">
-                <h3>Unggah Berkas Tugas Akhir</h3>
+                <h3>Berkas Bebas Tanggungan</h3>
                 <p class="text-subtitle text-muted">Bagi mahasiswa lulusan Jurusan Teknologi Informasi yang bermasalah pada hosting, dapat mengganti hosting dengan Google Drive masing-masing!</p>
             </div>
             <div class="col-12 col-md-3 order-md-2 order-first">
@@ -169,12 +169,9 @@ GetAllBerkas();
         <form>
         <div class="col-12 col-md-12">
         <div class="card">
-                <div class="card-header">
-                    <h5 class="card-title">Tabel Tugas Akhir</h5>
-                </div>
                 <div class="card-body">
                         <div class="card-header">
-                            <h4 class="card-title">Detail Tugas Akhir</h4>
+                            <h4 class="card-title">Status Unggah Berkas</h4>
                         </div>
                         <div class="card-content">
                             <div class="card-body">
@@ -202,7 +199,7 @@ GetAllBerkas();
                                                             <td class="text-bold-500"><?= isset($Tanggal_VerifikasiTA) ? htmlspecialchars($Tanggal_VerifikasiTA instanceof DateTime ? $Tanggal_VerifikasiTA->format('d-m-Y') : $Tanggal_VerifikasiTA) : 'Belum Terverifikasi' ?></td>
                                                             <td class="text-bold-500"><?= htmlspecialchars($Status_VerifikasiTA) ?></td>
                                                             <td class="text-bold-500"><?= htmlspecialchars($KeteranganTA) ?></td>
-                                                            <td><button>Edit</button></td>
+                                                            <td><button class="btn btn-warning">Edit</button></td>
                                                         </tr>
                                                         <tr>
                                                             <td class="text-bold-500">2</td>
@@ -210,14 +207,14 @@ GetAllBerkas();
                                                             <td class="text-bold-500"><?= isset($Tanggal_UploadAdm) ? htmlspecialchars($Tanggal_UploadTA instanceof DateTime ? $Tanggal_UploadAdm->format('d-m-Y') : $Tanggal_UploadAdm) : '' ?></td>
                                                             <td class="text-bold-500"><?= isset($Tanggal_VerifikasiAdm) ? htmlspecialchars($Tanggal_VerifikasiTA instanceof DateTime ? $Tanggal_VerifikasiAdm->format('d-m-Y') : $Tanggal_VerifikasiAdm) : 'Belum Terverifikasi' ?></td>
                                                             <td class="text-bold-50">
-                                                                <?php if ($Status_VerifikasiAdm == 'Menunggu'): ?>
+                                                                <?php if ($Status_VerifikasiAdm == 'Menunggu') { ?>
                                                                     <span class="badge badge-warning"><?= htmlspecialchars($Status_VerifikasiAdm) ?></span>
-                                                                <?php else: ?>
+                                                                <?php } else { ?>
                                                                     <?= htmlspecialchars($Status_VerifikasiAdm) ?>
-                                                                <?php endif; ?>
+                                                                <?php } ?>
                                                             </td>
                                                             <td class="text-bold-500"><?= htmlspecialchars($KeteranganAdm) ?></td>
-                                                            <td><button>Edit</button></td>
+                                                            <td><button class="btn btn-warning">Edit</buttonc></td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
@@ -358,11 +355,6 @@ GetAllBerkas();
                         </div>
                     </div>
                 </div>
-            </div>
-            
-            <div class="col-sm-12 d-flex justify-content-end">
-                <button type="submit" class="btn btn-primary me-2 mb-2" style="font-size: 1.3rem; padding: 1rem 2rem;" name="simpanBerkas">Submit</button>
-                <button type="reset" class="btn btn-light-secondary me-2 mb-2" style="font-size: 1.3rem; padding: 1rem 2rem;">Reset</button>
             </div>
         </form>
         </div>
