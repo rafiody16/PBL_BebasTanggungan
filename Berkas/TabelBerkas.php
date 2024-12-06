@@ -174,12 +174,25 @@ echo "Selamat Datang " . $_SESSION['Nama'];
                                                 if ($row) {
                                                     $ID_Pengumpulan = $row['ID_Pengumpulan'];
                                                     $nim = $row['NIM'];
+                                                    $status = $row['Status_Pengumpulan'];
                                                     echo "<tr>";
                                                     echo "<td style='display:none;'>" . htmlspecialchars($ID_Pengumpulan) . "</td>";
                                                     echo "<td>" . htmlspecialchars($no++) . "</td>";
                                                     echo "<td>" . htmlspecialchars($nim) . "</td>";
                                                     echo "<td>" . htmlspecialchars($row['Nama']) . "</td>";
-                                                    echo "<td>" . htmlspecialchars($row['Status_Pengumpulan']) . "</td>";
+                                                    if ($status === 'Menunggu') {
+                                                        ?>
+                                                        <td><span class="badge bg-warning"><?= htmlspecialchars($status) ?></span></td>
+                                                        <?php 
+                                                    } else if ($status === 'Terverifikasi') {
+                                                        ?>
+                                                        <td><span class="badge bg-success"><?= htmlspecialchars($status) ?></span></td>
+                                                        <?php
+                                                    } else if ($status === 'Ditolak') {
+                                                        ?>
+                                                        <td><span class="badge bg-danger"><?= htmlspecialchars($status) ?></span></td>
+                                                        <?php
+                                                    }
                                                     echo "<td>" . htmlspecialchars($row['Keterangan']) . "</td>";
                                             ?>
                                                     <td>
