@@ -29,6 +29,9 @@ switch ($action) {
     case 'tampilBerkas':
         GetAllBerkas();
         break;
+    case 'verifikasiBerkas':
+        VerifikasiBerkas();
+        break;
     default:
         # code...
         break;
@@ -212,6 +215,50 @@ function TolakAdministrasi() {
         }
     }
 }
+
+function VerifikasiBerkas() {
+    global $conn;
+
+    $ID_Pengumpulan = $_POST['ID_Pengumpulan'];
+    $tgl_verifikasi = date("Y-m-d");
+    $verifikator = $_SESSION['Nama'];
+    $role = $_SESSION['Role_ID'];
+
+    $checkBerkasSql = "SELECT ID_Pengumpulan, VerifikatorKajur, VerifikatorKaprodi FROM Pengumpulan WHERE ID_Pengumpulan = ?";
+    $checkBerkasStmt = sqlsrv_query($conn, $checkBerkasSql, [$ID_Pengumpulan]);
+    $existingBerkas = sqlsrv_fetch_array($checkBerkasStmt, SQLSRV_FETCH_ASSOC);
+
+    if ($existingBerkas) {
+        if ($role === 2) {
+            $updateKajurSql = "UPDATE Pengumpulan SET VerifikatorKajur = ? WHERE ID_Pengumpulan = ?";
+            $paramsKajurUpdate = [$verifikator,  $ID_Pengumpulan];
+            $stmtKajurUpdate = sqlsrv_query($conn, $updateKajurSql, $paramsKajurUpdate);
+
+            if (!$stmtKajurUpdate) {
+                throw new Exception('Gagal' . print_r(sqlsrv_errors(), true));
+            }
+        } else if ($role === 3 || $role === 4 || $role === 5) {
+            $updateKaprodiSql = "UPDATE Pengumpulan SET VerifikatorKaprodi = ? WHERE ID_Pengumpulan = ?";
+            $paramsKaprodiUpdate = [$verifikator,  $ID_Pengumpulan];
+            $stmtKaprodiUpdate = sqlsrv_query($conn, $updateKaprodiSql, $paramsKaprodiUpdate);
+
+            if (!$stmtKaprodiUpdate) {
+                throw new Exception('Gagal' . print_r(sqlsrv_errors(), true));
+            }
+        }
+
+        if (!is_null($existingBerkas['VerifikatorKajur']) && !is_null($existingBerkas['VerifikatorKaprodi'])) {
+            $updateVrfSql = "UPDATE Pengumpulan SET Status_Pengumpulan = ?, Tanggal_Verifikasi = ? WHERE ID_Pengumpulan = ?";
+            $paramsVrfUpdate = ['Terverifikasi', $tgl_verifikasi,  $ID_Pengumpulan];
+            $stmtVrfUpdate = sqlsrv_query($conn, $updateVrfSql, $paramsVrfUpdate);
+
+            if (!$stmtVrfUpdate) {
+                throw new Exception('Gagal' . print_r(sqlsrv_errors(), true));
+            }
+        }
+    }
+}
+
 
 function GetByIdAdministrasi() {
     global $conn;

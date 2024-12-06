@@ -36,6 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     }
 
                     if ($rowVrf = sqlsrv_fetch_array($stmtVrf, SQLSRV_FETCH_ASSOC)) {
+                        $_SESSION['NIP'] = $rowVrf['NIP'];
                         $_SESSION['Nama'] = $rowVrf['Nama'];
                     }
 
@@ -43,21 +44,93 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     break;
                 case 2:
                     echo "<script>alert('Selamat Datang Kepala Jurusan TI ".$Username.".'); window.location.href = '../Dosen/dashboardDosen.html'; </script>";
+                    $sqlVrf = "SELECT Nama FROM Staff WHERE ID_User = ?";
+                    $paramsVrf = array($row['ID_User']);
+                    $stmtVrf = sqlsrv_query($conn, $sqlVrf, $paramsVrf);
+
+                    if ($stmtVrf === false) {
+                        die(print_r(sqlsrv_errors(), true));
+                    }
+
+                    if ($rowVrf = sqlsrv_fetch_array($stmtVrf, SQLSRV_FETCH_ASSOC)) {
+                        $_SESSION['NIP'] = $rowVrf['NIP'];
+                        $_SESSION['Nama'] = $rowVrf['Nama'];
+                    }
                     break;
                 case 3:
                     echo "<script>alert('Selamat Datang Kaprodi TI ".$Username.".'); window.location.href = '../User/mahasiswa/dashboardUser.html'; </script>";
+                    $sqlVrf = "SELECT Nama FROM Staff WHERE ID_User = ?";
+                    $paramsVrf = array($row['ID_User']);
+                    $stmtVrf = sqlsrv_query($conn, $sqlVrf, $paramsVrf);
+
+                    if ($stmtVrf === false) {
+                        die(print_r(sqlsrv_errors(), true));
+                    }
+
+                    if ($rowVrf = sqlsrv_fetch_array($stmtVrf, SQLSRV_FETCH_ASSOC)) {
+                        $_SESSION['NIP'] = $rowVrf['NIP'];
+                        $_SESSION['Nama'] = $rowVrf['Nama'];
+                    }
                     break;
                 case 4:
                     echo "<script>alert('Selamat Datang Kaprodi SIB ".$Username.".'); window.location.href = '../Role4/dashboardRole4.html'; </script>";
+                    $sqlVrf = "SELECT Nama FROM Staff WHERE ID_User = ?";
+                    $paramsVrf = array($row['ID_User']);
+                    $stmtVrf = sqlsrv_query($conn, $sqlVrf, $paramsVrf);
+
+                    if ($stmtVrf === false) {
+                        die(print_r(sqlsrv_errors(), true));
+                    }
+
+                    if ($rowVrf = sqlsrv_fetch_array($stmtVrf, SQLSRV_FETCH_ASSOC)) {
+                        $_SESSION['NIP'] = $rowVrf['NIP'];
+                        $_SESSION['Nama'] = $rowVrf['Nama'];
+                    }
                     break;
                 case 5:
                     echo "<script>alert('Selamat Datang Kaprodi PPLS ".$Username.".'); window.location.href = '../Role4/dashboardRole4.html'; </script>";
+                    $sqlVrf = "SELECT Nama FROM Staff WHERE ID_User = ?";
+                    $paramsVrf = array($row['ID_User']);
+                    $stmtVrf = sqlsrv_query($conn, $sqlVrf, $paramsVrf);
+
+                    if ($stmtVrf === false) {
+                        die(print_r(sqlsrv_errors(), true));
+                    }
+
+                    if ($rowVrf = sqlsrv_fetch_array($stmtVrf, SQLSRV_FETCH_ASSOC)) {
+                        $_SESSION['NIP'] = $rowVrf['NIP'];
+                        $_SESSION['Nama'] = $rowVrf['Nama'];
+                    }
                     break;
                 case 6:
                     echo "<script>alert('Selamat Datang Admin TA ".$Username.".'); window.location.href = '../Role4/dashboardRole4.html'; </script>";
+                    $sqlVrf = "SELECT Nama FROM Staff WHERE ID_User = ?";
+                    $paramsVrf = array($row['ID_User']);
+                    $stmtVrf = sqlsrv_query($conn, $sqlVrf, $paramsVrf);
+
+                    if ($stmtVrf === false) {
+                        die(print_r(sqlsrv_errors(), true));
+                    }
+
+                    if ($rowVrf = sqlsrv_fetch_array($stmtVrf, SQLSRV_FETCH_ASSOC)) {
+                        $_SESSION['NIP'] = $rowVrf['NIP'];
+                        $_SESSION['Nama'] = $rowVrf['Nama'];
+                    }
                     break;
                 case 7:
                     echo "<script>alert('Selamat Datang Admin Jurusan ".$Username.".'); window.location.href = '../Role4/dashboardRole4.html'; </script>";
+                    $sqlVrf = "SELECT Nama FROM Staff WHERE ID_User = ?";
+                    $paramsVrf = array($row['ID_User']);
+                    $stmtVrf = sqlsrv_query($conn, $sqlVrf, $paramsVrf);
+
+                    if ($stmtVrf === false) {
+                        die(print_r(sqlsrv_errors(), true));
+                    }
+
+                    if ($rowVrf = sqlsrv_fetch_array($stmtVrf, SQLSRV_FETCH_ASSOC)) {
+                        $_SESSION['NIP'] = $rowVrf['NIP'];
+                        $_SESSION['Nama'] = $rowVrf['Nama'];
+                    }
                     break;
                 case 8:
                     echo "<script>alert('Selamat Datang Mahasiswa ".$Username.".'); window.location.href = '../User/mahasiswa/dashboardMHS.php'; </script>";

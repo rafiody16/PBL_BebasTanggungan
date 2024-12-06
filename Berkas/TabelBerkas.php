@@ -286,13 +286,13 @@ echo "Selamat Datang " . $_SESSION['Nama'];
             });
 
             $(".btn-verifikasi").click(function() {
-                var ID_Administrasi = $(this).data("id");
+                var ID_Pengumpulan = $(this).data("id");
                 $.ajax({
                     url: "ProsesBerkas.php",
                     type: "POST",
                     data: {
-                        ID_Administrasi: ID_Administrasi,
-                        action: "verifikasiAdministrasi"
+                        ID_Pengumpulan: ID_Pengumpulan,
+                        action: "verifikasiBerkas"
                     },
                     success: function(response) {
                         location.reload();
