@@ -111,7 +111,7 @@ if (isset($_POST['simpanMahasiswa'])) {
     $Tanggal_Lahir = $_POST['Tanggal_Lahir'];
     $Tahun_Angkatan = $_POST['Tahun_Angkatan'];
     $JenisKelamin = $_POST['JenisKelamin'];
-    $Role_ID = 5;
+    $Role_ID = 8;
 
     // Mulai transaksi
     sqlsrv_begin_transaction($conn);
