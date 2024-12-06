@@ -24,6 +24,7 @@ echo "Selamat Datang " . $_SESSION['Nama'];
     <link rel="stylesheet" crossorigin href="../assets/compiled/css/app.css">
     <link rel="stylesheet" crossorigin href="../assets/compiled/css/app-dark.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
 </head>
 
 <body>
@@ -174,12 +175,25 @@ echo "Selamat Datang " . $_SESSION['Nama'];
                                                 if ($row) {
                                                     $ID_Administrasi = $row['ID_Administrasi'];
                                                     $nim = $row['NIM'];
+                                                    $status = $row['Status_Verifikasi'];
                                                     echo "<tr>";
                                                     echo "<td style='display:none;'>" . htmlspecialchars($ID_Administrasi) . "</td>";
                                                     echo "<td>" . htmlspecialchars($no++) . "</td>";
                                                     echo "<td>" . htmlspecialchars($nim) . "</td>";
                                                     echo "<td>" . htmlspecialchars($row['Nama']) . "</td>";
-                                                    echo "<td>" . htmlspecialchars($row['Status_Verifikasi']) . "</td>";
+                                                    if ($status === 'Menunggu') {
+                                                        ?>
+                                                        <td><span class="badge bg-warning"><?= htmlspecialchars($status) ?></span></td>
+                                                        <?php 
+                                                    } else if ($status === 'Terverifikasi') {
+                                                        ?>
+                                                        <td><span class="badge bg-success"><?= htmlspecialchars($status) ?></span></td>
+                                                        <?php
+                                                    } else if ($status === 'Ditolak') {
+                                                        ?>
+                                                        <td><span class="badge bg-danger"><?= htmlspecialchars($status) ?></span></td>
+                                                        <?php
+                                                    }
                                                     echo "<td>" . htmlspecialchars($row['Keterangan']) . "</td>";
                                             ?>
                                                     <td>

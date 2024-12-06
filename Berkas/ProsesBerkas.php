@@ -228,7 +228,6 @@ function GetByIdAdministrasi() {
 
     if ($stmt === false) {
         die(print_r(sqlsrv_errors(), true));
-        exit;
     }
 
     if ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
@@ -268,7 +267,6 @@ function GetByIdTA() {
 
     if ($stmt === false) {
         die(print_r(sqlsrv_errors(), true));
-        exit;
     }
 
     if ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
