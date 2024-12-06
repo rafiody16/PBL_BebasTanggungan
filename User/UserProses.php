@@ -153,7 +153,7 @@ if (isset($_POST['simpanMahasiswa'])) {
             $sqlUser = "INSERT INTO [User] (Username, [Password], Email, Role_ID) 
                         OUTPUT INSERTED.ID_User 
                         VALUES (?, ?, ?, ?)";
-            $paramsUser = [$Username, $Password, $Email, 5];
+            $paramsUser = [$Username, $Password, $Email, 8];
             $stmtUser = sqlsrv_query($conn, $sqlUser, $paramsUser);
 
             if (!$stmtUser) {

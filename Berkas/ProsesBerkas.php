@@ -378,4 +378,12 @@ if ($stmt2 === false) {
     die(print_r(sqlsrv_errors(), true));
 }
 
+$sql3 = "SELECT p.ID_Pengumpulan, m.NIM, m.Nama, p.Status_Pengumpulan, p.Keterangan FROM Pengumpulan AS p 
+         INNER JOIN Mahasiswa AS m ON p.NIM = m.NIM";
+$stmt3 = sqlsrv_query($conn, $sql3);
+
+if ($stmt3 === false) {
+    die(print_r(sqlsrv_errors(), true));
+}
+
 ?>
