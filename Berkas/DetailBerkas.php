@@ -179,7 +179,7 @@ GetAllBerkas();
                                 <form class="form form-vertical">
                                     <div class="form-body">
                                         <div class="row">
-                                            <div class="table-responsive">
+                                            <dclass="table-responsive">
                                                 <table class="table table-bordered mb-0" style="border: 1px solid black;">
                                                     <thead>
                                                         <tr>
@@ -198,7 +198,23 @@ GetAllBerkas();
                                                             <td class="text-bold-500">Tugas Akhir</td>
                                                             <td class="text-bold-500"><?= isset($Tanggal_UploadTA) ? htmlspecialchars($Tanggal_UploadTA instanceof DateTime ? $Tanggal_UploadTA->format('d-m-Y') : $Tanggal_UploadTA) : '' ?></td>
                                                             <td class="text-bold-500"><?= isset($Tanggal_VerifikasiTA) ? htmlspecialchars($Tanggal_VerifikasiTA instanceof DateTime ? $Tanggal_VerifikasiTA->format('d-m-Y') : $Tanggal_VerifikasiTA) : 'Belum Terverifikasi' ?></td>
-                                                            <td class="text-bold-500"><?= htmlspecialchars($Status_VerifikasiTA) ?></td>
+                                                            <td class="text-bold-500">
+                                                                <?php
+                                                                    if ($Status_VerifikasiTA === 'Menunggu') {
+                                                                ?>
+                                                                    <span class="badge bg-warning"><?= htmlspecialchars($Status_VerifikasiTA) ?></span>
+                                                                <?php 
+                                                                    } else if ($Status_VerifikasiTA === 'Terverifikasi') {
+                                                                ?>
+                                                                    <span class="badge bg-success"><?= htmlspecialchars($Status_VerifikasiTA) ?></span>
+                                                                <?php
+                                                                    } else if ($Status_VerifikasiTA === 'Ditolak') {
+                                                                ?>
+                                                                    <span class="badge bg-danger"><?= htmlspecialchars($Status_VerifikasiTA) ?></span>
+                                                                <?php
+                                                                    }
+                                                                ?>
+                                                            </td>
                                                             <td class="text-bold-500"><?= htmlspecialchars($KeteranganTA) ?></td>
                                                             <td><button class="btn btn-warning">Edit</button></td>
                                                         </tr>
@@ -207,7 +223,23 @@ GetAllBerkas();
                                                             <td class="text-bold-500">Administrasi Program Studi</td>
                                                             <td class="text-bold-500"><?= isset($Tanggal_UploadAdm) ? htmlspecialchars($Tanggal_UploadAdm instanceof DateTime ? $Tanggal_UploadAdm->format('d-m-Y') : $Tanggal_UploadAdm) : '' ?></td>
                                                             <td class="text-bold-500"><?= isset($Tanggal_VerifikasiAdm) ? htmlspecialchars($Tanggal_VerifikasiAdm instanceof DateTime ? $Tanggal_VerifikasiAdm->format('d-m-Y') : $Tanggal_VerifikasiAdm) : 'Belum Terverifikasi' ?></td>
-                                                            <td class="text-bold-500"><?= htmlspecialchars($Status_VerifikasiAdm) ?></td>
+                                                            <td class="text-bold-500">
+                                                                <?php
+                                                                    if ($Status_VerifikasiAdm === 'Menunggu') {
+                                                                ?>
+                                                                    <span class="badge bg-warning"><?= htmlspecialchars($Status_VerifikasiAdm) ?></span>
+                                                                <?php 
+                                                                    } else if ($Status_VerifikasiAdm === 'Terverifikasi') {
+                                                                ?>
+                                                                    <span class="badge bg-success"><?= htmlspecialchars($Status_VerifikasiAdm) ?></span>
+                                                                <?php
+                                                                    } else if ($Status_VerifikasiAdm === 'Ditolak') {
+                                                                ?>
+                                                                    <span class="badge bg-danger"><?= htmlspecialchars($Status_VerifikasiAdm) ?></span>
+                                                                <?php
+                                                                    }
+                                                                ?>
+                                                            </td>
                                                             <td class="text-bold-500"><?= htmlspecialchars($KeteranganAdm) ?></td>
                                                             <td><button class="btn btn-warning">Edit</buttonc></td>
                                                         </tr>
