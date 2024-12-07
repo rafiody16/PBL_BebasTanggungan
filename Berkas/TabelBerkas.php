@@ -230,7 +230,7 @@ echo "Selamat Datang " . $_SESSION['Nama'];
                             <div class="col-12">
                                     <div class="form-group">
                                         <label for="SubBagian">Sub Bagian</label>
-                                        <select class="form-select" name="SubBagian" id="basicSelect">
+                                        <select class="form-select" name="SubBagian" id="SubBagian">
                                             <option>-- Pilih Sub Bagian --</option>
                                             <option value="Administrasi">Administrasi</option>
                                             <option value="TA">Tugas Akhir</option>
@@ -313,8 +313,13 @@ echo "Selamat Datang " . $_SESSION['Nama'];
             $('.btn-tolak').on('click', function() {
                 var ID_Pengumpulan = $(this).data('id');
                 var Keterangan = $("input[name='Keterangan']").val();
+                var SubBagian = $("select[name='SubBagian']").val();
                 if (!Keterangan) {
                     alert('Keterangan harus diisi!');
+                    return;
+                }
+                if (!SubBagian) {
+                    alert('Sub Bagian harus diisi!');
                     return;
                 }
                 $.ajax({
@@ -323,7 +328,8 @@ echo "Selamat Datang " . $_SESSION['Nama'];
                     data: {
                         action: 'tolakBerkas',
                         ID_Pengumpulan: ID_Pengumpulan,
-                        Keterangan: Keterangan
+                        Keterangan: Keterangan,
+                        SubBagian: SubBagian
                     },
                     success: function(response) {
                         location.reload();

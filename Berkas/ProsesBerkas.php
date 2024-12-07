@@ -233,16 +233,16 @@ function VerifikasiBerkas() {
 
     if ($existingBerkas) {
         if ($role === 2) {
-            $updateKajurSql = "UPDATE Pengumpulan SET VerifikatorKajur = ? WHERE ID_Pengumpulan = ?";
-            $paramsKajurUpdate = [$verifikator,  $ID_Pengumpulan];
-            $stmtKajurUpdate = sqlsrv_query($conn, $updateKajurSql, $paramsKajurUpdate);
+            $updateKajurSql = "UPDATE Pengumpulan SET VerifikatorKajur = ?, Keterangan = ? WHERE ID_Pengumpulan = ?";
+            $paramsKajurUpdate = [$verifikator, '-',  $ID_Pengumpulan];
+            $stmtKajurUpdate = sqlsrv_query($conn, $updateKajurSql,  $paramsKajurUpdate);
 
             if (!$stmtKajurUpdate) {
                 throw new Exception('Gagal' . print_r(sqlsrv_errors(), true));
             }
         } else if ($role === 3 || $role === 4 || $role === 5) {
-            $updateKaprodiSql = "UPDATE Pengumpulan SET VerifikatorKaprodi = ? WHERE ID_Pengumpulan = ?";
-            $paramsKaprodiUpdate = [$verifikator,  $ID_Pengumpulan];
+            $updateKaprodiSql = "UPDATE Pengumpulan SET VerifikatorKaprodi = ?, Keterangan = ? WHERE ID_Pengumpulan = ?";
+            $paramsKaprodiUpdate = [$verifikator, '-',  $ID_Pengumpulan];
             $stmtKaprodiUpdate = sqlsrv_query($conn, $updateKaprodiSql, $paramsKaprodiUpdate);
 
             if (!$stmtKaprodiUpdate) {
@@ -269,19 +269,31 @@ function TolakBerkas() {
     $Keterangan = $_POST['Keterangan'];
     $verifikator = $_SESSION['Nama'];
     $SubBagian = $_POST['SubBagian'];
+    $Role_ID = $_SESSION['Role_ID'];
 
     $checkBerkasSql = "SELECT ID_Pengumpulan FROM Pengumpulan WHERE ID_Pengumpulan = ?";
     $checkBerkasStmt = sqlsrv_query($conn, $checkBerkasSql, [$ID_Pengumpulan]);
     $existingBerkas = sqlsrv_fetch_array($checkBerkasStmt, SQLSRV_FETCH_ASSOC);
 
     if ($existingBerkas) {
-        $updateBerkasSql = "UPDATE Pengumpulan SET Status_Pengumpulan = ?, Tanggal_Verifikasi = ?, Keterangan = ?, Verifikator = ?
-                            WHERE ID_Pengumpulan = ?";
-        $paramsBerkasUpdate = ['Ditolak', NULL, $Keterangan, $verifikator, $ID_Pengumpulan];
-        $stmtBerkasUpdate = sqlsrv_query($conn, $updateBerkasSql, $paramsBerkasUpdate);
+        if ($Role_ID === 2) {
+            $updateBerkasSql = "UPDATE Pengumpulan SET Status_Pengumpulan = ?, Tanggal_Verifikasi = ?, Keterangan = ?, VerifikatorKajur = ?
+                                WHERE ID_Pengumpulan = ?";
+            $paramsBerkasUpdate = ['Ditolak', NULL, $Keterangan, $verifikator, $ID_Pengumpulan];
+            $stmtBerkasUpdate = sqlsrv_query($conn, $updateBerkasSql, $paramsBerkasUpdate);
 
-        if (!$stmtBerkasUpdate) {
-            throw new Exception('Gagal memperbarui data Administrasi: ' . print_r(sqlsrv_errors(), true));
+            if (!$stmtBerkasUpdate) {
+                throw new Exception('Gagal memperbarui data Administrasi: ' . print_r(sqlsrv_errors(), true));
+            }
+        } else if ($Role_ID === 3 || $Role_ID === 4 || $Role_ID === 5) {
+            $updateBerkasSql = "UPDATE Pengumpulan SET Status_Pengumpulan = ?, Tanggal_Verifikasi = ?, Keterangan = ?, VerifikatorKaprodi = ?
+                                WHERE ID_Pengumpulan = ?";
+            $paramsBerkasUpdate = ['Ditolak', NULL, $Keterangan, $verifikator, $ID_Pengumpulan];
+            $stmtBerkasUpdate = sqlsrv_query($conn, $updateBerkasSql, $paramsBerkasUpdate);
+
+            if (!$stmtBerkasUpdate) {
+                throw new Exception('Gagal memperbarui data Administrasi: ' . print_r(sqlsrv_errors(), true));
+            }
         }
     }
 
@@ -316,10 +328,8 @@ function TolakBerkas() {
             }
         }
     }
-    var_dump($_POST);
-    exit();
-
-    
+    // var_dump($_POST);
+    // exit();
 }
 
 
