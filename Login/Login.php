@@ -10,22 +10,22 @@ if (isset($_SESSION['Username'])) {
         header("Location: ../index.php");
         break;
     case 2:
-        header("Location: ../index.php");
+        header("Location: ../User/kajur/dasborKajur.php");
         break;
     case 3:
-        header("Location: ../index.php");
+        header("Location: ../kaprodiTI.php");
         break;
     case 4:
-        header("Location: ../index.php");
+        header("Location: ../kaprodiSIB.php");
         break;
     case 5:
-        header("Location: ../index.php");
+        header("Location: ../kaprodiPPLS.php");
         break;
     case 6:
-        header("Location: ../index.php");
+        header("Location: ../Berkas/TabelTA.php");
         break;
     case 7:
-        header("Location: ../index.php");
+        header("Location: ../Berkas/TabelAdministrasi.php");
         break;
     case 8:
         header("Location: ../User/mahasiswa/dashboardMHS.php");

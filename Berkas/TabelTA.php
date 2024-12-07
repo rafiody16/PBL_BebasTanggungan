@@ -115,6 +115,10 @@ echo "Selamat Datang " . $_SESSION['Nama'];
                         <a href="ubahPasswordMhs.html" class="submenu-link">Ubah Password</a>
                         
                     </li>
+
+                    <li class="submenu-item  ">
+                        <a href="../Login/Logout.php" class="submenu-link">Logout</a>
+                    </li>    
                     
                 </ul>  
 
