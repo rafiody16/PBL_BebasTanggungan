@@ -229,11 +229,11 @@ echo "Selamat Datang " . $_SESSION['Nama'];
                             <form action="ProsesBerkas.php" method="POST">
                             <div class="col-12">
                                     <div class="form-group">
-                                        <label for="">Sub Bagian</label>
-                                        <select class="form-select" id="basicSelect">
+                                        <label for="SubBagian">Sub Bagian</label>
+                                        <select class="form-select" name="SubBagian" id="basicSelect">
                                             <option>-- Pilih Sub Bagian --</option>
-                                            <option>Administrasi</option>
-                                            <option>Tugas Akhir</option>
+                                            <option value="Administrasi">Administrasi</option>
+                                            <option value="TA">Tugas Akhir</option>
                                         </select>
                                     </div>
                                 </div>
@@ -250,9 +250,9 @@ echo "Selamat Datang " . $_SESSION['Nama'];
                                 <i class="bx bx-x d-block d-sm-none"></i>
                                 <span class="d-none d-sm-block">Tutup</span>
                             </button>
-                            <button type="button" class="btn btn-primary btn-tolak" data-bs-dismiss="modal" data-id="<?= $ID_Administrasi ?>">
+                            <button type="button" class="btn btn-danger btn-tolak" data-bs-dismiss="modal" data-id="<?= $ID_Pengumpulan ?>">
                                 <i class="bx bx-check d-block d-sm-none"></i>
-                                <span class="d-none d-sm-block">Unggah</span>
+                                <span class="d-none d-sm-block">Tolak</span>
                             </button>
                         </div>
                     </div>
@@ -311,7 +311,7 @@ echo "Selamat Datang " . $_SESSION['Nama'];
             });
 
             $('.btn-tolak').on('click', function() {
-                var ID_Administrasi = $(this).data('id');
+                var ID_Pengumpulan = $(this).data('id');
                 var Keterangan = $("input[name='Keterangan']").val();
                 if (!Keterangan) {
                     alert('Keterangan harus diisi!');
@@ -321,8 +321,8 @@ echo "Selamat Datang " . $_SESSION['Nama'];
                     url: 'ProsesBerkas.php',
                     type: 'POST',
                     data: {
-                        action: 'tolakAdministrasi',
-                        ID_Administrasi: ID_Administrasi,
+                        action: 'tolakBerkas',
+                        ID_Pengumpulan: ID_Pengumpulan,
                         Keterangan: Keterangan
                     },
                     success: function(response) {

@@ -26,6 +26,9 @@ switch ($action) {
     case 'tolakTA':
         TolakTA();
         break;
+    case 'tolakBerkas':
+        TolakBerkas();
+        break;
     case 'tampilBerkas':
         GetAllBerkas();
         break;
@@ -262,24 +265,58 @@ function VerifikasiBerkas() {
 function TolakBerkas() {
     global $conn;
 
-    $ID_Administrasi = $_POST['ID_Pengumpulan'];
+    $ID_Pengumpulan = $_POST['ID_Pengumpulan'];
     $Keterangan = $_POST['Keterangan'];
     $verifikator = $_SESSION['Nama'];
+    $SubBagian = $_POST['SubBagian'];
 
-    $checkAdministrasiSql = "SELECT ID_Administrasi FROM Administrasi WHERE ID_Administrasi = ?";
-    $checkAdministrasiStmt = sqlsrv_query($conn, $checkAdministrasiSql, [$ID_Administrasi]);
-    $existingAdministrasi = sqlsrv_fetch_array($checkAdministrasiStmt, SQLSRV_FETCH_ASSOC);
+    $checkBerkasSql = "SELECT ID_Pengumpulan FROM Pengumpulan WHERE ID_Pengumpulan = ?";
+    $checkBerkasStmt = sqlsrv_query($conn, $checkBerkasSql, [$ID_Pengumpulan]);
+    $existingBerkas = sqlsrv_fetch_array($checkBerkasStmt, SQLSRV_FETCH_ASSOC);
 
-    if ($existingAdministrasi) {
-        $updateAdministrasiSql = "UPDATE Administrasi SET Status_Verifikasi = ?, Tanggal_Verifikasi = ?, Keterangan = ?, Verifikator = ?
-                                  WHERE ID_Administrasi = ?";
-        $paramsAdministrasiUpdate = ['Ditolak', NULL, $Keterangan, $verifikator, $ID_Administrasi];
-        $stmtAdministrasiUpdate = sqlsrv_query($conn, $updateAdministrasiSql, $paramsAdministrasiUpdate);
+    if ($existingBerkas) {
+        $updateBerkasSql = "UPDATE Pengumpulan SET Status_Pengumpulan = ?, Tanggal_Verifikasi = ?, Keterangan = ?, Verifikator = ?
+                            WHERE ID_Pengumpulan = ?";
+        $paramsBerkasUpdate = ['Ditolak', NULL, $Keterangan, $verifikator, $ID_Pengumpulan];
+        $stmtBerkasUpdate = sqlsrv_query($conn, $updateBerkasSql, $paramsBerkasUpdate);
 
-        if (!$stmtAdministrasiUpdate) {
+        if (!$stmtBerkasUpdate) {
             throw new Exception('Gagal memperbarui data Administrasi: ' . print_r(sqlsrv_errors(), true));
         }
     }
+
+    if ($SubBagian === 'Administrasi') {
+        $checkAdministrasiSql = "SELECT ID_Administrasi FROM Administrasi WHERE ID_Pengumpulan = ?";
+        $checkAdministrasiStmt = sqlsrv_query($conn, $checkAdministrasiSql, [$ID_Pengumpulan]);
+        $existingAdministrasi = sqlsrv_fetch_array($checkAdministrasiStmt, SQLSRV_FETCH_ASSOC);
+
+        if ($existingAdministrasi) {
+            $updateAdministrasiSql = "UPDATE Administrasi SET Status_Verifikasi = ?, Tanggal_Verifikasi = ?, Keterangan = ?, Verifikator = ?
+                                  WHERE ID_Pengumpulan = ?";
+            $paramsAdministrasiUpdate = ['Ditolak', NULL, $Keterangan, $verifikator, $ID_Pengumpulan];
+            $stmtAdministrasiUpdate = sqlsrv_query($conn, $updateAdministrasiSql, $paramsAdministrasiUpdate);
+
+            if (!$stmtAdministrasiUpdate) {
+                throw new Exception('Gagal memperbarui data Administrasi: ' . print_r(sqlsrv_errors(), true));
+            }
+        }
+    } else if ($SubBagian === 'TA') {
+        $checkTASql = "SELECT ID_Aplikasi FROM TugasAkhir WHERE ID_Pengumpulan = ?";
+        $checkTAStmt = sqlsrv_query($conn, $checkTASql, [$ID_Pengumpulan]);
+        $existingTA = sqlsrv_fetch_array($checkTAStmt, SQLSRV_FETCH_ASSOC);
+
+        if ($existingTA) {
+            $updateTASql = "UPDATE TugasAkhir SET Status_Verifikasi = ?, Tanggal_Verifikasi = ?, Keterangan = ?, Verifikator = ?
+                            WHERE ID_Pengumpulan = ?";
+            $paramsTAUpdate = ['Ditolak', NULL, $Keterangan, $verifikator, $ID_Pengumpulan];
+            $stmtTAUpdate = sqlsrv_query($conn, $updateTASql, $paramsTAUpdate);
+
+            if (!$stmtTAUpdate) {
+                throw new Exception('Gagal memperbarui data TA: ' . print_r(sqlsrv_errors(), true));
+            }
+        }
+    }
+    
 }
 
 
