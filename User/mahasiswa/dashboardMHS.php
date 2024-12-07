@@ -12,6 +12,13 @@ if (!isset($_SESSION['Username'])) {
   exit();
 }
 
+// Cek hak akses
+if ($_SESSION['Role_ID'] != 8) {
+  // Jika bukan admin, redirect atau tampilkan pesan error
+  echo "<script>alert('Anda tidak memiliki akses ke halaman ini.'); window.location.href = 'Login/Login.php';</script>";
+  exit();
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -45,10 +52,15 @@ if (!isset($_SESSION['Username'])) {
     />
     <script>
     // Jika halaman di-refresh atau tombol Back ditekan, redirect ke halaman login
-    if (performance.navigation.type == 2) {
-        // Halaman ini di-refresh atau tombol Back ditekan
-        window.location.href = 'login.php';
+    // if (performance.navigation.type == 2) {
+    //     // Halaman ini di-refresh atau tombol Back ditekan
+    //     window.location.href = 'login.php';
+    // }
+
+    if (performance.navigation.type === 2) { // Deteksi navigasi 'Back'
+        window.location.href = '../../User/mahasiswa/dashboardMHS.php'; // Redirect ke dashboard
     }
+
   </script>
 
   </head>

@@ -1,6 +1,23 @@
 <?php
 session_start();
 
+header("Cache-Control: no-cache, no-store, must-revalidate"); // Untuk HTTP/1.1
+header("Pragma: no-cache"); // Untuk HTTP/1.0
+header("Expires: 0");// Untuk memastikan halaman tidak disimpan
+
+if (!isset($_SESSION['Username'])) {
+  // Jika belum login, redirect ke halaman login
+  header("Location: Login/Login.php");
+  exit();
+}
+
+// Cek hak akses
+if ($_SESSION['Role_ID'] != 1) {
+  // Jika bukan admin, redirect atau tampilkan pesan error
+  echo "<script>alert('Anda tidak memiliki akses ke halaman ini.'); window.location.href = 'Login/Login.php';</script>";
+  exit();
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -32,6 +49,12 @@ session_start();
       crossorigin
       href="assets/compiled/css/iconly.css"
     />
+    <script>
+      if (performance.navigation.type === 2) { // Deteksi navigasi 'Back'
+        window.location.href = 'index.php'; // Redirect ke dashboard
+      }
+
+    </script>
   </head>
 
   <body>
@@ -156,8 +179,30 @@ session_start();
                         <li class="submenu-item ">
                             <a href="User/TabelStaff.php" class="submenu-link"
                         >Lihat Data</a>
+                        </li>
+                    </ul>
                 </li>
 
+                <li
+                class="sidebar-item  has-sub">
+                <a href="#" class='sidebar-link'>
+                    <i class="bi bi-person-circle"></i>
+                    <span>Akun</span>
+                </a>
+                
+                <ul class="submenu ">
+                    <li class="submenu-item  ">
+                        <a href="profil-mahasiswa.html" class="submenu-link">Profil Saya</a>
+                    </li>
+                    <li class="submenu-item  ">
+                        <a href="ubahPasswordMhs.html" class="submenu-link">Ubah Password</a>
+                    </li>                    
+                    <li class="submenu-item  ">
+                        <a href="Login/Logout.php" class="submenu-link">Logout</a>
+                    </li>                    
+                </ul>  
+
+            </li>
             </ul>
           </div>
         </div>
