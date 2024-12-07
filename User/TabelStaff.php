@@ -127,7 +127,30 @@ if ($_SESSION['Role_ID'] != 1) {
                   <li class="submenu-item active">
                     <a href="TabelStaff.php" class="submenu-link"
                       >Lihat Data</a>
+                    </li>
+                </ul>
                 </li>
+
+                <li
+                class="sidebar-item  has-sub">
+                <a href="#" class='sidebar-link'>
+                    <i class="bi bi-person-circle"></i>
+                    <span>Akun</span>
+                </a>
+                
+                <ul class="submenu ">
+                    <li class="submenu-item  ">
+                        <a href="admin/profilAdmin.php" class="submenu-link">Profil Saya</a>
+                    </li>
+                    <li class="submenu-item  ">
+                        <a href="admin/ubahPassword.php" class="submenu-link">Ubah Password</a>
+                    </li>                    
+                    <li class="submenu-item  ">
+                        <a href="../Login/Logout.php" class="submenu-link">Logout</a>
+                    </li>                    
+                </ul>  
+
+            </li>
 
             </ul>
         </div>
@@ -147,6 +170,22 @@ if ($_SESSION['Role_ID'] != 1) {
                             <h3>Tabel Staff</h3>
                             <p class="text-subtitle text-muted">Data staff.</p>
                         </div>
+                        <div class="col-12 col-md-6 order-md-2 order-first">
+                            <nav
+                            aria-label="breadcrumb"
+                            class="breadcrumb-header float-start float-lg-end"
+                            >
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item">
+                                    <a href="../index.php">Dashboard</a>
+                                    </li>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                    Lihat Data Staff
+                                    </li>
+                                </ol>
+                            </nav>
+                            </div>
+                    </div>
                     </div>
                 </div>
                 <section class="section">

@@ -93,7 +93,7 @@ GetAllBerkas();
             
             <li
                 class="sidebar-item  ">
-                <a href="dashboardUser.html" class='sidebar-link'>
+                <a href="../User/mahasiswa/dashboardMHS.php" class='sidebar-link'>
                     <i class="bi bi-grid-fill"></i>
                     <span>Dashboard</span>
                 </a>
@@ -153,7 +153,7 @@ GetAllBerkas();
         <div class="row">
             <div class="col-12 col-md-9 order-md-1 order-last">
                 <h3>Berkas Bebas Tanggungan</h3>
-                <p class="text-subtitle text-muted">Bagi mahasiswa lulusan Jurusan Teknologi Informasi yang bermasalah pada hosting, dapat mengganti hosting dengan Google Drive masing-masing!</p>
+                <br>
             </div>
             <div class="col-12 col-md-3 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">

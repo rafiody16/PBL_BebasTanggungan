@@ -36,7 +36,7 @@
           <div class="sidebar-header position-relative">
             <div class="d-flex justify-content-between align-items-center">
               <div class="logo">
-                <a href="dashboardMHS.php"
+                <a href="../../index.php"
                   ><img
                     src="../../assets/img/logoBetati.png"
                     alt="Logo"
@@ -109,54 +109,75 @@
             </div>
           </div>
           <div class="sidebar-menu">
-            <ul class="menu">
-              <li class="sidebar-title">Menu</li>
+          <ul class="menu">
+                <li class="sidebar-title">Menu</li>
 
-              <li class="sidebar-item">
-                <a href="dashboardMHS.php" class="sidebar-link">
-                  <i class="bi bi-grid-fill"></i>
-                  <span>Dashboard</span>
-                </a>
-              </li>
+                <li
+                    class="sidebar-item  ">
+                    <a href="../../index.php" class='sidebar-link'>
+                        <i class="bi bi-grid-fill"></i>
+                        <span>Dashboard</span>
+                    </a>
 
-              <li class="sidebar-item">
-                <a href="../../Berkas/FormBerkas.php" class="sidebar-link">
-                  <i class="bi bi-file-earmark-medical-fill"></i>
-                  <span>Unggah Berkas</span>
-                </a>
-              </li>
+                </li>
 
-              <li class="sidebar-item">
-                <a href="cek-status.html" class="sidebar-link">
-                  <i class="bi bi-journal-check"></i>
-                  <span>Cek Status</span>
-                </a>
-              </li>
-
-              <li class="sidebar-item active has-sub">
+                <li class="sidebar-item has-sub">
                 <a href="#" class="sidebar-link">
-                  <i class="bi bi-person-circle"></i>
-                  <span>Akun</span>
+                  <i class="bi bi-file-earmark-medical-fill"></i>
+                  <span>Data Mahasiswa</span>
                 </a>
 
-                <ul class="submenu active">
-                  <li class="submenu-item active">
-                    <a href="profil-mahasiswa.html" class="submenu-link"
-                      >Profil Saya</a
-                    >
+                <ul class="submenu">
+                  <li class="submenu-item">
+                    <a href="../FormMahasiswa.php" class="submenu-link"
+                      >Tambah Data</a>
                   </li>
                   <li class="submenu-item">
-                    <a href="ubahPasswordMhs.html" class="submenu-link"
-                      >Ubah Password</a
-                    >
-                  </li>
-                  <li class="submenu-item">
-                    <a href="../../Login/Logout.php" class="submenu-link"
-                      >Logout</a
-                    >
-                  </li>
+                    <a href="../TabelMahasiswa.php" class="submenu-link"
+                      >Lihat Data</a>
+                </li>
                 </ul>
-              </li>
+                </li>
+
+                <li class="sidebar-item has-sub">
+                <a href="#" class="sidebar-link">
+                  <i class="bi bi-file-earmark-medical-fill"></i>
+                  <span>Data Staff</span>
+                </a>
+
+                <ul class="submenu">
+                  <li class="submenu-item">
+                    <a href="../FormStaff.php" class="submenu-link"
+                      >Tambah Data</a>
+                  </li>
+                  <li class="submenu-item">
+                    <a href="../TabelStaff.php" class="submenu-link"
+                      >Lihat Data</a>
+                    </li>
+                </ul>
+                </li>
+
+                <li
+                class="sidebar-item active has-sub">
+                <a href="#" class='sidebar-link'>
+                    <i class="bi bi-person-circle"></i>
+                    <span>Akun</span>
+                </a>
+                
+                <ul class="submenu active">
+                    <li class="submenu-item active">
+                        <a href="../admin/profilAdmin.php" class="submenu-link">Profil Saya</a>
+                    </li>
+                    <li class="submenu-item  ">
+                        <a href="../admin/ubahPassword.php" class="submenu-link">Ubah Password</a>
+                    </li>                    
+                    <li class="submenu-item  ">
+                        <a href="../../Login/Logout.php" class="submenu-link">Logout</a>
+                    </li>                    
+                </ul>  
+
+            </li>
+
             </ul>
           </div>
         </div>
@@ -182,7 +203,7 @@
                 >
                   <ol class="breadcrumb">
                     <li class="breadcrumb-item">
-                      <a href="dashboardMHS.php">Dashboard</a>
+                      <a href="../../index.php">Dashboard</a>
                     </li>
                     <li class="breadcrumb-item active" aria-current="page">
                       Profile

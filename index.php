@@ -192,10 +192,10 @@ if ($_SESSION['Role_ID'] != 1) {
                 
                 <ul class="submenu ">
                     <li class="submenu-item  ">
-                        <a href="profil-mahasiswa.html" class="submenu-link">Profil Saya</a>
+                        <a href="User/admin/profilAdmin.php" class="submenu-link">Profil Saya</a>
                     </li>
                     <li class="submenu-item  ">
-                        <a href="ubahPasswordMhs.html" class="submenu-link">Ubah Password</a>
+                        <a href="User/admin/ubahPassword.php" class="submenu-link">Ubah Password</a>
                     </li>                    
                     <li class="submenu-item  ">
                         <a href="Login/Logout.php" class="submenu-link">Logout</a>
@@ -234,7 +234,7 @@ if ($_SESSION['Role_ID'] != 1) {
                         </div>
                         <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
                           <h6 class="text-muted font-semibold">
-                            Profile Views
+                            Jumlah User Mahasiswa
                           </h6>
                           <h6 class="font-extrabold mb-0">112.000</h6>
                         </div>
@@ -254,7 +254,7 @@ if ($_SESSION['Role_ID'] != 1) {
                           </div>
                         </div>
                         <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
-                          <h6 class="text-muted font-semibold">Followers</h6>
+                          <h6 class="text-muted font-semibold">Jumlah User Staff</h6>
                           <h6 class="font-extrabold mb-0">183.000</h6>
                         </div>
                       </div>
