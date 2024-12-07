@@ -134,14 +134,14 @@ echo "Selamat Datang " . $_SESSION['Nama'];
                 <div class="page-title">
                     <div class="row">
                         <div class="col-12 col-md-9 order-md-1 order-last">
-                            <h3>Verifikasi Administrasi Mahasiswa</h3>
+                            <h3>Verifikasi Berkas Mahasiswa</h3>
                             <p class="text-subtitle text-muted">-</p>
                         </div>
                         <div class="col-12 col-md-3 order-md-2 order-first">
                             <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="dashboardUser.html">Dashboard</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">Berkas Administrasi</li>
+                                    <li class="breadcrumb-item active" aria-current="page">Berkas Mahasiswa</li>
                                 </ol>
                             </nav>
                         </div>
@@ -227,6 +227,16 @@ echo "Selamat Datang " . $_SESSION['Nama'];
                         </div>
                         <div class="modal-body">
                             <form action="ProsesBerkas.php" method="POST">
+                            <div class="col-12">
+                                    <div class="form-group">
+                                        <label for="">Sub Bagian</label>
+                                        <select class="form-select" id="basicSelect">
+                                            <option>-- Pilih Sub Bagian --</option>
+                                            <option>Administrasi</option>
+                                            <option>Tugas Akhir</option>
+                                        </select>
+                                    </div>
+                                </div>
                                 <div class="col-12">
                                     <div class="form-group">
                                         <label for="Keterangan">Keterangan</label>

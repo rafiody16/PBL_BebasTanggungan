@@ -259,6 +259,30 @@ function VerifikasiBerkas() {
     }
 }
 
+function TolakBerkas() {
+    global $conn;
+
+    $ID_Administrasi = $_POST['ID_Pengumpulan'];
+    $Keterangan = $_POST['Keterangan'];
+    $verifikator = $_SESSION['Nama'];
+
+    $checkAdministrasiSql = "SELECT ID_Administrasi FROM Administrasi WHERE ID_Administrasi = ?";
+    $checkAdministrasiStmt = sqlsrv_query($conn, $checkAdministrasiSql, [$ID_Administrasi]);
+    $existingAdministrasi = sqlsrv_fetch_array($checkAdministrasiStmt, SQLSRV_FETCH_ASSOC);
+
+    if ($existingAdministrasi) {
+        $updateAdministrasiSql = "UPDATE Administrasi SET Status_Verifikasi = ?, Tanggal_Verifikasi = ?, Keterangan = ?, Verifikator = ?
+                                  WHERE ID_Administrasi = ?";
+        $paramsAdministrasiUpdate = ['Ditolak', NULL, $Keterangan, $verifikator, $ID_Administrasi];
+        $stmtAdministrasiUpdate = sqlsrv_query($conn, $updateAdministrasiSql, $paramsAdministrasiUpdate);
+
+        if (!$stmtAdministrasiUpdate) {
+            throw new Exception('Gagal memperbarui data Administrasi: ' . print_r(sqlsrv_errors(), true));
+        }
+    }
+}
+
+
 
 function GetByIdAdministrasi() {
     global $conn;
