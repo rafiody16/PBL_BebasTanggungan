@@ -316,6 +316,9 @@ function TolakBerkas() {
             }
         }
     }
+    var_dump($_POST);
+    exit();
+
     
 }
 
