@@ -5,7 +5,33 @@ header("Pragma: no-cache"); // HTTP/1.0
 header("Expires: 0"); // Prohibits caching
 
 if (isset($_SESSION['Username'])) {
-  header("Location: ../User/mahasiswa/dashboardMHS.php");
+  switch ($_SESSION['Role_ID']) {
+    case 1:
+        header("Location: ../index.php");
+        break;
+    case 2:
+        header("Location: ../index.php");
+        break;
+    case 3:
+        header("Location: ../index.php");
+        break;
+    case 4:
+        header("Location: ../index.php");
+        break;
+    case 5:
+        header("Location: ../index.php");
+        break;
+    case 6:
+        header("Location: ../index.php");
+        break;
+    case 7:
+        header("Location: ../index.php");
+        break;
+    case 8:
+        header("Location: ../User/mahasiswa/dashboardMHS.php");
+        break;
+  }
+
   exit();
 }
 ?>
