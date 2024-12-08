@@ -54,7 +54,7 @@ GetAllBerkas();
     <div class="sidebar-header position-relative">
         <div class="d-flex justify-content-between align-items-center">
             <div class="logo">
-                <a href="dashboardUser.html"><img src="../assets/img/logoBetati.png" alt="Logo" srcset=""></a>
+                <a href="../User/mahasiswa/dashboardMHS.php"><img src="../assets/img/logoBetati.png" alt="Logo" srcset=""></a>
             </div>
             <div class="theme-toggle d-flex gap-2  align-items-center mt-2">
                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true"
@@ -97,7 +97,7 @@ GetAllBerkas();
                 class="sidebar-item  ">
                 <a href="../User/mahasiswa/dashboardMHS.php" class='sidebar-link'>
                     <i class="bi bi-grid-fill"></i>
-                    <span>Dashboard</span>
+                    <span>Beranda</span>
                 </a>
                 
 
@@ -157,7 +157,7 @@ GetAllBerkas();
             <div class="col-12 col-md-3 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="dashboardUser.html">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a href="../User/mahasiswa/dashboardMHS.php">Beranda</a></li>
                         <li class="breadcrumb-item active" aria-current="page">Berkas Bebas Tanggungan</li>
                     </ol>
                 </nav>
