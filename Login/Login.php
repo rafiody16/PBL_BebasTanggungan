@@ -1,3 +1,41 @@
+<?php
+session_start();
+header("Cache-Control: no-cache, no-store, must-revalidate"); // HTTP/1.1
+header("Pragma: no-cache"); // HTTP/1.0
+header("Expires: 0"); // Prohibits caching
+
+if (isset($_SESSION['Username'])) {
+  switch ($_SESSION['Role_ID']) {
+    case 1:
+        header("Location: ../index.php");
+        break;
+    case 2:
+        header("Location: ../User/kajur/dasborKajur.php");
+        break;
+    case 3:
+        header("Location: ../kaprodiTI.php");
+        break;
+    case 4:
+        header("Location: ../kaprodiSIB.php");
+        break;
+    case 5:
+        header("Location: ../kaprodiPPLS.php");
+        break;
+    case 6:
+        header("Location: ../Berkas/TabelTA.php");
+        break;
+    case 7:
+        header("Location: ../Berkas/TabelAdministrasi.php");
+        break;
+    case 8:
+        header("Location: ../User/mahasiswa/dashboardMHS.php");
+        break;
+  }
+
+  exit();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>

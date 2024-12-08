@@ -1,45 +1,73 @@
+<?php
+session_start();
+
+header("Cache-Control: no-cache, no-store, must-revalidate"); // Untuk HTTP/1.1
+header("Pragma: no-cache"); // Untuk HTTP/1.0
+header("Expires: 0");// Untuk memastikan halaman tidak disimpan
+
+if (!isset($_SESSION['Username'])) {
+  // Jika belum login, redirect ke halaman login
+  header("Location: Login/Login.php");
+  exit();
+}
+
+// Cek hak akses
+if ($_SESSION['Role_ID'] != 3) {
+  // Jika bukan admin, redirect atau tampilkan pesan error
+  echo "<script>alert('Anda tidak memiliki akses ke halaman ini.'); window.location.href = 'Login/Login.php';</script>";
+  exit();
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dashboard - BeTaTI</title>
+    <title>Dashboard Admin - BeTaTI</title>
 
     <link
       rel="shortcut icon"
-      href="../../assets/img/logoJti.png"
+      href="assets/img/logoJti.png"
       type="image/x-icon"
     />
     <link
       rel="shortcut icon"
-      href="../../assets/img/logoJti.png"
+      href="assets/img/logoJti.png"
       type="image/png"
     />
 
-    <link rel="stylesheet" crossorigin href="../../assets/compiled/css/app.css" />
+    <link rel="stylesheet" crossorigin href="assets/compiled/css/app.css" />
     <link
       rel="stylesheet"
       crossorigin
-      href="../../assets/compiled/css/app-dark.css"
+      href="assets/compiled/css/app-dark.css"
     />
     <link
       rel="stylesheet"
       crossorigin
-      href="../../assets/compiled/css/iconly.css"
+      href="assets/compiled/css/iconly.css"
     />
+    <script>
+      if (performance.navigation.type === 2) { // Deteksi navigasi 'Back'
+        window.location.href = 'kaprodiTI.php'; // Redirect ke dashboard
+      }
+
+    </script>
   </head>
 
   <body>
-    <script src="../../assets/static/js/initTheme.js"></script>
+    <script src="assets/static/js/initTheme.js"></script>
     <div id="app">
       <div id="sidebar">
         <div class="sidebar-wrapper active">
           <div class="sidebar-header position-relative">
             <div class="d-flex justify-content-between align-items-center">
               <div class="logo">
-                <a href="dashboardUser.html"
+                <a href="kaprodiTI.php"
                   ><img
-                    src="../../assets/img/logoBetati.png"
+                    src="assets/img/logoBetati.png"
                     alt="Logo"
                     srcset=""
                 /></a>
@@ -112,42 +140,50 @@
           <div class="sidebar-menu">
             <ul class="menu">
               <li class="sidebar-title">Menu</li>
-
               <li class="sidebar-item active">
-                <a href="dashboardUser.html" class="sidebar-link">
+                <a href="kaprodiTI.php" class="sidebar-link">
                   <i class="bi bi-grid-fill"></i>
                   <span>Dashboard</span>
                 </a>
               </li>
 
               <li class="sidebar-item has-sub">
-                <a href="#" class="sidebar-link">
-                  <i class="bi bi-file-earmark-medical-fill"></i>
-                  <span>Unggah Berkas</span>
-                </a>
+                    <a href="#" class="sidebar-link">
+                    <i class="bi bi-file-earmark-medical-fill"></i>
+                    <span>Data Mahasiswa</span>
+                    </a>
 
-                <ul class="submenu">
-                  <li class="submenu-item">
-                    <a href="../../Berkas/FormBerkas.php" class="submenu-link"
-                      >Berkas Tugas Akhir</a
-                    >
-                  </li>
-                  <li class="submenu-item">
-                    <a href="../../Berkas/FormBerkas.php" class="submenu-link"
-                      >Berkas Administrasi</a
-                    >
-                  </li>
-                </ul>
-              </li>
+                    <ul class="submenu">
+                    <li class="submenu-item">
+                        <a href="User/FormMahasiswa.php" class="submenu-link"
+                        >Tambah Data</a>
+                    </li>
+                    <li class="submenu-item">
+                        <a href="User/TabelMahasiswa.php" class="submenu-link"
+                        >Lihat Data</a>
+                    </li>
+                    </ul>
+                </li>
 
-              <li class="sidebar-item">
-                <a href="cek-status.html" class="sidebar-link">
-                  <i class="bi bi-journal-check"></i>
-                  <span>Cek Status</span>
-                </a>
-              </li>
+                <li class="sidebar-item  has-sub">
+                    <a href="#" class="sidebar-link">
+                    <i class="bi bi-file-earmark-medical-fill"></i>
+                    <span>Data Staff</span>
+                    </a>
 
-              <li
+                    <ul class="submenu ">
+                        <li class="submenu-item">
+                        <a href="User/FormStaff.php" class="submenu-link"
+                            >Tambah Data</a>
+                        </li>
+                        <li class="submenu-item ">
+                            <a href="User/TabelStaff.php" class="submenu-link"
+                        >Lihat Data</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li
                 class="sidebar-item  has-sub">
                 <a href="#" class='sidebar-link'>
                     <i class="bi bi-person-circle"></i>
@@ -156,10 +192,13 @@
                 
                 <ul class="submenu ">
                     <li class="submenu-item  ">
-                        <a href="profil-mahasiswa.html" class="submenu-link">Profil Saya</a>
+                        <a href="User/admin/profilAdmin.php" class="submenu-link">Profil Saya</a>
                     </li>
                     <li class="submenu-item  ">
-                        <a href="ubahPasswordMhs.html" class="submenu-link">Ubah Password</a>
+                        <a href="User/admin/ubahPassword.php" class="submenu-link">Ubah Password</a>
+                    </li>                    
+                    <li class="submenu-item  ">
+                        <a href="Login/Logout.php" class="submenu-link">Logout</a>
                     </li>                    
                 </ul>  
 
@@ -195,7 +234,7 @@
                         </div>
                         <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
                           <h6 class="text-muted font-semibold">
-                            Profile Views
+                            Jumlah User Mahasiswa
                           </h6>
                           <h6 class="font-extrabold mb-0">112.000</h6>
                         </div>
@@ -215,7 +254,7 @@
                           </div>
                         </div>
                         <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
-                          <h6 class="text-muted font-semibold">Followers</h6>
+                          <h6 class="text-muted font-semibold">Jumlah User Staff</h6>
                           <h6 class="font-extrabold mb-0">183.000</h6>
                         </div>
                       </div>
@@ -291,7 +330,7 @@
                               style="width: 10px"
                             >
                               <use
-                                xlink:href="../../assets/static/images/bootstrap-icons.svg#circle-fill"
+                                xlink:href="assets/static/images/bootstrap-icons.svg#circle-fill"
                               />
                             </svg>
                             <h5 class="mb-0 ms-3">Europe</h5>
@@ -315,7 +354,7 @@
                               style="width: 10px"
                             >
                               <use
-                                xlink:href="../../assets/static/images/bootstrap-icons.svg#circle-fill"
+                                xlink:href="assets/static/images/bootstrap-icons.svg#circle-fill"
                               />
                             </svg>
                             <h5 class="mb-0 ms-3">America</h5>
@@ -339,7 +378,7 @@
                               style="width: 10px"
                             >
                               <use
-                                xlink:href="../../assets/static/images/bootstrap-icons.svg#circle-fill"
+                                xlink:href="assets/static/images/bootstrap-icons.svg#circle-fill"
                               />
                             </svg>
                             <h5 class="mb-0 ms-3">India</h5>
@@ -363,7 +402,7 @@
                               style="width: 10px"
                             >
                               <use
-                                xlink:href="../../assets/static/images/bootstrap-icons.svg#circle-fill"
+                                xlink:href="assets/static/images/bootstrap-icons.svg#circle-fill"
                               />
                             </svg>
                             <h5 class="mb-0 ms-3">Indonesia</h5>
@@ -398,7 +437,7 @@
                               <td class="col-3">
                                 <div class="d-flex align-items-center">
                                   <div class="avatar avatar-md">
-                                    <img src="../../../assets/compiled/jpg/5.jpg" />
+                                    <img src="../assets/compiled/jpg/5.jpg" />
                                   </div>
                                   <p class="font-bold ms-3 mb-0">Si Cantik</p>
                                 </div>
@@ -413,7 +452,7 @@
                               <td class="col-3">
                                 <div class="d-flex align-items-center">
                                   <div class="avatar avatar-md">
-                                    <img src="../../assets/compiled/jpg/2.jpg" />
+                                    <img src="assets/compiled/jpg/2.jpg" />
                                   </div>
                                   <p class="font-bold ms-3 mb-0">Si Ganteng</p>
                                 </div>
@@ -429,7 +468,7 @@
                               <td class="col-3">
                                 <div class="d-flex align-items-center">
                                   <div class="avatar avatar-md">
-                                    <img src="../../assets/compiled/jpg/8.jpg" />
+                                    <img src="assets/compiled/jpg/8.jpg" />
                                   </div>
                                   <p class="font-bold ms-3 mb-0">
                                     Singh Eknoor
@@ -447,7 +486,7 @@
                               <td class="col-3">
                                 <div class="d-flex align-items-center">
                                   <div class="avatar avatar-md">
-                                    <img src="../../assets/compiled/jpg/3.jpg" />
+                                    <img src="assets/compiled/jpg/3.jpg" />
                                   </div>
                                   <p class="font-bold ms-3 mb-0">Rani Jhadav</p>
                                 </div>
@@ -472,7 +511,7 @@
                 <div class="card-body py-4 px-4">
                   <div class="d-flex align-items-center">
                     <div class="avatar avatar-xl">
-                      <img src="../../assets/compiled/jpg/1.jpg" alt="Face 1" />
+                      <img src="assets/compiled/jpg/1.jpg" alt="Face 1" />
                     </div>
                     <div class="ms-3 name">
                       <h5 class="font-bold">Dio Andika P. M. T.</h5>
@@ -489,7 +528,7 @@
                 <div class="card-content pb-4">
                   <div class="recent-message d-flex px-4 py-3">
                     <div class="avatar avatar-lg">
-                      <img src="../../assets/compiled/jpg/4.jpg" />
+                      <img src="assets/compiled/jpg/4.jpg" />
                     </div>
                     <div class="name ms-4">
                       <h5 class="mb-1">Hank Schrader</h5>
@@ -498,7 +537,7 @@
                   </div>
                   <div class="recent-message d-flex px-4 py-3">
                     <div class="avatar avatar-lg">
-                      <img src="../../assets/compiled/jpg/5.jpg" />
+                      <img src="assets/compiled/jpg/5.jpg" />
                     </div>
                     <div class="name ms-4">
                       <h5 class="mb-1">Dean Winchester</h5>
@@ -507,7 +546,7 @@
                   </div>
                   <div class="recent-message d-flex px-4 py-3">
                     <div class="avatar avatar-lg">
-                      <img src="../../assets/compiled/jpg/1.jpg" />
+                      <img src="assets/compiled/jpg/1.jpg" />
                     </div>
                     <div class="name ms-4">
                       <h5 class="mb-1">John Dodol</h5>
@@ -546,20 +585,20 @@
                 <span class="text-danger"
                   ><i class="bi bi-heart-fill icon-mid"></i
                 ></span>
-                by <a href="https://saugi.me">Kelompok 1</a>
+                by <a href="https://github.com/rafiody16/PBL_BebasTanggungan">Kelompok 1</a>
               </p>
             </div>
           </div>
         </footer>
       </div>
     </div>
-    <script src="../../assets/static/js/components/dark.js"></script>
-    <script src=../../assets/extensions/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+    <script src="assets/static/js/components/dark.js"></script>
+    <script src=assets/extensions/perfect-scrollbar/perfect-scrollbar.min.js"></script>
 
-    <script src="../../assets/compiled/js/app.js"></script>
+    <script src="assets/compiled/js/app.js"></script>
 
     <!-- Need: Apexcharts -->
-    <script src="../../assets/extensions/apexcharts/apexcharts.min.js"></script>
-    <script src="../../assets/static/js/pages/dashboard.js"></script>
+    <script src="assets/extensions/apexcharts/apexcharts.min.js"></script>
+    <script src="assets/static/js/pages/dashboard.js"></script>
   </body>
 </html>

@@ -104,7 +104,7 @@ if ($rowCheck['total'] > 0) {
                 class="sidebar-item  ">
                 <a href="../User/mahasiswa/dashboardMHS.php" class='sidebar-link'>
                     <i class="bi bi-grid-fill"></i>
-                    <span>Dashboard</span>
+                    <span>Beranda</span>
                 </a>
                 
 
@@ -114,13 +114,6 @@ if ($rowCheck['total'] > 0) {
                 <a href="#" class="sidebar-link">
                   <i class="bi bi-file-earmark-medical-fill"></i>
                   <span>Unggah Berkas</span>
-                </a>
-            </li>
-
-            <li class="sidebar-item">
-                <a href="../User/mahasiswa/cek-status.html" class="sidebar-link">
-                  <i class="bi bi-journal-check"></i>
-                  <span>Cek Status</span>
                 </a>
             </li>
             
@@ -139,7 +132,7 @@ if ($rowCheck['total'] > 0) {
                     </li>
                     
                     <li class="submenu-item  ">
-                        <a href="../User/mahasiswa/ubahPasswordMhs.html" class="submenu-link">Ubah Password</a>
+                        <a href="../User/mahasiswa/ubahPasswordMhs.html" class="submenu-link">Keamanan</a>
                         
                     </li>
 
@@ -171,7 +164,7 @@ if ($rowCheck['total'] > 0) {
             <div class="col-12 col-md-3 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="../User/mahasiswa/dashboardMHS.php">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a href="../User/mahasiswa/dashboardMHS.php">Beranda</a></li>
                         <li class="breadcrumb-item active" aria-current="page">Unggah Berkas</li>
                     </ol>
                 </nav>

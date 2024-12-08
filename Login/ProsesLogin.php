@@ -64,22 +64,22 @@ class User {
                 $this->alertAndRedirect('Selamat Datang Admin ' . $this->username . '.', '../index.php');
                 break;
             case 2:
-                $this->alertAndRedirect('Selamat Datang Kepala Jurusan TI ' . $this->username . '.', '../Dosen/dashboardDosen.html');
+                $this->alertAndRedirect('Selamat Datang Kepala Jurusan Teknologi Informasi ' . $this->username . '.', '../User/kajur/dasborKajur.php');
                 break;
             case 3:
-                $this->alertAndRedirect('Selamat Datang Kaprodi TI ' . $this->username . '.', '../User /mahasiswa/dashboardUser .html');
+                $this->alertAndRedirect('Selamat Datang Kaprodi TI ' . $this->username . '.', '../kaprodiTI.php');
                 break;
             case 4:
-                $this->alertAndRedirect('Selamat Datang Kaprodi SIB ' . $this->username . '.', '../Role4/dashboardRole4.html');
+                $this->alertAndRedirect('Selamat Datang Kaprodi SIB ' . $this->username . '.', '../kaprodiSIB.php');
                 break;
             case 5:
-                $this->alertAndRedirect('Selamat Datang Kaprodi PPLS ' . $this->username . '.', '../Role4/dashboardRole4.html');
+                $this->alertAndRedirect('Selamat Datang Kaprodi PPLS ' . $this->username . '.', '../kaprodiPPLS.php');
                 break;
             case 6:
-                $this->alertAndRedirect('Selamat Datang Admin TA ' . $this->username . '.', '../Role4/dashboardRole4.html');
+                $this->alertAndRedirect('Selamat Datang Admin TA ' . $this->username . '.', '../Berkas/TabelTA.php');
                 break;
             case 7:
-                $this->alertAndRedirect('Selamat Datang Admin Jurusan ' . $this->username . '.', '../Role4/dashboardRole4.html');
+                $this->alertAndRedirect('Selamat Datang Admin Jurusan ' . $this->username . '.', '../Berkas/TabelAdministrasi.php');
                 break;
             case 8:
                 $sqlNim = "SELECT NIM FROM Mahasiswa WHERE ID_User = ?";
