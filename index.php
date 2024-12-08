@@ -195,7 +195,7 @@ if ($_SESSION['Role_ID'] != 1) {
                         <a href="User/admin/profilAdmin.php" class="submenu-link">Profil Saya</a>
                     </li>
                     <li class="submenu-item  ">
-                        <a href="User/admin/ubahPassword.php" class="submenu-link">Ubah Password</a>
+                        <a href="User/admin/ubahPassword.php" class="submenu-link">Keamanan</a>
                     </li>                    
                     <li class="submenu-item  ">
                         <a href="Login/Logout.php" class="submenu-link">Logout</a>

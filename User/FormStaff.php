@@ -146,7 +146,7 @@ getDataStaffByNip();
                         <a href="admin/profilAdmin.php" class="submenu-link">Profil Saya</a>
                     </li>
                     <li class="submenu-item  ">
-                        <a href="admin/ubahPassword.php" class="submenu-link">Ubah Password</a>
+                        <a href="admin/ubahPassword.php" class="submenu-link">Keamanan</a>
                     </li>                    
                     <li class="submenu-item  ">
                         <a href="../Login/Logout.php" class="submenu-link">Logout</a>

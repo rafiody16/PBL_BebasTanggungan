@@ -169,7 +169,7 @@
                         <a href="../admin/profilAdmin.php" class="submenu-link">Profil Saya</a>
                     </li>
                     <li class="submenu-item active">
-                        <a href="../admin/ubahPassword.php" class="submenu-link">Ubah Password</a>
+                        <a href="../admin/ubahPassword.php" class="submenu-link">Keamanan</a>
                     </li>                    
                     <li class="submenu-item  ">
                         <a href="../../Login/Logout.php" class="submenu-link">Logout</a>
@@ -193,9 +193,9 @@
           <div class="page-title">
             <div class="row">
               <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3>Account Security</h3>
+                <h3>Keamanan Akun</h3>
                 <p class="text-subtitle text-muted">
-                  A page where this page can change account security settings
+                  Anda bisa mengubah password Anda
                 </p>
               </div>
               <div class="col-12 col-md-6 order-md-2 order-first">
@@ -208,7 +208,7 @@
                       <a href="../../index.php">Dashboard</a>
                     </li>
                     <li class="breadcrumb-item active" aria-current="page">
-                      Ubah Password
+                      Keamanan
                     </li>
                   </ol>
                 </nav>
@@ -274,35 +274,6 @@
                 </div>
               </div>
 
-              <div class="col-12">
-                <div class="card">
-                  <div class="card-header">
-                    <h5 class="card-title">Autentikasi Dua Faktor</h5>
-                  </div>
-                  <div class="card-body">
-                    <form action="#" method="get">
-                      <div class="form-group my-2">
-                        <label for="email" class="form-label">Email</label>
-                        <input
-                          type="email"
-                          name="email"
-                          id="email"
-                          class="form-control"
-                          placeholder="Enter your current email"
-                          value="john.doe@example.net"
-                        />
-                      </div>
-
-                      <div class="form-group my-2 d-flex justify-content-end">
-                        <button type="submit" class="btn btn-primary">
-                          Simpan Perubahan
-                        </button>
-                      </div>
-                    </form>
-                  </div>
-                </div>
-              </div>
-            </div>
           </section>
         </div>
 
