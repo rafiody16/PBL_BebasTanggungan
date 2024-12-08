@@ -247,6 +247,8 @@ GetAllBerkas();
                                                         </tr>
                                                     </tbody>
                                                 </table>
+                                                <br>
+                                                <button button class="btn btn-success" style="align-items: center;"><a href="GeneratePdf.php?NIM=<?= $nim ?>" style="color: white; text-decoration: none;">Cetak Bebas Tanggungan</a></button>
                                             </div>
                                         </div>
                                     </div>
