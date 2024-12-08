@@ -39,6 +39,7 @@ if (isset($_POST['simpanStaff'])) {
     $Tempat_Lahir = $_POST['Tempat_Lahir'];
     $Tanggal_Lahir = $_POST['Tanggal_Lahir'];
     $NoHp = $_POST['NoHp'];
+    $JenisKelamin = $_POST['JenisKelamin'];
     $Role_ID = $_POST['Role_ID'];
 
     // Mulai transaksi
@@ -58,8 +59,8 @@ if (isset($_POST['simpanStaff'])) {
                 throw new Exception('Gagal memperbarui data User: ' . print_r(sqlsrv_errors(), true));
             }
 
-            $updateStaffSql = "UPDATE Staff SET Nama = ?, Alamat = ?, NoHp = ?, Tempat_Lahir = ?, Tanggal_Lahir = ? WHERE NIP = ?";
-            $paramsStaffUpdate = [$Nama, $Alamat, $NoHp, $Tempat_Lahir, $Tanggal_Lahir, $NIP];
+            $updateStaffSql = "UPDATE Staff SET Nama = ?, Alamat = ?, NoHp = ?, JenisKelamin = ?, Tempat_Lahir = ?, Tanggal_Lahir = ? WHERE NIP = ?";
+            $paramsStaffUpdate = [$Nama, $Alamat, $NoHp, $JenisKelamin, $Tempat_Lahir, $Tanggal_Lahir, $NIP];
             $stmtStaffUpdate = sqlsrv_query($conn, $updateStaffSql, $paramsStaffUpdate);
 
             if (!$stmtStaffUpdate) {
@@ -80,8 +81,8 @@ if (isset($_POST['simpanStaff'])) {
             $rowUserID = sqlsrv_fetch_array($stmtUser, SQLSRV_FETCH_ASSOC);
             $newUserID = $rowUserID['ID_User'];
 
-            $sqlStaff = "INSERT INTO Staff (NIP, Nama, Alamat, NoHp, Tempat_Lahir, Tanggal_Lahir, ID_User) VALUES (?, ?, ?, ?, ?, ?, ?)";
-            $paramsStaff = [$NIP, $Nama, $Alamat, $NoHp, $Tempat_Lahir, $Tanggal_Lahir, $newUserID];
+            $sqlStaff = "INSERT INTO Staff (NIP, Nama, Alamat, NoHp, JenisKelamin, Tempat_Lahir, Tanggal_Lahir, ID_User) VALUES (?, ?, ?, ?, ?, ?, ?)";
+            $paramsStaff = [$NIP, $Nama, $Alamat, $NoHp, $JenisKelamin, $Tempat_Lahir, $Tanggal_Lahir, $newUserID];
             $stmtStaff = sqlsrv_query($conn, $sqlStaff, $paramsStaff);
 
             if (!$stmtStaff) {
@@ -264,9 +265,9 @@ function deleteDataMahasiswa() {
 
 function getDataMahasiswaByNim() {
     global $conn;
-    global $nim, $nama, $username, $email, $alamat, $noHp, $jeniskelamin, $Prodi, $TahunAngkatan, $Tempat_Lahir, $Tanggal_Lahir;
+    global $nim, $nama, $username, $email, $password, $alamat, $noHp, $jeniskelamin, $Prodi, $TahunAngkatan, $Tempat_Lahir, $Tanggal_Lahir;
     $nim = $_GET['NIM'] ?? null;
-    $sql = "SELECT Mahasiswa.Nama, Mahasiswa.Alamat, Mahasiswa.NoHp, [User].Username, [User].Email, Mahasiswa.Prodi, Mahasiswa.Tahun_Angkatan, 
+    $sql = "SELECT Mahasiswa.Nama, Mahasiswa.Alamat, Mahasiswa.NoHp, [User].Username, [User].Password, [User].Email, Mahasiswa.Prodi, Mahasiswa.Tahun_Angkatan, 
             Mahasiswa.JenisKelamin, Mahasiswa.Tempat_Lahir, Mahasiswa.Tanggal_Lahir FROM Mahasiswa INNER JOIN [User] ON Mahasiswa.ID_User = [User].ID_User  WHERE Mahasiswa.NIM = ?";
     $params = array($nim);
     $stmt = sqlsrv_query($conn, $sql, $params);
@@ -282,6 +283,7 @@ function getDataMahasiswaByNim() {
         $nama = $row['Nama'];
         $username = $row['Username'];
         $email = $row['Email'];
+        $password = $row['Password']; // Enkripsi password
         $alamat = $row['Alamat'];
         $noHp = $row['NoHp'];
         $Prodi = $row['Prodi'];
@@ -296,9 +298,9 @@ function getDataMahasiswaByNim() {
 
 function getDataStaffByNip() {
     global $conn;
-    global $nip, $nama, $username, $email, $alamat, $noHp, $roleID, $Nama_Role, $Tempat_Lahir, $Tanggal_Lahir;
+    global $nip, $nama, $username, $email, $password, $alamat, $noHp, $roleID, $Nama_Role, $jeniskelamin, $Tempat_Lahir, $Tanggal_Lahir;
     $nip = $_GET['NIP'] ?? null;
-    $sql = "SELECT Staff.Nama, Staff.Alamat, Staff.NoHp, Staff.Tempat_Lahir, Staff.Tanggal_Lahir, [User].Username, [User].Email, [User].Role_ID, [Role].Nama_Role FROM Staff INNER JOIN [User] ON Staff.ID_User = [User].ID_User  INNER JOIN [Role] ON [User].Role_ID = [Role].Role_ID WHERE Staff.NIP = ?";
+    $sql = "SELECT Staff.Nama, Staff.Alamat, Staff.NoHp, Staff.Tempat_Lahir, Staff.Tanggal_Lahir, Staff.JenisKelamin, [User].Username, [User].Password, [User].Email, [User].Role_ID, [Role].Nama_Role FROM Staff INNER JOIN [User] ON Staff.ID_User = [User].ID_User  INNER JOIN [Role] ON [User].Role_ID = [Role].Role_ID WHERE Staff.NIP = ?";
     $params = array($nip);
     $stmt = sqlsrv_query($conn, $sql, $params);
     
@@ -313,12 +315,14 @@ function getDataStaffByNip() {
         $nama = $row['Nama'];
         $username = $row['Username'];
         $email = $row['Email'];
+        $password = $row['Password'];
         $alamat = $row['Alamat'];
         $noHp = $row['NoHp'];
         $Tempat_Lahir = $row['Tempat_Lahir'];
         $Tanggal_Lahir = $row['Tanggal_Lahir'];
         $roleID = $row['Role_ID'];
         $Nama_Role = $row['Nama_Role'];
+        $jeniskelamin = $row['JenisKelamin'];
     } else {
         echo "No data found for the given NIP.";
     }

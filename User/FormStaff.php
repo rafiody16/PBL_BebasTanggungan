@@ -231,7 +231,7 @@ getDataStaffByNip();
                                                     <div class="col-12">
                                                         <div class="form-group">
                                                             <label for="Password">Password</label>
-                                                            <input type="password" class="form-control" name="Password" placeholder="Masukkan Password">
+                                                            <input type="password" class="form-control" name="Password" value="<?= isset($password) ? htmlspecialchars($password) : '' ?>" placeholder="Masukkan Password">
                                                         </div>
                                                     </div>
                                                     <div class="col-12">
@@ -250,8 +250,8 @@ getDataStaffByNip();
                                                         <div class="form-group">
                                                             <label for="JenisKelamin">Jenis Kelamin</label>
                                                             <br>
-                                                            <input class="form-check-input" type="radio" name="JenisKelamin" id="jenkel1" value="L" required="true"> Laki-laki 
-                                                            <input class="form-check-input" type="radio" name="JenisKelamin" id="jenkel2" value="P"> Perempuan
+                                                            <input class="form-check-input" type="radio" name="JenisKelamin" id="jenkel1" value="L" required="true" <?= (isset($jeniskelamin) && $jeniskelamin == 'L') ? 'checked' : '' ?>> Laki-laki 
+                                                            <input class="form-check-input" type="radio" name="JenisKelamin" id="jenkel2" value="P" value="P" <?= (isset($jeniskelamin) && $jeniskelamin == 'P') ? 'checked' : '' ?>> Perempuan
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6 col-12">
