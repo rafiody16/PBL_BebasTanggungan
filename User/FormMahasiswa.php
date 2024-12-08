@@ -228,7 +228,7 @@ getDataMahasiswaByNim();
                                                     <div class="col-12">
                                                         <div class="form-group">
                                                             <label for="Password">Password</label>
-                                                            <input type="password" class="form-control" name="Password" placeholder="Masukkan Password">
+                                                            <input type="password" class="form-control" name="Password" value="<?= isset($password) ? htmlspecialchars($password) : '' ?>" placeholder="Masukkan Password">
                                                         </div>
                                                     </div>
                                                     <div class="col-12">
@@ -264,15 +264,15 @@ getDataMahasiswaByNim();
                                                     <div class="col-12">
                                                         <div class="form-group">
                                                             <label for="Tahun_Angkatan">Tahun Angkatan</label>
-                                                            <input type="text" class="form-control" name="Tahun_Angkatan" value="<?= isset($Tahun_Angkatan) ? htmlspecialchars($Tahun_Angkatan) : '' ?>" placeholder="Masukkan Tahun Angkatam">
+                                                            <input type="text" class="form-control" name="Tahun_Angkatan" value="<?= isset($TahunAngkatan) ? htmlspecialchars($TahunAngkatan) : '' ?>" placeholder="Masukkan Tahun Angkatan">
                                                         </div>
                                                     </div>
                                                     <div class="col-12">
                                                         <div class="form-group">
                                                             <label for="JenisKelamin">Jenis Kelamin</label>
                                                             <br>
-                                                            <input class="form-check-input" type="radio" name="JenisKelamin" id="jenkel1" value="L" required="true"> Laki-laki 
-                                                            <input class="form-check-input" type="radio" name="JenisKelamin" id="jenkel2" value="P"> Perempuan
+                                                            <input class="form-check-input" type="radio" name="JenisKelamin" id="jenkel1" value="L" required="true" <?= (isset($jeniskelamin) && $jeniskelamin == 'L') ? 'checked' : '' ?>> Laki-laki 
+                                                            <input class="form-check-input" type="radio" name="JenisKelamin" id="jenkel2" value="P" <?= (isset($jeniskelamin) && $jeniskelamin == 'P') ? 'checked' : '' ?>> Perempuan
                                                         </div>
                                                     </div>
                                                     <div class="col-12 d-flex justify-content-end">
