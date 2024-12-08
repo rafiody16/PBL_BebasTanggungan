@@ -109,13 +109,6 @@ GetAllBerkas();
                   <span>Unggah Berkas</span>
                 </a>
             </li>
-
-            <li class="sidebar-item">
-                <a href="cek-status.html" class="sidebar-link">
-                  <i class="bi bi-journal-check"></i>
-                  <span>Cek Status</span>
-                </a>
-            </li>
             
             <li
                 class="sidebar-item  has-sub">
@@ -132,9 +125,13 @@ GetAllBerkas();
                     </li>
                     
                     <li class="submenu-item  ">
-                        <a href="ubahPasswordMhs.html" class="submenu-link">Ubah Password</a>
+                        <a href="ubahPasswordMhs.html" class="submenu-link">Keamanan</a>
                         
                     </li>
+
+                    <li class="submenu-item  ">
+                        <a href="../Login/Logout.php" class="submenu-link">Logout</a>
+                    </li>    
                     
                 </ul>  
 
