@@ -248,11 +248,13 @@ GetAllBerkas();
                                                     </tbody>
                                                 </table>
                                                 <br>
-                                                <div style="display: flex; justify-content: center; margin-top: 20px;">
-                                                    <button class="btn btn-success">
-                                                        <i class="bi bi-printer">&nbsp;</i><a href="GeneratePdf.php?NIM=<?= $nim ?>" style="color: white; text-decoration: none;">Cetak Bebas Tanggungan</a>
-                                                    </button>
-                                                </div>
+                                                <?php if($Status_VerifikasiTA === 'Terverifikasi' && $Status_VerifikasiAdm === 'Terverifikasi') {?>
+                                                    <div style="display: flex; justify-content: center; margin-top: 20px;">
+                                                        <button class="btn btn-success">
+                                                            <i class="bi bi-printer">&nbsp;</i><a href="GeneratePdf.php?NIM=<?= $nim ?>" style="color: white; text-decoration: none;">Cetak Bebas Tanggungan</a>
+                                                        </button>
+                                                    </div>
+                                                <?php } ?>
                                             </div>
                                         </div>
                                     </div>
