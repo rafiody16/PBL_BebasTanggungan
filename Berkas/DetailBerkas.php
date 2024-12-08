@@ -97,7 +97,7 @@ GetAllBerkas();
                 class="sidebar-item  ">
                 <a href="../User/mahasiswa/dashboardMHS.php" class='sidebar-link'>
                     <i class="bi bi-grid-fill"></i>
-                    <span>Dashboard</span>
+                    <span>Beranda</span>
                 </a>
                 
 
@@ -157,7 +157,7 @@ GetAllBerkas();
             <div class="col-12 col-md-3 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="../User/mahasiswa/dashboardMHS.php">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a href="../User/mahasiswa/dashboardMHS.php">Beranda</a></li>
                         <li class="breadcrumb-item active" aria-current="page">Berkas Bebas Tanggungan</li>
                     </ol>
                 </nav>
