@@ -522,15 +522,24 @@ function EditTA() {
         $Tanggal_Pengumpulan = date("Y-m-d");
 
         if ($File_Aplikasi && $Laporan_TA && $Pernyataan_Publikasi) {
-            $sqlUpdate = "UPDATE TugasAkhir SET File_Aplikasi = ?, Laporan_TA = ?, Pernyataan_Publikasi = ?, Status_Verifikasi = ?, Tanggal_Upload = ?
+            $sqlUpdate = "UPDATE TugasAkhir SET File_Aplikasi = ?, Laporan_TA = ?, Pernyataan_Publikasi = ?, Status_Verifikasi = ?, Tanggal_Upload = ?, Verifikator = ?
                           FROM TugasAkhir a INNER JOIN Pengumpulan p ON a.ID_Pengumpulan = p.ID_Pengumpulan INNER JOIN Mahasiswa m ON p.NIM = m.NIM
                           WHERE m.NIM = ?";
-            $paramsTAUpdate = [$File_Aplikasi, $Laporan_TA, $Pernyataan_Publikasi, 'Menunggu', $Tanggal_Pengumpulan, $nim];
+            $paramsTAUpdate = [$File_Aplikasi, $Laporan_TA, $Pernyataan_Publikasi, 'Menunggu', $Tanggal_Pengumpulan, NULL, $nim];
             $stmtTAUpdate = sqlsrv_query($conn, $sqlUpdate, $paramsTAUpdate);
 
             if (!$stmtTAUpdate) {
                 throw new Exception('Gagal memperbarui data TA: ' . print_r(sqlsrv_errors(), true));
             } else {
+                $sqlPUpdate = "UPDATE Pengumpulan SET Tanggal_Pengumpulan = ?, Status_Pengumpulan = 'Menunggu', Keterangan = '-', VerifikatorKajur = NULL, VerifikatorKaprodi = NULL
+                              FROM Pengumpulan p INNER JOIN Mahasiswa m ON p.NIM = m.NIM WHERE m.NIM = ?";
+                $paramsPUpdate = [$Tanggal_Pengumpulan, $nim];
+                $stmtPUpdate = sqlsrv_query($conn, $sqlPUpdate, $paramsPUpdate);
+
+                if (!$stmtPUpdate) {
+                    throw new Exception('Gagal memperbarui data TA: ' . print_r(sqlsrv_errors(), true));
+                }
+
                 echo "<script>window.location.href = 'DetailBerkas.php?NIM=".urlencode($nim)."';</script>";
             }
         } else {
@@ -579,7 +588,7 @@ function EditAdministrasi() {
         $Tanggal_Pengumpulan = date("Y-m-d");
 
         if ($Laporan_Skripsi && $Laporan_Magang && $Bebas_Kompensasi && $Scan_Toeic) {
-            $sqlUpdate = "UPDATE Administrasi SET Laporan_Skripsi = ?, Laporan_Magang = ?, Bebas_Kompensasi = ?, Scan_Toeic = ?, Status_Verifikasi = ?, Tanggal_Upload = ?, Keterangan = ?
+            $sqlUpdate = "UPDATE Administrasi SET Laporan_Skripsi = ?, Laporan_Magang = ?, Bebas_Kompensasi = ?, Scan_Toeic = ?, Status_Verifikasi = ?, Tanggal_Upload = ?, Keterangan = ?, Verifikator = NULL
                           FROM Administrasi a INNER JOIN Pengumpulan p ON a.ID_Pengumpulan = p.ID_Pengumpulan INNER JOIN Mahasiswa m ON p.NIM = m.NIM
                           WHERE m.NIM = ?";
             $paramsAdmUpdate = [$Laporan_Skripsi, $Laporan_Magang, $Bebas_Kompensasi, $Scan_Toeic, 'Menunggu', $Tanggal_Pengumpulan, '-', $nim];
@@ -588,6 +597,15 @@ function EditAdministrasi() {
             if (!$stmtAdmUpdate) {
                 throw new Exception('Gagal memperbarui data TA: ' . print_r(sqlsrv_errors(), true));
             } else {
+                $sqlPUpdate = "UPDATE Pengumpulan SET Tanggal_Pengumpulan = ?, Status_Pengumpulan = 'Menunggu', Keterangan = '-', VerifikatorKajur = NULL, VerifikatorKaprodi = NULL
+                              FROM Pengumpulan p INNER JOIN Mahasiswa m ON p.NIM = m.NIM WHERE m.NIM = ?";
+                $paramsPUpdate = [$Tanggal_Pengumpulan, $nim];
+                $stmtPUpdate = sqlsrv_query($conn, $sqlPUpdate, $paramsPUpdate);
+
+                if (!$stmtPUpdate) {
+                    throw new Exception('Gagal memperbarui data TA: ' . print_r(sqlsrv_errors(), true));
+                }
+
                 echo "<script>window.location.href = 'DetailBerkas.php?NIM=".urlencode($nim)."';</script>";
             }
         } else {
