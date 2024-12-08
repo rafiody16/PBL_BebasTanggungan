@@ -157,7 +157,8 @@ $NIM = $_SESSION['NIM'];
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="../User/mahasiswa/dashboardMHS.php">Dashboard</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Unggah Berkas</li>
+                        <li class="breadcrumb-item"><a href="DetailBerkas.php">Berkas Bebas Tanggungan</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Edit Berkas Tugas Akhir</li>
                     </ol>
                 </nav>
             </div>
