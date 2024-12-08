@@ -81,7 +81,7 @@ if (isset($_POST['simpanStaff'])) {
             $rowUserID = sqlsrv_fetch_array($stmtUser, SQLSRV_FETCH_ASSOC);
             $newUserID = $rowUserID['ID_User'];
 
-            $sqlStaff = "INSERT INTO Staff (NIP, Nama, Alamat, NoHp, JenisKelamin, Tempat_Lahir, Tanggal_Lahir, ID_User) VALUES (?, ?, ?, ?, ?, ?, ?)";
+            $sqlStaff = "INSERT INTO Staff (NIP, Nama, Alamat, NoHp, JenisKelamin, Tempat_Lahir, Tanggal_Lahir, ID_User) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
             $paramsStaff = [$NIP, $Nama, $Alamat, $NoHp, $JenisKelamin, $Tempat_Lahir, $Tanggal_Lahir, $newUserID];
             $stmtStaff = sqlsrv_query($conn, $sqlStaff, $paramsStaff);
 

@@ -233,8 +233,7 @@
                           name="current_password"
                           id="current_password"
                           class="form-control"
-                          placeholder="Enter your current password"
-                          value="1L0V3Indonesia"
+                          placeholder="Masukkan password saat ini"
                         />
                       </div>
                       <div class="form-group my-2">
@@ -250,6 +249,19 @@
                           value=""
                         />
                       </div>
+                      <!-- <div class="form-group my-2">
+                        <label for="new_password" class="form-label"
+                          >Konfirmasi Password</label
+                        >
+                        <input
+                          type="password"
+                          name="confirm_password"
+                          id="confirm_password"
+                          class="form-control"
+                          placeholder="Masukkan password baru"
+                          value=""
+                        />
+                      </div> -->
 
                       <div class="form-group my-2 d-flex justify-content-end">
                         <button type="submit" class="btn btn-primary">

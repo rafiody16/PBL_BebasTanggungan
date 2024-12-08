@@ -34,15 +34,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $updateStmt = sqlsrv_prepare($conn, $updateQuery, array(&$newPasswordHash, &$userId));
 
             if (sqlsrv_execute($updateStmt)) {
-                echo "Password berhasil diubah.";
+                echo "<script>alert('Password berhasil diubah.'); window.location.href = 'ubahPassword.php'; </script>";
             } else {
-                echo "Gagal mengubah password.";
+                echo "<script>alert('Gagal mengubah password.'); window.location.href = 'ubahPassword.php'; </script>";
             }
         } else {
-            echo "Password lama salah.";
+            echo "<script>alert('Password lama salah.'); window.location.href = 'ubahPassword.php'; </script>";
         }
     } else {
-        echo "Terjadi kesalahan saat memeriksa password.";
+        echo "<script>alert('Terjadi kesalahan saat memeriksa password.'); window.location.href = 'ubahPassword.php'; </script>";
     }
 }
 ?>
