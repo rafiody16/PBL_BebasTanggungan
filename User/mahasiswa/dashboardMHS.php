@@ -151,7 +151,7 @@ if ($_SESSION['Role_ID'] != 8) {
               <li class="sidebar-item active">
                 <a href="dashboardMHS.php" class="sidebar-link">
                   <i class="bi bi-grid-fill"></i>
-                  <span>Dashboard</span>
+                  <span>Beranda</span>
                 </a>
               </li>
 
@@ -159,13 +159,6 @@ if ($_SESSION['Role_ID'] != 8) {
                 <a href="../../Berkas/FormBerkas.php" class="sidebar-link">
                   <i class="bi bi-file-earmark-medical-fill"></i>
                   <span>Unggah Berkas</span>
-                </a>
-              </li>
-
-              <li class="sidebar-item">
-                <a href="../../Berkas/DetailBerkas.php" class="sidebar-link">
-                  <i class="bi bi-journal-check"></i>
-                  <span>Cek Status</span>
                 </a>
               </li>
 
@@ -181,7 +174,7 @@ if ($_SESSION['Role_ID'] != 8) {
                         <a href="profil-mahasiswa.html" class="submenu-link">Profil Saya</a>
                     </li>
                     <li class="submenu-item  ">
-                        <a href="ubahPasswordMhs.html" class="submenu-link">Ubah Password</a>
+                        <a href="ubahPasswordMhs.html" class="submenu-link">Keamanan</a>
                     </li>                    
                     <li class="submenu-item  ">
                         <a href="../../Login/Logout.php" class="submenu-link">Logout</a>
@@ -210,7 +203,7 @@ if ($_SESSION['Role_ID'] != 8) {
                 <div class="card-body">
                   <div class="" style="padding: 20px; border-radius: 100px;">
                     <h5>Halo, Mahasiswa!</h5>
-                    <p>Selamat datang di dashboard sistem informasi Bebas Tanggungan Jurusan Teknologi Informasi (BeTaTI). 
+                    <p>Selamat datang di beranda sistem informasi Bebas Tanggungan Jurusan Teknologi Informasi (BeTaTI). 
                         Ini adalah tempat di mana Anda dapat mengakses semua informasi penting yang berkaitan dengan bebas tanggungan mahasiswa jurusan Teknologi Informasi dan berbagai layanan akademik lainnya.</p>
                   </div>
                 </div>
