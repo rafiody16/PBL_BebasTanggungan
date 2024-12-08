@@ -108,13 +108,6 @@ $NIM = $_SESSION['NIM'];
                   <span>Unggah Berkas</span>
                 </a>
             </li>
-
-            <li class="sidebar-item">
-                <a href="../User/mahasiswa/cek-status.html" class="sidebar-link">
-                  <i class="bi bi-journal-check"></i>
-                  <span>Cek Status</span>
-                </a>
-            </li>
             
             <li
                 class="sidebar-item  has-sub">
@@ -131,7 +124,7 @@ $NIM = $_SESSION['NIM'];
                     </li>
                     
                     <li class="submenu-item  ">
-                        <a href="../User/mahasiswa/ubahPasswordMhs.html" class="submenu-link">Ubah Password</a>
+                        <a href="../User/mahasiswa/ubahPasswordMhs.html" class="submenu-link">Keamanan</a>
                         
                     </li>
 
@@ -157,14 +150,15 @@ $NIM = $_SESSION['NIM'];
     <div class="page-title">
         <div class="row">
             <div class="col-12 col-md-9 order-md-1 order-last">
-                <h3>Unggah Berkas</h3>
-                <p class="text-subtitle text-muted">Bagi mahasiswa lulusan Jurusan Teknologi Informasi yang bermasalah pada hosting, dapat mengganti hosting dengan Google Drive masing-masing!</p>
+                <h3>Edit Berkas Tugas Akhir</h3>
+                <br>
             </div>
             <div class="col-12 col-md-3 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="../User/mahasiswa/dashboardMHS.php">Dashboard</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Unggah Berkas</li>
+                        <li class="breadcrumb-item"><a href="DetailBerkas.php">Berkas Bebas Tanggungan</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Edit Berkas Tugas Akhir</li>
                     </ol>
                 </nav>
             </div>
@@ -240,7 +234,7 @@ $NIM = $_SESSION['NIM'];
             </div>
             
             <div class="col-sm-12 d-flex justify-content-end">
-                <button data-id="<?= $NIM ?>" class="btn btn-danger btn-primary">Edit</button>
+                <button data-id="<?= $NIM ?>" class="btn btn-danger btn-primary me-2 mb-2" style="font-size: 1.3rem; padding: 1rem 2rem;">Edit</button>
                 <button type="reset" class="btn btn-light-secondary me-2 mb-2" style="font-size: 1.3rem; padding: 1rem 2rem;">Reset</button>
             </div>
         </form>
