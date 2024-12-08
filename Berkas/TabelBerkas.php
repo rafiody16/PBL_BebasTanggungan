@@ -196,7 +196,7 @@ echo "Selamat Datang " . $_SESSION['Nama'];
                                                     echo "<td>" . htmlspecialchars($row['Keterangan']) . "</td>";
                                             ?>
                                                     <td>
-                                                        <button data-id="<?= $ID_Pengumpulan ?>" class="btn btn-primary btn-detail">Detail</button>
+                                                        <button data-bs-toggle="modal" data-bs-target="#lihat" class="btn btn-primary">Detail</button>
                                                         <button data-id="<?= $ID_Pengumpulan ?>" class="btn btn-success btn-verifikasi">Verifikasi</button>
                                                         <button data-bs-toggle="modal" data-bs-target="#default" class="btn btn-danger">Tolak</button>
                                                     </td>
@@ -258,7 +258,40 @@ echo "Selamat Datang " . $_SESSION['Nama'];
                     </div>
                 </div>
             </div>
-
+            <div class="modal fade text-left" id="lihat" tabindex="-1" role="dialog" aria-labelledby="detailModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-scrollable" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="detailModalLabel">Detail Informasi</h5>
+                            <button type="button" class="close rounded-pill" data-bs-dismiss="modal" aria-label="Close">
+                                <i data-feather="x"></i>
+                            </button>
+                        </div>
+                    <div class="modal-body">
+                        <p>Pilih detail yang ingin ditampilkan:</p>
+                        <div class="d-flex flex-column">
+                            <table>
+                                <tr>
+                                    <td>Detail Administrasi:</td>
+                                    <td><a href="DetailAdministrasi.php?ID_Administrasi=<?= $ID_Pengumpulan ?>" class="btn btn-primary my-2">Lihat Detail</a></td>
+                                </tr>
+                                <tr>
+                                <td>Detail Tugas Akhir:</td>
+                                <td><a href="DetailTA.php?ID_Aplikasi=<?= $ID_Pengumpulan ?>" class="btn btn-primary my-2">Lihat Detail</a></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                            <i class="bx bx-x d-block d-sm-none"></i>
+                            <span class="d-none d-sm-block">Tutup</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
             <footer>
                 <div class="footer clearfix mb-0 text-muted">
                     <div class="float-start">
@@ -280,20 +313,6 @@ echo "Selamat Datang " . $_SESSION['Nama'];
 
     <script>
         $(document).ready(function() {
-            $(".btn-detail").click(function() {
-                var ID_Administrasi = $(this).data("id");
-                $.ajax({
-                    url: "DetailAdministrasi.php",
-                    type: "GET",
-                    data: {
-                        ID_Administrasi: ID_Administrasi,
-                        action: "detailAdministrasi"
-                    },
-                    success: function(response) {
-                        location.href = "DetailAdministrasi.php?ID_Administrasi=" + ID_Administrasi;
-                    }
-                });
-            });
 
             $(".btn-verifikasi").click(function() {
                 var ID_Pengumpulan = $(this).data("id");
