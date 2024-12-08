@@ -215,7 +215,23 @@ GetAllBerkas();
                                                                 ?>
                                                             </td>
                                                             <td class="text-bold-500"><?= htmlspecialchars($KeteranganTA) ?></td>
-                                                            <td><button class="btn btn-warning"><a href="EditTA.php?NIM=<?= $nim ?>" style="color: black; text-decoration: none;">Edit</a></button></td>
+                                                            <td>
+                                                                <?php
+                                                                    if ($Status_VerifikasiAdm === 'Menunggu') {
+                                                                ?>
+                                                                    <button class="btn btn-warning"><a href="EditTA.php?NIM=<?= $nim ?>" style="color: black; text-decoration: none;">Edit</a></button>
+                                                                <?php 
+                                                                    } else if ($Status_VerifikasiAdm === 'Terverifikasi') {
+                                                                ?>
+                                                                    <h5 style="text-align:center;">&#10004;</h5>
+                                                                <?php
+                                                                    } else if ($Status_VerifikasiAdm === 'Ditolak') {
+                                                                ?>
+                                                                    <button class="btn btn-warning"><a href="EditTA.php?NIM=<?= $nim ?>" style="color: black; text-decoration: none;">Edit</a></button>
+                                                                <?php
+                                                                    }
+                                                                ?>
+                                                            </td>
                                                         </tr>
                                                         <tr>
                                                             <td class="text-bold-500">2</td>
@@ -240,12 +256,50 @@ GetAllBerkas();
                                                                 ?>
                                                             </td>
                                                             <td class="text-bold-500"><?= htmlspecialchars($KeteranganAdm) ?></td>
-                                                            <td><button class="btn btn-warning"><a href="EditAdministrasi.php?NIM=<?= $nim ?>" style="color: black; text-decoration: none;">Edit</a></buttonc></td>
+                                                            <td>
+                                                                <?php
+                                                                    if ($Status_VerifikasiAdm === 'Menunggu') {
+                                                                ?>
+                                                                    <button class="btn btn-warning"><a href="EditAdministrasi.php?NIM=<?= $nim ?>" style="color: black; text-decoration: none;">Edit</a></button>
+                                                                <?php 
+                                                                    } else if ($Status_VerifikasiAdm === 'Terverifikasi') {
+                                                                ?>
+                                                                    <h5 style="text-align:center;">&#10004;</h5>
+                                                                <?php
+                                                                    } else if ($Status_VerifikasiAdm === 'Ditolak') {
+                                                                ?>
+                                                                    <button class="btn btn-warning"><a href="EditAdministrasi.php?NIM=<?= $nim ?>" style="color: black; text-decoration: none;">Edit</a></button>
+                                                                <?php
+                                                                    }
+                                                                ?>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="text-bold-500">3</td>
+                                                            <td class="text-bold-500">Verifikasi Berkas </td>
+                                                            <td class="text-bold-500 text-center align-middle"  colspan="2">
+                                                                <?php
+                                                                    if ($Status_Verifikasi === 'Menunggu') {
+                                                                ?>
+                                                                    <span class="badge bg-warning"><?= htmlspecialchars($Status_Verifikasi) ?></span>
+                                                                <?php 
+                                                                    } else if ($Status_Verifikasi === 'Terverifikasi') {
+                                                                ?>
+                                                                    <span class="badge bg-success"><?= htmlspecialchars($Status_Verifikasi) ?></span>
+                                                                <?php
+                                                                    } else if ($Status_Verifikasi === 'Ditolak') {
+                                                                ?>
+                                                                    <span class="badge bg-danger"><?= htmlspecialchars($Status_Verifikasi) ?></span>
+                                                                <?php
+                                                                    }
+                                                                ?>
+                                                            </td>
+                                                            <td colspan="3" class="text-bold-500"><?= htmlspecialchars($Keterangan) ?></td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
                                                 <br>
-                                                <?php if($Status_VerifikasiTA === 'Terverifikasi' && $Status_VerifikasiAdm === 'Terverifikasi') {?>
+                                                <?php if($Status_Verifikasi === 'Terverifikasi') {?>
                                                     <div style="display: flex; justify-content: center; margin-top: 20px;">
                                                         <button class="btn btn-success">
                                                             <i class="bi bi-printer">&nbsp;</i><a href="GeneratePdf.php?NIM=<?= $nim ?>" style="color: white; text-decoration: none;">Cetak Bebas Tanggungan</a>
