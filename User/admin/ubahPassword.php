@@ -205,7 +205,7 @@
                 >
                   <ol class="breadcrumb">
                     <li class="breadcrumb-item">
-                      <a href="../../index.php">Dashboard</a>
+                      <a href="../../index.php">Beranda</a>
                     </li>
                     <li class="breadcrumb-item active" aria-current="page">
                       Keamanan
@@ -223,7 +223,7 @@
                     <h5 class="card-title">Ubah Password</h5>
                   </div>
                   <div class="card-body">
-                    <form action="#" method="get">
+                    <form action="change_password.php" method="post">
                       <div class="form-group my-2">
                         <label for="current_password" class="form-label"
                           >Password Saat ini</label
@@ -247,19 +247,6 @@
                           id="password"
                           class="form-control"
                           placeholder="Masukkan password baru"
-                          value=""
-                        />
-                      </div>
-                      <div class="form-group my-2">
-                        <label for="confirm_password" class="form-label"
-                          >Konfirmasi Password</label
-                        >
-                        <input
-                          type="password"
-                          name="confirm_password"
-                          id="confirm_password"
-                          class="form-control"
-                          placeholder="Masukkan Konfirmasi password"
                           value=""
                         />
                       </div>
