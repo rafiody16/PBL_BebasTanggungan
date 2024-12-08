@@ -15,6 +15,8 @@ if ($_SESSION['Role_ID'] != 8) {
     exit();
 }
 
+$nim = $_SESSION['NIM'];
+
 include('ProsesBerkas.php');
 GetAllBerkas();
 
@@ -216,7 +218,7 @@ GetAllBerkas();
                                                                 ?>
                                                             </td>
                                                             <td class="text-bold-500"><?= htmlspecialchars($KeteranganTA) ?></td>
-                                                            <td><button class="btn btn-warning">Edit</button></td>
+                                                            <td><button class="btn btn-warning"><a href="EditTA.php?NIM=<?= $nim ?>" style="color: black; text-decoration: none;">Edit</a></button></td>
                                                         </tr>
                                                         <tr>
                                                             <td class="text-bold-500">2</td>
@@ -241,7 +243,7 @@ GetAllBerkas();
                                                                 ?>
                                                             </td>
                                                             <td class="text-bold-500"><?= htmlspecialchars($KeteranganAdm) ?></td>
-                                                            <td><button class="btn btn-warning">Edit</buttonc></td>
+                                                            <td><button class="btn btn-warning"><a href="EditAdministrasi.php?NIM=<?= $nim ?>" style="color: black; text-decoration: none;">Edit</a></buttonc></td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
