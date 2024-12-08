@@ -234,7 +234,7 @@ $NIM = $_SESSION['NIM'];
             </div>
             
             <div class="col-sm-12 d-flex justify-content-end">
-                <button data-id="<?= $NIM ?>" class="btn btn-danger btn-primary me-2 mb-2" style="font-size: 1.3rem; padding: 1rem 2rem;">Edit</button>
+                <button data-id="<?= $NIM ?>" class="btn btn-success btn-edit">Edit</button>
                 <button type="reset" class="btn btn-light-secondary me-2 mb-2" style="font-size: 1.3rem; padding: 1rem 2rem;">Reset</button>
             </div>
         </form>
@@ -296,7 +296,7 @@ $NIM = $_SESSION['NIM'];
         });
 
         $(document).ready(function() {
-            $(".btn-primary").click(function(event) {
+            $(".btn-edit").click(function(event) {
                 event.preventDefault();
 
                 var formData = new FormData($("form")[0]);
