@@ -174,43 +174,20 @@ $NIM = $_SESSION['NIM'];
         <div class="row">
         <form action="ProsesBerkas.php" method="POST" enctype="multipart/form-data">
         <input type="hidden" name="NIM" value="<?php echo $NIM; ?>">
-        <input type="hidden" name="action" value="editTA">
+        <input type="hidden" name="action" value="editAdministrasi">
         <div class="col-12 col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h5 class="card-title">Laporan Tugas Akhir</h5>
+                        <h5 class="card-title">Bukti Distribusi Buku Skripsi / Laporan Akhir</h5>
                     </div>
                     <div class="card-content">
                         <div class="card-body">
-                            <div class="desc">
-                                Laporan terdiri dari:
-                                <ul>
-                                    <li>Cover</li>
-                                    <li>Daftar Isi-Gambar-Tabel</li>
-                                    <li>Kata Pengantar</li>
-                                    <li>Abstrak Indo-Inggris</li>
-                                    <li>Bab 1 sampai Penutup</li>
-                                    <li>Daftar Pustaka</li>
-                                    <li>Lampiran (bila ada)</li>
-                                </ul>
-                            </div>
-                            <input type="file" class="with-validation-filepond-laporan"
-                            data-max-file-size="10MB" name="Laporan_TA" data-max-files="1">
-                        </div>
-                    </div>
-                </div>  
-            </div>
-            <div class="col-12 col-md-12">
-                <div class="card">
-                    <div class="card-header">
-                        <h5 class="card-title">Program / Aplikasi Tugas Akhir / Skripsi</h5>
-                    </div>
-                    <div class="card-content">
-                        <div class="card-body">
-                            <p class="card-text">Catatan: Upload dalam bentuk ZIP / RAR (Maksimal 100 MB)</p>
+                            <p class="card-text">Catatan : Upload dalam bentuk pdf (Maksimal 10 MB)</p>
                             <!-- Basic file uploader -->
-                            <input type="file" class="with-validation-filepond-program"
-                            data-max-file-size="100MB" name="File_Aplikasi" data-max-files="1">
+                            <div class="form-group position-relative has-icon-left">
+                                <input type="file" class="with-validation-filepond-admin1" required 
+                                data-max-file-size="10MB" name="Laporan_Skripsi" data-max-files="1">
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -218,27 +195,49 @@ $NIM = $_SESSION['NIM'];
             <div class="col-12 col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h5 class="card-title">Bukti Publikasi</h5>
+                        <h5 class="card-title">Bukti Distribusi Laporan PKL</h5>
                     </div>
                     <div class="card-content">
                         <div class="card-body">
-                            <p class="card-text">Catatan: Upload dalam bentuk PDF (Maksimal 1 MB)
-                            <!-- Link to Surat Pernyataan Publikasi -->
-                            <p>
-                                <a href="https://intip.in/SuratPernyataanPublikasi/" target="_blank" style="text-decoration: underline;">
-                                    Surat Pernyataan Publikasi
-                                </a>
-                            </p>
-                            </p>
-                            <div  class="form-group position-relative has-icon-left">
-                                <input type="file" class="with-validation-filepond-publikasi"  
-                                data-max-file-size="1MB" name="Pernyataan_Publikasi" data-max-files="1">
+                            <p class="card-text">Catatan : Upload dalam bentuk pdf (Maksimal 10 MB)</p>
+                            <div class="form-group position-relative has-icon-left">
+                                <input type="file" class="with-validation-filepond-admin1" required 
+                                data-max-file-size="10MB" name="Laporan_Magang" data-max-files="1">
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            
+            <div class="col-12 col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title">Bukti Bebas Kompen</h5>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-body">
+                            <p class="card-text">Catatan : Upload dalam bentuk pdf (Maksimal 1 MB)</p>
+                            <!-- Basic file uploader -->
+                            <input type="file" class="with-validation-filepond-admin2" required 
+                            data-max-file-size="1MB" name="Bebas_Kompensasi" data-max-files="1">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title">Scan Toeic</h5>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-body">
+                            <p class="card-text">Catatan : Upload dalam bentuk pdf (Maksimal 1 MB)</p>
+                            <!-- Basic file uploader -->
+                            <input type="file" class="with-validation-filepond-admin2" required 
+                            data-max-file-size="1MB" name="Scan_Toeic" data-max-files="1">
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="col-sm-12 d-flex justify-content-end">
                 <button data-id="<?= $NIM ?>" class="btn btn-danger btn-primary">Edit</button>
                 <button type="reset" class="btn btn-light-secondary me-2 mb-2" style="font-size: 1.3rem; padding: 1rem 2rem;">Reset</button>
@@ -306,7 +305,7 @@ $NIM = $_SESSION['NIM'];
                 event.preventDefault();
 
                 var formData = new FormData($("form")[0]);
-                formData.append("action", "editTA"); 
+                formData.append("action", "editAdministrasi"); 
 
                 var nim = $("input[name='NIM']").val();
 
