@@ -2,6 +2,10 @@
 session_start();
 include('../Koneksi.php');
 
+header("Cache-Control: no-cache, no-store, must-revalidate"); // Untuk HTTP/1.1
+header("Pragma: no-cache"); // Untuk HTTP/1.0
+header("Expires: 0");// Untuk memastikan halaman tidak disimpan
+
 // Cek apakah pengguna sudah login
 if (!isset($_SESSION['Username'])) {
     // Jika belum login, redirect ke halaman login

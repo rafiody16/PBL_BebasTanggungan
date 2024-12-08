@@ -135,7 +135,31 @@ getDataMahasiswaByNim();
                         <li class="submenu-item ">
                             <a href="TabelStaff.php" class="submenu-link"
                         >Lihat Data</a>
+                        </li>
+                    </ul>    
                 </li>
+
+                
+                <li
+                class="sidebar-item  has-sub">
+                <a href="#" class='sidebar-link'>
+                    <i class="bi bi-person-circle"></i>
+                    <span>Akun</span>
+                </a>
+                
+                <ul class="submenu ">
+                    <li class="submenu-item  ">
+                        <a href="admin/profilAdmin.php" class="submenu-link">Profil Saya</a>
+                    </li>
+                    <li class="submenu-item  ">
+                        <a href="admin/ubahPassword.php" class="submenu-link">Keamanan</a>
+                    </li>                    
+                    <li class="submenu-item  ">
+                        <a href="../Login/Logout.php" class="submenu-link">Logout</a>
+                    </li>                    
+                </ul>  
+
+            </li>
 
             </ul>
         </div>
@@ -221,10 +245,10 @@ getDataMahasiswaByNim();
                                                             <h3><?= isset($jeniskelamin) ? htmlspecialchars($jeniskelamin) : '' ?></h3>
                                                         </div>
                                                     </div>
-                                                    <div class="col-12 d-flex justify-content-end">
+                                                    <!-- <div class="col-12 d-flex justify-content-end">
                                                         <button type="submit" class="btn btn-primary me-1 mb-1" name="simpanStaff">Simpan</button>
                                                         <button type="reset" class="btn btn-light-secondary me-1 mb-1">Kembali</button>
-                                                    </div>
+                                                    </div> -->
                                                 </div>
                                             </div>
                                         </form>
