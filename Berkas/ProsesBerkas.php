@@ -5,7 +5,18 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+
+// Debug POST data
+echo '<pre>';
+var_dump($_POST);
+echo '</pre>';
+
+// Check if the 'action' parameter is set and log it
 $action = $_POST['action'] ?? '';
+echo "Action received: " . htmlspecialchars($action) . "<br>";
+
 
 switch ($action) {
     case 'verifikasiAdministrasi':
@@ -28,6 +39,10 @@ switch ($action) {
         break;
     case 'tolakBerkas':
         TolakBerkas();
+        break;
+    case 'editTA':
+        echo "Edit TA function is triggered<br>";
+        EditTA();
         break;
     case 'tampilBerkas':
         GetAllBerkas();
@@ -328,8 +343,6 @@ function TolakBerkas() {
             }
         }
     }
-    // var_dump($_POST);
-    // exit();
 }
 
 
@@ -477,9 +490,71 @@ function GetAllBerkas() {
         $Tanggal_VerifikasiAdm = $rowAdm['Tanggal_Verifikasi'];
         $KeteranganAdm = $rowAdm['Keterangan'];
     }
-
-
 }
+
+function EditTA() {
+    global $conn;
+    global $nim;
+    $nim = $_POST['NIM'] ?? null;
+
+    if (!$nim) {
+        throw new Exception("NIM is required.");
+    }
+
+    $sql = "SELECT a.ID_Pengumpulan, p.ID_Pengumpulan, m.NIM 
+            FROM TugasAkhir AS a 
+            INNER JOIN Pengumpulan AS p ON a.ID_Pengumpulan = p.ID_Pengumpulan 
+            INNER JOIN Mahasiswa AS m ON p.NIM = m.NIM";
+    $params = array($nim);
+    $stmt = sqlsrv_query($conn, $sql, $params);
+    $existingTA = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
+
+    if ($existingTA) {
+        $uploadDir = '../Uploads/';
+
+        function uploadFile($file, $uploadDir) {
+            $fileName = basename($file['name']);
+            $targetFilePath = $uploadDir . $fileName;
+    
+            if (move_uploaded_file($file['tmp_name'], $targetFilePath)) {
+                return $fileName; 
+            } else {
+                return false; 
+            }
+        }
+        
+        $File_Aplikasi = uploadFile($_FILES['File_Aplikasi'], $uploadDir);
+        $Laporan_TA = uploadFile($_FILES['Laporan_TA'], $uploadDir);
+        $Pernyataan_Publikasi = uploadFile($_FILES['Pernyataan_Publikasi'], $uploadDir);
+        $Tanggal_Pengumpulan = date("Y-m-d");
+
+        if ($File_Aplikasi && $Laporan_TA && $Pernyataan_Publikasi) {
+            $sqlUpdate = "UPDATE TugasAkhir
+                          SET File_Aplikasi = ?, 
+                              Laporan_TA = ?, 
+                              Pernyataan_Publikasi = ?, 
+                              Status_Verifikasi = ?, 
+                              Tanggal_Upload = ?
+                          FROM TugasAkhir a
+                          INNER JOIN Pengumpulan p ON a.ID_Pengumpulan = p.ID_Pengumpulan
+                          INNER JOIN Mahasiswa m ON p.NIM = m.NIM
+                          WHERE m.NIM = ?";
+            $paramsTAUpdate = [$File_Aplikasi, $Laporan_TA, $Pernyataan_Publikasi, 'Menunggu', $Tanggal_Pengumpulan, $nim];
+            $stmtTAUpdate = sqlsrv_query($conn, $sqlUpdate, $paramsTAUpdate);
+
+            if (!$stmtTAUpdate) {
+                throw new Exception('Gagal memperbarui data TA: ' . print_r(sqlsrv_errors(), true));
+            } else {
+                echo "<script>window.location.href = 'DetailBerkas.php?NIM=".urlencode($nim)."';</script>";
+            }
+        } else {
+            throw new Exception('Gagal mengupload file. Periksa ukuran atau jenis file.');
+        }
+    }
+    ini_set('display_errors', 1);
+    error_reporting(E_ALL);
+}
+
 
 $sql = "SELECT a.ID_Administrasi, m.NIM, m.Nama, a.Status_Verifikasi, a.Keterangan FROM Administrasi AS a
         INNER JOIN Pengumpulan AS p ON a.ID_Pengumpulan = p.ID_Pengumpulan INNER JOIN Mahasiswa AS m ON p.NIM = m.NIM";
