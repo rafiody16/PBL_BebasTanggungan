@@ -671,22 +671,36 @@ function Berkas() {
         $tglStrBrks = $tglVrfBrks->format('d-m-Y');
         $vrfKajur = $row4['VerifikatorKajur'];
         $vrfKaprodi = $row4['VerifikatorKaprodi'];
-
-        $sql5 = "SELECT TTD FROM staff WHERE nama = ?";
-        $params5 = array($vrfKajur);
-        $stmt5 = sqlsrv_query($conn, $sql5, $params5);
-
-        if ($row5 = sqlsrv_fetch_array($stmt5, SQLSRV_FETCH_ASSOC)) {
-            $ttdKajur = $row5['TTD'];
-        }
-
-        $params6 = array($vrfKaprodi);
-        $stmt6 = sqlsrv_query($conn, $sql5, $params6);
-
-        if ($row6 = sqlsrv_fetch_array($stmt6, SQLSRV_FETCH_ASSOC)) {
-            $ttdKaprodi = $row6['TTD'];
-        }
     }
+
+    $sql6 = "SELECT s.Nama, s.TTD FROM Staff AS s WHERE s.Nama = ?";
+    $params6 = array($vrfKaprodi);
+    $stmt6 = sqlsrv_query($conn, $sql6, $params6);
+    
+    if ($stmt6 === false) {
+        die(print_r(sqlsrv_errors(), true));
+    }
+    
+    if ($row6 = sqlsrv_fetch_array($stmt6, SQLSRV_FETCH_ASSOC)) {
+        $ttdKaprodi = $row6['TTD'];
+    } else {
+        echo "Data TTD untuk Kaprodi tidak ditemukan!";
+    }
+
+    $sql7 = "SELECT s.Nama, s.TTD FROM Staff AS s WHERE s.Nama = ?";
+    $parms7 = array($vrfKajur);
+    $stmt7 = sqlsrv_query($conn, $sql7, $parms7);
+    
+    if ($stmt7 === false) {
+        die(print_r(sqlsrv_errors(), true));
+    }
+    
+    if ($row7 = sqlsrv_fetch_array($stmt7, SQLSRV_FETCH_ASSOC)) {
+        $ttdKajur = $row7['TTD'];
+    } else {
+        echo "Data TTD untuk Kaprodi tidak ditemukan!";
+    }
+
 
 }
 

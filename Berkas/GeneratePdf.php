@@ -98,7 +98,8 @@ $pdf->Ln(20); // Jarak untuk tanda tangan
 
 $pdf->SetY($pdf->GetY() - 10);
 
-$pdf->Image('../Uploads/ttd.png', 15, $pdf->GetY() + -10, 25);
+$pdf->Image('../Uploads/'.$ttdKajur, 15, $pdf->GetY() + -10, 25);
+$pdf->Image('../Uploads/'.$ttdKaprodi, 170, $pdf->GetY() + -10, 25);
 
 // Nama dan Gelar
 $pdf->Cell(95, 10, $vrfKajur, 0, 0, 'L'); // Nama kiri
