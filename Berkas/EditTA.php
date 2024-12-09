@@ -119,7 +119,7 @@ $NIM = $_SESSION['NIM'];
                 <ul class="submenu ">
                     
                     <li class="submenu-item  ">
-                        <a href="../User/mahasiswa/profil-mahasiswa.html" class="submenu-link">Profil Saya</a>
+                        <a href="../User/mahasiswa/ProfilMhs.php" class="submenu-link">Profil Saya</a>
                         
                     </li>
                     
@@ -234,7 +234,7 @@ $NIM = $_SESSION['NIM'];
             </div>
             
             <div class="col-sm-12 d-flex justify-content-end">
-                <button data-id="<?= $NIM ?>" class="btn btn-success btn-edit">Edit</button>
+                <button data-id="<?= $NIM ?>" class="btn btn-success btn-edit me-2 mb-2" style="font-size: 1.3rem; padding: 1rem 2rem;">Edit</button>
                 <button type="reset" class="btn btn-light-secondary me-2 mb-2" style="font-size: 1.3rem; padding: 1rem 2rem;">Reset</button>
             </div>
         </form>

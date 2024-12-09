@@ -131,7 +131,7 @@ if ($rowCheck['total'] > 0) {
                 <ul class="submenu ">
                     
                     <li class="submenu-item  ">
-                        <a href="../User/mahasiswa/profil-mahasiswa.html" class="submenu-link">Profil Saya</a>
+                        <a href="../User/mahasiswa/ProfilMhs.php" class="submenu-link">Profil Saya</a>
                         
                     </li>
                     

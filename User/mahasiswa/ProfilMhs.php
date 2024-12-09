@@ -60,7 +60,7 @@ getDataMahasiswaByID();
           <div class="sidebar-header position-relative">
             <div class="d-flex justify-content-between align-items-center">
               <div class="logo">
-                <a href="../../index.php"
+                <a href="dashboardMHS.php"
                   ><img
                     src="../../assets/img/logoBetati.png"
                     alt="Logo"
@@ -136,7 +136,7 @@ getDataMahasiswaByID();
           <ul class="menu">
                 <li class="sidebar-title">Menu</li>
 
-                <li class="sidebar-item active">
+                <li class="sidebar-item">
                 <a href="dashboardMHS.php" class="sidebar-link">
                   <i class="bi bi-grid-fill"></i>
                   <span>Beranda</span>
@@ -151,14 +151,14 @@ getDataMahasiswaByID();
               </li>
 
               <li
-                class="sidebar-item  has-sub">
+                class="sidebar-item active has-sub">
                 <a href="#" class='sidebar-link'>
                     <i class="bi bi-person-circle"></i>
                     <span>Akun</span>
                 </a>
                 
-                <ul class="submenu ">
-                    <li class="submenu-item  ">
+                <ul class="submenu active">
+                    <li class="submenu-item  active">
                         <a href="ProfilMhs.php" class="submenu-link">Profil Saya</a>
                     </li>
                     <li class="submenu-item  ">
@@ -187,7 +187,7 @@ getDataMahasiswaByID();
             <div class="row">
               <div class="col-12 col-md-6 order-md-1 order-last">
                 <h3>Profil Akun</h3>
-                <p class="text-subtitle text-muted">Kustomisasi profil Anda</p>
+                <!-- <p class="text-subtitle text-muted">Kustomisasi profil Anda</p> -->
               </div>
               <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav
@@ -196,7 +196,7 @@ getDataMahasiswaByID();
                 >
                   <ol class="breadcrumb">
                     <li class="breadcrumb-item">
-                      <a href="../../index.php">Beranda</a>
+                      <a href="dashboardMHS.php">Beranda</a>
                     </li>
                     <li class="breadcrumb-item active" aria-current="page">
                       Profil
@@ -221,9 +221,8 @@ getDataMahasiswaByID();
                         />
                       </div>
 
-                      <h3 class="mt-3"><?= isset($username) ? htmlspecialchars($username) : '' ?></h3>
+                      <h3 class="mt-3"></h3>
                       <p class="text-small">
-                      <?= isset($nim) ? htmlspecialchars($nim) : '' ?> / <?= (isset($Prodi) && $Prodi === 'TI') ? 'D-IV Teknik Informatika' : ((isset($Prodi) && $Prodi === 'SIB') ? 'D-IV Sistem Informasi Bisnis' : 'D-II PPLS')?>
                       </p>
                     </div>
                   </div>
@@ -238,63 +237,63 @@ getDataMahasiswaByID();
                               <div class="col-md-6 col-12">
                                   <div class="form-group">
                                       <label for="Nama">Nama</label>
-                                      <h3><?= isset($nama) ? htmlspecialchars($nama) : '' ?></h3>
+                                      <h4><?= isset($nama) ? htmlspecialchars($nama) : '' ?></h4>
                                   </div>
                               </div>
                               <div class="col-md-6 col-12">
                                   <div class="form-group">
                                       <label for="NIM">NIM</label>
-                                      <h3><?= isset($nim) ? htmlspecialchars($nim) : '' ?></h3>
+                                      <h4><?= isset($nim) ? htmlspecialchars($nim) : '' ?></h4>
                                   </div>
                               </div>
                               <div class="col-md-6 col-12">
                                   <div class="form-group">
                                       <label for="Role_ID">Program Studi</label>
-                                      <h3><?= (isset($Prodi) && $Prodi === 'TI') ? 'D-IV Teknik Informatika' : ((isset($Prodi) && $Prodi === 'SIB') ? 'D-IV Sistem Informasi Bisnis' : 'D-II Pengembangan Piranti Lunak Situs')?></h3>
+                                      <h4><?= (isset($Prodi) && $Prodi === 'TI') ? 'D-IV Teknik Informatika' : ((isset($Prodi) && $Prodi === 'SIB') ? 'D-IV Sistem Informasi Bisnis' : 'D-II Pengembangan Piranti Lunak Situs')?></h4>
                                   </div>
                               </div>
                               <div class="col-md-6 col-12">
                                   <div class="form-group">
                                       <label for="Username">Username</label>
-                                      <h3><?= isset($username) ? htmlspecialchars($username) : '' ?></h3>
+                                      <h4><?= isset($username) ? htmlspecialchars($username) : '' ?></h4>
                                   </div>
                               </div>
                               <div class="col-md-6 col-12">
                                   <div class="form-group">
                                       <label for="Email">Email</label>
-                                      <h3><?= isset($email) ? htmlspecialchars($email) : '' ?></h3>
+                                      <h4><?= isset($email) ? htmlspecialchars($email) : '' ?></h4>
                                   </div>
                               </div>
                               <div class="col-md-6 col-12">
                                   <div class="form-group">
                                       <label for="Alamat">Alamat</label>
-                                      <h3><?= isset($alamat) ? htmlspecialchars($alamat) : '' ?></h3>
+                                      <h4><?= isset($alamat) ? htmlspecialchars($alamat) : '' ?></h4>
                                   </div>
                               </div>
                               <div class="col-md-6 col-12">
                                   <div class="form-group">
                                       <label for="NoHp">No.Hp</label>
-                                      <h3><?= isset($noHp) ? htmlspecialchars($noHp) : '' ?></h3>
+                                      <h4><?= isset($noHp) ? htmlspecialchars($noHp) : '' ?></h4>
                                   </div>
                               </div>
                               <div class="col-md-6 col-12">
                                   <div class="form-group">
                                       <label for="TempatLahir">Tempat Lahir</label>
-                                      <h3><?= isset($Tempat_Lahir) ? htmlspecialchars($Tempat_Lahir) : '' ?></h3>
+                                      <h4><?= isset($Tempat_Lahir) ? htmlspecialchars($Tempat_Lahir) : '' ?></h4>
                                   </div>
                               </div>
                               <div class="col-md-6 col-12">
                                   <div class="form-group">
                                       <label for="TanggalLahir">Tanggal Lahir</label>
-                                      <h3><?php
+                                      <h4><?php
                                       echo htmlspecialchars($Tanggal_Lahir->format('d-m-Y')); 
-                                      ?></h3>
+                                      ?></h4>
                                   </div>
                               </div>
                               <div class="col-md-6 col-12">
                                   <div class="form-group">
                                       <label for="JenisKelamin">Jenis Kelamin</label>
-                                      <h3><?= isset($jeniskelamin) ? ($jeniskelamin === 'L' ? 'Laki-Laki' : ($jeniskelamin === 'P' ? 'Perempuan' : '')) : '' ?></h3>
+                                      <h4><?= isset($jeniskelamin) ? ($jeniskelamin === 'L' ? 'Laki-Laki' : ($jeniskelamin === 'P' ? 'Perempuan' : '')) : '' ?></h4>
                                   </div>
                               </div>
                           </div>

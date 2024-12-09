@@ -120,12 +120,12 @@ GetAllBerkas();
                 <ul class="submenu ">
                     
                     <li class="submenu-item  ">
-                        <a href="profil-mahasiswa.html" class="submenu-link">Profil Saya</a>
+                        <a href="../User/mahasiswa/ProfilMhs.php" class="submenu-link">Profil Saya</a>
                         
                     </li>
                     
                     <li class="submenu-item  ">
-                        <a href="ubahPasswordMhs.html" class="submenu-link">Keamanan</a>
+                        <a href="../User/mahasiswa/ubahPasswordMhs.html" class="submenu-link">Keamanan</a>
                         
                     </li>
 
