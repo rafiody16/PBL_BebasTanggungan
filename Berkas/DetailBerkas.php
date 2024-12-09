@@ -15,7 +15,7 @@ if ($_SESSION['Role_ID'] != 8) {
     exit();
 }
 
-$nim = $_SESSION['NIM'];
+$NIM = $_SESSION['NIM'];
 
 include('ProsesBerkas.php');
 GetAllBerkas();
@@ -178,7 +178,7 @@ GetAllBerkas();
                                 <form class="form form-vertical">
                                     <div class="form-body">
                                         <div class="row">
-                                            <dclass="table-responsive">
+                                            <div class="table-responsive">
                                                 <table class="table table-bordered mb-0" style="border: 1px solid black;">
                                                     <thead>
                                                         <tr>
@@ -198,20 +198,24 @@ GetAllBerkas();
                                                             <td class="text-bold-500"><?= isset($Tanggal_UploadTA) ? htmlspecialchars($Tanggal_UploadTA instanceof DateTime ? $Tanggal_UploadTA->format('d-m-Y') : $Tanggal_UploadTA) : '' ?></td>
                                                             <td class="text-bold-500"><?= isset($Tanggal_VerifikasiTA) ? htmlspecialchars($Tanggal_VerifikasiTA instanceof DateTime ? $Tanggal_VerifikasiTA->format('d-m-Y') : $Tanggal_VerifikasiTA) : 'Belum Terverifikasi' ?></td>
                                                             <td class="text-bold-500">
-                                                                <?php
-                                                                    if ($Status_VerifikasiTA === 'Menunggu') {
+                                                            <?php
+                                                                if ($Status_VerifikasiTA === 'Menunggu') {
                                                                 ?>
                                                                     <span class="badge bg-warning"><?= htmlspecialchars($Status_VerifikasiTA) ?></span>
                                                                 <?php 
-                                                                    } else if ($Status_VerifikasiTA === 'Terverifikasi') {
+                                                                } else if ($Status_VerifikasiTA === 'Terverifikasi') {
                                                                 ?>
                                                                     <span class="badge bg-success"><?= htmlspecialchars($Status_VerifikasiTA) ?></span>
                                                                 <?php
-                                                                    } else if ($Status_VerifikasiTA === 'Ditolak') {
+                                                                } else if ($Status_VerifikasiTA === 'Ditolak') {
                                                                 ?>
                                                                     <span class="badge bg-danger"><?= htmlspecialchars($Status_VerifikasiTA) ?></span>
                                                                 <?php
-                                                                    }
+                                                                } else {
+                                                                ?>
+                                                                    <span class="badge bg-secondary">Status Tidak Diketahui</span>
+                                                                <?php
+                                                                }
                                                                 ?>
                                                             </td>
                                                             <td class="text-bold-500"><?= htmlspecialchars($KeteranganTA) ?></td>
