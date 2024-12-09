@@ -620,11 +620,11 @@ function Berkas() {
     global $conn;
 
     global $namaMHS, $Prodi, $tglVrfAdm, $vrfAdm, $tglVrfTA, $vrfTA, $tglStrAdm, $tglStrTA, $tglStrBrks,
-           $vrfKajur, $vrfKaprodi;
+           $vrfKajur, $vrfKaprodi, $thnAngkatan, $ttdKajur, $ttdKaprodi;
 
     $NIM = $_GET['NIM'];
 
-    $sql = "SELECT m.NIM, m.Nama, m.Prodi FROM Administrasi AS a INNER JOIN Pengumpulan AS p ON a.ID_Pengumpulan = p.ID_Pengumpulan INNER JOIN 
+    $sql = "SELECT m.NIM, m.Nama, m.Prodi, m.Tahun_Angkatan FROM Administrasi AS a INNER JOIN Pengumpulan AS p ON a.ID_Pengumpulan = p.ID_Pengumpulan INNER JOIN 
             Mahasiswa AS m ON p.NIM = m.NIM WHERE m.NIM = ?";
     $params = array($NIM);
     $stmt = sqlsrv_query($conn, $sql, $params);
@@ -636,6 +636,7 @@ function Berkas() {
     if ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
         $namaMHS = $row['Nama'];
         $Prodi = $row['Prodi'];
+        $thnAngkatan = $row['Tahun_Angkatan'];
     } 
 
     $sql2 = "SELECT a.Tanggal_Verifikasi, a.Verifikator FROM Administrasi AS a INNER JOIN Pengumpulan AS p ON a.ID_Pengumpulan = p.ID_Pengumpulan INNER JOIN 
@@ -670,6 +671,21 @@ function Berkas() {
         $tglStrBrks = $tglVrfBrks->format('d-m-Y');
         $vrfKajur = $row4['VerifikatorKajur'];
         $vrfKaprodi = $row4['VerifikatorKaprodi'];
+
+        $sql5 = "SELECT TTD FROM staff WHERE nama = ?";
+        $params5 = array($vrfKajur);
+        $stmt5 = sqlsrv_query($conn, $sql5, $params5);
+
+        if ($row5 = sqlsrv_fetch_array($stmt5, SQLSRV_FETCH_ASSOC)) {
+            $ttdKajur = $row5['TTD'];
+        }
+
+        $params6 = array($vrfKaprodi);
+        $stmt6 = sqlsrv_query($conn, $sql5, $params6);
+
+        if ($row6 = sqlsrv_fetch_array($stmt6, SQLSRV_FETCH_ASSOC)) {
+            $ttdKaprodi = $row6['TTD'];
+        }
     }
 
 }

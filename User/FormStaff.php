@@ -201,7 +201,7 @@ getDataStaffByNip();
                                 </div>
                                 <div class="card-content">
                                     <div class="card-body">
-                                        <form class="form form-vertical" action="UserProses.php" method="POST">
+                                        <form class="form form-vertical" action="UserProses.php" method="POST" enctype="multipart/form-data">
                                             <div class="form-body">
                                                 <div class="row">
                                                     <div class="col-12">
@@ -231,7 +231,7 @@ getDataStaffByNip();
                                                     <div class="col-12">
                                                         <div class="form-group">
                                                             <label for="Password">Password</label>
-                                                            <input type="password" class="form-control" name="Password" value="<?= isset($password) ? htmlspecialchars($password) : '' ?>" placeholder="Masukkan Password">
+                                                            <input type="password" class="form-control" name="Password" placeholder="Masukkan Password">
                                                         </div>
                                                     </div>
                                                     <div class="col-12">
@@ -250,8 +250,13 @@ getDataStaffByNip();
                                                         <div class="form-group">
                                                             <label for="JenisKelamin">Jenis Kelamin</label>
                                                             <br>
-                                                            <input class="form-check-input" type="radio" name="JenisKelamin" id="jenkel1" value="L" required="true" <?= (isset($jeniskelamin) && $jeniskelamin == 'L') ? 'checked' : '' ?>> Laki-laki 
-                                                            <input class="form-check-input" type="radio" name="JenisKelamin" id="jenkel2" value="P" value="P" <?= (isset($jeniskelamin) && $jeniskelamin == 'P') ? 'checked' : '' ?>> Perempuan
+                                                            <input class="form-check-input" type="radio" name="JenisKelamin" id="jenkel1" value="L" required="true" 
+                                                                <?= (isset($jeniskelamin) && $jeniskelamin === 'L') ? 'checked' : '' ?>> Laki-laki 
+                                                                <input class="form-check-input" type="radio" name="JenisKelamin" id="jenkel2" value="P" 
+                                                                <?= (isset($jeniskelamin) && $jeniskelamin === 'P') ? 'checked' : '' ?>> Perempuan
+                                                                <br>
+                                                                <small>Debug: Jenis Kelamin = <?= htmlspecialchars($jeniskelamin ?? 'null') ?></small>
+                                                            <br>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6 col-12">
@@ -282,6 +287,14 @@ getDataStaffByNip();
                                                                 }
                                                             ?>
                                                             </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <div class="form-group">
+                                                            <label for="TTD">Tanda Tangan</label>
+                                                            <br>
+                                                            <input type="file" class="with-validation-filepond-laporan" accept="image/*"
+                                                            data-max-file-size="10MB" name="TTD" data-max-files="1">
                                                         </div>
                                                     </div>
                                                     <div class="col-12 d-flex justify-content-end">

@@ -148,6 +148,9 @@ DROP COLUMN Email;
 ALTER TABLE Mahasiswa
 ADD Tahun_Angkatan INT;
 
+ALTER TABLE Staff
+ADD TTD VARCHAR(50);
+
 SELECT * FROM Mahasiswa;
 
 SELECT * FROM Staff;

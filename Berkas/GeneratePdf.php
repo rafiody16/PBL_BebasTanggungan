@@ -34,6 +34,8 @@ $pdf->Cell(40, 7, 'NIM', 1);
 $pdf->Cell(0, 7, ' '.$NIM, 1, 1);
 $pdf->Cell(40, 7, 'Program Studi', 1);
 $pdf->Cell(0, 7, ' '.$Prodi, 1, 1);
+$pdf->Cell(40, 7, 'Tahun Angkatan', 1);
+$pdf->Cell(0, 7, ' '.$thnAngkatan, 1, 1);
 $pdf->Ln(5);
 
 // Tambahkan tabel Tugas Akhir
@@ -93,6 +95,10 @@ $pdf->Cell(95, 10, 'Ketua Jurusan Teknologi Informasi', 0, 0, 'L'); // Posisi ki
 $pdf->Cell(95, 10, 'Koordinator Program Studi', 0, 1, 'R'); // Posisi kanan
 
 $pdf->Ln(20); // Jarak untuk tanda tangan
+
+$pdf->SetY($pdf->GetY() - 10);
+
+$pdf->Image('../Uploads/ttd.png', 15, $pdf->GetY() + -10, 25);
 
 // Nama dan Gelar
 $pdf->Cell(95, 10, $vrfKajur, 0, 0, 'L'); // Nama kiri
