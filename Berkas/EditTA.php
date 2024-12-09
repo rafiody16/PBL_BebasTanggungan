@@ -312,7 +312,6 @@ $NIM = $_SESSION['NIM'];
                     processData: false, 
                     success: function(response) {
                         alert("Data berhasil diubah.");
-                        location.reload();
                     },
                     error: function(xhr, status, error) {
                         alert("Terjadi kesalahan. Silakan coba lagi.");

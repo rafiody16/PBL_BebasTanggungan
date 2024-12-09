@@ -223,7 +223,7 @@ GetAllBerkas();
                                                                 <?php
                                                                     if ($Status_VerifikasiAdm === 'Menunggu') {
                                                                 ?>
-                                                                    <button class="btn btn-warning"><a href="EditTA.php?NIM=<?= $nim ?>" style="color: black; text-decoration: none;">Edit</a></button>
+                                                                    <button class="btn btn-warning"><a href="EditTA.php?NIM=<?= $NIM ?>" style="color: black; text-decoration: none;">Edit</a></button>
                                                                 <?php 
                                                                     } else if ($Status_VerifikasiAdm === 'Terverifikasi') {
                                                                 ?>
@@ -231,7 +231,7 @@ GetAllBerkas();
                                                                 <?php
                                                                     } else if ($Status_VerifikasiAdm === 'Ditolak') {
                                                                 ?>
-                                                                    <button class="btn btn-warning"><a href="EditTA.php?NIM=<?= $nim ?>" style="color: black; text-decoration: none;">Edit</a></button>
+                                                                    <button class="btn btn-warning"><a href="EditTA.php?NIM=<?= $NIM ?>" style="color: black; text-decoration: none;">Edit</a></button>
                                                                 <?php
                                                                     }
                                                                 ?>
@@ -264,7 +264,7 @@ GetAllBerkas();
                                                                 <?php
                                                                     if ($Status_VerifikasiAdm === 'Menunggu') {
                                                                 ?>
-                                                                    <button class="btn btn-warning"><a href="EditAdministrasi.php?NIM=<?= $nim ?>" style="color: black; text-decoration: none;">Edit</a></button>
+                                                                    <button class="btn btn-warning"><a href="EditAdministrasi.php?NIM=<?= $NIM ?>" style="color: black; text-decoration: none;">Edit</a></button>
                                                                 <?php 
                                                                     } else if ($Status_VerifikasiAdm === 'Terverifikasi') {
                                                                 ?>
@@ -272,7 +272,7 @@ GetAllBerkas();
                                                                 <?php
                                                                     } else if ($Status_VerifikasiAdm === 'Ditolak') {
                                                                 ?>
-                                                                    <button class="btn btn-warning"><a href="EditAdministrasi.php?NIM=<?= $nim ?>" style="color: black; text-decoration: none;">Edit</a></button>
+                                                                    <button class="btn btn-warning"><a href="EditAdministrasi.php?NIM=<?= $NIM ?>" style="color: black; text-decoration: none;">Edit</a></button>
                                                                 <?php
                                                                     }
                                                                 ?>
