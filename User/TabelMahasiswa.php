@@ -293,6 +293,7 @@ if ($_SESSION['Role_ID'] != 1) {
                         type: "POST",
                         data: { NIM: nim, action: "deleteMahasiswa" },
                         success: function(response) {
+                            alert("Data mahasiswa dengan NIM " + nim + " berhasil dihapus");
                             location.reload();
                         }
                     });

@@ -295,7 +295,7 @@ if ($_SESSION['Role_ID'] != 1) {
                 type: "POST",
                 data: { NIP: nip, action: "delete" },
                 success: function(response) {
-                    alert(nip);
+                    alert("Data staff dengan NIP " + nip + " berhasil dihapus");
                     location.reload();
                 }
             });
