@@ -205,7 +205,7 @@
                 >
                   <ol class="breadcrumb">
                     <li class="breadcrumb-item">
-                      <a href="../../index.php">Beranda</a>
+                      <a href="../../index.php">Dashboard</a>
                     </li>
                     <li class="breadcrumb-item active" aria-current="page">
                       Keamanan

@@ -171,7 +171,7 @@ if ($_SESSION['Role_ID'] != 8) {
                 
                 <ul class="submenu ">
                     <li class="submenu-item  ">
-                        <a href="profil-mahasiswa.html" class="submenu-link">Profil Saya</a>
+                        <a href="ProfilMhs.php" class="submenu-link">Profil Saya</a>
                     </li>
                     <li class="submenu-item  ">
                         <a href="ubahPasswordMhs.html" class="submenu-link">Keamanan</a>
