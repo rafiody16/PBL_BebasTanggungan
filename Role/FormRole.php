@@ -1,3 +1,10 @@
+<?php 
+include('../Koneksi.php');
+include('RoleProses.php');
+
+getRoleById();
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -100,19 +107,19 @@
                                                 <div class="col-12">
                                                         <div class="form-group">
                                                             <label for="first-name-vertical">ID Role</label>
-                                                            <input type="text" class="form-control" name="ID_Role" placeholder="Masukkan ID_Role">
+                                                            <input type="text" class="form-control" name="Role_ID" value="<?= isset($Role_ID) ? htmlspecialchars($Role_ID) : '' ?>" placeholder="Masukkan ID_Role">
                                                         </div>
                                                     </div>
                                                     <div class="col-12">
                                                         <div class="form-group">
                                                             <label for="first-name-vertical">Nama Role</label>
-                                                            <input type="text" class="form-control" name="Nama_Role" placeholder="Masukkan jenis role">
+                                                            <input type="text" class="form-control" name="Nama_Role" value="<?= isset($nama) ? htmlspecialchars($nama) : '' ?>" placeholder="Masukkan jenis role">
                                                         </div>
                                                     </div>
                                                     <div class="col-12">
                                                         <div class="form-group">
                                                             <label for="contact-info-vertical">Deskripsi</label>
-                                                            <textarea class="form-control" name="Deskripsi" rows="3"></textarea>
+                                                            <textarea class="form-control" name="Deskripsi" rows="3"><?= isset($deskripsi) ? htmlspecialchars($deskripsi) : '' ?></textarea>
                                                         </div>
                                                     </div>
                                                     <div class="col-12 d-flex justify-content-end">

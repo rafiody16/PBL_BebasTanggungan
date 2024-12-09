@@ -17,6 +17,7 @@
     />
     <link rel="stylesheet" crossorigin href="../assets/compiled/css/app.css">
     <link rel="stylesheet" crossorigin href="../assets/compiled/css/app-dark.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 <body>
@@ -126,8 +127,8 @@
                                                         echo "<td>" . htmlspecialchars($row['Nama_Role']) . "</td>";
                                                         echo "<td>" . htmlspecialchars($row['Deskripsi']) . "</td>";
                                                         ?>
-                                                <button data-id="<?= $Role_ID ?>" class="btn btn-warning btn-edit">Edit</button>
-                                                <button data-id="<?= $Role_ID ?>" class="btn btn-danger btn-delete">Hapus</button>
+                                                        <td><button data-id="<?= $Role_ID ?>" class="btn btn-warning btn-edit">Edit</button></td>
+                                                        <td><button data-id="<?= $Role_ID ?>" class="btn btn-danger btn-delete">Hapus</button></td>
                                                 <?php
                                             echo "</tr>";
                                         } else {
