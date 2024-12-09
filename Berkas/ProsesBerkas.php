@@ -423,7 +423,7 @@ function GetAllBerkas() {
            $Tanggal_Upload, $Status_Verifikasi, $Keterangan, $Tanggal_Verifikasi, $Tanggal_UploadAdm, $Status_VerifikasiAdm, $KeteranganAdm, 
            $Tanggal_VerifikasiAdm, $Tanggal_UploadTA, $Status_VerifikasiTA, $KeteranganTA, $Tanggal_VerifikasiTA;
 
-    $NIM = $_GET['NIM'];
+    $NIM = $_GET['NIM'] ?? null;
 
     $sql = "SELECT a.Laporan_Skripsi, a.Laporan_Magang, a.Bebas_Kompensasi, a.Scan_Toeic,
             t.File_Aplikasi, t.Laporan_TA, t.Pernyataan_Publikasi, p.Tanggal_Pengumpulan, 
@@ -453,7 +453,8 @@ function GetAllBerkas() {
     }    
 
     $sqlTA = "SELECT t.Tanggal_Upload, t.Status_Verifikasi, t.Keterangan, t.Tanggal_Verifikasi FROM TugasAkhir AS t
-             INNER JOIN Pengumpulan AS p ON t.ID_Pengumpulan = p.ID_Pengumpulan INNER JOIN Mahasiswa AS m ON p.NIM = m.NIM";
+             INNER JOIN Pengumpulan AS p ON t.ID_Pengumpulan = p.ID_Pengumpulan INNER JOIN Mahasiswa AS m ON p.NIM = m.NIM
+             WHERE m.NIM = ?";
     $paramsTA = array($NIM);
     $stmtTA = sqlsrv_query($conn, $sqlTA, $paramsTA);
 
@@ -469,7 +470,8 @@ function GetAllBerkas() {
     }
 
     $sqlAdm = "SELECT a.Tanggal_Upload, a.Status_Verifikasi, a.Keterangan, a.Tanggal_Verifikasi FROM Administrasi AS a
-             INNER JOIN Pengumpulan AS p ON a.ID_Pengumpulan = p.ID_Pengumpulan INNER JOIN Mahasiswa AS m ON p.NIM = m.NIM";
+             INNER JOIN Pengumpulan AS p ON a.ID_Pengumpulan = p.ID_Pengumpulan INNER JOIN Mahasiswa AS m ON p.NIM = m.NIM
+             WHERE m.NIM = ?";
     $paramsAdm = array($NIM);
     $stmtAdm = sqlsrv_query($conn, $sqlAdm, $paramsAdm);
 
