@@ -244,9 +244,9 @@ echo "Selamat Datang " . $_SESSION['Nama'];
                         <i class="bx bx-x d-block d-sm-none"></i>
                         <span class="d-none d-sm-block">Tutup</span>
                     </button>
-                    <button type="button" class="btn btn-primary btn-tolak" data-bs-dismiss="modal" data-id="<?= $ID_Aplikasi ?>">
+                    <button type="button" class="btn btn-danger btn-tolak" data-bs-dismiss="modal" data-id="<?= $ID_Aplikasi ?>">
                         <i class="bx bx-check d-block d-sm-none"></i>
-                        <span class="d-none d-sm-block">Unggah</span>
+                        <span class="d-none d-sm-block">Tolak</span>
                     </button>
                 </div>
             </div>

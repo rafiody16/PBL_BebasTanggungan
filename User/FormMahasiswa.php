@@ -192,7 +192,7 @@ getDataMahasiswaByNim();
                 <section id="basic-vertical-layouts">
                     <div class="row match-height">
                         <div class="col-md-6 col-12">
-                            <div class="card" style="width: 1280px; margin-left:30px">
+                            <div class="card" style="width: 1280px; margin-left:5px">
                                 <div class="card-header">
                                     <h4 class="card-title">Tambah Data Mahasiswa</h4>
                                 </div>

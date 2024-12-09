@@ -198,7 +198,7 @@ getDataStaffByNip();
                 <section id="basic-vertical-layouts">
                     <div class="row match-height">
                         <div class="col-md-6 col-12">
-                            <div class="card" style="width: 1280px; height: 100%; margin-left:30px">
+                            <div class="card" style="width: 1280px; height: 100%; margin-left:5px">
                                 <div class="card-header">
                                     <h4 class="card-title">Tambah Data Staff</h4>
                                 </div>
