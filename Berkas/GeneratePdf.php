@@ -12,19 +12,33 @@ $pdf->AddPage();
 $pdf->SetFont('Arial', '', 12);
 
 // Tambahkan header
-$pdf->Image('../assets/img/logopoltek.png', 10, 6, 20);
-$pdf->Image('../assets/img/logojti.png', 180, 9, 15);
+$pdf->Image('../assets/img/logopoltek.png', 10, 9, 20);
+$pdf->Image('../assets/img/logojti.png', 180, 12, 15);
 $pdf->Cell(80); // Geser ke tengah
 $pdf->SetFont('Arial', 'B', 12);
 $pdf->Cell(30, 10, 'KEMENTERIAN PENDIDIKAN, KEBUDAYAAN, RISET, DAN TEKNOLOGI', 0, 1, 'C');
 $pdf->SetFont('Arial', '', 10);
 $pdf->Cell(190, 5, 'JURUSAN TEKNOLOGI INFORMASI - POLITEKNIK NEGERI MALANG', 0, 1, 'C');
+$pdf->Ln(2); // Jarak antar teks
+$pdf->Cell(190, 5, 'Jl. Soekarno Hatta No.9, Jatimulyo, Kec. Lowokwaru, Kota Malang,', 0, 1, 'C');
+$pdf->Cell(190, 5, 'Jawa Timur 65141', 0, 1, 'C');
+$pdf->Ln(2); // Jarak antara alamat dan garis
+$pdf->SetLineWidth(0.5); // Mengatur ketebalan garis
+$pdf->Line(10, $pdf->GetY(), 200, $pdf->GetY());
 $pdf->Ln(10);
 
 // Tambahkan data utama
 $pdf->SetFont('Arial', 'B', 12);
 $pdf->Cell(0, 10, 'BEBAS TANGGUNGAN JURUSAN', 0, 1, 'C');
 $pdf->Ln(5);
+
+if ($Prodi === 'TI') {
+    $ProdiPDF = 'D-IV Teknik Informatika';
+} else if ($Prodi === 'SIB') {
+    $ProdiPDF = 'D-IV Sistem Informasi Bisnis';
+} else if ($Prodi === 'PPLS') {
+    $ProdiPDF = 'D-II Pemeliharaan Piranti Lunak Situs';
+}
 
 // Tambahkan informasi pribadi
 $pdf->SetFont('Arial', '', 10);
@@ -33,7 +47,7 @@ $pdf->Cell(0, 7, ' '.$namaMHS, 1, 1);
 $pdf->Cell(40, 7, 'NIM', 1);
 $pdf->Cell(0, 7, ' '.$NIM, 1, 1);
 $pdf->Cell(40, 7, 'Program Studi', 1);
-$pdf->Cell(0, 7, ' '.$Prodi, 1, 1);
+$pdf->Cell(0, 7, ' '.$ProdiPDF, 1, 1);
 $pdf->Cell(40, 7, 'Tahun Angkatan', 1);
 $pdf->Cell(0, 7, ' '.$thnAngkatan, 1, 1);
 $pdf->Ln(5);
