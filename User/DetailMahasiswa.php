@@ -242,13 +242,12 @@ getDataMahasiswaByNim();
                                                     <div class="col-md-6 col-12">
                                                         <div class="form-group">
                                                             <label for="JenisKelamin">Jenis Kelamin</label>
-                                                            <h3><?= isset($jeniskelamin) ? htmlspecialchars($jeniskelamin) : '' ?></h3>
+                                                            <h3><?= isset($jeniskelamin) ? ($jeniskelamin === 'L' ? 'Laki-Laki' : ($jeniskelamin === 'P' ? 'Perempuan' : '')) : '' ?></h3>
                                                         </div>
                                                     </div>
-                                                    <!-- <div class="col-12 d-flex justify-content-end">
-                                                        <button type="submit" class="btn btn-primary me-1 mb-1" name="simpanStaff">Simpan</button>
-                                                        <button type="reset" class="btn btn-light-secondary me-1 mb-1">Kembali</button>
-                                                    </div> -->
+                                                    <div class="col-12 d-flex justify-content-end">
+                                                        <div><a href="TabelMahasiswa.php" class="btn btn-light-secondary me-1 mb-1">Kembali</a></div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </form>
