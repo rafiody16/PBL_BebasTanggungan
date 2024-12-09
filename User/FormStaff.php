@@ -39,6 +39,9 @@ getDataStaffByNip();
       href="../assets/img/logoJti.png"
       type="image/png"
     />
+    <link rel="stylesheet" href="../assets/extensions/filepond/filepond.css">
+    <link rel="stylesheet" href="../assets/extensions/filepond-plugin-image-preview/filepond-plugin-image-preview.css">
+    <link rel="stylesheet" href="../assets/extensions/toastify-js/src/toastify.css">
     <link rel="stylesheet" crossorigin href="../assets/compiled/css/app.css">
     <link rel="stylesheet" crossorigin href="../assets/compiled/css/app-dark.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -195,7 +198,7 @@ getDataStaffByNip();
                 <section id="basic-vertical-layouts">
                     <div class="row match-height">
                         <div class="col-md-6 col-12">
-                            <div class="card" style="width: 1280px; margin-left:30px">
+                            <div class="card" style="width: 1280px; height: 100%; margin-left:30px">
                                 <div class="card-header">
                                     <h4 class="card-title">Tambah Data Staff</h4>
                                 </div>
@@ -254,9 +257,6 @@ getDataStaffByNip();
                                                                 <?= (isset($jeniskelamin) && $jeniskelamin === 'L') ? 'checked' : '' ?>> Laki-laki 
                                                                 <input class="form-check-input" type="radio" name="JenisKelamin" id="jenkel2" value="P" 
                                                                 <?= (isset($jeniskelamin) && $jeniskelamin === 'P') ? 'checked' : '' ?>> Perempuan
-                                                                <br>
-                                                                <small>Debug: Jenis Kelamin = <?= htmlspecialchars($jeniskelamin ?? 'null') ?></small>
-                                                            <br>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6 col-12">
@@ -289,14 +289,24 @@ getDataStaffByNip();
                                                             </select>
                                                         </div>
                                                     </div>
-                                                    <div class="col-12">
+                                                    <div class="col-12 col-md-6">
                                                         <div class="form-group">
+                                                            <br>
                                                             <label for="TTD">Tanda Tangan</label>
                                                             <br>
-                                                            <input type="file" class="with-validation-filepond-laporan" accept="image/*"
-                                                            data-max-file-size="10MB" name="TTD" data-max-files="1">
+                                                            <div class="card">
+                                                                <div class="card-content">
+                                                                    <div class="card-body">
+                                                                        <!-- File uploader with image preview -->
+                                                                        <input type="file" class="image-preview-filepond" accept="image/*"
+                                                                        data-max-file-size="10MB" name="TTD" data-max-files="1">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
                                                         </div>
-                                                    </div>
+                                                            <!-- <input type="file" class="image-preview-filepond" accept="image/*"
+                                                            data-max-file-size="10MB" name="TTD" data-max-files="1"> -->
+                                                        </div>
                                                     <div class="col-12 d-flex justify-content-end">
                                                         <button type="submit" class="btn btn-primary me-1 mb-1" name="simpanStaff">Simpan</button>
                                                         <button type="reset" class="btn btn-light-secondary me-1 mb-1">Kembali</button>
@@ -329,5 +339,16 @@ getDataStaffByNip();
     <script src="../assets/extensions/perfect-scrollbar/perfect-scrollbar.min.js"></script>
     <script src="../assets/extensions/perfect-scrollbar/perfect-scrollbar.min.js"></script>
     <script src="../assets/compiled/js/app.js"></script>
+
+    <script src="../assets/extensions/filepond-plugin-file-validate-size/filepond-plugin-file-validate-size.min.js"></script>
+    <script src="../assets/extensions/filepond-plugin-file-validate-type/filepond-plugin-file-validate-type.min.js"></script>
+    <script src="../assets/extensions/filepond-plugin-image-crop/filepond-plugin-image-crop.min.js"></script>
+    <script src="../assets/extensions/filepond-plugin-image-exif-orientation/filepond-plugin-image-exif-orientation.min.js"></script>
+    <script src="../assets/extensions/filepond-plugin-image-filter/filepond-plugin-image-filter.min.js"></script>
+    <script src="../assets/extensions/filepond-plugin-image-preview/filepond-plugin-image-preview.min.js"></script>
+    <script src="../assets/extensions/filepond-plugin-image-resize/filepond-plugin-image-resize.min.js"></script>
+    <script src="../assets/extensions/filepond/filepond.js"></script>
+    <script src="../assets/extensions/toastify-js/src/toastify.js"></script>
+    <script src="../assets/static/js/pages/filepond.js"></script>
 </body>
 </html>
