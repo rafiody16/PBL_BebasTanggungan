@@ -1,9 +1,33 @@
+<?php
+session_start();
+
+// Cek apakah pengguna sudah login
+if (!isset($_SESSION['Username'])) {
+    // Jika belum login, redirect ke halaman login
+    header("Location: ../Login/Login.php");
+    exit();
+}
+
+// Cek hak akses
+if ($_SESSION['Role_ID'] != 1) {
+    // Jika bukan admin, redirect atau tampilkan pesan error
+    echo "<script>alert('Anda tidak memiliki akses ke halaman ini.'); window.location.href = '../Login/Login.php';</script>";
+    exit();
+}
+
+include('../UserProses.php');
+include('../../Koneksi.php');
+
+getDataMahasiswaByNim();
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Ubah Password - BeTaTI</title>
+    <title>Profil Akun - BeTaTI</title>
 
     <link
       rel="shortcut icon"
@@ -19,12 +43,12 @@
     <link
       rel="stylesheet"
       crossorigin
-      href="./../../assets/compiled/css/app.css"
+      href="../../assets/compiled/css/app.css"
     />
     <link
       rel="stylesheet"
       crossorigin
-      href="./../../assets/compiled/css/app-dark.css"
+      href="../../assets/compiled/css/app-dark.css"
     />
   </head>
 
@@ -36,7 +60,7 @@
           <div class="sidebar-header position-relative">
             <div class="d-flex justify-content-between align-items-center">
               <div class="logo">
-                <a href="../../index.php"
+                <a href="dashboardMHS.php"
                   ><img
                     src="../../assets/img/logoBetati.png"
                     alt="Logo"
@@ -109,75 +133,47 @@
             </div>
           </div>
           <div class="sidebar-menu">
-          <ul class="menu">
-                <li class="sidebar-title">Menu</li>
+            <ul class="menu">
+              <li class="sidebar-title">Menu</li>
 
-                <li
-                    class="sidebar-item  ">
-                    <a href="../../index.php" class='sidebar-link'>
-                        <i class="bi bi-grid-fill"></i>
-                        <span>Dashboard</span>
-                    </a>
+              <li class="sidebar-item">
+                <a href="dashboardMHS.php" class="sidebar-link">
+                  <i class="bi bi-grid-fill"></i>
+                  <span>Beranda</span>
+                </a>
+              </li>
 
-                </li>
-
-                <li class="sidebar-item has-sub">
-                <a href="#" class="sidebar-link">
+              <li class="sidebar-item">
+                <a href="../../Berkas/FormBerkas.php" class="sidebar-link">
                   <i class="bi bi-file-earmark-medical-fill"></i>
-                  <span>Data Mahasiswa</span>
+                  <span>Unggah Berkas</span>
                 </a>
+              </li>
 
-                <ul class="submenu">
-                  <li class="submenu-item">
-                    <a href="../FormMahasiswa.php" class="submenu-link"
-                      >Tambah Data</a>
-                  </li>
-                  <li class="submenu-item">
-                    <a href="../TabelMahasiswa.php" class="submenu-link"
-                      >Lihat Data</a>
-                </li>
-                </ul>
-                </li>
-
-                <li class="sidebar-item has-sub">
+              <li class="sidebar-item active has-sub">
                 <a href="#" class="sidebar-link">
-                  <i class="bi bi-file-earmark-medical-fill"></i>
-                  <span>Data Staff</span>
+                  <i class="bi bi-person-circle"></i>
+                  <span>Akun</span>
                 </a>
 
-                <ul class="submenu">
-                  <li class="submenu-item">
-                    <a href="../FormStaff.php" class="submenu-link"
-                      >Tambah Data</a>
-                  </li>
-                  <li class="submenu-item">
-                    <a href="../TabelStaff.php" class="submenu-link"
-                      >Lihat Data</a>
-                    </li>
-                </ul>
-                </li>
-
-                <li
-                class="sidebar-item active has-sub">
-                <a href="#" class='sidebar-link'>
-                    <i class="bi bi-person-circle"></i>
-                    <span>Akun</span>
-                </a>
-                
                 <ul class="submenu active">
-                    <li class="submenu-item ">
-                        <a href="../admin/profilAdmin.php" class="submenu-link">Profil Saya</a>
-                    </li>
-                    <li class="submenu-item active">
-                        <a href="../admin/ubahPassword.php" class="submenu-link">Keamanan</a>
-                    </li>                    
-                    <li class="submenu-item  ">
-                        <a href="../../Login/Logout.php" class="submenu-link">Logout</a>
-                    </li>                    
-                </ul>  
-
-            </li>
-
+                  <li class="submenu-item active">
+                    <a href="profil-mahasiswa.html" class="submenu-link"
+                      >Profil Saya</a
+                    >
+                  </li>
+                  <li class="submenu-item">
+                    <a href="ubahPasswordMhs.html" class="submenu-link"
+                      >Keamanan</a
+                    >
+                  </li>
+                  <li class="submenu-item">
+                    <a href="../../Login/Logout.php" class="submenu-link"
+                      >Logout</a
+                    >
+                  </li>
+                </ul>
+              </li>
             </ul>
           </div>
         </div>
@@ -193,10 +189,8 @@
           <div class="page-title">
             <div class="row">
               <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3>Keamanan Akun</h3>
-                <p class="text-subtitle text-muted">
-                  Anda bisa mengubah password Anda
-                </p>
+                <h3>Profil Akun</h3>
+                <p class="text-subtitle text-muted">Kustomisasi profil Anda</p>
               </div>
               <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav
@@ -205,10 +199,10 @@
                 >
                   <ol class="breadcrumb">
                     <li class="breadcrumb-item">
-                      <a href="../../index.php">Beranda</a>
+                      <a href="dashboardMHS.php">Beranda</a>
                     </li>
                     <li class="breadcrumb-item active" aria-current="page">
-                      Keamanan
+                      Profil
                     </li>
                   </ol>
                 </nav>
@@ -217,53 +211,84 @@
           </div>
           <section class="section">
             <div class="row">
-              <div class="col-12">
+              <div class="col-12 col-lg-4">
                 <div class="card">
-                  <div class="card-header">
-                    <h5 class="card-title">Ubah Password</h5>
-                  </div>
                   <div class="card-body">
-                    <form action="change_password.php" method="post">
-                      <div class="form-group my-2">
-                        <label for="current_password" class="form-label"
-                          >Password Saat ini</label
-                        >
-                        <input
-                          type="password"
-                          name="current_password"
-                          id="current_password"
-                          class="form-control"
-                          placeholder="Masukkan password saat ini"
-                        />
-                      </div>
-                      <div class="form-group my-2">
-                        <label for="password" class="form-label"
-                          >Password Baru</label
-                        >
-                        <input
-                          type="password"
-                          name="password"
-                          id="password"
-                          class="form-control"
-                          placeholder="Masukkan password baru"
-                          value=""
-                        />
-                      </div>
-                      <div class="form-group my-2">
-                        <label for="new_password" class="form-label"
-                          >Konfirmasi Password</label
-                        >
-                        <input
-                          type="password"
-                          name="confirm_password"
-                          id="confirm_password"
-                          class="form-control"
-                          placeholder="Masukkan password baru"
-                          value=""
+                    <div
+                      class="d-flex justify-content-center align-items-center flex-column"
+                    >
+                      <div class="avatar avatar-2xl">
+                        <img
+                          src="./../../assets/compiled/jpg/2.jpg"
+                          alt="Avatar"
                         />
                       </div>
 
-                      <div class="form-group my-2 d-flex justify-content-end">
+                      <h3 class="mt-3"> <?= isset($nama) ? htmlspecialchars($nama) : '' ?> </h3>
+                      <p class="text-small">
+                        2341720098 / D-IV Teknik Informatika
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 col-lg-8">
+                <div class="card">
+                  <div class="card-body">
+                    <form action="#" method="get">
+                      <div class="form-group">
+                        <label for="name" class="form-label">Name</label>
+                        <input
+                          type="text"
+                          name="name"
+                          id="name"
+                          class="form-control"
+                          placeholder="Your Name"
+                          value="John Doe"
+                        />
+                      </div>
+                      <div class="form-group">
+                        <label for="email" class="form-label">Email</label>
+                        <input
+                          type="text"
+                          name="email"
+                          id="email"
+                          class="form-control"
+                          placeholder="Your Email"
+                          value="john.doe@example.net"
+                        />
+                      </div>
+                      <div class="form-group">
+                        <label for="phone" class="form-label">Phone</label>
+                        <input
+                          type="text"
+                          name="phone"
+                          id="phone"
+                          class="form-control"
+                          placeholder="Your Phone"
+                          value="083xxxxxxxxx"
+                        />
+                      </div>
+                      <div class="form-group">
+                        <label for="birthday" class="form-label"
+                          >Birthday</label
+                        >
+                        <input
+                          type="date"
+                          name="birthday"
+                          id="birthday"
+                          class="form-control"
+                          placeholder="Your Birthday"
+                        />
+                      </div>
+                      <div class="form-group">
+                        <label for="gender" class="form-label">Gender</label>
+                        <select name="gender" id="gender" class="form-control">
+                          <option value="male">Male</option>
+                          <option value="female">Female</option>
+                        </select>
+                      </div>
+                      <div class="form-group">
                         <button type="submit" class="btn btn-primary">
                           Simpan Perubahan
                         </button>
@@ -272,7 +297,7 @@
                   </div>
                 </div>
               </div>
-
+            </div>
           </section>
         </div>
 
@@ -298,18 +323,5 @@
     <script src="../../assets/extensions/perfect-scrollbar/perfect-scrollbar.min.js"></script>
 
     <script src="../../assets/compiled/js/app.js"></script>
-
-    <script>
-      const checkbox = document.getElementById("iaggree");
-      const buttonDeleteAccount = document.getElementById("btn-delete-account");
-      checkbox.addEventListener("change", function () {
-        const checked = checkbox.checked;
-        if (checked) {
-          buttonDeleteAccount.removeAttribute("disabled");
-        } else {
-          buttonDeleteAccount.setAttribute("disabled", true);
-        }
-      });
-    </script>
   </body>
 </html>
