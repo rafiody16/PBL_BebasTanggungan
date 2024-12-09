@@ -228,7 +228,7 @@ getDataMahasiswaByNim();
                                                     <div class="col-12">
                                                         <div class="form-group">
                                                             <label for="Password">Password</label>
-                                                            <input type="password" class="form-control" name="Password" value="<?= isset($password) ? htmlspecialchars($password) : '' ?>" placeholder="Masukkan Password">
+                                                            <input type="password" class="form-control" name="Password" placeholder="Masukkan Password">
                                                         </div>
                                                     </div>
                                                     <div class="col-12">
@@ -258,7 +258,14 @@ getDataMahasiswaByNim();
                                                     <div class="col-12">
                                                         <div class="form-group">
                                                             <label for="Prodi">Prodi</label>
-                                                            <input type="text" class="form-control" name="Prodi" value="<?= isset($Prodi) ? htmlspecialchars($Prodi) : '' ?>" placeholder="Masukkan Prodi">
+                                                            <fieldset class="form-group">
+                                                                <select class="form-select" name="Prodi" id="basicSelect">
+                                                                    <option>-- Silahkan Pilih Prodi --</option>
+                                                                    <option value="TI" <?= (isset($Prodi) && $Prodi === 'TI') ? 'selected' : '' ?>>D-IV Teknik Informatika</option>
+                                                                    <option value="SIB" <?= (isset($Prodi) && $Prodi === 'SIB') ? 'selected' : '' ?>>D-IV Sistem Informasi Bisnis</option>
+                                                                    <option value="PPLS" <?= (isset($Prodi) && $Prodi === 'PPLS') ? 'selected' : '' ?>>D-II Pengembangan Piranti Lunak Situs</option>
+                                                                </select>
+                                                            </fieldset>
                                                         </div>
                                                     </div>
                                                     <div class="col-12">
@@ -271,8 +278,11 @@ getDataMahasiswaByNim();
                                                         <div class="form-group">
                                                             <label for="JenisKelamin">Jenis Kelamin</label>
                                                             <br>
-                                                            <input class="form-check-input" type="radio" name="JenisKelamin" id="jenkel1" value="L" required="true" <?= (isset($jeniskelamin) && $jeniskelamin == 'L') ? 'checked' : '' ?>> Laki-laki 
-                                                            <input class="form-check-input" type="radio" name="JenisKelamin" id="jenkel2" value="P" <?= (isset($jeniskelamin) && $jeniskelamin == 'P') ? 'checked' : '' ?>> Perempuan
+                                                            <input class="form-check-input" type="radio" name="JenisKelamin" id="jenkel1" value="L" required="true" 
+                                                                <?= (isset($jeniskelamin) && $jeniskelamin === 'L') ? 'checked' : '' ?>> Laki-laki 
+                                                            <input class="form-check-input" type="radio" name="JenisKelamin" id="jenkel2" value="P" 
+                                                                <?= (isset($jeniskelamin) && $jeniskelamin === 'P') ? 'checked' : '' ?>> Perempuan
+                                                            <br>
                                                         </div>
                                                     </div>
                                                     <div class="col-12 d-flex justify-content-end">
