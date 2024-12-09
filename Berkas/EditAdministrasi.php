@@ -179,7 +179,7 @@ $NIM = $_SESSION['NIM'];
                             <p class="card-text">Catatan : Upload dalam bentuk pdf (Maksimal 10 MB)</p>
                             <!-- Basic file uploader -->
                             <div class="form-group position-relative has-icon-left">
-                                <input type="file" class="with-validation-filepond-admin1" required 
+                                <input type="file" class="with-validation-filepond-admin1-edit" 
                                 data-max-file-size="10MB" name="Laporan_Skripsi" data-max-files="1">
                             </div>
                         </div>
@@ -195,7 +195,7 @@ $NIM = $_SESSION['NIM'];
                         <div class="card-body">
                             <p class="card-text">Catatan : Upload dalam bentuk pdf (Maksimal 10 MB)</p>
                             <div class="form-group position-relative has-icon-left">
-                                <input type="file" class="with-validation-filepond-admin1" required 
+                                <input type="file" class="with-validation-filepond-admin1-edit" 
                                 data-max-file-size="10MB" name="Laporan_Magang" data-max-files="1">
                             </div>
                         </div>
@@ -211,7 +211,7 @@ $NIM = $_SESSION['NIM'];
                         <div class="card-body">
                             <p class="card-text">Catatan : Upload dalam bentuk pdf (Maksimal 1 MB)</p>
                             <!-- Basic file uploader -->
-                            <input type="file" class="with-validation-filepond-admin2" required 
+                            <input type="file" class="with-validation-filepond-admin2-edit" 
                             data-max-file-size="1MB" name="Bebas_Kompensasi" data-max-files="1">
                         </div>
                     </div>
@@ -226,7 +226,7 @@ $NIM = $_SESSION['NIM'];
                         <div class="card-body">
                             <p class="card-text">Catatan : Upload dalam bentuk pdf (Maksimal 1 MB)</p>
                             <!-- Basic file uploader -->
-                            <input type="file" class="with-validation-filepond-admin2" required 
+                            <input type="file" class="with-validation-filepond-admin2-edit" 
                             data-max-file-size="1MB" name="Scan_Toeic" data-max-files="1">
                         </div>
                     </div>

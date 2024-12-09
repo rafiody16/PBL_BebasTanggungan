@@ -188,7 +188,7 @@ $NIM = $_SESSION['NIM'];
                                     <li>Lampiran (bila ada)</li>
                                 </ul>
                             </div>
-                            <input type="file" class="with-validation-filepond-laporan"
+                            <input type="file" class="with-validation-filepond-laporan-edit"
                             data-max-file-size="10MB" name="Laporan_TA" data-max-files="1">
                         </div>
                     </div>
@@ -203,7 +203,7 @@ $NIM = $_SESSION['NIM'];
                         <div class="card-body">
                             <p class="card-text">Catatan: Upload dalam bentuk ZIP / RAR (Maksimal 100 MB)</p>
                             <!-- Basic file uploader -->
-                            <input type="file" class="with-validation-filepond-program"
+                            <input type="file" class="with-validation-filepond-program-edit"
                             data-max-file-size="100MB" name="File_Aplikasi" data-max-files="1">
                         </div>
                     </div>
@@ -225,7 +225,7 @@ $NIM = $_SESSION['NIM'];
                             </p>
                             </p>
                             <div  class="form-group position-relative has-icon-left">
-                                <input type="file" class="with-validation-filepond-publikasi"  
+                                <input type="file" class="with-validation-filepond-publikasi-edit"  
                                 data-max-file-size="1MB" name="Pernyataan_Publikasi" data-max-files="1">
                             </div>
                         </div>
