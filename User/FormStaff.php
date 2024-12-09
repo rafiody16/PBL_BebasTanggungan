@@ -201,7 +201,7 @@ getDataStaffByNip();
                                 </div>
                                 <div class="card-content">
                                     <div class="card-body">
-                                        <form class="form form-vertical" action="UserProses.php" method="POST">
+                                        <form class="form form-vertical" action="UserProses.php" method="POST" enctype="multipart/form-data">
                                             <div class="form-body">
                                                 <div class="row">
                                                     <div class="col-12">
@@ -290,6 +290,14 @@ getDataStaffByNip();
                                                                 }
                                                             ?>
                                                             </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <div class="form-group">
+                                                            <label for="TTD">Tanda Tangan</label>
+                                                            <br>
+                                                            <input type="file" class="with-validation-filepond-laporan" accept="image/*"
+                                                            data-max-file-size="10MB" name="TTD" data-max-files="1">
                                                         </div>
                                                     </div>
                                                     <div class="col-12 d-flex justify-content-end">

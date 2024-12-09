@@ -42,6 +42,35 @@ if (isset($_POST['simpanStaff'])) {
     $JenisKelamin = $_POST['JenisKelamin'];
     $Role_ID = $_POST['Role_ID'];
 
+    $uploadDir = "../Uploads/";
+    
+    function uploadFile($file, $uploadDir) {
+        if (!$file || !isset($file['tmp_name']) || empty($file['tmp_name'])) {
+            return false;
+        }
+    
+        $fileName = basename($file['name']);
+        $targetFilePath = $uploadDir . $fileName;
+    
+        // Validasi apakah file adalah gambar
+        $fileType = mime_content_type($file['tmp_name']);
+        $allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
+    
+        if (!in_array($fileType, $allowedTypes)) {
+            return false; // File bukan gambar
+        }
+    
+        if (move_uploaded_file($file['tmp_name'], $targetFilePath)) {
+            return $fileName; 
+        } else {
+            return false; 
+        }
+    }
+    
+    
+
+    $TTD = uploadFile($_FILES['TTD'], $uploadDir);
+
     // Mulai transaksi
     sqlsrv_begin_transaction($conn);
 
@@ -51,16 +80,16 @@ if (isset($_POST['simpanStaff'])) {
         $existingUser = sqlsrv_fetch_array($checkUserStmt, SQLSRV_FETCH_ASSOC);
 
         if ($existingUser) {
-            $updateUserSql = "UPDATE [User] SET Username = ?, [Password] = ?, Email = ?, Role_ID = ? WHERE ID_User = (SELECT ID_User FROM Staff WHERE NIP = ?)";
-            $paramsUserUpdate = [$Username, $Password, $Email, $Role_ID, $NIP];
+            $updateUserSql = "UPDATE [User] SET Username = ?, Email = ?, Role_ID = ? WHERE ID_User = (SELECT ID_User FROM Staff WHERE NIP = ?)";
+            $paramsUserUpdate = [$Username, $Email, $Role_ID, $NIP];
             $stmtUserUpdate = sqlsrv_query($conn, $updateUserSql, $paramsUserUpdate);
 
             if (!$stmtUserUpdate) {
                 throw new Exception('Gagal memperbarui data User: ' . print_r(sqlsrv_errors(), true));
             }
 
-            $updateStaffSql = "UPDATE Staff SET Nama = ?, Alamat = ?, NoHp = ?, JenisKelamin = ?, Tempat_Lahir = ?, Tanggal_Lahir = ? WHERE NIP = ?";
-            $paramsStaffUpdate = [$Nama, $Alamat, $NoHp, $JenisKelamin, $Tempat_Lahir, $Tanggal_Lahir, $NIP];
+            $updateStaffSql = "UPDATE Staff SET Nama = ?, Alamat = ?, NoHp = ?, JenisKelamin = ?, Tempat_Lahir = ?, Tanggal_Lahir = ?, TTD = ? WHERE NIP = ?";
+            $paramsStaffUpdate = [$Nama, $Alamat, $NoHp, $JenisKelamin, $Tempat_Lahir, $Tanggal_Lahir, $TTD, $NIP];
             $stmtStaffUpdate = sqlsrv_query($conn, $updateStaffSql, $paramsStaffUpdate);
 
             if (!$stmtStaffUpdate) {
@@ -81,8 +110,8 @@ if (isset($_POST['simpanStaff'])) {
             $rowUserID = sqlsrv_fetch_array($stmtUser, SQLSRV_FETCH_ASSOC);
             $newUserID = $rowUserID['ID_User'];
 
-            $sqlStaff = "INSERT INTO Staff (NIP, Nama, Alamat, NoHp, JenisKelamin, Tempat_Lahir, Tanggal_Lahir, ID_User) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-            $paramsStaff = [$NIP, $Nama, $Alamat, $NoHp, $JenisKelamin, $Tempat_Lahir, $Tanggal_Lahir, $newUserID];
+            $sqlStaff = "INSERT INTO Staff (NIP, Nama, Alamat, NoHp, JenisKelamin, Tempat_Lahir, Tanggal_Lahir, TTD, ID_User) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            $paramsStaff = [$NIP, $Nama, $Alamat, $NoHp, $JenisKelamin, $Tempat_Lahir, $Tanggal_Lahir, $TTD, $newUserID];
             $stmtStaff = sqlsrv_query($conn, $sqlStaff, $paramsStaff);
 
             if (!$stmtStaff) {
