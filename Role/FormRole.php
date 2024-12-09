@@ -97,6 +97,12 @@
                                         <form class="form form-vertical" action="RoleProses.php" method="POST">
                                             <div class="form-body">
                                                 <div class="row">
+                                                <div class="col-12">
+                                                        <div class="form-group">
+                                                            <label for="first-name-vertical">ID Role</label>
+                                                            <input type="text" class="form-control" name="ID_Role" placeholder="Masukkan ID_Role">
+                                                        </div>
+                                                    </div>
                                                     <div class="col-12">
                                                         <div class="form-group">
                                                             <label for="first-name-vertical">Nama Role</label>
@@ -111,7 +117,7 @@
                                                     </div>
                                                     <div class="col-12 d-flex justify-content-end">
                                                         <button type="submit" class="btn btn-primary me-1 mb-1" name="simpanRole">Simpan</button>
-                                                        <button type="reset" class="btn btn-light-secondary me-1 mb-1">Kembali</button>
+                                                        <a href="TabelRole.php" class="btn btn-light-secondary me-1 mb-1">Kembali</a>
                                                     </div>
                                                 </div>
                                             </div>

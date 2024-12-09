@@ -346,8 +346,7 @@ if ($rowCheck['total'] > 0) {
                 linkElement.textContent = file.name;
 
                 fileInput.addEventListener('change', () => URL.revokeObjectURL(fileURL));
-            } else {
-           
+            } else {     
                 linkElement.href = "#";
                 linkElement.textContent = "Tidak ada file";
             }

@@ -118,15 +118,16 @@
                                                 include('RoleProses.php');
                                                 $no = 1;
                                                 while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+                                                    $Role_ID = $row['Role_ID'];
                                                     if ($row != null) {
                                                         echo "<tr>";
                                                         echo "<td>" . htmlspecialchars($no++) . "</td>";
-                                                        echo "<td>" . htmlspecialchars($row['Role_ID']) . "</td>";
+                                                        echo "<td>" . htmlspecialchars($Role_ID) . "</td>";
                                                         echo "<td>" . htmlspecialchars($row['Nama_Role']) . "</td>";
                                                         echo "<td>" . htmlspecialchars($row['Deskripsi']) . "</td>";
                                                         ?>
-                                                <td><a href="#" class="btn btn-primary rounded-pill" style="margin-right:-10px">Primary</a></td>
-                                                <td><a href="#" class="btn btn-danger rounded-pill">Danger</a></td>
+                                                <button data-id="<?= $Role_ID ?>" class="btn btn-warning btn-edit">Edit</button>
+                                                <button data-id="<?= $Role_ID ?>" class="btn btn-danger btn-delete">Hapus</button>
                                                 <?php
                                             echo "</tr>";
                                         } else {
@@ -157,6 +158,41 @@
             </footer>
         </div>
     </div>
+    <script>
+        $(document).ready(function() {
+            $(".btn-edit").click(function() {
+                var Role_ID = $(this).data("id");
+                $.ajax({
+                    url: "FormRole.php",
+                    type: "POST",
+                    data: { Role_ID: Role_ID, action: "edit" },
+                    success: function(response) {
+                        location.href = "FormRole.php?Role_ID=" + Role_ID;
+                    }
+                })
+            });
+
+            $(".btn-delete").click(function() {
+                var Role_ID = $(this).data("id");
+                if (confirm("Apakah Anda yakin ingin menghapus data ini?")) {
+                    $.ajax({
+                        url: "RoleProses.php",
+                        type: "POST",
+                        data: { Role_ID: Role_ID, action: "delete" },
+                        success: function(response) {
+                            alert(Role_ID);
+                            location.reload();
+                        }
+                    });
+                }
+            });
+
+            // Tutup modal
+            $("#modalClose").click(function() {
+                $("#modal").hide();
+            });
+        });
+    </script>
     <script src="../assets/static/js/components/dark.js"></script>
     <script src="assets/extensions/perfect-scrollbar/perfect-scrollbar.min.js"></script>
     <script src="../assets/extensions/perfect-scrollbar/perfect-scrollbar.min.js"></script>
