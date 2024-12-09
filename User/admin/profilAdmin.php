@@ -218,7 +218,7 @@ getDataStaffByID();
             <div class="row">
               <div class="col-12 col-md-6 order-md-1 order-last">
                 <h3>Profil Akun</h3>
-                <p class="text-subtitle text-muted">Kustomisasi profil Anda</p>
+                <!-- <p class="text-subtitle text-muted">Kustomisasi profil Anda</p> -->
               </div>
               <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav
@@ -239,7 +239,7 @@ getDataStaffByID();
           </div>
           <section class="section">
             <div class="row">
-              <div class="col-12 col-lg-4">
+              <!-- <div class="col-12 col-lg-4">
                 <div class="card">
                   <div class="card-body">
                     <div
@@ -252,57 +252,85 @@ getDataStaffByID();
                         />
                       </div>
 
-                      <h3 class="mt-3"><?= isset($username) ? htmlspecialchars($username) : '' ?></h3>
+                      <h3 class="mt-3"></h3>
                       <p class="text-small">
-                      <?= isset($nip) ? htmlspecialchars($nip) : '' ?> / <?= htmlspecialchars($Nama_Role)?>
+                      
                       </p>
                     </div>
                   </div>
                 </div>
-              </div>
-              <div class="col-12 col-lg-8">
+              </div> -->
+              <div class="col-12 col-lg-12">
                 <div class="card">
                   <div class="card-body">
-                    <form action="#" method="get">
-                      <div class="form-group">
-                        <label for="name" class="form-label">Nama</label>
-                        <h4><?= isset($nama) ? htmlspecialchars($nama) : '' ?></h4>
+                  <form class="form form-vertical">
+                      <div class="form-body">
+                          <div class="row">
+                              <div class="col-md-6 col-12">
+                                  <div class="form-group">
+                                      <label for="Nama">Nama</label>
+                                      <h3><?= isset($nama) ? htmlspecialchars($nama) : '' ?></h3>
+                                  </div>
+                              </div>
+                              <div class="col-md-6 col-12">
+                                  <div class="form-group">
+                                      <label for="NIP">NIP</label>
+                                      <h3><?= isset($nip) ? htmlspecialchars($nip) : '' ?></h3>
+                                  </div>
+                              </div>
+                              <div class="col-md-6 col-12">
+                                  <div class="form-group">
+                                      <label for="Username">Username</label>
+                                      <h3><?= isset($username) ? htmlspecialchars($username) : '' ?></h3>
+                                  </div>
+                              </div>
+                              <div class="col-md-6 col-12">
+                                  <div class="form-group">
+                                      <label for="Email">Email</label>
+                                      <h3><?= isset($email) ? htmlspecialchars($email) : '' ?></h3>
+                                  </div>
+                              </div>
+                              <div class="col-md-6 col-12">
+                                  <div class="form-group">
+                                      <label for="Alamat">Alamat</label>
+                                      <h3><?= isset($alamat) ? htmlspecialchars($alamat) : '' ?></h3>
+                                  </div>
+                              </div>
+                              <div class="col-md-6 col-12">
+                                  <div class="form-group">
+                                      <label for="NoHp">No.Hp</label>
+                                      <h3><?= isset($noHp) ? htmlspecialchars($noHp) : '' ?></h3>
+                                  </div>
+                              </div>
+                              <div class="col-md-6 col-12">
+                                  <div class="form-group">
+                                      <label for="TempatLahir">Tempat Lahir</label>
+                                      <h3><?= isset($Tempat_Lahir) ? htmlspecialchars($Tempat_Lahir) : '' ?></h3>
+                                  </div>
+                              </div>
+                              <div class="col-md-6 col-12">
+                                  <div class="form-group">
+                                      <label for="TanggalLahir">Tanggal Lahir</label>
+                                      <h3><?php
+                                      echo htmlspecialchars($Tanggal_Lahir->format('d-m-Y')); 
+                                      ?></h3>
+                                  </div>
+                              </div>
+                              <div class="col-md-6 col-12">
+                                  <div class="form-group">
+                                      <label for="JenisKelamin">Jenis Kelamin</label>
+                                      <h3><?= isset($jeniskelamin) ? ($jeniskelamin === 'L' ? 'Laki-Laki' : ($jeniskelamin === 'P' ? 'Perempuan' : '')) : '' ?></h3>
+                                  </div>
+                              </div>
+                              <div class="col-md-6 col-12">
+                                  <div class="form-group">
+                                      <label for="Role_ID">Jabatan</label>
+                                      <h3><?= isset($Nama_Role) ? htmlspecialchars($Nama_Role) : '' ?></h3>
+                                  </div>
+                              </div>
+                          </div>
                       </div>
-                      <div class="form-group">
-                        <label for="email" class="form-label">Email</label>
-                        <h4><?= isset($email) ? htmlspecialchars($email) : '' ?></h4>
-                      <div class="form-group">
-                        <label for="phone" class="form-label">Nomor Telepon</label>
-                        <h4><?= isset($noHp) ? htmlspecialchars($noHp) : '' ?></h4>
-                      </div>
-                      <div class="form-group">
-                        <label for="alamat" class="form-label">Alamat</label>
-                        <h4><?= isset($alamat) ? htmlspecialchars($alamat) : '' ?></h4>
-                      </div>
-                      <div class="form-group">
-                        <label for="birthday" class="form-label"
-                          >Tempat Lahir</label
-                        >
-                        <h4><?= isset($Tempat_Lahir) ? htmlspecialchars($Tempat_Lahir) : '' ?></h4>
-                      </div>
-                      <div class="form-group">
-                        <label for="birthday" class="form-label"
-                          >Tanggal Lahir</label
-                        >
-                        <h4>
-                            <?php
-                            echo htmlspecialchars($Tanggal_Lahir->format('d-m-Y')); 
-                            ?>
-                        </h4>
-                      </div>
-                      <div class="form-group">
-                        <label for="gender" class="form-label">Jenis Kelamin</label>
-                        <h4><?= isset($jeniskelamin) && $jeniskelamin == 'L' ? "Laki-laki" : "Perempuan" ?></h4>
-                      </div>
-                    </form>
-                  </div>
-                </div>
-              </div>
+                  </form>
             </div>
           </section>
         </div>
