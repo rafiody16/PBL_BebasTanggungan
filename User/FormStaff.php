@@ -231,7 +231,7 @@ getDataStaffByNip();
                                                     <div class="col-12">
                                                         <div class="form-group">
                                                             <label for="Password">Password</label>
-                                                            <input type="password" class="form-control" name="Password" value="<?= isset($password) ? htmlspecialchars($password) : '' ?>" placeholder="Masukkan Password">
+                                                            <input type="password" class="form-control" name="Password" placeholder="Masukkan Password">
                                                         </div>
                                                     </div>
                                                     <div class="col-12">
@@ -250,8 +250,13 @@ getDataStaffByNip();
                                                         <div class="form-group">
                                                             <label for="JenisKelamin">Jenis Kelamin</label>
                                                             <br>
-                                                            <input class="form-check-input" type="radio" name="JenisKelamin" id="jenkel1" value="L" required="true" <?= (isset($jeniskelamin) && $jeniskelamin == 'L') ? 'checked' : '' ?>> Laki-laki 
-                                                            <input class="form-check-input" type="radio" name="JenisKelamin" id="jenkel2" value="P" value="P" <?= (isset($jeniskelamin) && $jeniskelamin == 'P') ? 'checked' : '' ?>> Perempuan
+                                                            <input class="form-check-input" type="radio" name="JenisKelamin" id="jenkel1" value="L" required="true" 
+                                                                <?= (isset($jeniskelamin) && $jeniskelamin === 'L') ? 'checked' : '' ?>> Laki-laki 
+                                                                <input class="form-check-input" type="radio" name="JenisKelamin" id="jenkel2" value="P" 
+                                                                <?= (isset($jeniskelamin) && $jeniskelamin === 'P') ? 'checked' : '' ?>> Perempuan
+                                                                <br>
+                                                                <small>Debug: Jenis Kelamin = <?= htmlspecialchars($jeniskelamin ?? 'null') ?></small>
+                                                            <br>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6 col-12">
@@ -263,7 +268,10 @@ getDataStaffByNip();
                                                     <div class="col-md-6 col-12">
                                                         <div class="form-group">
                                                             <label for="Tanggal_Lahir">Tanggal Lahir</label>
-                                                            <input type="date" class="form-control flatpickr-always-open" name="Tanggal_Lahir" placeholder="Select date..">
+                                                            <input type="date" class="form-control flatpickr-always-open" 
+                                                                value="<?= isset($Tanggal_Lahir) ? htmlspecialchars($Tanggal_Lahir->format('Y-m-d')) : '' ?>" 
+                                                                name="Tanggal_Lahir" placeholder="Select date..">
+                                                            <small>Debug: Tgl = <?= htmlspecialchars($Tanggal_Lahir->format('d-m-Y')) ?></small>
                                                         </div>
                                                     </div>
                                                     <div class="col-12">
