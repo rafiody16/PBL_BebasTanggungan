@@ -28,6 +28,30 @@
     />
   </head>
 
+  <?php
+session_start();
+
+// Cek apakah pengguna sudah login
+if (!isset($_SESSION['Username'])) {
+    // Jika belum login, redirect ke halaman login
+    header("Location: ../../Login/Login.php");
+    exit();
+}
+
+// Cek hak akses
+if ($_SESSION['Role_ID'] != 1) {
+    // Jika bukan admin, redirect atau tampilkan pesan error
+    echo "<script>alert('Anda tidak memiliki akses ke halaman ini.'); window.location.href = '../Login/Login.php';</script>";
+    exit();
+}
+
+include('admin_data.php');
+include('../../Koneksi.php');
+
+getDataStaffByID();
+
+?>
+
   <body>
     <script src="../../assets/static/js/initTheme.js"></script>
     <div id="app">
@@ -228,9 +252,9 @@
                         />
                       </div>
 
-                      <h3 class="mt-3">Dio Andika Pradana M. T.</h3>
+                      <h3 class="mt-3"><?= isset($username) ? htmlspecialchars($username) : '' ?></h3>
                       <p class="text-small">
-                        2341720098 / D-IV Teknik Informatika
+                      <?= isset($nip) ? htmlspecialchars($nip) : '' ?> / <?= htmlspecialchars($Nama_Role)?>
                       </p>
                     </div>
                   </div>
@@ -241,61 +265,39 @@
                   <div class="card-body">
                     <form action="#" method="get">
                       <div class="form-group">
-                        <label for="name" class="form-label">Name</label>
-                        <input
-                          type="text"
-                          name="name"
-                          id="name"
-                          class="form-control"
-                          placeholder="Your Name"
-                          value="John Doe"
-                        />
+                        <label for="name" class="form-label">Nama</label>
+                        <h4><?= isset($nama) ? htmlspecialchars($nama) : '' ?></h4>
                       </div>
                       <div class="form-group">
                         <label for="email" class="form-label">Email</label>
-                        <input
-                          type="text"
-                          name="email"
-                          id="email"
-                          class="form-control"
-                          placeholder="Your Email"
-                          value="john.doe@example.net"
-                        />
+                        <h4><?= isset($email) ? htmlspecialchars($email) : '' ?></h4>
+                      <div class="form-group">
+                        <label for="phone" class="form-label">Nomor Telepon</label>
+                        <h4><?= isset($noHp) ? htmlspecialchars($noHp) : '' ?></h4>
                       </div>
                       <div class="form-group">
-                        <label for="phone" class="form-label">Phone</label>
-                        <input
-                          type="text"
-                          name="phone"
-                          id="phone"
-                          class="form-control"
-                          placeholder="Your Phone"
-                          value="083xxxxxxxxx"
-                        />
+                        <label for="alamat" class="form-label">Alamat</label>
+                        <h4><?= isset($alamat) ? htmlspecialchars($alamat) : '' ?></h4>
                       </div>
                       <div class="form-group">
                         <label for="birthday" class="form-label"
-                          >Birthday</label
+                          >Tempat Lahir</label
                         >
-                        <input
-                          type="date"
-                          name="birthday"
-                          id="birthday"
-                          class="form-control"
-                          placeholder="Your Birthday"
-                        />
+                        <h4><?= isset($Tempat_Lahir) ? htmlspecialchars($Tempat_Lahir) : '' ?></h4>
                       </div>
                       <div class="form-group">
-                        <label for="gender" class="form-label">Gender</label>
-                        <select name="gender" id="gender" class="form-control">
-                          <option value="male">Male</option>
-                          <option value="female">Female</option>
-                        </select>
+                        <label for="birthday" class="form-label"
+                          >Tanggal Lahir</label
+                        >
+                        <h4>
+                            <?php
+                            echo htmlspecialchars($Tanggal_Lahir->format('d-m-Y')); 
+                            ?>
+                        </h4>
                       </div>
                       <div class="form-group">
-                        <button type="submit" class="btn btn-primary">
-                          Simpan Perubahan
-                        </button>
+                        <label for="gender" class="form-label">Jenis Kelamin</label>
+                        <h4><?= isset($jeniskelamin) && $jeniskelamin == 'L' ? "Laki-laki" : "Perempuan" ?></h4>
                       </div>
                     </form>
                   </div>

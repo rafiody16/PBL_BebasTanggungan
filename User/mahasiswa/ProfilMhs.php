@@ -1,27 +1,3 @@
-<?php
-session_start();
-
-// Cek apakah pengguna sudah login
-if (!isset($_SESSION['Username'])) {
-    // Jika belum login, redirect ke halaman login
-    header("Location: ../Login/Login.php");
-    exit();
-}
-
-// Cek hak akses
-if ($_SESSION['Role_ID'] != 1) {
-    // Jika bukan admin, redirect atau tampilkan pesan error
-    echo "<script>alert('Anda tidak memiliki akses ke halaman ini.'); window.location.href = '../Login/Login.php';</script>";
-    exit();
-}
-
-include('../UserProses.php');
-include('../../Koneksi.php');
-
-getDataMahasiswaByNim();
-
-?>
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -52,6 +28,30 @@ getDataMahasiswaByNim();
     />
   </head>
 
+  <?php
+session_start();
+
+// Cek apakah pengguna sudah login
+if (!isset($_SESSION['Username'])) {
+    // Jika belum login, redirect ke halaman login
+    header("Location: ../../Login/Login.php");
+    exit();
+}
+
+// Cek hak akses
+if ($_SESSION['Role_ID'] != 8) {
+    // Jika bukan admin, redirect atau tampilkan pesan error
+    echo "<script>alert('Anda tidak memiliki akses ke halaman ini.'); window.location.href = '../Login/Login.php';</script>";
+    exit();
+}
+
+include('mhs_data.php');
+include('../../Koneksi.php');
+
+getDataMahasiswaByID();
+
+?>
+
   <body>
     <script src="../../assets/static/js/initTheme.js"></script>
     <div id="app">
@@ -60,7 +60,7 @@ getDataMahasiswaByNim();
           <div class="sidebar-header position-relative">
             <div class="d-flex justify-content-between align-items-center">
               <div class="logo">
-                <a href="dashboardMHS.php"
+                <a href="../../index.php"
                   ><img
                     src="../../assets/img/logoBetati.png"
                     alt="Logo"
@@ -133,10 +133,10 @@ getDataMahasiswaByNim();
             </div>
           </div>
           <div class="sidebar-menu">
-            <ul class="menu">
-              <li class="sidebar-title">Menu</li>
+          <ul class="menu">
+                <li class="sidebar-title">Menu</li>
 
-              <li class="sidebar-item">
+                <li class="sidebar-item active">
                 <a href="dashboardMHS.php" class="sidebar-link">
                   <i class="bi bi-grid-fill"></i>
                   <span>Beranda</span>
@@ -150,30 +150,27 @@ getDataMahasiswaByNim();
                 </a>
               </li>
 
-              <li class="sidebar-item active has-sub">
-                <a href="#" class="sidebar-link">
-                  <i class="bi bi-person-circle"></i>
-                  <span>Akun</span>
+              <li
+                class="sidebar-item  has-sub">
+                <a href="#" class='sidebar-link'>
+                    <i class="bi bi-person-circle"></i>
+                    <span>Akun</span>
                 </a>
+                
+                <ul class="submenu ">
+                    <li class="submenu-item  ">
+                        <a href="ProfilMhs.php" class="submenu-link">Profil Saya</a>
+                    </li>
+                    <li class="submenu-item  ">
+                        <a href="ubahPasswordMhs.html" class="submenu-link">Keamanan</a>
+                    </li>                    
+                    <li class="submenu-item  ">
+                        <a href="../../Login/Logout.php" class="submenu-link">Logout</a>
+                    </li>                    
+                </ul>  
 
-                <ul class="submenu active">
-                  <li class="submenu-item active">
-                    <a href="profil-mahasiswa.html" class="submenu-link"
-                      >Profil Saya</a
-                    >
-                  </li>
-                  <li class="submenu-item">
-                    <a href="ubahPasswordMhs.html" class="submenu-link"
-                      >Keamanan</a
-                    >
-                  </li>
-                  <li class="submenu-item">
-                    <a href="../../Login/Logout.php" class="submenu-link"
-                      >Logout</a
-                    >
-                  </li>
-                </ul>
-              </li>
+            </li>
+
             </ul>
           </div>
         </div>
@@ -199,7 +196,7 @@ getDataMahasiswaByNim();
                 >
                   <ol class="breadcrumb">
                     <li class="breadcrumb-item">
-                      <a href="dashboardMHS.php">Beranda</a>
+                      <a href="../../index.php">Beranda</a>
                     </li>
                     <li class="breadcrumb-item active" aria-current="page">
                       Profil
@@ -224,9 +221,9 @@ getDataMahasiswaByNim();
                         />
                       </div>
 
-                      <h3 class="mt-3"> <?= isset($nama) ? htmlspecialchars($nama) : '' ?> </h3>
+                      <h3 class="mt-3"><?= isset($username) ? htmlspecialchars($username) : '' ?></h3>
                       <p class="text-small">
-                        2341720098 / D-IV Teknik Informatika
+                      <?= isset($nim) ? htmlspecialchars($nim) : '' ?> / <?= (isset($Prodi) && $Prodi === 'TI') ? 'D-IV Teknik Informatika' : ((isset($Prodi) && $Prodi === 'SIB') ? 'D-IV Sistem Informasi Bisnis' : 'D-II PPLS')?>
                       </p>
                     </div>
                   </div>
@@ -237,61 +234,39 @@ getDataMahasiswaByNim();
                   <div class="card-body">
                     <form action="#" method="get">
                       <div class="form-group">
-                        <label for="name" class="form-label">Name</label>
-                        <input
-                          type="text"
-                          name="name"
-                          id="name"
-                          class="form-control"
-                          placeholder="Your Name"
-                          value="John Doe"
-                        />
+                        <label for="name" class="form-label">Nama</label>
+                        <h4><?= isset($nama) ? htmlspecialchars($nama) : '' ?></h4>
                       </div>
                       <div class="form-group">
                         <label for="email" class="form-label">Email</label>
-                        <input
-                          type="text"
-                          name="email"
-                          id="email"
-                          class="form-control"
-                          placeholder="Your Email"
-                          value="john.doe@example.net"
-                        />
+                        <h4><?= isset($email) ? htmlspecialchars($email) : '' ?></h4>
+                      <div class="form-group">
+                        <label for="phone" class="form-label">Nomor Telepon</label>
+                        <h4><?= isset($noHp) ? htmlspecialchars($noHp) : '' ?></h4>
                       </div>
                       <div class="form-group">
-                        <label for="phone" class="form-label">Phone</label>
-                        <input
-                          type="text"
-                          name="phone"
-                          id="phone"
-                          class="form-control"
-                          placeholder="Your Phone"
-                          value="083xxxxxxxxx"
-                        />
+                        <label for="alamat" class="form-label">Alamat</label>
+                        <h4><?= isset($alamat) ? htmlspecialchars($alamat) : '' ?></h4>
                       </div>
                       <div class="form-group">
                         <label for="birthday" class="form-label"
-                          >Birthday</label
+                          >Tempat Lahir</label
                         >
-                        <input
-                          type="date"
-                          name="birthday"
-                          id="birthday"
-                          class="form-control"
-                          placeholder="Your Birthday"
-                        />
+                        <h4><?= isset($Tempat_Lahir) ? htmlspecialchars($Tempat_Lahir) : '' ?></h4>
                       </div>
                       <div class="form-group">
-                        <label for="gender" class="form-label">Gender</label>
-                        <select name="gender" id="gender" class="form-control">
-                          <option value="male">Male</option>
-                          <option value="female">Female</option>
-                        </select>
+                        <label for="birthday" class="form-label"
+                          >Tanggal Lahir</label
+                        >
+                        <h4>
+                            <?php
+                            echo htmlspecialchars($Tanggal_Lahir->format('d-m-Y')); 
+                            ?>
+                        </h4>
                       </div>
                       <div class="form-group">
-                        <button type="submit" class="btn btn-primary">
-                          Simpan Perubahan
-                        </button>
+                        <label for="gender" class="form-label">Jenis Kelamin</label>
+                        <h4><?= isset($jeniskelamin) && $jeniskelamin == 'L' ? "Laki-laki" : "Perempuan" ?></h4>
                       </div>
                     </form>
                   </div>

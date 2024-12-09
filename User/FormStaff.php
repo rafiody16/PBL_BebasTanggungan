@@ -268,10 +268,7 @@ getDataStaffByNip();
                                                     <div class="col-md-6 col-12">
                                                         <div class="form-group">
                                                             <label for="Tanggal_Lahir">Tanggal Lahir</label>
-                                                            <input type="date" class="form-control flatpickr-always-open" 
-                                                                value="<?= isset($Tanggal_Lahir) ? htmlspecialchars($Tanggal_Lahir->format('Y-m-d')) : '' ?>" 
-                                                                name="Tanggal_Lahir" placeholder="Select date..">
-                                                            <small>Debug: Tgl = <?= htmlspecialchars($Tanggal_Lahir->format('d-m-Y')) ?></small>
+                                                            <input type="date" class="form-control flatpickr-always-open" name="Tanggal_Lahir" value="<?= isset($Tanggal_Lahir) ? htmlspecialchars($Tanggal_Lahir instanceof DateTime ? $Tanggal_Lahir->format('Y-m-d') : (new DateTime($Tanggal_Lahir))->format('Y-m-d')) : '' ?>" placeholder="Select date..">
                                                         </div>
                                                     </div>
                                                     <div class="col-12">
