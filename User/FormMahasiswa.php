@@ -9,10 +9,11 @@ if (!isset($_SESSION['Username'])) {
 }
 
 // Cek hak akses
-if ($_SESSION['Role_ID'] != 1) {
-    // Jika bukan admin, redirect atau tampilkan pesan error
-    echo "<script>alert('Anda tidak memiliki akses ke halaman ini.'); window.location.href = '../Login/Login.php';</script>";
-    exit();
+if ($_SESSION['Role_ID'] != 1 || $_SESSION['Role_ID'] != 2 || $_SESSION['Role_ID'] != 3 || $_SESSION['Role_ID'] != 4 || $_SESSION['Role_ID'] != 5) {
+    echo "<script>
+    alert('Anda tidak memiliki akses ke halaman ini.');
+    window.history.back();
+    </script>";
 }
 
 include('UserProses.php');
