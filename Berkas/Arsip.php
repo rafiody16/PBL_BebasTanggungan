@@ -91,16 +91,15 @@ $role = $_SESSION['Role_ID'];
                                             while ($row = sqlsrv_fetch_array($stmt3, SQLSRV_FETCH_ASSOC)) {
                                                 if ($row) {
                                                     if ($role === 6) {
-                                                        $id = $row['ID_Aplikasi'];
+                                                        $idAplikasi = $row['ID_Aplikasi'];
                                                     } else if ($role === 7) {   
-                                                        $id = $row['ID_Administrasi'];
+                                                        $idAdministrasi = $row['ID_Administrasi'];
                                                     } else {
-                                                        $id = $row['ID_Pengumpulan'];   
+                                                        $idPengumpulan = $row['ID_Pengumpulan'];   
                                                     }
                                                     $nim = $row['NIM'];
                                                     $status = $row['Status_Pengumpulan'];
                                                     echo "<tr>";
-                                                    echo "<td style='display:none;'>" . htmlspecialchars($id) . "</td>";
                                                     echo "<td>" . htmlspecialchars($no++) . "</td>";
                                                     echo "<td>" . htmlspecialchars($nim) . "</td>";
                                                     echo "<td>" . htmlspecialchars($row['Nama']) . "</td>";
@@ -127,13 +126,13 @@ $role = $_SESSION['Role_ID'];
                                                     } else if ($role === 6) {
                                             ?> 
                                                     <td>
-                                                        <a href="DetailTA.php?ID_Aplikasi=<?= $id ?>" class="btn btn-primary">Detail</a>
+                                                        <a href="DetailTA.php?ID_Aplikasi=<?= $idAplikasi ?>" class="btn btn-primary">Detail</a>
                                                     </td>
                                             <?php 
                                                     } else if ($role === 7) {
                                             ?>
                                                     <td>
-                                                        <a href="DetailTA.php?ID_Aplikasi=<?= $id ?>" class="btn btn-primary">Detail</a>
+                                                        <a href="DetailAdministrasi.php?ID_Aplikasi=<?= $idAdministrasi ?>" class="btn btn-primary">Detail</a>
                                                     </td>
                                             <?php
                                                     }
@@ -166,11 +165,11 @@ $role = $_SESSION['Role_ID'];
                             <table>
                                 <tr>
                                     <td>Detail Administrasi:</td>
-                                    <td><a href="DetailAdministrasi.php?ID_Administrasi=<?= $ID_Pengumpulan ?>" class="btn btn-primary my-2">Lihat Detail</a></td>
+                                    <td><a href="DetailAdministrasi.php?ID_Administrasi=<?= $idPengumpulan ?>" class="btn btn-primary my-2">Lihat Detail</a></td>
                                 </tr>
                                 <tr>
                                 <td>Detail Tugas Akhir:</td>
-                                <td><a href="DetailTA.php?ID_Aplikasi=<?= $ID_Pengumpulan ?>" class="btn btn-primary my-2">Lihat Detail</a></td>
+                                <td><a href="DetailTA.php?ID_Aplikasi=<?= $idPengumpulan ?>" class="btn btn-primary my-2">Lihat Detail</a></td>
                                 </tr>
                             </table>
                         </div>
