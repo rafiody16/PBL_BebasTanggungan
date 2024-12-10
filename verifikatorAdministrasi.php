@@ -12,7 +12,7 @@ if (!isset($_SESSION['Username'])) {
 }
 
 // Cek hak akses
-if ($_SESSION['Role_ID'] != 1) {
+if ($_SESSION['Role_ID'] != 7) {
   // Jika bukan admin, redirect atau tampilkan pesan error
   echo "<script>alert('Anda tidak memiliki akses ke halaman ini.'); window.location.href = 'Login/Login.php';</script>";
   exit();
@@ -25,7 +25,7 @@ if ($_SESSION['Role_ID'] != 1) {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dashboard Admin - BeTaTI</title>
+    <title>Dashboard Verifikator Administrasi - BeTaTI</title>
 
     <link
       rel="shortcut icon"
@@ -51,7 +51,7 @@ if ($_SESSION['Role_ID'] != 1) {
     />
     <script>
       if (performance.navigation.type === 2) { // Deteksi navigasi 'Back'
-        window.location.href = 'index.php'; // Redirect ke dashboard
+        window.location.href = 'verifikatorAdministrasi.php'; // Redirect ke dashboard
       }
 
     </script>
@@ -65,7 +65,7 @@ if ($_SESSION['Role_ID'] != 1) {
           <div class="sidebar-header position-relative">
             <div class="d-flex justify-content-between align-items-center">
               <div class="logo">
-                <a href="index.php"
+                <a href="verifikatorAdministrasi.php"
                   ><img
                     src="assets/img/logoBetati.png"
                     alt="Logo"
@@ -139,70 +139,40 @@ if ($_SESSION['Role_ID'] != 1) {
           </div>
           <div class="sidebar-menu">
             <ul class="menu">
-              <li class="sidebar-title">Menu</li>
-              <li class="sidebar-item active">
-                <a href="index.php" class="sidebar-link">
-                  <i class="bi bi-grid-fill"></i>
-                  <span>Dashboard</span>
-                </a>
-              </li>
-
-              <li class="sidebar-item has-sub">
-                    <a href="#" class="sidebar-link">
-                    <i class="bi bi-file-earmark-medical-fill"></i>
-                    <span>Data Mahasiswa</span>
+                <li class="sidebar-title">Menu</li>
+                <li class="sidebar-item active">
+                    <a href="verifikatorAdministrasi.php" class="sidebar-link">
+                        <i class="bi bi-grid-fill"></i>
+                        <span>Dashboard</span>
                     </a>
+                </li>
 
-                    <ul class="submenu">
-                    <li class="submenu-item">
-                        <a href="User/FormMahasiswa.php" class="submenu-link"
-                        >Tambah Data</a>
-                    </li>
-                    <li class="submenu-item">
-                        <a href="User/TabelMahasiswa.php" class="submenu-link"
-                        >Lihat Data</a>
-                    </li>
-                    </ul>
+                <li class="sidebar-item">
+                    <a href="Berkas/TabelAdministrasi.php" class="sidebar-link">
+                        <i class="bi bi-journal-check"></i>
+                        <span>Verifikasi</span>
+                    </a>
                 </li>
 
                 <li class="sidebar-item  has-sub">
-                    <a href="#" class="sidebar-link">
-                    <i class="bi bi-file-earmark-medical-fill"></i>
-                    <span>Data Staff</span>
+                    <a href="#" class='sidebar-link'>
+                        <i class="bi bi-person-circle"></i>
+                        <span>Akun</span>
                     </a>
-
+                    
                     <ul class="submenu ">
-                        <li class="submenu-item">
-                        <a href="User/FormStaff.php" class="submenu-link"
-                            >Tambah Data</a>
+                        <li class="submenu-item  ">
+                            <a href="User/verifikator/ProfilVA.php" class="submenu-link">Profil Saya</a>
                         </li>
-                        <li class="submenu-item ">
-                            <a href="User/TabelStaff.php" class="submenu-link"
-                        >Lihat Data</a>
-                        </li>
-                    </ul>
+                        <li class="submenu-item  ">
+                            <a href="User/verifikator/PasswordVA.php" class="submenu-link">Ubah Password</a>
+                        </li>                    
+                        <li class="submenu-item  ">
+                            <a href="Login/Logout.php" class="submenu-link">Logout</a>
+                        </li>                    
+                    </ul>  
                 </li>
 
-                <li
-                class="sidebar-item  has-sub">
-                <a href="#" class='sidebar-link'>
-                    <i class="bi bi-person-circle"></i>
-                    <span>Akun</span>
-                </a>
-                
-                <ul class="submenu ">
-                    <li class="submenu-item  ">
-                        <a href="User/admin/profilAdmin.php" class="submenu-link">Profil Saya</a>
-                    </li>
-                    <li class="submenu-item  ">
-                        <a href="User/admin/ubahPassword.php" class="submenu-link">Keamanan</a>
-                    </li>                    
-                    <li class="submenu-item  ">
-                        <a href="Login/Logout.php" class="submenu-link">Logout</a>
-                    </li>                    
-                </ul>  
-
-            </li>
             </ul>
           </div>
         </div>
@@ -215,12 +185,25 @@ if ($_SESSION['Role_ID'] != 1) {
         </header>
 
         <div class="page-heading">
-          <h3>Selamat Datang, Admin <?= htmlspecialchars($_SESSION['Username'])?></h3>
+          <h3>Selamat Datang di BeTaTI!</h3>
         </div>
         <div class="page-content">
           <section class="row">
-            <div class="col-12 col-lg-12">
-              <div class="row">
+          <div class="col-20 col-lg-12">
+            <div class="card">
+                <div class="card-body">
+                  <div class="" style="padding: 20px; border-radius: 100px;">
+                    <h5>Halo, verifikator Berkas Administrasi!</h5>
+                    <p>Selamat datang di beranda sistem informasi Bebas Tanggungan Jurusan Teknologi Informasi (BeTaTI). 
+                        Ini adalah tempat di mana Anda dapat mengakses semua informasi penting yang berkaitan dengan bebas tanggungan mahasiswa jurusan Teknologi Informasi dan berbagai layanan akademik lainnya.</p>
+                  </div>
+                </div>
+              </div>
+          </div>
+          </section>
+        </div>
+        <div class="page-content">
+          <section class="row">
                 <div class="col-6 col-lg-3 col-md-6">
                   <div class="card">
                     <div class="card-body px-4 py-4-5">
@@ -299,7 +282,8 @@ if ($_SESSION['Role_ID'] != 1) {
                     </div>
                   </div>
                 </div>
-              </div>
+          </section>
+        </div>
 
         <footer>
           <div class="footer clearfix mb-0 text-muted">

@@ -1,8 +1,24 @@
 <?php
 session_start();
 
+// echo "Selamat Datang " . $_SESSION['Nama'];
 
-echo "Selamat Datang " . $_SESSION['Nama'];
+header("Cache-Control: no-cache, no-store, must-revalidate"); // Untuk HTTP/1.1
+header("Pragma: no-cache"); // Untuk HTTP/1.0
+header("Expires: 0");// Untuk memastikan halaman tidak disimpan
+
+if (!isset($_SESSION['Username'])) {
+  // Jika belum login, redirect ke halaman login
+  header("Location: Login/Login.php");
+  exit();
+}
+
+// Cek hak akses
+if ($_SESSION['Role_ID'] != 7) {
+  // Jika bukan admin, redirect atau tampilkan pesan error
+  echo "<script>alert('Anda tidak memiliki akses ke halaman ini.'); window.location.href = 'Login/Login.php';</script>";
+  exit();
+}
 
 ?>
 
@@ -35,7 +51,7 @@ echo "Selamat Datang " . $_SESSION['Nama'];
                 <div class="sidebar-header position-relative">
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="logo">
-                            <a href="dashboardUser.html"><img src="../assets/img/logoBetati.png" alt="Logo" srcset=""></a>
+                            <a href="../verifikatorAdministrasi.php"><img src="../assets/img/logoBetati.png" alt="Logo" srcset=""></a>
                         </div>
                         <div class="theme-toggle d-flex gap-2  align-items-center mt-2">
                             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true"
@@ -76,7 +92,7 @@ echo "Selamat Datang " . $_SESSION['Nama'];
 
                         <li
                             class="sidebar-item  ">
-                            <a href="dashboardUser.html" class='sidebar-link'>
+                            <a href="../verifikatorAdministrasi.php" class='sidebar-link'>
                                 <i class="bi bi-grid-fill"></i>
                                 <span>Dashboard</span>
                             </a>
@@ -85,40 +101,29 @@ echo "Selamat Datang " . $_SESSION['Nama'];
                         </li>
 
                         <li class="sidebar-item active">
-                            <a href="#" class="sidebar-link">
-                                <i class="bi bi-file-earmark-medical-fill"></i>
-                                <span>Unggah Berkas</span>
-                            </a>
-                        </li>
-
-                        <li class="sidebar-item">
-                            <a href="cek-status.html" class="sidebar-link">
+                            <a href="Berkas/TabelAdministrasi.php" class="sidebar-link">
                                 <i class="bi bi-journal-check"></i>
-                                <span>Cek Status</span>
+                                <span>Verifikasi</span>
                             </a>
                         </li>
 
-                        <li
-                            class="sidebar-item  has-sub">
+                        <li class="sidebar-item  has-sub">
                             <a href="#" class='sidebar-link'>
                                 <i class="bi bi-person-circle"></i>
                                 <span>Akun</span>
                             </a>
-
+                            
                             <ul class="submenu ">
-
                                 <li class="submenu-item  ">
-                                    <a href="profil-mahasiswa.html" class="submenu-link">Profil Saya</a>
-
+                                    <a href="../User/verifikator/ProfilVA.php" class="submenu-link">Profil Saya</a>
                                 </li>
-
                                 <li class="submenu-item  ">
-                                    <a href="ubahPasswordMhs.html" class="submenu-link">Ubah Password</a>
-
-                                </li>
-
-                            </ul>
-
+                                    <a href="../User/verifikator/PasswordVA.php" class="submenu-link">Ubah Password</a>
+                                </li>                    
+                                <li class="submenu-item  ">
+                                    <a href="../Login/Logout.php" class="submenu-link">Logout</a>
+                                </li>                    
+                            </ul>  
                         </li>
                     </ul>
                 </div>
@@ -141,8 +146,8 @@ echo "Selamat Datang " . $_SESSION['Nama'];
                         <div class="col-12 col-md-3 order-md-2 order-first">
                             <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="dashboardUser.html">Dashboard</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">Berkas Administrasi</li>
+                                    <li class="breadcrumb-item"><a href="../verifikatorAdministrasi.php">Dashboard</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Verifikasi</li>
                                 </ol>
                             </nav>
                         </div>
