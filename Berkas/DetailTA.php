@@ -5,6 +5,14 @@ include('ProsesBerkas.php');
 
 GetByIdTA();
 
+
+if ($_SESSION['Role_ID'] != 1 || $_SESSION['Role_ID'] != 6) {
+    echo "<script>
+    alert('Anda tidak memiliki akses ke halaman ini.');
+    window.history.back();
+    </script>";
+}
+
 ?>
 
 <!DOCTYPE html>

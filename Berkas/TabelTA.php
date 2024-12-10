@@ -1,8 +1,18 @@
 <?php
 session_start();
 
+header("Cache-Control: no-cache, no-store, must-revalidate"); // Untuk HTTP/1.1
+header("Pragma: no-cache"); // Untuk HTTP/1.0
+header("Expires: 0");
 
-echo "Selamat Datang " . $_SESSION['Nama'];
+
+if ($_SESSION['Role_ID'] != 1 || $_SESSION['Role_ID'] != 6) {
+    echo "<script>
+    alert('Anda tidak memiliki akses ke halaman ini.');
+    window.history.back();
+    </script>";
+  }
+  
 
 ?>
 

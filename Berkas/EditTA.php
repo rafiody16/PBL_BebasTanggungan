@@ -12,9 +12,10 @@ if (!isset($_SESSION['Username'])) {
 
 // Cek hak akses
 if ($_SESSION['Role_ID'] != 8) {
-    // Jika bukan admin, redirect atau tampilkan pesan error
-    echo "<script>alert('Anda tidak memiliki akses ke halaman ini.'); window.location.href = '../Login/Login.php';</script>";
-    exit();
+    echo "<script>
+    alert('Anda tidak memiliki akses ke halaman ini.');
+    window.history.back();
+    </script>";
 }
 
 $NIM = $_SESSION['NIM'];
