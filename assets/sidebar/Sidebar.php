@@ -170,8 +170,8 @@
                     </li>
                 <?php } ?>
                 <?php if ($role === 1 || $role === 2 || $role === 3 || $role === 4 || $role === 5 || $role === 6 || $role === 7) { ?>
-                    <li class="sidebar-item <?php echo ($current_page == 'dashboardMHS.php') ? 'active' : ''; ?>">
-                        <a href="../../Berkas/FormBerkas.php" class="sidebar-link">
+                    <li class="sidebar-item <?php echo ($current_page == 'Arsip.php') ? 'active' : ''; ?>">
+                        <a href="../../Berkas/Arsip.php" class="sidebar-link">
                             <i class="bi bi-archive-fill"></i>
                             <span>Arsip Data</span>
                         </a>

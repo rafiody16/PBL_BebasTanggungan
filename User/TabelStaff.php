@@ -140,10 +140,10 @@ $role = $_SESSION['Role_ID'];
                                                 ?>
                                                 <td>
                                                     <button data-id="<?= $nip ?>" class="btn btn-primary btn-detail">Detail</button>
-                                                    <?php if ($role === 1) { ?>
+                                                    <?php if ($role != 1) { ?>
                                                         <button data-id="<?= $nip ?>" class="btn btn-warning btn-edit">Edit</button>
                                                         <button data-id="<?= $nip ?>" class="btn btn-danger btn-delete">Hapus</button>
-                                                    <?php } ?>
+                                                    <?php } ?>  
                                                 </td>
                                                 <?php
                                             echo "</tr>";
