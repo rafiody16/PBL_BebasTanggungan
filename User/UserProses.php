@@ -75,9 +75,11 @@ if (isset($_POST['simpanStaff'])) {
     sqlsrv_begin_transaction($conn);
 
     try {
-        $checkUserSql = "SELECT ID_User FROM Staff WHERE NIP = ?";
+        $checkUserSql = "SELECT ID_User, TTD FROM Staff WHERE NIP = ?";
         $checkUserStmt = sqlsrv_query($conn, $checkUserSql, [$NIP]);
         $existingUser = sqlsrv_fetch_array($checkUserStmt, SQLSRV_FETCH_ASSOC);
+
+        $TTD = $TTD ?: $existingUser['TTD'];
 
         if ($existingUser) {
             $updateUserSql = "UPDATE [User] SET Username = ?, Email = ?, Role_ID = ? WHERE ID_User = (SELECT ID_User FROM Staff WHERE NIP = ?)";
@@ -87,6 +89,7 @@ if (isset($_POST['simpanStaff'])) {
             if (!$stmtUserUpdate) {
                 throw new Exception('Gagal memperbarui data User: ' . print_r(sqlsrv_errors(), true));
             }
+
 
             $updateStaffSql = "UPDATE Staff SET Nama = ?, Alamat = ?, NoHp = ?, JenisKelamin = ?, Tempat_Lahir = ?, Tanggal_Lahir = ?, TTD = ? WHERE NIP = ?";
             $paramsStaffUpdate = [$Nama, $Alamat, $NoHp, $JenisKelamin, $Tempat_Lahir, $Tanggal_Lahir, $TTD, $NIP];
