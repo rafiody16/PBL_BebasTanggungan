@@ -196,3 +196,17 @@ RETURN
     WHERE (m.Prodi LIKE '%' + @prodi + '%' OR @prodi = '') 
     AND (m.Tahun_Angkatan LIKE '%' + @tahun_angkatan + '%' OR @tahun_angkatan = '') 
 );
+
+GO
+ALTER FUNCTION fn_GetTugasAkhirDetails (@prodi NVARCHAR(50), @tahun_angkatan NVARCHAR(10))
+RETURNS TABLE
+AS
+RETURN
+(
+    SELECT a.ID_Aplikasi, m.NIM, m.Nama, m.Prodi, a.Status_Verifikasi, a.Keterangan 
+    FROM TugasAkhir AS a
+    INNER JOIN Pengumpulan AS p ON a.ID_Pengumpulan = p.ID_Pengumpulan 
+    INNER JOIN Mahasiswa AS m ON p.NIM = m.NIM
+    WHERE (m.Prodi LIKE '%' + @prodi + '%' OR @prodi = '') 
+    AND (m.Tahun_Angkatan LIKE '%' + @tahun_angkatan + '%' OR @tahun_angkatan = '') 
+);
