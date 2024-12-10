@@ -13,7 +13,7 @@ GetByIdAdministrasi();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Unggah Berkas - Berkas Tugas Akhir</title>
+    <title>Detail Berkas - Verifikasi Administrasi</title>
     
     <link rel="shortcut icon" href="../assets/img/logoJti.png" type="image/x-icon">
     <link rel="shortcut icon" href="../assets/img/logoJti.png" type="image/png">
@@ -35,7 +35,7 @@ GetByIdAdministrasi();
     <div class="sidebar-header position-relative">
         <div class="d-flex justify-content-between align-items-center">
             <div class="logo">
-                <a href="dashboardUser.html"><img src="../assets/img/logoBetati.png" alt="Logo" srcset=""></a>
+                <a href="../verifikatorAdministrasi.php"><img src="../assets/img/logoBetati.png" alt="Logo" srcset=""></a>
             </div>
             <div class="theme-toggle d-flex gap-2  align-items-center mt-2">
                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true"
@@ -76,7 +76,7 @@ GetByIdAdministrasi();
             
             <li
                 class="sidebar-item  ">
-                <a href="dashboardUser.html" class='sidebar-link'>
+                <a href="../verifikatorAdministrasi.php" class='sidebar-link'>
                     <i class="bi bi-grid-fill"></i>
                     <span>Dashboard</span>
                 </a>
@@ -85,40 +85,29 @@ GetByIdAdministrasi();
             </li>
             
             <li class="sidebar-item active">
-                <a href="#" class="sidebar-link">
-                  <i class="bi bi-file-earmark-medical-fill"></i>
-                  <span>Unggah Berkas</span>
+                <a href="Berkas/TabelAdministrasi.php" class="sidebar-link">
+                    <i class="bi bi-journal-check"></i>
+                    <span>Verifikasi</span>
                 </a>
             </li>
 
-            <li class="sidebar-item">
-                <a href="cek-status.html" class="sidebar-link">
-                  <i class="bi bi-journal-check"></i>
-                  <span>Cek Status</span>
-                </a>
-            </li>
-            
-            <li
-                class="sidebar-item  has-sub">
+            <li class="sidebar-item  has-sub">
                 <a href="#" class='sidebar-link'>
                     <i class="bi bi-person-circle"></i>
                     <span>Akun</span>
                 </a>
                 
                 <ul class="submenu ">
-                    
                     <li class="submenu-item  ">
-                        <a href="profil-mahasiswa.html" class="submenu-link">Profil Saya</a>
-                        
+                        <a href="../User/verifikator/ProfilVA.php" class="submenu-link">Profil Saya</a>
                     </li>
-                    
                     <li class="submenu-item  ">
-                        <a href="ubahPasswordMhs.html" class="submenu-link">Ubah Password</a>
-                        
-                    </li>
-                    
+                        <a href="../User/verifikator/PasswordVA.php" class="submenu-link">Ubah Password</a>
+                    </li>                    
+                    <li class="submenu-item  ">
+                        <a href="../Login/Logout.php" class="submenu-link">Logout</a>
+                    </li>                    
                 </ul>  
-
             </li>
         </ul>
     </div>
@@ -141,8 +130,8 @@ GetByIdAdministrasi();
             <div class="col-12 col-md-3 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="dashboardUser.html">Dashboard</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Berkas Tugas Akhir</li>
+                        <li class="breadcrumb-item"><a href="../verifikatorAdministrasi.php">Dashboard</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Verifikasi</li>
                     </ol>
                 </nav>
             </div>

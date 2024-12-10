@@ -22,10 +22,10 @@ if (isset($_SESSION['Username'])) {
         header("Location: ../kaprodiPPLS.php");
         break;
     case 6:
-        header("Location: ../Berkas/TabelTA.php");
+        header("Location: ../verifikatorTA.php");
         break;
     case 7:
-        header("Location: ../Berkas/TabelAdministrasi.php");
+        header("Location: ../verifikatorAdministrasi.php");
         break;
     case 8:
         header("Location: ../User/mahasiswa/dashboardMHS.php");

@@ -61,25 +61,25 @@ class User {
     private function redirectUser ($row) {
         switch ($row['Role_ID']) {
             case 1:
-                $this->alertAndRedirect('Selamat Datang Admin ' . $this->username . '.', '../index.php');
+                $this->alertAndRedirect('Selamat Datang Admin ' . $this->username, '../index.php');
                 break;
             case 2:
-                $this->alertAndRedirect('Selamat Datang Kepala Jurusan Teknologi Informasi ' . $this->username . '.', '../User/kajur/dasborKajur.php');
+                $this->alertAndRedirect('Selamat Datang Kepala Jurusan Teknologi Informasi ' . $this->username, '../User/kajur/dasborKajur.php');
                 break;
             case 3:
-                $this->alertAndRedirect('Selamat Datang Kaprodi TI ' . $this->username . '.', '../kaprodiTI.php');
+                $this->alertAndRedirect('Selamat Datang Kaprodi TI ' . $this->username, '../kaprodiTI.php');
                 break;
             case 4:
-                $this->alertAndRedirect('Selamat Datang Kaprodi SIB ' . $this->username . '.', '../kaprodiSIB.php');
+                $this->alertAndRedirect('Selamat Datang Kaprodi SIB ' . $this->username, '../kaprodiSIB.php');
                 break;
             case 5:
-                $this->alertAndRedirect('Selamat Datang Kaprodi PPLS ' . $this->username . '.', '../kaprodiPPLS.php');
+                $this->alertAndRedirect('Selamat Datang Kaprodi PPLS ' . $this->username, '../kaprodiPPLS.php');
                 break;
             case 6:
-                $this->alertAndRedirect('Selamat Datang Admin TA ' . $this->username . '.', '../Berkas/TabelTA.php');
+                $this->alertAndRedirect('Selamat Datang Admin TA ' . $this->username, '../verifikatorTA.php');
                 break;
             case 7:
-                $this->alertAndRedirect('Selamat Datang Admin Jurusan ' . $this->username . '.', '../Berkas/TabelAdministrasi.php');
+                $this->alertAndRedirect('Selamat Datang Admin Jurusan ' . $this->username, '../verifikatorAdministrasi.php');
                 break;
             case 8:
                 $sqlNim = "SELECT NIM FROM Mahasiswa WHERE ID_User = ?";
@@ -95,7 +95,7 @@ class User {
                 }
 
                 sqlsrv_free_stmt($stmtNim);
-                $this->alertAndRedirect('Selamat Datang Mahasiswa ' . $this->username . '.', '../User /mahasiswa/dashboardMHS.php');
+                $this->alertAndRedirect('Selamat Datang Mahasiswa ' . $this->username, '../User /mahasiswa/dashboardMHS.php');
                 break;
             default:
                 $this->alertAndRedirect('Role tidak dikenali.', 'Login.php');
