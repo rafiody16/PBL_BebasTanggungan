@@ -85,7 +85,7 @@ if ($_SESSION['Role_ID'] === 3 || $_SESSION['Role_ID'] === 4 || $_SESSION['Role_
                                 <h5 class="card-title">Tabel User</h5>
                                 <form action="" method="get" class="form-inline">
                                     <div class="form-group mb-2">
-                                        <label for="role" class="mr-2">Nama Role:</label>
+                                        <label for="role" class="mr-2">Jabatan:</label>
                                         <select name="role" id="role" class="form-control">
                                             <option value=""></option>
                                             <?php 
