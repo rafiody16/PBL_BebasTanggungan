@@ -3,6 +3,7 @@
         session_start();
     }
     $current_page = basename($_SERVER['PHP_SELF']);
+    $submenu_pages = ['dashboardMHS.php', 'index.php', 'kaprodiPPLS.php', 'kaprodiTI.php', 'kaprodiSIB.php', 'dasborKajur.php'];
 
     include('../../Koneksi.php');
     $role = $_SESSION['Role_ID'];
@@ -36,11 +37,48 @@
         <div class="sidebar-menu">
             <ul class="menu">
                 <li class="sidebar-title">Menu</li>
-                <li class="sidebar-item <?php echo ($current_page == 'dashboardMHS.php') ? 'active' : ''; ?>">
-                    <a href="dashboardMHS.php" class="sidebar-link">
-                        <i class="bi bi-grid-fill"></i>
-                        <span>Beranda</span>
-                    </a>
+                <li class="sidebar-item <?php echo (in_array($current_page, $submenu_pages)) ? 'active' : ''; ?>">
+                    <?php if ($role === 1) { ?>
+                        <a href="../../index.php" class="sidebar-link">
+                            <i class="bi bi-grid-fill"></i>
+                            <span>Beranda</span>
+                        </a>
+                    <?php } else if ($role === 2) { ?>
+                        <a href="../../User/kajur/dasborKajur.php" class="sidebar-link">
+                            <i class="bi bi-grid-fill"></i>
+                            <span>Beranda</span>
+                        </a>
+                    <?php } else if ($role === 3) { ?>
+                        <a href="../../kaprodiTI.php" class="sidebar-link">
+                            <i class="bi bi-grid-fill"></i>
+                            <span>Beranda</span>
+                        </a>
+                    <?php } else if ($role === 4) { ?>
+                        <a href="../../kaprodiSIB.php" class="sidebar-link">
+                            <i class="bi bi-grid-fill"></i>
+                            <span>Beranda</span>
+                        </a>
+                    <?php } else if ($role === 5) { ?>
+                        <a href="../../kaprodiPPLS.php" class="sidebar-link">
+                            <i class="bi bi-grid-fill"></i>
+                            <span>Beranda</span>
+                        </a>
+                    <?php } else if ($role === 6) { ?>
+                        <a href="../../User/verifikator/ProfilVTA.php" class="sidebar-link">
+                            <i class="bi bi-grid-fill"></i>
+                            <span>Beranda</span>
+                        </a>
+                    <?php } else if ($role === 7) { ?>
+                        <a href="../../User/verifikator/ProfilVA.php" class="sidebar-link">
+                            <i class="bi bi-grid-fill"></i>
+                            <span>Beranda</span>
+                        </a>
+                    <?php } else if ($role === 8) { ?>
+                        <a href="../../User/mahasiswa/dashboardMHS.php" class="sidebar-link">
+                            <i class="bi bi-grid-fill"></i>
+                            <span>Beranda</span>
+                        </a>
+                    <?php } ?>
                 </li>
                 <?php if ($role === 8) { ?>
                     <li class="sidebar-item <?php echo ($current_page == 'FormBerkas.php') ? 'active' : ''; ?>">
