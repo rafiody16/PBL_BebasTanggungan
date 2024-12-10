@@ -64,12 +64,12 @@
                             <span>Beranda</span>
                         </a>
                     <?php } else if ($role === 6) { ?>
-                        <a href="../User/verifikator/ProfilVTA.php" class="sidebar-link">
+                        <a href="../verifikatorTA.php" class="sidebar-link">
                             <i class="bi bi-grid-fill"></i>
                             <span>Beranda</span>
                         </a>
                     <?php } else if ($role === 7) { ?>
-                        <a href="../User/verifikator/ProfilVA.php" class="sidebar-link">
+                        <a href="../verifikatorAdministrasi.php" class="sidebar-link">
                             <i class="bi bi-grid-fill"></i>
                             <span>Beranda</span>
                         </a>
