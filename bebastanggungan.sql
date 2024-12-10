@@ -171,3 +171,11 @@ Pengumpulan AS p
 INNER JOIN Mahasiswa AS mhs ON mhs.NIM = p.NIM
 WHERE p.Status_Pengumpulan = 'Menunggu';
 GO;
+
+CREATE VIEW statusTolak AS
+SELECT p.ID_Pengumpulan, mhs.NIM, mhs.Nama, mhs.Prodi, p.Status_Pengumpulan
+FROM 
+Pengumpulan AS p
+INNER JOIN Mahasiswa AS mhs ON mhs.NIM = p.NIM
+WHERE p.Status_Pengumpulan = 'Ditolak';
+GO;
