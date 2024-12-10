@@ -81,10 +81,28 @@ if ($_SESSION['Role_ID'] === 3 || $_SESSION['Role_ID'] === 4 || $_SESSION['Role_
                     <div class="row">
                         <div class="col-12">
                             <div class="card">
-                                <div class="card-header">
-                                    <h5 class="card-title">Tabel User</h5>
-                                </div>
-                                <div class="card-body">
+                            <div class="card-header">
+                                <h5 class="card-title">Tabel User</h5>
+                                <form action="" method="get" class="form-inline">
+                                    <div class="form-group mb-2">
+                                        <label for="role" class="mr-2">Jabatan:</label>
+                                        <select name="role" id="role" class="form-control">
+                                            <option value=""></option>
+                                            <?php 
+                                                // Ambil daftar role dari database
+                                                $stmtRole = sqlsrv_query($conn, "SELECT DISTINCT Nama_Role FROM Role");
+                                                $selectedRole = isset($_GET['role']) ? $_GET['role'] : ''; // Ambil nilai role yang dipilih
+                                                while ($rowRole = sqlsrv_fetch_array($stmtRole, SQLSRV_FETCH_ASSOC)) {
+                                                    $selected = ($rowRole['Nama_Role'] == $selectedRole) ? 'selected' : ''; // Cek apakah ini yang dipilih
+                                                    echo "<option value='" . htmlspecialchars($rowRole['Nama_Role']) . "' $selected>" . htmlspecialchars($rowRole['Nama_Role']) . "</option>";
+                                                } 
+                                            ?>
+                                        </select>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary mb-2">Filter</button>
+                                </form>
+                            </div>
+                            <div class="card-body">
                                     <div class="table-responsive">
                             <table class="table table-lg">
                                 <thead>
@@ -127,6 +145,7 @@ if ($_SESSION['Role_ID'] === 3 || $_SESSION['Role_ID'] === 4 || $_SESSION['Role_
                                 ?>
                                 </tbody>
                             </table>
+                            <a href="TabelStaff.php" class="btn btn-secondary mb-3">Reset Filter</a>
                         </div>
                     </div>
                 </div>
