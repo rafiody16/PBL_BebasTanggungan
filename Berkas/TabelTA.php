@@ -288,14 +288,16 @@ echo "Selamat Datang " . $_SESSION['Nama'];
 
             $(".btn-verifikasi").click(function() {
                 var ID_Aplikasi = $(this).data("id");
+                if (confirm("Apakah Anda yakin ingin memverifikasi data ini?")) {
                     $.ajax({
                     url: "ProsesBerkas.php",
                     type: "POST",
                     data: { ID_Aplikasi: ID_Aplikasi, action: "verifikasiTA" },
-                    success: function(response) {
-                        location.reload();
-                    }
-                })   
+                        success: function(response) {
+                            location.reload();
+                        }
+                    });   
+                }
             });
 
             $('.btn-tolak').on('click', function () {
