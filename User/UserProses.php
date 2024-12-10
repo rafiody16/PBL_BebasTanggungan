@@ -375,7 +375,7 @@ $sql = "SELECT s.NIP, s.Nama, r.Nama_Role, u.Email, s.NoHp
         INNER JOIN Role AS r ON u.Role_ID = r.Role_ID 
         WHERE (r.Nama_Role LIKE ? OR ? = '')"; 
 
-$params = array("%$role%", $role);
+$params = array("$role", $role);
 $stmt = sqlsrv_query($conn, $sql, $params);
 
 if ($stmt === false) {
