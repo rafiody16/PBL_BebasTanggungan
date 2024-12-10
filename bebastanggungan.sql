@@ -155,6 +155,7 @@ SELECT * FROM Mahasiswa;
 
 SELECT * FROM Staff;
 SELECT * FROM [User];
+GO
 
 CREATE VIEW statusTerverifikasi AS
 SELECT p.ID_Pengumpulan, mhs.NIM, mhs.Nama, mhs.Prodi, p.Status_Pengumpulan
@@ -179,3 +180,5 @@ Pengumpulan AS p
 INNER JOIN Mahasiswa AS mhs ON mhs.NIM = p.NIM
 WHERE p.Status_Pengumpulan = 'Ditolak';
 GO;
+
+CREATE FUNCTION fn_GetAdministrasiDetails (@prodi NVARCHAR(50), @tahun_angkatan NVARCHAR(10)) RETURNS TABLE AS RETURN ( SELECT a.ID_Administrasi, m.NIM, m.Nama, m.Prodi, a.Status_Verifikasi, a.Keterangan FROM Administrasi AS a INNER JOIN Pengumpulan AS p ON a.ID_Pengumpulan = p.ID_Pengumpulan INNER JOIN Mahasiswa AS m ON p.NIM = m.NIM WHERE (m.Prodi LIKE '%' + @prodi + '%' OR @prodi = '') AND (m.Tahun_Angkatan LIKE '%' + @tahun_angkatan + '%' OR @tahun_angkatan = '') );

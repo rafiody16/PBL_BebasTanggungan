@@ -118,6 +118,7 @@ if ($_SESSION['Role_ID'] === 2 || $_SESSION['Role_ID'] === 3 || $_SESSION['Role_
                                                 <th>#</th>
                                                 <th>NIM</th>
                                                 <th>Nama</th>
+                                                <th>Program Studi</th>
                                                 <th>Status</th>
                                                 <th>Keterangan</th>
                                                 <th>Aksi</th>
@@ -137,6 +138,7 @@ if ($_SESSION['Role_ID'] === 2 || $_SESSION['Role_ID'] === 3 || $_SESSION['Role_
                                                     echo "<td>" . htmlspecialchars($no++) . "</td>";
                                                     echo "<td>" . htmlspecialchars($nim) . "</td>";
                                                     echo "<td>" . htmlspecialchars($row['Nama']) . "</td>";
+                                                    echo "<td>" . htmlspecialchars($row['Prodi']) . "</td>";
                                                     if ($status === 'Menunggu') {
                                                         ?>
                                                         <td><span class="badge bg-warning"><?= htmlspecialchars($status) ?></span></td>
