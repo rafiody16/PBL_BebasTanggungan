@@ -150,6 +150,25 @@
                         </ul>
                     </li>
                 <?php } ?>
+                <?php if($role === 1) { ?>
+                    <li class="sidebar-item has-sub">
+                        <a href="#" class="sidebar-link">
+                        <i class="bi bi-person-badge-fill"></i>
+                        <span>Role</span>
+                        </a>
+
+                        <ul class="submenu">
+                            <li class="submenu-item <?php echo ($current_page == 'FormRole.php') ? 'active' : ''; ?>">
+                            <a href="Role/FormRole.php" class="submenu-link"
+                                >Tambah Data</a>
+                            </li>
+                            <li class="submenu-item <?php echo ($current_page == 'TabelRole.php') ? 'active' : ''; ?>">
+                                <a href="Role/TabelRole.php" class="submenu-link"
+                            >Lihat Data</a>
+                            </li>
+                        </ul>
+                    </li>
+                <?php } ?>
                 <?php if ($role === 1 || $role === 2 || $role === 3 || $role === 4 || $role === 5 || $role === 6 || $role === 7) { ?>
                     <li class="sidebar-item <?php echo ($current_page == 'dashboardMHS.php') ? 'active' : ''; ?>">
                         <a href="Berkas/FormBerkas.php" class="sidebar-link">
