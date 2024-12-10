@@ -221,15 +221,15 @@ GetAllBerkas();
                                                             <td class="text-bold-500"><?= htmlspecialchars($KeteranganTA) ?></td>
                                                             <td>
                                                                 <?php
-                                                                    if ($Status_VerifikasiAdm === 'Menunggu') {
+                                                                    if ($Status_VerifikasiTA === 'Menunggu') {
                                                                 ?>
                                                                     <button class="btn btn-warning"><a href="EditTA.php?NIM=<?= $NIM ?>" style="color: black; text-decoration: none;">Edit</a></button>
                                                                 <?php 
-                                                                    } else if ($Status_VerifikasiAdm === 'Terverifikasi') {
+                                                                    } else if ($Status_VerifikasiTA === 'Terverifikasi') {
                                                                 ?>
                                                                     <h5 style="text-align:center;">&#10004;</h5>
                                                                 <?php
-                                                                    } else if ($Status_VerifikasiAdm === 'Ditolak') {
+                                                                    } else if ($Status_VerifikasiTA === 'Ditolak') {
                                                                 ?>
                                                                     <button class="btn btn-warning"><a href="EditTA.php?NIM=<?= $NIM ?>" style="color: black; text-decoration: none;">Edit</a></button>
                                                                 <?php
@@ -305,9 +305,9 @@ GetAllBerkas();
                                                 <br>
                                                 <?php if($Status_Verifikasi === 'Terverifikasi') {?>
                                                     <div style="display: flex; justify-content: center; margin-top: 20px;">
-                                                        <button class="btn btn-success">
-                                                            <i class="bi bi-printer">&nbsp;</i><a href="GeneratePdf.php?NIM=<?= $nim ?>" style="color: white; text-decoration: none;">Cetak Bebas Tanggungan</a>
-                                                        </button>
+                                                        <a href="GeneratePdf.php?NIM=<?= $NIM ?>" class="btn btn-success">
+                                                            <i class="bi bi-printer">&nbsp;</i>Cetak Bebas Tanggungan
+                                                        </a>
                                                     </div>
                                                 <?php } ?>
                                             </div>
