@@ -5,7 +5,7 @@
     $current_page = basename($_SERVER['PHP_SELF']);
     $submenu_pages = ['dashboardMHS.php', 'index.php', 'kaprodiPPLS.php', 'kaprodiTI.php', 'kaprodiSIB.php', 'dasborKajur.php'];
 
-    include('../../Koneksi.php');
+    include('Koneksi.php');
     $role = $_SESSION['Role_ID'];
 ?>
 
@@ -15,7 +15,7 @@
             <div class="d-flex justify-content-between align-items-center">
                 <div class="logo">
                     <a href="dashboardMHS.php">
-                        <img src="../../assets/img/logoBetati.png" alt="Logo" />
+                        <img src="assets/img/logoBetati.png" alt="Logo" />
                     </a>
                 </div>
                 <div class="theme-toggle d-flex gap-2 align-items-center mt-2">
@@ -39,42 +39,42 @@
                 <li class="sidebar-title">Menu</li>
                 <li class="sidebar-item <?php echo (in_array($current_page, $submenu_pages)) ? 'active' : ''; ?>">
                     <?php if ($role === 1) { ?>
-                        <a href="../../index.php" class="sidebar-link">
+                        <a href="index.php" class="sidebar-link">
                             <i class="bi bi-grid-fill"></i>
                             <span>Beranda</span>
                         </a>
                     <?php } else if ($role === 2) { ?>
-                        <a href="../../User/kajur/dasborKajur.php" class="sidebar-link">
+                        <a href="User/kajur/dasborKajur.php" class="sidebar-link">
                             <i class="bi bi-grid-fill"></i>
                             <span>Beranda</span>
                         </a>
                     <?php } else if ($role === 3) { ?>
-                        <a href="../../kaprodiTI.php" class="sidebar-link">
+                        <a href="kaprodiTI.php" class="sidebar-link">
                             <i class="bi bi-grid-fill"></i>
                             <span>Beranda</span>
                         </a>
                     <?php } else if ($role === 4) { ?>
-                        <a href="../../kaprodiSIB.php" class="sidebar-link">
+                        <a href="kaprodiSIB.php" class="sidebar-link">
                             <i class="bi bi-grid-fill"></i>
                             <span>Beranda</span>
                         </a>
                     <?php } else if ($role === 5) { ?>
-                        <a href="../../kaprodiPPLS.php" class="sidebar-link">
+                        <a href="kaprodiPPLS.php" class="sidebar-link">
                             <i class="bi bi-grid-fill"></i>
                             <span>Beranda</span>
                         </a>
                     <?php } else if ($role === 6) { ?>
-                        <a href="../../verifikatorTA" class="sidebar-link">
+                        <a href="verifikatorTA.php" class="sidebar-link">
                             <i class="bi bi-grid-fill"></i>
                             <span>Beranda</span>
                         </a>
                     <?php } else if ($role === 7) { ?>
-                        <a href="../../verifikatorAdministrasi.php" class="sidebar-link">
+                        <a href="verifikatorAdministrasi.php" class="sidebar-link">
                             <i class="bi bi-grid-fill"></i>
                             <span>Beranda</span>
                         </a>
                     <?php } else if ($role === 8) { ?>
-                        <a href="../../User/mahasiswa/dashboardMHS.php" class="sidebar-link">
+                        <a href="User/mahasiswa/dashboardMHS.php" class="sidebar-link">
                             <i class="bi bi-grid-fill"></i>
                             <span>Beranda</span>
                         </a>
@@ -82,7 +82,7 @@
                 </li>
                 <?php if ($role === 8) { ?>
                     <li class="sidebar-item <?php echo ($current_page == 'FormBerkas.php') ? 'active' : ''; ?>">
-                        <a href="../../Berkas/FormBerkas.php" class="sidebar-link">
+                        <a href="Berkas/FormBerkas.php" class="sidebar-link">
                             <i class="bi bi-file-earmark-medical-fill"></i>
                             <span>Unggah Berkas</span>
                         </a>
@@ -90,7 +90,7 @@
                 <?php } ?>
                 <?php if ($role === 1 || $role === 6) { ?>
                     <li class="sidebar-item <?php echo ($current_page == 'TabelTA.php') ? 'active' : ''; ?>">
-                        <a href="../../Berkas/TabelTA.php" class="sidebar-link">
+                        <a href="Berkas/TabelTA.php" class="sidebar-link">
                             <i class="bi bi-folder-check"></i>
                             <span>Verifikas TA</span>
                         </a>
@@ -98,7 +98,7 @@
                 <?php } ?>
                 <?php if ($role === 1 || $role === 7) { ?>
                     <li class="sidebar-item <?php echo ($current_page == 'TabelAdministrasi.php') ? 'active' : ''; ?>">
-                        <a href="../../Berkas/TabelAdministrasi.php" class="sidebar-link">
+                        <a href="Berkas/TabelAdministrasi.php" class="sidebar-link">
                             <i class="bi bi-folder-check"></i>
                             <span>Verifikasi Administrasi</span>
                         </a>
@@ -106,7 +106,7 @@
                 <?php } ?>
                 <?php if ($role === 1 || $role === 2 || $role === 3 || $role === 4 || $role === 5) { ?>
                     <li class="sidebar-item <?php echo ($current_page == 'TabelBerkas.php') ? 'active' : ''; ?>">
-                        <a href="../../Berkas/TabelBerkas.php" class="sidebar-link">
+                        <a href="Berkas/TabelBerkas.php" class="sidebar-link">
                             <i class="bi bi-folder-check"></i>
                             <span>Verifikasi Berkas</span>
                         </a>
@@ -121,11 +121,11 @@
 
                         <ul class="submenu active">
                             <li class="submenu-item <?php echo ($current_page == 'FormMahasiswa.php') ? 'active' : ''; ?>">
-                                <a href="../../User/FormMahasiswa.php" class="submenu-link"
+                                <a href="User/FormMahasiswa.php" class="submenu-link"
                                 >Tambah Data</a>
                             </li>
                             <li class="submenu-item <?php echo ($current_page == 'TabelMahasiswa.php') ? 'active' : ''; ?>">
-                                <a href="../../User/TabelMahasiswa.php" class="submenu-link"
+                                <a href="User/TabelMahasiswa.php" class="submenu-link"
                                 >Lihat Data</a>
                             </li>
                         </ul>
@@ -140,11 +140,11 @@
 
                         <ul class="submenu">
                             <li class="submenu-item <?php echo ($current_page == 'FormStaff.php') ? 'active' : ''; ?>">
-                            <a href="../../User/FormStaff.php" class="submenu-link"
+                            <a href="User/FormStaff.php" class="submenu-link"
                                 >Tambah Data</a>
                             </li>
                             <li class="submenu-item <?php echo ($current_page == 'TabelStaff.php') ? 'active' : ''; ?>">
-                                <a href="../../User/TabelStaff.php" class="submenu-link"
+                                <a href="User/TabelStaff.php" class="submenu-link"
                             >Lihat Data</a>
                             </li>
                         </ul>
@@ -152,7 +152,7 @@
                 <?php } ?>
                 <?php if ($role === 1 || $role === 2 || $role === 3 || $role === 4 || $role === 5 || $role === 6 || $role === 7) { ?>
                     <li class="sidebar-item <?php echo ($current_page == 'dashboardMHS.php') ? 'active' : ''; ?>">
-                        <a href="../../Berkas/FormBerkas.php" class="sidebar-link">
+                        <a href="Berkas/FormBerkas.php" class="sidebar-link">
                             <i class="bi bi-archive-fill"></i>
                             <span>Arsip Data</span>
                         </a>
@@ -166,18 +166,18 @@
                     <ul class="submenu">
                         <?php if ($role === 8) { ?>
                             <li class="submenu-item <?php echo ($current_page == 'profilMhs.php') ? 'active' : ''; ?>">
-                                <a href="../../User/mahasiswa/ProfilMhs.php" class="submenu-link">Profil Saya</a>
+                                <a href="User/mahasiswa/ProfilMhs.php" class="submenu-link">Profil Saya</a>
                             </li>
                         <?php } else {?>
                             <li class="submenu-item <?php echo ($current_page == 'profilStaff.php') ? 'active' : ''; ?>">
-                                <a href="../../admin/profilStaff.php" class="submenu-link">Profil Saya</a>
+                                <a href="User/admin/profilStaff.php" class="submenu-link">Profil Saya</a>
                             </li>
                         <?php } ?>
                         <li class="submenu-item <?php echo ($current_page == 'ubahPassword.php') ? 'active' : ''; ?>">
-                            <a href="../../User/mahasiswa/ubahPassword.php" class="submenu-link">Ubah Password</a>
+                            <a href="User/mahasiswa/ubahPassword.php" class="submenu-link">Ubah Password</a>
                         </li>
                         <li class="submenu-item <?php echo ($current_page == 'dashboardMHS.php') ? 'active' : ''; ?>">
-                            <a href="../../Login/Logout.php" class="submenu-link">Logout</a>
+                            <a href="Login/Logout.php" class="submenu-link">Logout</a>
                         </li>
                     </ul>
                 </li>
