@@ -565,7 +565,7 @@ function EditTA() {
                 throw new Exception('Gagal memperbarui data Pengumpulan: ' . print_r(sqlsrv_errors(), true));
             }
 
-            echo "<script>window.location.href = 'DetailBerkas.php?NIM=".urlencode($nim)."';</script>";
+            echo "<script>window.location.href = 'FormBerkas.php';</script>";
         }
     }
     ini_set('display_errors', 1);
@@ -609,29 +609,49 @@ function EditAdministrasi() {
         $Scan_Toeic = uploadFile($_FILES['Scan_Toeic'], $uploadDir);
         $Tanggal_Pengumpulan = date("Y-m-d");
 
-        if ($Laporan_Skripsi && $Laporan_Magang && $Bebas_Kompensasi && $Scan_Toeic) {
-            $sqlUpdate = "UPDATE Administrasi SET Laporan_Skripsi = ?, Laporan_Magang = ?, Bebas_Kompensasi = ?, Scan_Toeic = ?, Status_Verifikasi = ?, Tanggal_Upload = ?, Keterangan = ?, Verifikator = NULL
-                          FROM Administrasi a INNER JOIN Pengumpulan p ON a.ID_Pengumpulan = p.ID_Pengumpulan INNER JOIN Mahasiswa m ON p.NIM = m.NIM
-                          WHERE m.NIM = ?";
-            $paramsAdmUpdate = [$Laporan_Skripsi, $Laporan_Magang, $Bebas_Kompensasi, $Scan_Toeic, 'Menunggu', $Tanggal_Pengumpulan, '-', $nim];
-            $stmtAdmUpdate = sqlsrv_query($conn, $sqlUpdate, $paramsAdmUpdate);
+        $sqlGetCurrentData = "SELECT Laporan_Skripsi, Laporan_Magang, Bebas_Kompensasi, Scan_Toeic, Tanggal_Upload 
+                              FROM Administrasi a 
+                              INNER JOIN Pengumpulan p ON a.ID_Pengumpulan = p.ID_Pengumpulan 
+                              INNER JOIN Mahasiswa m ON p.NIM = m.NIM 
+                              WHERE m.NIM = ?";
+        $paramsGetCurrentData = [$nim];
+        $stmtGetCurrentData = sqlsrv_query($conn, $sqlGetCurrentData, $paramsGetCurrentData);
 
-            if (!$stmtAdmUpdate) {
-                throw new Exception('Gagal memperbarui data TA: ' . print_r(sqlsrv_errors(), true));
-            } else {
-                $sqlPUpdate = "UPDATE Pengumpulan SET Tanggal_Pengumpulan = ?, Status_Pengumpulan = 'Menunggu', Keterangan = '-', VerifikatorKajur = NULL, VerifikatorKaprodi = NULL
-                              FROM Pengumpulan p INNER JOIN Mahasiswa m ON p.NIM = m.NIM WHERE m.NIM = ?";
-                $paramsPUpdate = [$Tanggal_Pengumpulan, $nim];
-                $stmtPUpdate = sqlsrv_query($conn, $sqlPUpdate, $paramsPUpdate);
+        if ($stmtGetCurrentData === false) {
+            throw new Exception('Gagal mengambil data saat ini: ' . print_r(sqlsrv_errors(), true));
+        }
 
-                if (!$stmtPUpdate) {
-                    throw new Exception('Gagal memperbarui data TA: ' . print_r(sqlsrv_errors(), true));
-                }
+        $currentData = sqlsrv_fetch_array($stmtGetCurrentData, SQLSRV_FETCH_ASSOC);
 
-                echo "<script>window.location.href = 'DetailBerkas.php?NIM=".urlencode($nim)."';</script>";
-            }
+        $Laporan_Skripsi = $Laporan_Skripsi ?: $currentData['Laporan_Skripsi'];
+        $Laporan_Magang = $Laporan_Magang ?: $currentData['Laporan_Magang'];
+        $Bebas_Kompensasi = $Bebas_Kompensasi ?: $currentData['Bebas_Kompensasi'];
+        $Scan_Toeic = $Scan_Toeic ?: $currentData['Scan_Toeic'];
+
+        $sqlUpdate = "UPDATE Administrasi 
+                      SET Laporan_Skripsi = ?, Laporan_Magang = ?, Bebas_Kompensasi = ?, Scan_Toeic = ?, Status_Verifikasi = ?, Tanggal_Upload = ?, Verifikator = ? 
+                      FROM Administrasi a 
+                      INNER JOIN Pengumpulan p ON a.ID_Pengumpulan = p.ID_Pengumpulan 
+                      INNER JOIN Mahasiswa m ON p.NIM = m.NIM 
+                      WHERE m.NIM = ?";
+        $paramsTAUpdate = [$Laporan_Skripsi, $Laporan_Magang, $Bebas_Kompensasi, $Scan_Toeic, 'Menunggu', $Tanggal_Pengumpulan, NULL, $nim];
+        $stmtTAUpdate = sqlsrv_query($conn, $sqlUpdate, $paramsTAUpdate);
+
+        if (!$stmtTAUpdate) {
+            throw new Exception('Gagal memperbarui data TA: ' . print_r(sqlsrv_errors(), true));
         } else {
-            throw new Exception('Gagal mengupload file. Periksa ukuran atau jenis file.');
+            $sqlPUpdate = "UPDATE Pengumpulan 
+                           SET Tanggal_Pengumpulan = ?, Status_Pengumpulan = 'Menunggu', Keterangan = '-', VerifikatorKajur = NULL, VerifikatorKaprodi = NULL 
+                           FROM Pengumpulan p 
+                           INNER JOIN Mahasiswa m ON p.NIM = m.NIM 
+                           WHERE m.NIM = ?";
+            $paramsPUpdate = [$Tanggal_Pengumpulan, $nim];
+            $stmtPUpdate = sqlsrv_query($conn, $sqlPUpdate, $paramsPUpdate);
+
+            if (!$stmtPUpdate) {
+                throw new Exception('Gagal memperbarui data Pengumpulan: ' . print_r(sqlsrv_errors(), true));
+            }
+            echo "<script>window.location.href = 'FormBerkas.php';</script>";
         }
     }
     ini_set('display_errors', 1);

@@ -234,7 +234,7 @@ $NIM = $_SESSION['NIM'];
             </div>
             <div class="col-sm-12 d-flex justify-content-end">
                 <button data-id="<?= $NIM ?>" class="btn btn-success btn-edit  me-2 mb-2" style="font-size: 1.3rem; padding: 1rem 2rem;">Edit</button>
-                <button type="reset" class="btn btn-light-secondary me-2 mb-2" style="font-size: 1.3rem; padding: 1rem 2rem;">Reset</button>
+                <a href="DetailBerkas.php?NIM=<?= $NIM ?>" class="btn btn-light-secondary me-2 mb-2" style="font-size: 1.3rem; padding: 1rem 2rem;">Kembali</a>
             </div>
         </form>
         </div>

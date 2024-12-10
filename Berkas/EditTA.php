@@ -235,7 +235,7 @@ $NIM = $_SESSION['NIM'];
             
             <div class="col-sm-12 d-flex justify-content-end">
                 <button data-id="<?= $NIM ?>" class="btn btn-success btn-edit me-2 mb-2" style="font-size: 1.3rem; padding: 1rem 2rem;">Edit</button>
-                <button type="reset" class="btn btn-light-secondary me-2 mb-2" style="font-size: 1.3rem; padding: 1rem 2rem;">Reset</button>
+                <a href="DetailBerkas.php?NIM=<?= $NIM ?>" class="btn btn-light-secondary me-2 mb-2" style="font-size: 1.3rem; padding: 1rem 2rem;">Kembali</a>
             </div>
         </form>
         </div>
@@ -312,6 +312,7 @@ $NIM = $_SESSION['NIM'];
                     processData: false, 
                     success: function(response) {
                         alert("Data berhasil diubah.");
+                        location.href = "FormBerkas.php";
                     },
                     error: function(xhr, status, error) {
                         alert("Terjadi kesalahan. Silakan coba lagi.");
