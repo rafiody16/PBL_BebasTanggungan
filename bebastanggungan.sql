@@ -224,3 +224,15 @@ BEGIN
     WHERE (m.Prodi LIKE '%' + @Prodi + '%' OR @Prodi = '') 
     AND (m.Tahun_Angkatan LIKE '%' + @TahunAngkatan + '%' OR @TahunAngkatan = '')
 END
+
+GO
+CREATE PROCEDURE FilterStaff
+    @Role NVARCHAR(255)
+AS
+BEGIN
+    SELECT s.NIP, s.Nama, r.Nama_Role, u.Email, s.NoHp 
+    FROM Staff AS s
+    INNER JOIN [User] AS u ON s.ID_User = u.ID_User 
+    INNER JOIN Role AS r ON u.Role_ID = r.Role_ID 
+    WHERE (r.Nama_Role LIKE @Role OR @Role = '')
+END

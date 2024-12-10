@@ -369,16 +369,10 @@ function getDataStaffByNip() {
 // }
 
 $role = isset($_GET['role']) ? $_GET['role'] : '';
-$email = isset($_GET['email']) ? $_GET['email'] : '';
 
-// Buat query dengan filter
-$sql = "SELECT s.NIP, s.Nama, r.Nama_Role, u.Email, s.NoHp 
-        FROM Staff AS s
-        INNER JOIN [User] AS u ON s.ID_User = u.ID_User 
-        INNER JOIN Role AS r ON u.Role_ID = r.Role_ID 
-        WHERE (r.Nama_Role LIKE ? OR ? = '')"; 
-
-$params = array("$role", $role);
+// Panggil Stored Procedure
+$sql = "{CALL FilterStaff(?)}";
+$params = array($role);
 $stmt = sqlsrv_query($conn, $sql, $params);
 
 if ($stmt === false) {

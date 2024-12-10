@@ -78,7 +78,7 @@ $role = $_SESSION['Role_ID'];
                                     <li class="breadcrumb-item active" aria-current="page">
                                     Lihat Data Staff
                                     </li>
-                              /ol>
+                            </ol>
                             </nav>
                             </div>
                     </div>
