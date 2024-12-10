@@ -1,4 +1,22 @@
 <?php 
+session_start();
+
+// Cek apakah pengguna sudah login
+if (!isset($_SESSION['Username'])) {
+    // Jika belum login, redirect ke halaman login
+    header("Location: ../Login/Login.php");
+    exit();
+}
+
+// Cek hak akses
+if ($_SESSION['Role_ID'] != 1) {
+    // Jika bukan admin, redirect atau tampilkan pesan error
+    echo "<script>
+    alert('Anda tidak memiliki akses ke halaman ini.');
+    window.history.back();
+    </script>";
+}
+
 include('../Koneksi.php');
 include('RoleProses.php');
 
