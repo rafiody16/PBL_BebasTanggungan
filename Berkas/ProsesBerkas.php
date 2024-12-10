@@ -746,6 +746,43 @@ function Berkas() {
 
 }
 
+function getAllPgmp() {
+    global $conn;
+    $role = $_SESSION['Role_ID'];
+
+    if ($role === 1 || $role === 2) {
+        $sql3 = "SELECT p.ID_Pengumpulan, m.NIM, m.Nama, m.Prodi, p.Status_Pengumpulan, p.Keterangan 
+                 FROM Pengumpulan AS p 
+                 INNER JOIN Mahasiswa AS m ON p.NIM = m.NIM 
+                 WHERE p.Status_Pengumpulan != 'Terverifikasi'";
+    } else if ($role === 3) {
+        $sql3 = "SELECT p.ID_Pengumpulan, m.NIM, m.Nama, m.Prodi, p.Status_Pengumpulan, p.Keterangan 
+                 FROM Pengumpulan AS p 
+                 INNER JOIN Mahasiswa AS m ON p.NIM = m.NIM 
+                 WHERE p.Status_Pengumpulan != 'Terverifikasi' AND m.Prodi = 'TI'";
+    } else if ($role === 4) {
+        $sql3 = "SELECT p.ID_Pengumpulan, m.NIM, m.Nama, m.Prodi, p.Status_Pengumpulan, p.Keterangan 
+                 FROM Pengumpulan AS p 
+                 INNER JOIN Mahasiswa AS m ON p.NIM = m.NIM 
+                 WHERE p.Status_Pengumpulan != 'Terverifikasi' AND m.Prodi = 'SIB'";
+    } else if ($role === 5) {
+        $sql3 = "SELECT p.ID_Pengumpulan, m.NIM, m.Nama, m.Prodi, p.Status_Pengumpulan, p.Keterangan 
+                 FROM Pengumpulan AS p 
+                 INNER JOIN Mahasiswa AS m ON p.NIM = m.NIM 
+                 WHERE p.Status_Pengumpulan != 'Terverifikasi' AND m.Prodi = 'PPLS'";
+    } else {
+        return false; 
+    }
+
+    $stmt3 = sqlsrv_query($conn, $sql3);
+
+    if ($stmt3 === false) {
+        die(print_r(sqlsrv_errors(), true));
+    }
+
+    return $stmt3;
+}
+
 
 $sql = "SELECT a.ID_Administrasi, m.NIM, m.Nama, a.Status_Verifikasi, a.Keterangan FROM Administrasi AS a
         INNER JOIN Pengumpulan AS p ON a.ID_Pengumpulan = p.ID_Pengumpulan INNER JOIN Mahasiswa AS m ON p.NIM = m.NIM
@@ -762,14 +799,6 @@ $sql2 = "SELECT a.ID_Aplikasi, m.NIM, m.Nama, a.Status_Verifikasi, a.Keterangan 
 $stmt2 = sqlsrv_query($conn, $sql2);
 
 if ($stmt2 === false) {
-    die(print_r(sqlsrv_errors(), true));
-}
-
-$sql3 = "SELECT p.ID_Pengumpulan, m.NIM, m.Nama, p.Status_Pengumpulan, p.Keterangan FROM Pengumpulan AS p 
-         INNER JOIN Mahasiswa AS m ON p.NIM = m.NIM WHERE p.Status_Pengumpulan != 'Terverifikasi' ";
-$stmt3 = sqlsrv_query($conn, $sql3);
-
-if ($stmt3 === false) {
     die(print_r(sqlsrv_errors(), true));
 }
 

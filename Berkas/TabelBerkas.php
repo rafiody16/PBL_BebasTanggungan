@@ -1,9 +1,9 @@
 <?php
 session_start();
 
-header("Cache-Control: no-cache, no-store, must-revalidate"); // Untuk HTTP/1.1
-header("Pragma: no-cache"); // Untuk HTTP/1.0
-header("Expires: 0");
+// header("Cache-Control: no-cache, no-store, must-revalidate"); // Untuk HTTP/1.1
+// header("Pragma: no-cache"); // Untuk HTTP/1.0
+// header("Expires: 0");
 
 
 if ($_SESSION['Role_ID'] === 6 || $_SESSION['Role_ID'] === 7 || $_SESSION['Role_ID'] === 8) {
@@ -12,6 +12,7 @@ if ($_SESSION['Role_ID'] === 6 || $_SESSION['Role_ID'] === 7 || $_SESSION['Role_
     window.history.back();
     </script>";
   }
+
 
 ?>
 
@@ -85,6 +86,7 @@ if ($_SESSION['Role_ID'] === 6 || $_SESSION['Role_ID'] === 7 || $_SESSION['Role_
                                         <tbody>
                                             <?php
                                             include('ProsesBerkas.php');
+                                            $stmt3 = getAllPgmp();
                                             $no = 1;
                                             while ($row = sqlsrv_fetch_array($stmt3, SQLSRV_FETCH_ASSOC)) {
                                                 if ($row) {
@@ -276,7 +278,7 @@ if ($_SESSION['Role_ID'] === 6 || $_SESSION['Role_ID'] === 7 || $_SESSION['Role_
                             console.error('Terjadi kesalahan:', error);
                             alert('Gagal memproses data. Silakan coba lagi.');
                         }
-                    });
+                    })
                 }
             });
 
