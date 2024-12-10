@@ -174,7 +174,7 @@
                             </li>
                         <?php } ?>
                         <li class="submenu-item <?php echo ($current_page == 'ubahPassword.php') ? 'active' : ''; ?>">
-                            <a href="../../User/mahasiswa/ubahPassword.php" class="submenu-link">Keamanan</a>
+                            <a href="../../User/mahasiswa/ubahPassword.php" class="submenu-link">Ubah Password</a>
                         </li>
                         <li class="submenu-item <?php echo ($current_page == 'dashboardMHS.php') ? 'active' : ''; ?>">
                             <a href="../../Login/Logout.php" class="submenu-link">Logout</a>

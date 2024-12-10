@@ -9,7 +9,7 @@ if (!isset($_SESSION['Username'])) {
 }
 
 // Cek hak akses
-if ($_SESSION['Role_ID'] != 1 || $_SESSION['Role_ID'] != 2 || $_SESSION['Role_ID'] != 3 || $_SESSION['Role_ID'] != 4 || $_SESSION['Role_ID'] != 5) {
+if ($_SESSION['Role_ID'] === 6 || $_SESSION['Role_ID'] === 7 || $_SESSION['Role_ID'] === 8) {
     echo "<script>
     alert('Anda tidak memiliki akses ke halaman ini.');
     window.history.back();
