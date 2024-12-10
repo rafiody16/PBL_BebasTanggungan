@@ -91,7 +91,24 @@ if ($_SESSION['Role_ID'] != 1) {
                           <h6 class="text-muted font-semibold">
                             Jumlah User Mahasiswa
                           </h6>
-                          <h6 class="font-extrabold mb-0">112.000</h6>
+                          <h6 class="font-extrabold mb-0">
+                            <?php 
+                            $sql = "SELECT COUNT(NIM) AS jumlah_mahasiswa FROM Mahasiswa";
+                            $stmt = sqlsrv_query($conn, $sql);
+                            
+                            if ($stmt === false) {
+                                die("Query gagal: " . print_r(sqlsrv_errors(), true));
+                            }
+                            
+                            // Ambil hasil query
+                            $jumlahMahasiswa = 0;
+                            if ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+                                $jumlahMahasiswa = $row['jumlah_mahasiswa'];
+                            }
+
+                            echo number_format($jumlahMahasiswa);
+                            ?>
+                          </h6>
                         </div>
                       </div>
                     </div>
@@ -110,7 +127,24 @@ if ($_SESSION['Role_ID'] != 1) {
                         </div>
                         <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
                           <h6 class="text-muted font-semibold">Jumlah User Staff</h6>
-                          <h6 class="font-extrabold mb-0">183.000</h6>
+                          <h6 class="font-extrabold mb-0">
+                            <?php 
+                            $sql = "SELECT COUNT(NIP) AS jumlah_staff FROM Staff";
+                            $stmt = sqlsrv_query($conn, $sql);
+                            
+                            if ($stmt === false) {
+                                die("Query gagal: " . print_r(sqlsrv_errors(), true));
+                            }
+                            
+                            // Ambil hasil query
+                            $jumlahStaff = 0;
+                            if ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+                                $jumlahStaff = $row['jumlah_staff'];
+                            }
+
+                            echo number_format($jumlahStaff);
+                            ?>
+                          </h6>
                         </div>
                       </div>
                     </div>
@@ -128,8 +162,25 @@ if ($_SESSION['Role_ID'] != 1) {
                           </div>
                         </div>
                         <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
-                          <h6 class="text-muted font-semibold">Following</h6>
-                          <h6 class="font-extrabold mb-0">80.000</h6>
+                          <h6 class="text-muted font-semibold">Jumlah Verifikasi</h6>
+                          <h6 class="font-extrabold mb-0">
+                            <?php 
+                            $sql = "SELECT COUNT(ID_Pengumpulan) AS jml_verifikasi FROM statusTerverifikasi;";
+                            $stmt = sqlsrv_query($conn, $sql);
+                            
+                            if ($stmt === false) {
+                                die("Query gagal: " . print_r(sqlsrv_errors(), true));
+                            }
+                            
+                            // Ambil hasil query
+                            $jumlahVerifikasi = 0;
+                            if ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+                                $jumlahVerifikasi = $row['jml_verifikasi'];
+                            }
+
+                            echo number_format($jumlahVerifikasi);
+                            ?>
+                          </h6>
                         </div>
                       </div>
                     </div>
@@ -147,8 +198,25 @@ if ($_SESSION['Role_ID'] != 1) {
                           </div>
                         </div>
                         <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
-                          <h6 class="text-muted font-semibold">Saved Post</h6>
-                          <h6 class="font-extrabold mb-0">112</h6>
+                          <h6 class="text-muted font-semibold">Jumlah Arsip Data</h6>
+                          <h6 class="font-extrabold mb-0">
+                            <?php 
+                            $sql = "SELECT COUNT(ID_Pengumpulan) AS jml_verifikasi FROM statusTerverifikasi;";
+                            $stmt = sqlsrv_query($conn, $sql);
+                            
+                            if ($stmt === false) {
+                                die("Query gagal: " . print_r(sqlsrv_errors(), true));
+                            }
+                            
+                            // Ambil hasil query
+                            $jumlahVerifikasi = 0;
+                            if ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+                                $jumlahVerifikasi = $row['jml_verifikasi'];
+                            }
+
+                            echo number_format($jumlahVerifikasi);
+                            ?>
+                          </h6>
                         </div>
                       </div>
                     </div>
