@@ -357,9 +357,26 @@ function getDataStaffByNip() {
     }
 }
 
-$sql = "SELECT s.NIP, s.Nama, r.Nama_Role, u.Email, s.NoHp FROM Staff AS s
-        INNER JOIN [User] AS u ON s.ID_User = u.ID_User INNER JOIN Role AS r ON u.Role_ID = r.Role_ID";
-$stmt = sqlsrv_query($conn, $sql);
+// $sql = "SELECT s.NIP, s.Nama, r.Nama_Role, u.Email, s.NoHp FROM Staff AS s
+//         INNER JOIN [User] AS u ON s.ID_User = u.ID_User INNER JOIN Role AS r ON u.Role_ID = r.Role_ID";
+// $stmt = sqlsrv_query($conn, $sql);
+
+// if ($stmt === false) {
+//     die(print_r(sqlsrv_errors(), true));
+// }
+
+$role = isset($_GET['role']) ? $_GET['role'] : '';
+$email = isset($_GET['email']) ? $_GET['email'] : '';
+
+// Buat query dengan filter
+$sql = "SELECT s.NIP, s.Nama, r.Nama_Role, u.Email, s.NoHp 
+        FROM Staff AS s
+        INNER JOIN [User] AS u ON s.ID_User = u.ID_User 
+        INNER JOIN Role AS r ON u.Role_ID = r.Role_ID 
+        WHERE (r.Nama_Role LIKE ? OR ? = '')"; 
+
+$params = array("%$role%", $role);
+$stmt = sqlsrv_query($conn, $sql, $params);
 
 if ($stmt === false) {
     die(print_r(sqlsrv_errors(), true));
