@@ -288,17 +288,19 @@ echo "Selamat Datang " . $_SESSION['Nama'];
 
             $(".btn-verifikasi").click(function() {
                 var ID_Administrasi = $(this).data("id");
-                $.ajax({
-                    url: "ProsesBerkas.php",
-                    type: "POST",
-                    data: {
-                        ID_Administrasi: ID_Administrasi,
-                        action: "verifikasiAdministrasi"
-                    },
-                    success: function(response) {
-                        location.reload();
-                    }
-                })
+                if (confirm("Apakah Anda yakin ingin memverifikasi data ini?")) {
+                    $.ajax({
+                        url: "ProsesBerkas.php",
+                        type: "POST",
+                        data: {
+                            ID_Administrasi: ID_Administrasi,
+                            action: "verifikasiAdministrasi"
+                        },
+                        success: function(response) {
+                            location.reload();
+                        }
+                    })
+                }
             });
 
             $('.btn-tolak').on('click', function() {
@@ -308,22 +310,24 @@ echo "Selamat Datang " . $_SESSION['Nama'];
                     alert('Keterangan harus diisi!');
                     return;
                 }
-                $.ajax({
-                    url: 'ProsesBerkas.php',
-                    type: 'POST',
-                    data: {
-                        action: 'tolakAdministrasi',
-                        ID_Administrasi: ID_Administrasi,
-                        Keterangan: Keterangan
-                    },
-                    success: function(response) {
-                        location.reload();
-                    },
-                    error: function(xhr, status, error) {
-                        console.error('Terjadi kesalahan:', error);
-                        alert('Gagal memproses data. Silakan coba lagi.');
-                    }
-                });
+                if (confirm("Apakah Anda yakin ingin menolak data ini?")) {
+                    $.ajax({
+                        url: 'ProsesBerkas.php',
+                        type: 'POST',
+                        data: {
+                            action: 'tolakAdministrasi',
+                            ID_Administrasi: ID_Administrasi,
+                            Keterangan: Keterangan
+                        },
+                        success: function(response) {
+                            location.reload();
+                        },
+                        error: function(xhr, status, error) {
+                            console.error('Terjadi kesalahan:', error);
+                            alert('Gagal memproses data. Silakan coba lagi.');
+                        }
+                    });
+                }
             });
 
             $("#modalClose").click(function() {
