@@ -747,9 +747,27 @@ function Berkas() {
 }
 
 
-$sql = "SELECT a.ID_Administrasi, m.NIM, m.Nama, a.Status_Verifikasi, a.Keterangan FROM Administrasi AS a
-        INNER JOIN Pengumpulan AS p ON a.ID_Pengumpulan = p.ID_Pengumpulan INNER JOIN Mahasiswa AS m ON p.NIM = m.NIM";
-$stmt = sqlsrv_query($conn, $sql);
+// $sql = "SELECT a.ID_Administrasi, m.NIM, m.Nama, a.Status_Verifikasi, a.Keterangan FROM Administrasi AS a
+//         INNER JOIN Pengumpulan AS p ON a.ID_Pengumpulan = p.ID_Pengumpulan INNER JOIN Mahasiswa AS m ON p.NIM = m.NIM";
+// $stmt = sqlsrv_query($conn, $sql);
+
+// if ($stmt === false) {
+//     die(print_r(sqlsrv_errors(), true));
+// }
+
+$prodi = isset($_GET['prodi']) ? $_GET['prodi'] : '';
+$tahunAngkatan = isset($_GET['tahunAngkatan']) ? $_GET['tahunAngkatan'] : '';
+
+// Buat query dengan filter
+$sql = "SELECT a.ID_Administrasi, m.NIM, m.Nama, a.Status_Verifikasi, a.Keterangan 
+        FROM Administrasi AS a
+        INNER JOIN Pengumpulan AS p ON a.ID_Pengumpulan = p.ID_Pengumpulan 
+        INNER JOIN Mahasiswa AS m ON p.NIM = m.NIM 
+        WHERE (m.Prodi LIKE ? OR ? = '') 
+        AND (m.Tahun_Angkatan LIKE ? OR ? = '')";
+
+$params = array("%$prodi%", $prodi, "%$tahunAngkatan%", $tahunAngkatan);
+$stmt = sqlsrv_query($conn, $sql, $params);
 
 if ($stmt === false) {
     die(print_r(sqlsrv_errors(), true));
