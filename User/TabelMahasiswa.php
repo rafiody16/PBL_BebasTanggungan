@@ -80,9 +80,42 @@ if ($_SESSION['Role_ID'] === 6 || $_SESSION['Role_ID'] === 7 || $_SESSION['Role_
                     <div class="row">
                         <div class="col-12">
                             <div class="card">
-                                <div class="card-header">
-                                    <h5 class="card-title">Tabel Mahasiswa</h5>
-                                </div>
+                            <div class="card-header">
+                                <h5 class="card-title">Tabel Mahasiswa</h5>
+                                <form action="" method="get" class="form-inline">
+                                    <div class="form-group mb-2">
+                                        <label for="prodi" class="mr-2">Prodi:</label>
+                                        <select name="prodi" id="prodi" class="form-control">
+                                            <option value=""></option>
+                                            <?php 
+                                                // Ambil daftar prodi dari database
+                                                $stmtProdi = sqlsrv_query($conn, "SELECT DISTINCT Prodi FROM Mahasiswa");
+                                                $selectedProdi = isset($_GET['prodi']) ? $_GET['prodi'] : ''; // Ambil nilai prodi yang dipilih
+                                                while ($rowProdi = sqlsrv_fetch_array($stmtProdi, SQLSRV_FETCH_ASSOC)) {
+                                                    $selected = ($rowProdi['Prodi'] == $selectedProdi) ? 'selected' : ''; // Cek apakah ini yang dipilih
+                                                    echo "<option value='" . htmlspecialchars($rowProdi['Prodi']) . "' $selected>" . htmlspecialchars($rowProdi['Prodi']) . "</option>";
+                                                }     
+                                            ?>
+                                        </select>
+                                    </div>
+                                    <div class="form-group mb-2">
+                                        <label for="tahunAngkatan" class="mr-2">Tahun Angkatan:</label>
+                                        <select name="tahunAngkatan" id="tahunAngkatan" class="form-control">
+                                            <option value=""></option>
+                                            <?php 
+                                                // Ambil daftar tahun angkatan dari database
+                                                $stmtTahunAngkatan = sqlsrv_query($conn, "SELECT DISTINCT Tahun_Angkatan FROM Mahasiswa");
+                                                $selectedTahunAngkatan = isset($_GET['tahunAngkatan']) ? $_GET['tahunAngkatan'] : ''; // Ambil nilai tahun angkatan yang dipilih
+                                                while ($rowTahunAngkatan = sqlsrv_fetch_array($stmtTahunAngkatan, SQLSRV_FETCH_ASSOC)) {
+                                                    $selected = ($rowTahunAngkatan['Tahun_Angkatan'] == $selectedTahunAngkatan) ? 'selected' : ''; // Cek apakah ini yang dipilih
+                                                    echo "<option value='" . htmlspecialchars($rowTahunAngkatan['Tahun_Angkatan']) . "' $selected>" . htmlspecialchars($rowTahunAngkatan['Tahun_Angkatan']) . "</option>";
+                                                }
+                                            ?>
+                                        </select>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary mb-2">Filter</button>
+                                </form>
+                            </div>
                                 <div class="card-body">
                                     <div class="table-responsive">
                             <table class="table table-lg">
@@ -128,6 +161,7 @@ if ($_SESSION['Role_ID'] === 6 || $_SESSION['Role_ID'] === 7 || $_SESSION['Role_
                                 ?>
                                 </tbody>
                             </table>
+                            <a href="TabelMahasiswa.php" class="btn btn-secondary mb-3">Reset Filter</a>
                         </div>
                     </div>
                             </div>

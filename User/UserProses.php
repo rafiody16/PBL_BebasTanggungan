@@ -365,11 +365,29 @@ if ($stmt === false) {
     die(print_r(sqlsrv_errors(), true));
 }
 
-$sql2 = "SELECT m.NIM, m.Nama, m.JenisKelamin, u.Email, m.Alamat, m.NoHp, m.Prodi FROM Mahasiswa AS m
-        INNER JOIN [User] AS u ON m.ID_User = u.ID_User INNER JOIN Role AS r ON u.Role_ID = r.Role_ID";
-$stmt2 = sqlsrv_query($conn, $sql2);
+// $sql2 = "SELECT m.NIM, m.Nama, m.JenisKelamin, u.Email, m.Alamat, m.NoHp, m.Prodi, m.Tahun_Angkatan FROM Mahasiswa AS m
+//         INNER JOIN [User] AS u ON m.ID_User = u.ID_User INNER JOIN Role AS r ON u.Role_ID = r.Role_ID";
+// $stmt2 = sqlsrv_query($conn, $sql2);
 
-if ($stmt === false) {
+// if ($stmt2 === false) {
+//     die(print_r(sqlsrv_errors(), true));
+// }
+
+// Ambil filter dari request
+$prodi = isset($_GET['prodi']) ? $_GET['prodi'] : '';
+$tahunAngkatan = isset($_GET['tahunAngkatan']) ? $_GET['tahunAngkatan'] : '';
+
+// Buat query dengan filter
+$sql2 = "SELECT m.NIM, m.Nama, m.JenisKelamin, u.Email, m.Alamat, m.NoHp, m.Prodi, m.Tahun_Angkatan FROM Mahasiswa AS m
+          INNER JOIN [User ] AS u ON m.ID_User = u.ID_User 
+          INNER JOIN Role AS r ON u.Role_ID = r.Role_ID 
+          WHERE (m.Prodi LIKE ? OR ? = '') 
+          AND (m.Tahun_Angkatan LIKE ? OR ? = '')";
+
+$params = array("%$prodi%", $prodi, "%$tahunAngkatan%", $tahunAngkatan);
+$stmt2 = sqlsrv_query($conn, $sql2, $params);
+
+if ($stmt2 === false) {
     die(print_r(sqlsrv_errors(), true));
 }
 
