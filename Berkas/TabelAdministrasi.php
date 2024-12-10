@@ -128,7 +128,7 @@ if ($_SESSION['Role_ID'] === 2 || $_SESSION['Role_ID'] === 3 || $_SESSION['Role_
                                             <?php
                                             include('ProsesBerkas.php');
                                             $no = 1;
-                                            while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+                                            while ($row = sqlsrv_fetch_array($stmtAdm, SQLSRV_FETCH_ASSOC)) {
                                                 if ($row) {
                                                     $ID_Administrasi = $row['ID_Administrasi'];
                                                     $nim = $row['NIM'];

@@ -112,6 +112,7 @@ if ($_SESSION['Role_ID'] === 2 || $_SESSION['Role_ID'] === 3 || $_SESSION['Role_
                                         <th>#</th>
                                         <th>NIM</th>
                                         <th>Nama</th>
+                                        <th>Program Studi</th>
                                         <th>Status</th>
                                         <th>Keterangan</th>
                                         <th>Aksi</th>
@@ -121,7 +122,7 @@ if ($_SESSION['Role_ID'] === 2 || $_SESSION['Role_ID'] === 3 || $_SESSION['Role_
                                 <?php 
                                     include('ProsesBerkas.php');
                                     $no = 1;
-                                    while ($row = sqlsrv_fetch_array($stmt2, SQLSRV_FETCH_ASSOC)) {
+                                    while ($row = sqlsrv_fetch_array($stmtTA, SQLSRV_FETCH_ASSOC)) {
                                         if ($row) {
                                             $status = $row['Status_Verifikasi'];
                                             $ID_Aplikasi = $row['ID_Aplikasi'];
@@ -131,6 +132,7 @@ if ($_SESSION['Role_ID'] === 2 || $_SESSION['Role_ID'] === 3 || $_SESSION['Role_
                                                 echo "<td>" . htmlspecialchars($no++) . "</td>";
                                                 echo "<td>" . htmlspecialchars($nim) . "</td>";
                                                 echo "<td>" . htmlspecialchars($row['Nama']) . "</td>";
+                                                echo "<td>" . htmlspecialchars($row['Prodi']) . "</td>";
                                                 if ($status === 'Menunggu') {
                                                     ?>
                                                     <td><span class="badge bg-warning"><?= htmlspecialchars($status) ?></span></td>
