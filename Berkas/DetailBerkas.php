@@ -28,7 +28,7 @@ GetAllBerkas();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Unggah Berkas - Berkas Tugas Akhir</title>
+    <title>Detail Berkas - BeTaTI</title>
     
     <link rel="shortcut icon" href="../assets/img/logoJti.png" type="image/x-icon">
     <link rel="shortcut icon" href="../assets/img/logoJti.png" type="image/png">

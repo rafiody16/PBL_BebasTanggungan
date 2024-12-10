@@ -14,7 +14,7 @@
         <div class="sidebar-header position-relative">
             <div class="d-flex justify-content-between align-items-center">
                 <div class="logo">
-                    <a href="dashboardMHS.php">
+                    <a href="../User/mahasiswa/dashboardMHS.php">
                         <img src="../assets/img/logoBetati.png" alt="Logo" />
                     </a>
                 </div>
@@ -177,7 +177,7 @@
                         </a>
                     </li>
                 <?php } ?>
-                <li class="sidebar-item has-sub">
+                <li class="sidebar-item <?php echo ($current_page == 'profilMhs.php' || $current_page == 'profilStaff.php' || $current_page == 'ubahPassword.php' || $current_page == 'Logout.php') ? 'active' : ''; ?> has-sub">
                     <a href="#" class="sidebar-link">
                         <i class="bi bi-person-circle"></i>
                         <span>Akun</span>
