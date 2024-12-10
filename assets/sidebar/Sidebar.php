@@ -92,7 +92,7 @@
                     <li class="sidebar-item <?php echo ($current_page == 'TabelTA.php') ? 'active' : ''; ?>">
                         <a href="../../Berkas/TabelTA.php" class="sidebar-link">
                             <i class="bi bi-folder-check"></i>
-                            <span>Verifikas TA</span>
+                            <span>Verifikasi TA</span>
                         </a>
                     </li>
                 <?php } ?>
