@@ -210,3 +210,17 @@ RETURN
     WHERE (m.Prodi LIKE '%' + @prodi + '%' OR @prodi = '') 
     AND (m.Tahun_Angkatan LIKE '%' + @tahun_angkatan + '%' OR @tahun_angkatan = '') 
 );
+
+GO
+CREATE PROCEDURE FilterMahasiswa
+    @Prodi NVARCHAR(255),
+    @TahunAngkatan NVARCHAR(255)
+AS
+BEGIN
+    SELECT m.NIM, m.Nama, m.JenisKelamin, u.Email, m.Alamat, m.NoHp, m.Prodi, m.Tahun_Angkatan 
+    FROM Mahasiswa AS m
+    INNER JOIN [User] AS u ON m.ID_User = u.ID_User 
+    INNER JOIN Role AS r ON u.Role_ID = r.Role_ID 
+    WHERE (m.Prodi LIKE '%' + @Prodi + '%' OR @Prodi = '') 
+    AND (m.Tahun_Angkatan LIKE '%' + @TahunAngkatan + '%' OR @TahunAngkatan = '')
+END

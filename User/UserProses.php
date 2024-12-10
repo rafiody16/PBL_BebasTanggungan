@@ -394,14 +394,9 @@ if ($stmt === false) {
 $prodi = isset($_GET['prodi']) ? $_GET['prodi'] : '';
 $tahunAngkatan = isset($_GET['tahunAngkatan']) ? $_GET['tahunAngkatan'] : '';
 
-// Buat query dengan filter
-$sql2 = "SELECT m.NIM, m.Nama, m.JenisKelamin, u.Email, m.Alamat, m.NoHp, m.Prodi, m.Tahun_Angkatan FROM Mahasiswa AS m
-          INNER JOIN [User ] AS u ON m.ID_User = u.ID_User 
-          INNER JOIN Role AS r ON u.Role_ID = r.Role_ID 
-          WHERE (m.Prodi LIKE ? OR ? = '') 
-          AND (m.Tahun_Angkatan LIKE ? OR ? = '')";
-
-$params = array("%$prodi%", $prodi, "%$tahunAngkatan%", $tahunAngkatan);
+// Panggil Stored Procedure
+$sql2 = "{CALL FilterMahasiswa(?, ?)}";
+$params = array($prodi, $tahunAngkatan);
 $stmt2 = sqlsrv_query($conn, $sql2, $params);
 
 if ($stmt2 === false) {
