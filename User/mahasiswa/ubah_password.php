@@ -62,6 +62,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $user = new User($conn);
     $message = $user->changePassword($oldPassword, $newPassword, $confirmPassword);
 
-    echo "<script>alert('$message'); window.location.href = 'ubahPasswordMhs.html'; </script>";
+    echo "<script>alert('$message'); window.location.href = 'ubahPassword.php'; </script>";
 }
 ?>
