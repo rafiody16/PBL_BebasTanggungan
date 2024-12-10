@@ -12,6 +12,7 @@ if ($_SESSION['Role_ID'] === 8) {
     window.history.back();
     </script>";
   }
+$role = $_SESSION['Role_ID'];
 
 
 ?>
@@ -51,14 +52,14 @@ if ($_SESSION['Role_ID'] === 8) {
                 <div class="page-title">
                     <div class="row">
                         <div class="col-12 col-md-9 order-md-1 order-last">
-                            <h3>Verifikasi Berkas Mahasiswa</h3>
+                            <h3>Arsip Berkas</h3>
                             <p class="text-subtitle text-muted">-</p>
                         </div>
                         <div class="col-12 col-md-3 order-md-2 order-first">
                             <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="dashboardUser.html">Dashboard</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">Berkas Mahasiswa</li>
+                                    <li class="breadcrumb-item active" aria-current="page">Arsip Berkas Mahasiswa</li>
                                 </ol>
                             </nav>
                         </div>
@@ -79,22 +80,27 @@ if ($_SESSION['Role_ID'] === 8) {
                                                 <th>NIM</th>
                                                 <th>Nama</th>
                                                 <th>Status</th>
-                                                <th>Keterangan</th>
                                                 <th>Aksi</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <?php
                                             include('ProsesBerkas.php');
-                                            $stmt3 = getAllPgmp();
+                                            $stmt3 = Arsip();
                                             $no = 1;
                                             while ($row = sqlsrv_fetch_array($stmt3, SQLSRV_FETCH_ASSOC)) {
                                                 if ($row) {
-                                                    $ID_Pengumpulan = $row['ID_Pengumpulan'];
+                                                    if ($role === 6) {
+                                                        $id = $row['ID_Aplikasi'];
+                                                    } else if ($role === 7) {   
+                                                        $id = $row['ID_Administrasi'];
+                                                    } else {
+                                                        $id = $row['ID_Pengumpulan'];   
+                                                    }
                                                     $nim = $row['NIM'];
                                                     $status = $row['Status_Pengumpulan'];
                                                     echo "<tr>";
-                                                    echo "<td style='display:none;'>" . htmlspecialchars($ID_Pengumpulan) . "</td>";
+                                                    echo "<td style='display:none;'>" . htmlspecialchars($id) . "</td>";
                                                     echo "<td>" . htmlspecialchars($no++) . "</td>";
                                                     echo "<td>" . htmlspecialchars($nim) . "</td>";
                                                     echo "<td>" . htmlspecialchars($row['Nama']) . "</td>";
@@ -111,14 +117,26 @@ if ($_SESSION['Role_ID'] === 8) {
                                                         <td><span class="badge bg-danger"><?= htmlspecialchars($status) ?></span></td>
                                                         <?php
                                                     }
-                                                    echo "<td>" . htmlspecialchars($row['Keterangan']) . "</td>";
+
+                                                    if ($role === 1 || $role === 2 || $role === 3 || $role === 4 || $role === 5) {
                                             ?>
                                                     <td>
                                                         <button data-bs-toggle="modal" data-bs-target="#lihat" class="btn btn-primary">Detail</button>
-                                                        <button data-id="<?= $ID_Pengumpulan ?>" class="btn btn-success btn-verifikasi">Verifikasi</button>
-                                                        <button data-bs-toggle="modal" data-bs-target="#default" class="btn btn-danger">Tolak</button>
                                                     </td>
                                             <?php
+                                                    } else if ($role === 6) {
+                                            ?> 
+                                                    <td>
+                                                        <a href="DetailTA.php?ID_Aplikasi=<?= $id ?>" class="btn btn-primary">Detail</a>
+                                                    </td>
+                                            <?php 
+                                                    } else if ($role === 7) {
+                                            ?>
+                                                    <td>
+                                                        <a href="DetailTA.php?ID_Aplikasi=<?= $id ?>" class="btn btn-primary">Detail</a>
+                                                    </td>
+                                            <?php
+                                                    }
                                                     echo "</tr>";
                                                 } else {
                                                     echo "Belum ada data";
@@ -132,49 +150,6 @@ if ($_SESSION['Role_ID'] === 8) {
                         </div>
                     </div>
                 </section>
-            </div>
-            <div class="modal fade text-left" id="default" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-scrollable" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="myModalLabel1">Tolak Verifikasi</h5>
-                            <button type="button" class="close rounded-pill" data-bs-dismiss="modal"
-                                aria-label="Close">
-                                <i data-feather="x"></i>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <form action="ProsesBerkas.php" method="POST">
-                            <div class="col-12">
-                                    <div class="form-group">
-                                        <label for="SubBagian">Sub Bagian</label>
-                                        <select class="form-select" name="SubBagian" id="SubBagian">
-                                            <option>-- Pilih Sub Bagian --</option>
-                                            <option value="Administrasi">Administrasi</option>
-                                            <option value="TA">Tugas Akhir</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="form-group">
-                                        <label for="Keterangan">Keterangan</label>
-                                        <input type="text" class="form-control" name="Keterangan" placeholder="Masukkan Keterangan">
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn" data-bs-dismiss="modal">
-                                <i class="bx bx-x d-block d-sm-none"></i>
-                                <span class="d-none d-sm-block">Tutup</span>
-                            </button>
-                            <button type="button" class="btn btn-danger btn-tolak" data-bs-dismiss="modal" data-id="<?= $ID_Pengumpulan ?>">
-                                <i class="bx bx-check d-block d-sm-none"></i>
-                                <span class="d-none d-sm-block">Tolak</span>
-                            </button>
-                        </div>
-                    </div>
-                </div>
             </div>
             <div class="modal fade text-left" id="lihat" tabindex="-1" role="dialog" aria-labelledby="detailModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-scrollable" role="document">

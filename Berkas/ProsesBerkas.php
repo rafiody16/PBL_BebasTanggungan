@@ -820,7 +820,7 @@ function Arsip() {
                 INNER JOIN
                    TugasAkhir AS t ON p.ID_Pengumpulan = t.ID_Pengumpulan
                 WHERE 
-                    p.Status_Pengumpulan != 'Terverifikasi' 
+                    p.Status_Pengumpulan = 'Terverifikasi' 
                     AND a.Status_Verifikasi = 'Terverifikasi'
                     AND t.Status_Verifikasi = 'Terverifikasi'";
 
@@ -845,13 +845,14 @@ function Arsip() {
 }
 
 
-// $sql = "SELECT a.ID_Administrasi, m.NIM, m.Nama, a.Status_Verifikasi, a.Keterangan FROM Administrasi AS a
-//         INNER JOIN Pengumpulan AS p ON a.ID_Pengumpulan = p.ID_Pengumpulan INNER JOIN Mahasiswa AS m ON p.NIM = m.NIM";
-// $stmt = sqlsrv_query($conn, $sql);
+$sqlAdm = "SELECT a.ID_Administrasi, m.NIM, m.Nama, m.Prodi, a.Status_Verifikasi, a.Keterangan FROM Administrasi AS a
+        INNER JOIN Pengumpulan AS p ON a.ID_Pengumpulan = p.ID_Pengumpulan INNER JOIN Mahasiswa AS m ON p.NIM = m.NIM
+        WHERE a.Status_Verifikasi != 'Terverifikasi'";
+$stmtAdm = sqlsrv_query($conn, $sqlAdm);
 
-// if ($stmt === false) {
-//     die(print_r(sqlsrv_errors(), true));
-// }
+if ($stmtAdm === false) {
+    die(print_r(sqlsrv_errors(), true));
+}
 
 $prodi = isset($_GET['prodi']) ? $_GET['prodi'] : '';
 $tahunAngkatan = isset($_GET['tahunAngkatan']) ? $_GET['tahunAngkatan'] : '';
@@ -865,14 +866,14 @@ if ($stmt === false) {
     die(print_r(sqlsrv_errors(), true));
 }
 
-// $sql2 = "SELECT a.ID_Aplikasi, m.NIM, m.Nama, a.Status_Verifikasi, a.Keterangan FROM TugasAkhir AS a
-//         INNER JOIN Pengumpulan AS p ON a.ID_Pengumpulan = p.ID_Pengumpulan INNER JOIN Mahasiswa AS m ON p.NIM = m.NIM
-//         WHERE a.Status_Verifikasi != 'Terverifikasi' ";
-// $stmt2 = sqlsrv_query($conn, $sql2);
+$sqlTA = "SELECT a.ID_Aplikasi, m.NIM, m.Nama, m.Prodi, a.Status_Verifikasi, a.Keterangan FROM TugasAkhir AS a
+        INNER JOIN Pengumpulan AS p ON a.ID_Pengumpulan = p.ID_Pengumpulan INNER JOIN Mahasiswa AS m ON p.NIM = m.NIM
+        WHERE a.Status_Verifikasi != 'Terverifikasi' ";
+$stmtTA = sqlsrv_query($conn, $sqlTA);
 
-// if ($stmt2 === false) {
-//     die(print_r(sqlsrv_errors(), true));
-// }
+if ($stmtTA === false) {
+    die(print_r(sqlsrv_errors(), true));
+}
 
 $prodi = isset($_GET['prodi']) ? $_GET['prodi'] : '';
 $tahunAngkatan = isset($_GET['tahunAngkatan']) ? $_GET['tahunAngkatan'] : '';

@@ -58,6 +58,11 @@ if ($_SESSION['Role_ID'] === 6 || $_SESSION['Role_ID'] === 7 || $_SESSION['Role_
                         <div class="col-12 col-md-6 order-md-1 order-last">
                             <h3>Tabel Mahasiswa</h3>
                             <p class="text-subtitle text-muted">Data mahasiswa.</p>
+                            <?php if($role === 1 || $role === 2 || $role === 3 || $role === 4 || $role === 5) { ?>
+                            <div>
+                                <a href="FormMahasiswa.php" class="btn btn-success">Tambah Data</a>
+                            </div>
+                            <?php } ?>
                         </div>
                         <div class="col-12 col-md-6 order-md-2 order-first">
                             <nav

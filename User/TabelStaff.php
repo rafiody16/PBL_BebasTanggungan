@@ -16,6 +16,8 @@ if ($_SESSION['Role_ID'] === 3 || $_SESSION['Role_ID'] === 4 || $_SESSION['Role_
     </script>";
 }
 
+$role = $_SESSION['Role_ID'];
+
 // Kode halaman admin di sini
 ?>
 
@@ -58,6 +60,11 @@ if ($_SESSION['Role_ID'] === 3 || $_SESSION['Role_ID'] === 4 || $_SESSION['Role_
                         <div class="col-12 col-md-6 order-md-1 order-last">
                             <h3>Tabel Staff</h3>
                             <p class="text-subtitle text-muted">Data staff.</p>
+                            <?php if($role === 1) { ?>
+                            <div>
+                                <a href="FormStaff.php" class="btn btn-success">Tambah Data</a>
+                            </div>
+                            <?php } ?>
                         </div>
                         <div class="col-12 col-md-6 order-md-2 order-first">
                             <nav
@@ -71,7 +78,7 @@ if ($_SESSION['Role_ID'] === 3 || $_SESSION['Role_ID'] === 4 || $_SESSION['Role_
                                     <li class="breadcrumb-item active" aria-current="page">
                                     Lihat Data Staff
                                     </li>
-                                </ol>
+                              /ol>
                             </nav>
                             </div>
                     </div>
@@ -133,8 +140,10 @@ if ($_SESSION['Role_ID'] === 3 || $_SESSION['Role_ID'] === 4 || $_SESSION['Role_
                                                 ?>
                                                 <td>
                                                     <button data-id="<?= $nip ?>" class="btn btn-primary btn-detail">Detail</button>
-                                                    <button data-id="<?= $nip ?>" class="btn btn-warning btn-edit">Edit</button>
-                                                    <button data-id="<?= $nip ?>" class="btn btn-danger btn-delete">Hapus</button>
+                                                    <?php if ($role === 1) { ?>
+                                                        <button data-id="<?= $nip ?>" class="btn btn-warning btn-edit">Edit</button>
+                                                        <button data-id="<?= $nip ?>" class="btn btn-danger btn-delete">Hapus</button>
+                                                    <?php } ?>
                                                 </td>
                                                 <?php
                                             echo "</tr>";
