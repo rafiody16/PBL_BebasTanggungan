@@ -748,7 +748,8 @@ function Berkas() {
 
 
 $sql = "SELECT a.ID_Administrasi, m.NIM, m.Nama, a.Status_Verifikasi, a.Keterangan FROM Administrasi AS a
-        INNER JOIN Pengumpulan AS p ON a.ID_Pengumpulan = p.ID_Pengumpulan INNER JOIN Mahasiswa AS m ON p.NIM = m.NIM";
+        INNER JOIN Pengumpulan AS p ON a.ID_Pengumpulan = p.ID_Pengumpulan INNER JOIN Mahasiswa AS m ON p.NIM = m.NIM
+        WHERE a.Status_Verifikasi != 'Terverifikasi' ";
 $stmt = sqlsrv_query($conn, $sql);
 
 if ($stmt === false) {
@@ -756,7 +757,8 @@ if ($stmt === false) {
 }
 
 $sql2 = "SELECT a.ID_Aplikasi, m.NIM, m.Nama, a.Status_Verifikasi, a.Keterangan FROM TugasAkhir AS a
-        INNER JOIN Pengumpulan AS p ON a.ID_Pengumpulan = p.ID_Pengumpulan INNER JOIN Mahasiswa AS m ON p.NIM = m.NIM";
+        INNER JOIN Pengumpulan AS p ON a.ID_Pengumpulan = p.ID_Pengumpulan INNER JOIN Mahasiswa AS m ON p.NIM = m.NIM
+        WHERE a.Status_Verifikasi != 'Terverifikasi' ";
 $stmt2 = sqlsrv_query($conn, $sql2);
 
 if ($stmt2 === false) {
@@ -764,7 +766,7 @@ if ($stmt2 === false) {
 }
 
 $sql3 = "SELECT p.ID_Pengumpulan, m.NIM, m.Nama, p.Status_Pengumpulan, p.Keterangan FROM Pengumpulan AS p 
-         INNER JOIN Mahasiswa AS m ON p.NIM = m.NIM";
+         INNER JOIN Mahasiswa AS m ON p.NIM = m.NIM WHERE p.Status_Pengumpulan != 'Terverifikasi' ";
 $stmt3 = sqlsrv_query($conn, $sql3);
 
 if ($stmt3 === false) {
