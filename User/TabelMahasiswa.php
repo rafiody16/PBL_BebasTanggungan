@@ -128,6 +128,7 @@ if ($_SESSION['Role_ID'] === 6 || $_SESSION['Role_ID'] === 7 || $_SESSION['Role_
                                         <th>Prodi</th>
                                         <th>Jenis Kelamin</th>
                                         <th>No. HP</th>
+                                        <th>Tahun Angkatan</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -146,6 +147,7 @@ if ($_SESSION['Role_ID'] === 6 || $_SESSION['Role_ID'] === 7 || $_SESSION['Role_
                                                 echo "<td>" . htmlspecialchars($row['Prodi']) . "</td>";
                                                 echo "<td>" . htmlspecialchars($row['JenisKelamin']) . "</td>";
                                                 echo "<td>" . htmlspecialchars($row['NoHp']) . "</td>";
+                                                echo "<td>" . htmlspecialchars($row['Tahun_Angkatan']) . "</td>";
                                                 ?>
                                                 <td>
                                                     <button data-id="<?= $nim ?>" class="btn btn-primary btn-detail">Detail</button>
