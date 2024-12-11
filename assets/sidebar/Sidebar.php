@@ -177,14 +177,14 @@
                         </a>
                     </li>
                 <?php } ?>
-                <li class="sidebar-item has-sub">
+                <li class="sidebar-item <?php echo ($current_page == 'ProfilMhs.php' || $current_page == 'profilStaff.php' || $current_page == 'ubahPassword.php' || $current_page == 'Logout.php') ? 'active' : ''; ?> has-sub">
                     <a href="#" class="sidebar-link">
                         <i class="bi bi-person-circle"></i>
                         <span>Akun</span>
                     </a>
                     <ul class="submenu">
                         <?php if ($role === 8) { ?>
-                            <li class="submenu-item <?php echo ($current_page == 'profilMhs.php') ? 'active' : ''; ?>">
+                            <li class="submenu-item <?php echo ($current_page == 'ProfilMhs.php') ? 'active' : ''; ?>">
                                 <a href="../../User/mahasiswa/ProfilMhs.php" class="submenu-link">Profil Saya</a>
                             </li>
                         <?php } else {?>
