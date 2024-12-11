@@ -184,7 +184,7 @@ if ($_SESSION['Role_ID'] != 3) {
                           <?php 
                             $sql = "SELECT COUNT(ID_Pengumpulan) AS jml_verifikasi FROM Pengumpulan INNER JOIN
                                     Mahasiswa ON Pengumpulan.NIM = Mahasiswa.NIM
-                                    WHERE Pengumpulan.Status_Pengumpulan = 'Terverifikasi' AND Mahasiswa.Prodi = 'SIB';";
+                                    WHERE Pengumpulan.Status_Pengumpulan = 'Terverifikasi' AND Mahasiswa.Prodi = 'TI';";
                             $stmt = sqlsrv_query($conn, $sql);
                             
                             if ($stmt === false) {
