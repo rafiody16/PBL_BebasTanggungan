@@ -58,7 +58,11 @@ if ($_SESSION['Role_ID'] === 2 || $_SESSION['Role_ID'] === 3 || $_SESSION['Role_
             <div class="col-12 col-md-3 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="dashboardUser.html">Dashboard</a></li>
+                        <?php if ($role === 1) { ?>
+                            <li class="breadcrumb-item"><a href="../index.php">Dashboard</a></li>
+                        <?php } else if ($role === 6) { ?>
+                            <li class="breadcrumb-item"><a href="../verifikatorTA.php">Dashboard</a></li>
+                        <?php } ?>
                         <li class="breadcrumb-item active" aria-current="page">Berkas Tugas Akhir</li>
                     </ol>
                 </nav>
