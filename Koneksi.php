@@ -1,6 +1,6 @@
 <?php 
 
-$serverName = "LAPTOP-6DB90827"; //Nama server dapat dilihat di ssms.
+$serverName = "DESKTOP-L75SO4G"; //Nama server dapat dilihat di ssms.
 $connectionInfo = array( "Database"=>"PBLBebasTanggungan");  
   
 /* Connect using Windows Authentication. */  
