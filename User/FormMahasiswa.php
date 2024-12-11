@@ -173,9 +173,10 @@ getDataMahasiswaByNim();
                                                             <input class="form-check-input" type="radio" name="JenisKelamin" id="jenkel2" value="P" 
                                                                 <?= (isset($jeniskelamin) && $jeniskelamin === 'P') ? 'checked' : '' ?>> Perempuan
                                                             <br>
+                                                            <br>
                                                         </div>
                                                     </div>
-                                                    <div class="col-12 d-flex justify-content-end">
+                                                    <div class="col-12 d-flex justify-content-start">
                                                         <button type="submit" class="btn btn-primary me-1 mb-1" name="simpanMahasiswa">Simpan</button>
                                                         <button type="reset" class="btn btn-light-secondary me-1 mb-1">Kembali</button>
                                                     </div>

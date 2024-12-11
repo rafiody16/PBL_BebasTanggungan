@@ -198,7 +198,7 @@ getDataStaffByNip();
                                                             <!-- <input type="file" class="image-preview-filepond" accept="image/*"
                                                             data-max-file-size="10MB" name="TTD" data-max-files="1"> -->
                                                         </div>
-                                                    <div class="col-12 d-flex justify-content-end">
+                                                    <div class="col-12 d-flex justify-content-start">
                                                         <button type="submit" class="btn btn-primary me-1 mb-1" name="simpanStaff">Simpan</button>
                                                         <button type="reset" class="btn btn-light-secondary me-1 mb-1">Kembali</button>
                                                     </div>

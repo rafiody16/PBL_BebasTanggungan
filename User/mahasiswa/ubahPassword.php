@@ -112,9 +112,11 @@
                           placeholder="Masukkan Konfirmasi password"
                           value=""
                         />
+
+                        <br>
                       </div>
 
-                      <div class="form-group my-2 d-flex justify-content-end">
+                      <div class="form-group my-2 d-flex justify-content-start">
                         <button type="submit" class="btn btn-primary">
                           Simpan Perubahan
                         </button>

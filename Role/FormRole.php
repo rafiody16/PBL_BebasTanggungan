@@ -85,7 +85,7 @@ getRoleById();
                                                             <textarea class="form-control" name="Deskripsi" rows="3"><?= isset($deskripsi) ? htmlspecialchars($deskripsi) : '' ?></textarea>
                                                         </div>
                                                     </div>
-                                                    <div class="col-12 d-flex justify-content-end">
+                                                    <div class="col-12 d-flex justify-content-start">
                                                         <button type="submit" class="btn btn-primary me-1 mb-1" name="simpanRole">Simpan</button>
                                                         <a href="TabelRole.php" class="btn btn-light-secondary me-1 mb-1">Kembali</a>
                                                     </div>
