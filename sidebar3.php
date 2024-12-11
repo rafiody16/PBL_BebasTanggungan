@@ -14,7 +14,7 @@
         <div class="sidebar-header position-relative">
             <div class="d-flex justify-content-between align-items-center">
                 <div class="logo">
-                    <a href="index.php">
+                    <a href="#">
                         <img src="assets/img/logoBetati.png" alt="Logo" />
                     </a>
                 </div>

@@ -14,15 +14,9 @@
         <div class="sidebar-header position-relative">
             <div class="d-flex justify-content-between align-items-center">
                 <div class="logo">
-                    <?php if ($role === 1) { ?>
-                        <a href="../index.php">
-                            <img src="../assets/img/logoBetati.png" alt="Logo" />
-                        </a>
-                    <?php } else if ($role === 8) { ?>
-                        <a href="../User/mahasiswa/dashboardMHS.php">
-                            <img src="../assets/img/logoBetati.png" alt="Logo" />
-                        </a>
-                    <?php } ?>
+                    <a href="#">
+                        <img src="../assets/img/logoBetati.png" alt="Logo" />
+                    </a>
                 </div>
                 <div class="theme-toggle d-flex gap-2 align-items-center mt-2">
                     <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" class="iconify iconify--system-uicons" width="20" height="20" viewBox="0 0 21 21">
