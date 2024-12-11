@@ -129,6 +129,7 @@ $role = $_SESSION['Role_ID'];
                                     $no = 1;
                                     while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
                                         if ($row) {
+                                            $roleBtn = $_SESSION['Role_ID'];
                                             $nip = $row['NIP'];
                                             echo "<tr>";
                                                 echo "<td>" . htmlspecialchars($no++) . "</td>";
@@ -140,7 +141,7 @@ $role = $_SESSION['Role_ID'];
                                                 ?>
                                                 <td>
                                                     <button data-id="<?= $nip ?>" class="btn btn-primary btn-detail">Detail</button>
-                                                    <?php if ($role != 1) { ?>
+                                                    <?php if ($roleBtn === 1) { ?>
                                                         <button data-id="<?= $nip ?>" class="btn btn-warning btn-edit">Edit</button>
                                                         <button data-id="<?= $nip ?>" class="btn btn-danger btn-delete">Hapus</button>
                                                     <?php } ?>  
