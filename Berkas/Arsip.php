@@ -92,13 +92,15 @@ $role = $_SESSION['Role_ID'];
                                                 if ($row) {
                                                     if ($role === 6) {
                                                         $idAplikasi = $row['ID_Aplikasi'];
+                                                        $status = $row['Status_Verifikasi'];
                                                     } else if ($role === 7) {   
                                                         $idAdministrasi = $row['ID_Administrasi'];
+                                                        $status = $row['Status_Verifikasi'];
                                                     } else {
                                                         $idPengumpulan = $row['ID_Pengumpulan'];   
+                                                        $status = $row['Status_Pengumpulan'];
                                                     }
                                                     $nim = $row['NIM'];
-                                                    $status = $row['Status_Pengumpulan'];
                                                     echo "<tr>";
                                                     echo "<td>" . htmlspecialchars($no++) . "</td>";
                                                     echo "<td>" . htmlspecialchars($nim) . "</td>";
