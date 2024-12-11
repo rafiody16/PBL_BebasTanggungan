@@ -165,7 +165,8 @@ if ($_SESSION['Role_ID'] != 1) {
                           <h6 class="text-muted font-semibold">Jumlah Verifikasi</h6>
                           <h6 class="font-extrabold mb-0">
                             <?php 
-                            $sql = "SELECT COUNT(ID_Pengumpulan) AS jml_verifikasi FROM Pengumpulan;";
+                            $sql = "SELECT COUNT(ID_Pengumpulan) AS jml_verifikasi FROM Pengumpulan
+                                    WHERE Status_Pengumpulan != 'Terverifikasi';";
                             $stmt = sqlsrv_query($conn, $sql);
                             
                             if ($stmt === false) {
@@ -201,7 +202,8 @@ if ($_SESSION['Role_ID'] != 1) {
                           <h6 class="text-muted font-semibold">Jumlah Arsip Data</h6>
                           <h6 class="font-extrabold mb-0">
                             <?php 
-                            $sql = "SELECT COUNT(ID_Pengumpulan) AS jml_verifikasi FROM Pengumpulan;";
+                            $sql = "SELECT COUNT(ID_Pengumpulan) AS jml_verifikasi FROM Pengumpulan
+                                    WHERE Status_Pengumpulan = 'Terverifikasi';";
                             $stmt = sqlsrv_query($conn, $sql);
                             
                             if ($stmt === false) {
