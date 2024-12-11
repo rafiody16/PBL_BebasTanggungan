@@ -68,7 +68,7 @@ if ($_SESSION['Role_ID'] === 6 || $_SESSION['Role_ID'] === 7 || $_SESSION['Role_
                     <div class="row">
                         <div class="card">
                             <div class="card-header">
-                                <h5 class="card-title">Tabel Administrasi</h5>
+                                <h5 class="card-title">Tabel Berkas</h5>
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
