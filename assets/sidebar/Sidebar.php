@@ -189,7 +189,7 @@
                             </li>
                         <?php } else {?>
                             <li class="submenu-item <?php echo ($current_page == 'profilStaff.php') ? 'active' : ''; ?>">
-                                <a href="../../admin/profilStaff.php" class="submenu-link">Profil Saya</a>
+                                <a href="../../User/admin/profilStaff.php" class="submenu-link">Profil Saya</a>
                             </li>
                         <?php } ?>
                         <li class="submenu-item <?php echo ($current_page == 'ubahPassword.php') ? 'active' : ''; ?>">
