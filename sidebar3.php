@@ -113,7 +113,7 @@
                     </li>
                 <?php } ?>
                 <?php if ($role === 1 || $role === 2 || $role === 3 || $role === 4 || $role === 5) { ?>
-                    <li class="sidebar-item has-sub">
+                    <li class="sidebar-item <?php echo ($current_page == 'FormMahasiswa.php' || $current_page == 'TabelMahasiswa.php') ? 'active' : ''; ?> has-sub">
                         <a href="#" class="sidebar-link">
                         <i class="bi bi-person-lines-fill"></i>
                         <span>Data Mahasiswa</span>
@@ -132,7 +132,7 @@
                     </li>
                 <?php } ?>
                 <?php if($role === 1 || $role === 2) { ?>
-                    <li class="sidebar-item has-sub">
+                    <li class="sidebar-item <?php echo ($current_page == 'FormStaff.php' || $current_page == 'TabelStaff.php') ? 'active' : ''; ?> has-sub">
                         <a href="#" class="sidebar-link">
                         <i class="bi bi-person-lines-fill"></i>
                         <span>Data Staff</span>
@@ -151,7 +151,7 @@
                     </li>
                 <?php } ?>
                 <?php if($role === 1) { ?>
-                    <li class="sidebar-item has-sub">
+                    <li class="sidebar-item <?php echo ($current_page == 'FormRole.php' || $current_page == 'TabelRole.php') ? 'active' : ''; ?> has-sub">
                         <a href="#" class="sidebar-link">
                         <i class="bi bi-person-badge-fill"></i>
                         <span>Role</span>
@@ -177,7 +177,7 @@
                         </a>
                     </li>
                 <?php } ?>
-                <li class="sidebar-item has-sub">
+                <li class="sidebar-item <?php echo ($current_page == 'ProfilMhs.php' || $current_page == 'profilStaff.php' || $current_page == 'ubahPassword.php' || $current_page == 'Logout.php') ? 'active' : ''; ?> has-sub">
                     <a href="#" class="sidebar-link">
                         <i class="bi bi-person-circle"></i>
                         <span>Akun</span>

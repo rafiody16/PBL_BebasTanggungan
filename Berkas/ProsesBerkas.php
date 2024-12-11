@@ -799,7 +799,7 @@ function Arsip() {
         INNER JOIN Pengumpulan AS p ON a.ID_Pengumpulan = p.ID_Pengumpulan INNER JOIN Mahasiswa AS m ON p.NIM = m.NIM
         WHERE a.Status_Verifikasi = 'Terverifikasi' ";
     } else if ($role === 7) {
-        $sql3 = "SELECT a.ID_Administrasi, m.NIM, m.Nama, a.Status_Verifikasi, a.Keterangan FROM TugasAkhir AS a
+        $sql3 = "SELECT a.ID_Administrasi, m.NIM, m.Nama, a.Status_Verifikasi, a.Keterangan FROM Administrasi AS a
         INNER JOIN Pengumpulan AS p ON a.ID_Pengumpulan = p.ID_Pengumpulan INNER JOIN Mahasiswa AS m ON p.NIM = m.NIM
         WHERE a.Status_Verifikasi = 'Terverifikasi' ";
     } else {

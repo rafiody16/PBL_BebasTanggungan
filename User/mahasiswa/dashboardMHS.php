@@ -94,6 +94,114 @@ if ($_SESSION['Role_ID'] != 8) {
           </div>
           </section>
         </div>
+        
+        <div class="faq-item">
+          <div class="question">
+            <p>Apa saja berkas yang diperlukan untuk Bebas Tanggungan Jurusan?</p>
+            <button class="toggle-button" onclick="toggleAnswer(this)">
+              <i class="bi bi-chevron-down"></i>
+            </button>
+          </div>
+          <div class="answer" style="display: none;">
+            <p>
+              <br>Berikut adalah tata cara untuk mengurus bebas tanggungan Tugas Akhir <br>
+              <br>1. Laporan Tugas Akhir/Skripsi yang sudah ber TTD format PDF maksimal 10 MB.<br>
+              <br>2. Upload Program/Aplikasi Tugas Akhir/Skripsi format ZIP/RAR maksimal 1 GB<br>
+              <br>3. Upload Surat Pernyataan Publikasi Jurnal/Paper/Conference/Seminar/HAKI/dll.<br>
+               
+            </p>
+          </div>
+        </div>
+        
+        <script>
+          function toggleAnswer(button) {
+            const answer = button.parentElement.nextElementSibling;
+            const isVisible = answer.style.display === "block";
+            answer.style.display = isVisible ? "none" : "block";
+            button.innerHTML = isVisible
+              ? '<i class="bi bi-chevron-down"></i>'
+              : '<i class="bi bi-chevron-up"></i>';
+          }
+        </script>
+        
+        <!-- Tambahkan Style -->
+        <style>
+          .faq-item {
+            border: 1px solid #ddd;
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+          }
+          .question {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+          }
+          .toggle-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+          }
+          .answer {
+            margin-top: 10px;
+            font-size: 14px;
+          }
+        </style>
+
+        <div class="faq-item">
+          <div class="question">
+            <p>Apa saja berkas yang dibutuhkan untuk Bebas Tanggungan Prodi?</p>
+            <button class="toggle-button" onclick="toggleAnswer(this)">
+              <i class="bi bi-chevron-down"></i>
+            </button>
+          </div>
+          <div class="answer" style="display: none;">
+            <p>
+              <br>1. Tanda Terima Penyerahan Laporan Tugas Akhir/Skripsi ke Ruang Baca.<br>
+              <br>2. Tanda Terima Penyerahan Laporan PKL/Magang ke Ruang Baca (Bila PKL/Magang lebih dari 1 kali, berkas dijadikan 1 PDF.)<br>
+              <br>3. Upload Surat Bebas Kompen<br>
+              <br>4. Upload Scan TOEIC dengan skor minimal 450 untuk Diploma 4
+               (Apabila sudah mengikuti 1x tes gratis Polinema dan 1x ujian mandiri berbayar, namun nilai masih kurang, maka akan diberikan surat keterangan dari UPA Bahasa (Grapol Lantai 3))<br>               
+            </p>
+          </div>
+        </div>
+        
+        <script>
+          function toggleAnswer(button) {
+            const answer = button.parentElement.nextElementSibling;
+            const isVisible = answer.style.display === "block";
+            answer.style.display = isVisible ? "none" : "block";
+            button.innerHTML = isVisible
+              ? '<i class="bi bi-chevron-down"></i>'
+              : '<i class="bi bi-chevron-up"></i>';
+          }
+        </script>
+        
+        <!-- Tambahkan Style -->
+        <style>
+          .faq-item {
+            border: 1px solid #ddd;
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+          }
+          .question {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+          }
+          .toggle-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+          }
+          .answer {
+            margin-top: 10px;
+            font-size: 14px;
+          }
+        </style>
 
         <footer>
           <div class="footer clearfix mb-0 text-muted">

@@ -89,7 +89,7 @@ if ($_SESSION['Role_ID'] != 3) {
         </div>
         <div class="page-content">
           <section class="row">
-                <div class="col-6 col-lg-3 col-md-6">
+                <div class="col-6 col-lg-4 col-md-6">
                   <div class="card">
                     <div class="card-body px-4 py-4-5">
                       <div class="row">
@@ -129,7 +129,7 @@ if ($_SESSION['Role_ID'] != 3) {
                     </div>
                   </div>
                 </div>
-                <div class="col-6 col-lg-3 col-md-6">
+                <div class="col-6 col-lg-4 col-md-6">
                   <div class="card">
                     <div class="card-body px-4 py-4-5">
                       <div class="row">
@@ -167,7 +167,7 @@ if ($_SESSION['Role_ID'] != 3) {
                     </div>
                   </div>
                 </div>
-                <div class="col-6 col-lg-3 col-md-6">
+                <div class="col-6 col-lg-4 col-md-6">
                   <div class="card">
                     <div class="card-body px-4 py-4-5">
                       <div class="row">
