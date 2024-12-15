@@ -64,8 +64,10 @@ class Mahasiswa extends User {
     }
 
     public function findByNIM($NIM) {
-        $sql = "SELECT * FROM Mahasiswa
-                WHERE NIM = ?";
+        $sql = "SELECT u.ID_User, u.Username, u.Email, u.Role_ID 
+                FROM [User] u
+                JOIN Mahasiswa m ON u.ID_User = s.ID_User
+                WHERE m.NIM = ?";
         $stmt = sqlsrv_query($this->conn, $sql, [$NIM]);
         if ($stmt === false) {
             return null;

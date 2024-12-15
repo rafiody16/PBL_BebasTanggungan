@@ -35,6 +35,10 @@ class User {
         return $this->Role_ID;
     }
 
+    public function getConn() {
+        return $this->conn;
+    }
+
     public function setUsername($Username) {
         $this->Username = $Username;
     }

@@ -8,9 +8,11 @@ require_once '../Models/Mahasiswa.php';
 class UserController {
 
     private $conn;
+    private $model;
 
-    public function __construct($conn) {
-        $this->conn = $conn ;
+    public function __construct($conn, $model) {
+        $this->conn = $conn;
+        $this->model = $model;
     }
 
     // Method untuk membuat user baru
@@ -86,6 +88,31 @@ class UserController {
         }
     }
 
+    public function findMahasiswaByNIM($NIM) {
+        // Validasi input NIM (opsional)
+        if (empty($NIM) || !is_numeric($NIM)) {
+            return [
+                'status' => 'error',
+                'message' => 'NIM tidak valid.'
+            ];
+        }
+
+        // Memanggil model untuk mencari data mahasiswa berdasarkan NIM
+        $result = $this->model->findByNIM($NIM);
+
+        if ($result === null) {
+            return [
+                'status' => 'error',
+                'message' => 'Data mahasiswa tidak ditemukan.'
+            ];
+        }
+
+        return [
+            'status' => 'success',
+            'data' => $result
+        ];
+    }
+
     public function updateUser($username, $email, $roleId, $NIP) {
         try {
             $userModel = new User($this->conn, null, $username, null, $email, $roleId);
@@ -101,8 +128,9 @@ class UserController {
 
 $database = new Database(); // Membuat objek Database untuk mendapatkan koneksi
 $conn = $database->conn; 
+$model = new User($connect->getConn());
 
-$userController = new UserController($conn);
+$userController = new UserController($conn, $model);
 
 // Mengambil action dari request
 $action = $_GET['action'] ?? '';
@@ -129,6 +157,9 @@ switch ($action) {
             $_POST['Password'], 
             $_POST['Email']
         );        
+        break;
+    case 'getByNim':
+        $userController->findMahasiswaByNIM($_POST['NIM']);
         break;
     case 'updateUser':
         $userController->updateUser($_POST['username'], $_POST['email'], $_POST['roleId'], $_POST['NIP']);
