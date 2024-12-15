@@ -115,7 +115,20 @@ switch ($action) {
         $userController->createStaff($_POST['NIP'], $_POST['Nama'], $_POST['Alamat'], $_POST['NoHp'], $_POST['JenisKelamin'], $_POST['Tempat_Lahir'], $_POST['Tanggal_Lahir'], $_FILES['TTD'], $_POST['Username'], $_POST['Password'], $_POST['Email'], $_POST['Role_ID']);
         break;
     case 'createMahasiswa':
-        $userController->createMahasiswa($_POST['NIM'], $_POST['Nama'], $_POST['Alamat'], $_POST['NoHp'], $_POST['JenisKelamin'], $_POST['Prodi'], $_POST['Tempat_Lahir'], $_POST['Tanggal_Lahir'], $_POST['Tahun_Angkatan'], $_POST['Username'], $_POST['Password'], $_POST['Email']);
+        $userController->createMahasiswa(
+            $_POST['NIM'], 
+            $_POST['Nama'], 
+            $_POST['Alamat'], 
+            $_POST['NoHp'], 
+            $_POST['JenisKelamin'], 
+            $_POST['Prodi'], 
+            $_POST['Tahun_Angkatan'], // tahunAngkatan pada posisi ke-7
+            $_POST['Tempat_Lahir'], 
+            $_POST['Tanggal_Lahir'], 
+            $_POST['Username'], 
+            $_POST['Password'], 
+            $_POST['Email']
+        );        
         break;
     case 'updateUser':
         $userController->updateUser($_POST['username'], $_POST['email'], $_POST['roleId'], $_POST['NIP']);

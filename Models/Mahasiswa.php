@@ -76,13 +76,25 @@ class Mahasiswa extends User {
     public function saveMahasiswa($NIM, $Nama, $Alamat, $NoHp, $JenisKelamin, $Tempat_Lahir, $Tanggal_Lahir, $Prodi, $tahunAngkatan, $ID_User) {
         $sql = "INSERT INTO Mahasiswa (NIM, Nama, Alamat, NoHp, JenisKelamin, Tempat_Lahir, Tanggal_Lahir, Prodi, Tahun_Angkatan, ID_User)
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        $params = [$NIM, $Nama, $Alamat, $NoHp, $JenisKelamin, $Tempat_Lahir, $Tanggal_Lahir, $Prodi, $tahunAngkatan, $ID_User];
+        $params = [
+            $NIM,
+            $Nama,
+            $Alamat,
+            $NoHp,
+            $JenisKelamin,
+            $Tempat_Lahir,
+            $Tanggal_Lahir, // Ensure this is in 'YYYY-MM-DD' format
+            $Prodi,
+            $tahunAngkatan, // Ensure this is an integer
+            $ID_User // Ensure this is an integer
+        ];
         $stmt = sqlsrv_query($this->conn, $sql, $params);
-
+    
         if ($stmt === false) {
             throw new Exception('Gagal menyimpan Mahasiswa: ' . print_r(sqlsrv_errors(), true));
         }
     }
+    
 
     public function updateMahasiswa($Nama, $Alamat, $NoHp, $JenisKelamin, $Tempat_Lahir, $Tanggal_Lahir, $TTD, $NIM) {
         $sql = "UPDATE Mahasiswa

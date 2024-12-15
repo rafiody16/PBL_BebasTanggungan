@@ -1,6 +1,6 @@
 <?php 
 class Database {
-    private $serverName = "LAPTOP-6DB90827";
+    private $serverName = "DESKTOP-L75SO4G";
     private $connectionInfo = ["Database" => "PBLBebasTanggungan"];
     public $conn;
 
