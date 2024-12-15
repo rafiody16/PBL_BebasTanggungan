@@ -64,6 +64,7 @@
 
             <label for="Tahun_Angkatan">Tahun Angkatan</label>
             <input type="number" id="Tahun_Angkatan" name="Tahun_Angkatan" min="2000" max="2030" required>
+            <br>    
 
             <label for="Tempat_Lahir">Tempat Lahir</label>
             <input type="text" id="Tempat_Lahir" name="Tempat_Lahir" required>

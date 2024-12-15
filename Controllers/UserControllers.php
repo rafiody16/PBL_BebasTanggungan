@@ -10,13 +10,13 @@ class UserController {
     private $conn;
 
     public function __construct($conn) {
-        $this->conn = $conn;
+        $this->conn = $conn ;
     }
 
     // Method untuk membuat user baru
     public function createUser($username, $password, $email, $roleId) {
         try {
-            $userModel = new User($this->conn, null, $username, $password, $email, $roleId);
+            $userModel = new User($this->conn, $username, $password, $email, $roleId);
             $newUserID = $userModel->saveUser($username, $password, $email, $roleId);
             
             return $newUserID;
@@ -99,7 +99,9 @@ class UserController {
     // Method untuk memperbarui data mahasiswa berdasarkan NIM
 }
 
-global $conn;
+$database = new Database(); // Membuat objek Database untuk mendapatkan koneksi
+$conn = $database->conn; 
+
 $userController = new UserController($conn);
 
 // Mengambil action dari request
@@ -110,10 +112,10 @@ switch ($action) {
         $userController->createUser($_POST['username'], $_POST['password'], $_POST['email'], $_POST['roleId']);
         break;
     case 'createStaff':
-        $userController->createStaff($_POST['NIP'], $_POST['Nama'], $_POST['Alamat'], $_POST['NoHp'], $_POST['JenisKelamin'], $_POST['Tempat_Lahir'], $_POST['Tanggal_Lahir'], $_FILES['TTD'], $_POST['Username'], $_POST['Passowrd'], $_POST['Email'], $_POST['Role_ID']);
+        $userController->createStaff($_POST['NIP'], $_POST['Nama'], $_POST['Alamat'], $_POST['NoHp'], $_POST['JenisKelamin'], $_POST['Tempat_Lahir'], $_POST['Tanggal_Lahir'], $_FILES['TTD'], $_POST['Username'], $_POST['Password'], $_POST['Email'], $_POST['Role_ID']);
         break;
     case 'createMahasiswa':
-        $userController->createMahasiswa($_POST['NIM'], $_POST['Nama'], $_POST['Alamat'], $_POST['NoHp'], $_POST['JenisKelamin'], $_POST['Prodi'], $_POST['Tempat_Lahir'], $_POST['Tanggal_Lahir'], $_POST['Tahun_Angkatan'], $_POST['Username'], $_POST['Passowrd'], $_POST['Email']);
+        $userController->createMahasiswa($_POST['NIM'], $_POST['Nama'], $_POST['Alamat'], $_POST['NoHp'], $_POST['JenisKelamin'], $_POST['Prodi'], $_POST['Tempat_Lahir'], $_POST['Tanggal_Lahir'], $_POST['Tahun_Angkatan'], $_POST['Username'], $_POST['Password'], $_POST['Email']);
         break;
     case 'updateUser':
         $userController->updateUser($_POST['username'], $_POST['email'], $_POST['roleId'], $_POST['NIP']);

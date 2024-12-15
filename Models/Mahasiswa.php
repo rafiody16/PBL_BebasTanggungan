@@ -75,7 +75,7 @@ class Mahasiswa extends User {
 
     public function saveMahasiswa($NIM, $Nama, $Alamat, $NoHp, $JenisKelamin, $Tempat_Lahir, $Tanggal_Lahir, $Prodi, $tahunAngkatan, $ID_User) {
         $sql = "INSERT INTO Mahasiswa (NIM, Nama, Alamat, NoHp, JenisKelamin, Tempat_Lahir, Tanggal_Lahir, Prodi, Tahun_Angkatan, ID_User)
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $params = [$NIM, $Nama, $Alamat, $NoHp, $JenisKelamin, $Tempat_Lahir, $Tanggal_Lahir, $Prodi, $tahunAngkatan, $ID_User];
         $stmt = sqlsrv_query($this->conn, $sql, $params);
 

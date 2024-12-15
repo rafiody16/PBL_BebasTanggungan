@@ -109,6 +109,9 @@ class User {
     }
 }
 
+$database = new Database(); // Membuat objek Database untuk mendapatkan koneksi
+$conn = $database->conn; 
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST['Username'];
     $password = $_POST['Password'];

@@ -10,9 +10,9 @@ class User {
     protected $Role_ID;
     protected $conn;
 
-    public function __construct($ID_User, $Username, $Password, $Email, $Role_ID, $conn) {
+    public function __construct($conn, $Username, $Password, $Email, $Role_ID) {
         $this->conn = $conn;
-        $this->ID_User = $ID_User;
+        // $this->ID_User = $ID_User;
         $this->Username = $Username;
         $this->Password = $Password;
         $this->Email = $Email;
