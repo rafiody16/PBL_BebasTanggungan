@@ -4,23 +4,20 @@ require_once '../Koneksi.php';
 require_once 'Pengumpulan.php';
 
 class Administrasi extends Pengumpulan {
-    
-    private $ID_Pengumpulan;
+
     private $Laporan_Skripsi;
     private $Laporan_Magang;
     private $Bebas_Kompensasi;
     private $Scan_Toeic;
     private $Status_Verifikasi;
-    private $Tanggal_Verifikasi;
+    protected $Tanggal_Verifikasi;
     private $Tanggal_Upload;
-    private $Keterangan;
+    protected $Keterangan;
     private $Verifikator;
-    private $conn;
 
     public function __construct($conn = null, $ID_Pengumpulan = null, $Laporan_Skripsi = null, $Laporan_Magang = null, $Bebas_Kompensasi = null, 
                             $Scan_Toeic = null, $Status_Verifikasi = null, $Tanggal_Verifikasi = null, $Tanggal_Upload = null, $Keterangan = null, $Verifikator = null) {
         parent::__construct($conn, $ID_Pengumpulan, $Status_Verifikasi, $Tanggal_Verifikasi, $Tanggal_Upload, $Keterangan);
-        $this->conn = $conn;
         $this->ID_Pengumpulan = $ID_Pengumpulan;
         $this->Laporan_Skripsi = $Laporan_Skripsi;
         $this->Laporan_Magang = $Laporan_Magang;
@@ -156,22 +153,29 @@ class Administrasi extends Pengumpulan {
         return $stmt;
     }
 
-    public function saveAdm($Laporan_Skripsi, $Laporan_Magang, $Bebas_Kompensasi, $Scan_Toeic, $ID_Pengumpulan) {
-        $sqlInsert = "INSERT INTO Administrasi (ID_Pengumpulan, Laporan_Skripsi, Laporan_Magang, Bebas_Kompensasi, Scan_Toeic, Status_Verifikasi, Tanggal_Upload, Keterangan) 
+    public function saveAdm($Laporan_Skripsi, $Laporan_Magang, $Bebas_Kompensasi, $Scan_Toeic, $ID_Pengumpulan, $status, $tgl, $ket) {
+        $sqlInsert = "INSERT INTO Administrasi (ID_Pengumpulan, Laporan_Skripsi, Laporan_Magang, Bebas_Kompensasi, Scan_Toeic, Status_Verifikasi, Tanggal_Upload, Keterangan)
                       VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         $paramsInsert = [
-                        $ID_Pengumpulan,
-                        $Laporan_Skripsi,
-                        $Laporan_Magang,
-                        $Bebas_Kompensasi,
-                        $Scan_Toeic,
-                        "Menunggu",
-                        date("Y-m-d"),
-                        "-"
-                    ];
+            $ID_Pengumpulan,
+            $Laporan_Skripsi,
+            $Laporan_Magang,
+            $Bebas_Kompensasi,
+            $Scan_Toeic,
+            $status,
+            $tgl,
+            $ket
+        ];
+    
+        // Add error logging
         $stmtInsert = sqlsrv_query($this->conn, $sqlInsert, $paramsInsert);
-
-        return $stmtInsert;
+        
+        if ($stmtInsert === false) {
+            // Log detailed error information
+            $errors = sqlsrv_errors();
+            error_log('Database Insert Error: ' . print_r($errors, true));
+            throw new Exception('Failed to save Administration data: ' . ($errors ? $errors[0]['message'] : 'Unknown error'));
+        }
     }
 
     public function editAdm($NIM, $Laporan_Skripsi, $Laporan_Magang, $Bebas_Kompensasi, $Scan_Toeic) {
@@ -193,7 +197,9 @@ class Administrasi extends Pengumpulan {
                     ];
         $stmtUpdate = sqlsrv_query($this->conn, $sqlUpdate, $paramsUpdate);
 
-        return $stmtUpdate;
+        if ($stmtUpdate === false) {
+            throw new Exception('Gagal menyimpan Mahasiswa: ' . print_r(sqlsrv_errors(), true));
+        }
     }
 }
 

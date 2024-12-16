@@ -1,6 +1,6 @@
 <?php
 session_start();
-include('../Koneksi.php');
+
 
 header("Cache-Control: no-cache, no-store, must-revalidate"); // Untuk HTTP/1.1
 header("Pragma: no-cache"); // Untuk HTTP/1.0
@@ -21,16 +21,6 @@ if ($_SESSION['Role_ID'] != 8) {
 }
 
 $NIM = $_SESSION['NIM'];
-
-$sqlCheck = "SELECT COUNT(*) AS total FROM Pengumpulan WHERE NIM = ?";
-$paramsCheck = [$NIM];
-$stmtCheck = sqlsrv_query($conn, $sqlCheck, $paramsCheck);
-
-$rowCheck = sqlsrv_fetch_array($stmtCheck, SQLSRV_FETCH_ASSOC);
-if ($rowCheck['total'] > 0) {
-    echo "<script>window.location.href = 'DetailBerkas.php?NIM=".urlencode($NIM)."';</script>";
-}
-
 
 ?>
 
@@ -60,7 +50,20 @@ if ($rowCheck['total'] > 0) {
 <body>
     <script src="../assets/static/js/initTheme.js"></script>
     <div id="app">
-    <?php include('../assets/Sidebar2.php'); ?>
+    <?php include('../assets/Sidebar2.php'); 
+        // require_once '../Koneksi.php';
+        // $db = new Database();
+        // $conn = $db->getConnection();
+        
+        // $sqlCheck = "SELECT COUNT(*) AS total FROM Pengumpulan WHERE NIM = ?";
+        // $paramsCheck = [$NIM];
+        // $stmtCheck = sqlsrv_query($conn, $sqlCheck, $paramsCheck);
+        
+        // $rowCheck = sqlsrv_fetch_array($stmtCheck, SQLSRV_FETCH_ASSOC);
+        // if ($rowCheck['total'] > 0) {
+        //     echo "<script>window.location.href = 'DetailBerkas.php?NIM=".urlencode($NIM)."';</script>";
+        // }        
+    ?>
         </div>
         <div id="main">
             <header class="mb-3">
@@ -88,7 +91,7 @@ if ($rowCheck['total'] > 0) {
     </div>
     <section class="section">
         <div class="row">
-        <form action="ProsesBerkas.php" method="POST" enctype="multipart/form-data">
+        <form action="../Controllers/BerkasControllers.php?action=uploadFile" method="POST" enctype="multipart/form-data">
         <div class="col-12 col-md-12">
                 <div class="card">
                     <div class="card-header">
@@ -244,26 +247,6 @@ if ($rowCheck['total'] > 0) {
     
     
     <script src="../assets/compiled/js/app.js"></script>
-    <script>
-        document.querySelector('.with-validation-filepond-laporan').addEventListener('change', function(event) {
-            const fileInput = event.target;
-            const file = fileInput.files[0];
-            const linkElement = document.getElementById('uploaded-file-link');
-
-            if (file) {
-                const fileURL = URL.createObjectURL(file);
-
-                linkElement.href = fileURL;
-                linkElement.textContent = file.name;
-
-                fileInput.addEventListener('change', () => URL.revokeObjectURL(fileURL));
-            } else {     
-                linkElement.href = "#";
-                linkElement.textContent = "Tidak ada file";
-            }
-        });
-    </script>
-    
 
     
 <script src="../assets/extensions/filepond-plugin-file-validate-size/filepond-plugin-file-validate-size.min.js"></script>

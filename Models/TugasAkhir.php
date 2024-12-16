@@ -157,7 +157,6 @@ class TugasAkhir extends Pengumpulan {
             throw new Exception('Gagal menyimpan data Tugas Akhir: ' . print_r(sqlsrv_errors(), true));
         }
 
-        return $stmtTA;
     }
 
     public function editTA($File_Aplikasi, $Laporan_TA, $Pernyataan_Publikasi, $nim) {
@@ -178,7 +177,9 @@ class TugasAkhir extends Pengumpulan {
                         ];
         $stmtTAUpdate = sqlsrv_query($this->conn, $sqlUpdate, $paramsTAUpdate);
 
-        return $stmtTAUpdate;
+        if ($stmtTAUpdate === false) {
+            throw new Exception('Gagal menyimpan Mahasiswa: ' . print_r(sqlsrv_errors(), true));
+        }
     }
 
 }

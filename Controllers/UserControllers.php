@@ -28,15 +28,40 @@ class UserController {
     public function createStaff($NIP, $Nama, $Alamat, $NoHp, $JenisKelamin, $Tempat_Lahir, $Tanggal_Lahir, $TTD, $Username, $Password, $Email, $Role_ID) {
         try {
             $newUserID = $this->createUser($Username, $Password, $Email, $Role_ID);
-
+    
             $uploadDir = "../Uploads/";
     
-            $TTDFile = $this->uploadFile($_FILES['TTD'], $uploadDir);
-
+            // Periksa apakah file TTD diunggah
+            if (isset($_FILES['TTD']) && $_FILES['TTD']['error'] == UPLOAD_ERR_OK) {
+                $TTDFile = $this->uploadFile($_FILES['TTD'], $uploadDir);
+            } else {
+                // Jika tidak ada file TTD, set ke null
+                $TTDFile = null;
+            }
+    
             if ($newUserID) {
-                $staffModel = new Staff($this->conn, $newUserID, $Username, $Password, $Email, $Role_ID, $NIP, $Nama, $Alamat, $NoHp, $JenisKelamin, $Tempat_Lahir, $Tanggal_Lahir, $TTDFile);
-                $staffModel->saveStaff($NIP, $Nama, $Alamat, $NoHp, $JenisKelamin, $Tempat_Lahir, $Tanggal_Lahir, $TTDFile, $newUserID);
-
+                $staffModel = new Staff(
+                    $this->conn,
+                    $newUserID,
+                    $Username,
+                    $Password,
+                    $Email,
+                    $Role_ID,
+                    $NIP,
+                    $Nama,
+                    $Alamat,
+                    $NoHp,
+                    $JenisKelamin,
+                    $Tempat_Lahir,
+                    $Tanggal_Lahir,
+                    $TTDFile
+                );
+    
+                $staffModel->saveStaff(
+                    $NIP, $Nama, $Alamat, $NoHp, $JenisKelamin, $Tempat_Lahir,
+                    $Tanggal_Lahir, $TTDFile, $newUserID
+                );
+    
                 echo json_encode(['success' => true]);
             } else {
                 throw new Exception('Failed to create User');
@@ -45,6 +70,7 @@ class UserController {
             echo json_encode(['success' => false, 'message' => $e->getMessage()]);
         }
     }
+    
 
     public function createMahasiswa($NIM, $Nama, $Alamat, $NoHp, $JenisKelamin, $Prodi, $tahunAngkatan, $Tempat_Lahir, $Tanggal_Lahir, $Username, $Password, $Email) {
         try {
@@ -197,7 +223,7 @@ switch ($action) {
             $_POST['Tanggal_Lahir'],
             $_FILES['TTD'],
             $_POST['Username'],
-            $_POST['Password'],
+            password_hash($_POST['Password'], PASSWORD_BCRYPT),
             $_POST['Email'], 
             $_POST['Role_ID']
         );
@@ -229,7 +255,7 @@ switch ($action) {
             $_POST['Tempat_Lahir'], 
             $_POST['Tanggal_Lahir'], 
             $_POST['Username'], 
-            $_POST['Password'], 
+            password_hash($_POST['Password'], PASSWORD_BCRYPT), 
             $_POST['Email']
         );        
         break;

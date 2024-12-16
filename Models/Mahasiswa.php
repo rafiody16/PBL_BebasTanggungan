@@ -128,30 +128,36 @@ class Mahasiswa extends User {
 
     public function deleteMhsUser($NIM) {
         try {
-            sqlsrv_begin_transaction($this->conn);
-            $sqlMahasiswa = "DELETE FROM Mahasiswa WHERE NIM = ?";
-            $paramsMahasiswa = [$NIM];
-            $stmtMahasiswa = sqlsrv_query($this->conn, $sqlMahasiswa, $paramsMahasiswa);
-
-            if ($stmtMahasiswa === false) {
-                throw new Exception('Gagal menghapus Mahasiswa: ' . print_r(sqlsrv_errors(), true));
+            $conn = $this->conn;
+            $checkUserSql = "SELECT ID_User FROM Mahasiswa WHERE NIM = ?";
+            $checkUserStmt = sqlsrv_query($conn, $checkUserSql, [$NIM]);
+            $existingUser = sqlsrv_fetch_array($checkUserStmt, SQLSRV_FETCH_ASSOC);
+    
+            if ($existingUser) {
+                $ID_User = $existingUser['ID_User'];
+    
+                $deleteMahasiswaSql = "DELETE FROM Mahasiswa WHERE NIM = ?";
+                $stmtDeleteMahasiswa = sqlsrv_query($conn, $deleteMahasiswaSql, [$NIM]);
+    
+                if (!$stmtDeleteMahasiswa) {
+                    throw new Exception('Gagal menghapus data Mahasiswa: ' . print_r(sqlsrv_errors(), true));
+                }
+    
+                $deleteUserSql = "DELETE FROM [User] WHERE ID_User = ?";
+                $stmtDeleteUser = sqlsrv_query($conn, $deleteUserSql, [$ID_User]);
+    
+                if (!$stmtDeleteUser) {
+                    throw new Exception('Gagal menghapus data User: ' . print_r(sqlsrv_errors(), true));
+                }
+    
+                sqlsrv_commit($conn);
+                echo "<script>alert('Data berhasil dihapus!'); window.location.href = 'TabelMahasiswa.php';</script>";
+            } else {
+                throw new Exception('Data Mahasiswa dengan NIM tersebut tidak ditemukan.');
             }
-
-            $sqlUser = "DELETE FROM [User]
-                        WHERE ID_User = (
-                            SELECT ID_User FROM Mahasiswa WHERE NIM = ?
-                        )";
-            $paramsUser = [$NIM];
-            $stmtUser = sqlsrv_query($this->conn, $sqlUser, $paramsUser);
-
-            if ($stmtUser === false) {
-                throw new Exception('Gagal menghapus User terkait: ' . print_r(sqlsrv_errors(), true));
-            }
-            sqlsrv_commit($this->conn);
-
         } catch (Exception $e) {
-            sqlsrv_rollback($this->conn);
-            throw $e;
+            sqlsrv_rollback($conn);
+            echo "<script>alert('Data gagal dihapus! ".$e->getMessage() . "'); window.location.href = 'TabelMahasiswa.php';</script>";
         }
     }
 

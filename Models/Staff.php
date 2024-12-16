@@ -108,30 +108,36 @@ class Staff extends User {
 
     public function deleteStaffUser($NIP) {
         try {
-            sqlsrv_begin_transaction($this->conn);
-            $sqlStaff = "DELETE FROM Staff WHERE NIP = ?";
-            $paramsStaff = [$NIP];
-            $stmtStaff = sqlsrv_query($this->conn, $sqlStaff, $paramsStaff);
-
-            if ($stmtStaff === false) {
-                throw new Exception('Gagal menghapus Mahasiswa: ' . print_r(sqlsrv_errors(), true));
+            $conn = $this->conn;
+            $checkUserSql = "SELECT ID_User FROM Staff WHERE NIP = ?";
+            $checkUserStmt = sqlsrv_query($conn, $checkUserSql, [$NIP]);
+            $existingUser = sqlsrv_fetch_array($checkUserStmt, SQLSRV_FETCH_ASSOC);
+    
+            if ($existingUser) {
+                $ID_User = $existingUser['ID_User'];
+    
+                $deleteStaffSql = "DELETE FROM Staff WHERE NIP = ?";
+                $stmtDeleteStaff = sqlsrv_query($conn, $deleteStaffSql, [$NIP]);
+    
+                if (!$stmtDeleteStaff) {
+                    throw new Exception('Gagal menghapus data Staff: ' . print_r(sqlsrv_errors(), true));
+                }
+    
+                $deleteUserSql = "DELETE FROM [User] WHERE ID_User = ?";
+                $stmtDeleteUser = sqlsrv_query($conn, $deleteUserSql, [$ID_User]);
+    
+                if (!$stmtDeleteUser) {
+                    throw new Exception('Gagal menghapus data User: ' . print_r(sqlsrv_errors(), true));
+                }
+    
+                sqlsrv_commit($conn);
+                echo "<script>alert('Data berhasil dihapus!'); window.location.href = 'TabelStaff.php';</script>";
+            } else {
+                throw new Exception('Data Staff dengan NIP tersebut tidak ditemukan.');
             }
-
-            $sqlUser = "DELETE FROM [User]
-                        WHERE ID_User = (
-                            SELECT ID_User FROM Staff WHERE NIP = ?
-                        )";
-            $paramsUser = [$NIP];
-            $stmtUser = sqlsrv_query($this->conn, $sqlUser, $paramsUser);
-
-            if ($stmtUser === false) {
-                throw new Exception('Gagal menghapus User terkait: ' . print_r(sqlsrv_errors(), true));
-            }
-            sqlsrv_commit($this->conn);
-
         } catch (Exception $e) {
-            sqlsrv_rollback($this->conn);
-            throw $e;
+            sqlsrv_rollback($conn);
+            echo "<script>alert('Data gagal dihapus! ".$e->getMessage() . "'); window.location.href = 'TabelStaff.php';</script>";
         }
     }
 

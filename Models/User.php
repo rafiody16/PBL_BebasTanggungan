@@ -131,6 +131,14 @@ class User {
         }
     }
 
+    public function deleteUser($id) {
+        $query = "DELETE FROM users WHERE ID_User = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        return $stmt->affected_rows > 0;
+    }
+
 }
 
 ?>

@@ -150,7 +150,11 @@ class Pengumpulan {
         ];
         $stmt = sqlsrv_query($this->conn, $sql, $params);
 
+        if ($stmt === false) {
+            throw new Exception('Gagal menyimpan Mahasiswa: ' . print_r(sqlsrv_errors(), true));
+        }
         return $stmt;
+        
     }
 
     function editPengumpulan($NIM) {
@@ -168,7 +172,9 @@ class Pengumpulan {
         ];
         $stmt = sqlsrv_query($this->conn, $sql, $params);
 
-        return $stmt;
+        if ($stmt === false) {
+            throw new Exception('Gagal menyimpan Mahasiswa: ' . print_r(sqlsrv_errors(), true));
+        }
     }
 
 
