@@ -1,7 +1,13 @@
 <?php 
 
-
 include "../Koneksi.php";
+
+class UserProses {
+    
+}
+
+$db = new Database();
+$conn = $db->conn;
 
 $action = $_POST['action'] ?? '';
 

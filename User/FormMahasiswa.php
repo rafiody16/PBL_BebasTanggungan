@@ -16,10 +16,6 @@ if ($_SESSION['Role_ID'] === 6 || $_SESSION['Role_ID'] === 7 || $_SESSION['Role_
     </script>";
 }
 
-include('UserProses.php');
-include('../Koneksi.php');
-
-getDataMahasiswaByNim();
 
 ?>
 

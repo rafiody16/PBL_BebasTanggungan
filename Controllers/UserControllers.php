@@ -7,7 +7,7 @@ require_once '../Models/Mahasiswa.php';
 
 class UserController {
 
-    private $conn;
+    public $conn;
     private $model;
 
     public function __construct($conn, $model) {
@@ -128,7 +128,7 @@ class UserController {
 
 $database = new Database(); // Membuat objek Database untuk mendapatkan koneksi
 $conn = $database->conn; 
-$model = new User($connect->getConn());
+$model = new User($conn);
 
 $userController = new UserController($conn, $model);
 

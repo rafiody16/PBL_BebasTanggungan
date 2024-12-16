@@ -16,6 +16,8 @@ if ($_SESSION['Role_ID'] === 6 || $_SESSION['Role_ID'] === 7 || $_SESSION['Role_
     </script>";
 }
 
+
+
 // Kode halaman admin di sini
 ?>
 
@@ -85,6 +87,11 @@ if ($_SESSION['Role_ID'] === 6 || $_SESSION['Role_ID'] === 7 || $_SESSION['Role_
                     <div class="row">
                         <div class="col-12">
                             <div class="card">
+                            <?php 
+                                require_once '../Koneksi.php';
+                                $db = new Database();
+                                $conn = $db->conn;
+                            ?>
                             <div class="card-header">
                                 <h5 class="card-title">Tabel Mahasiswa</h5>
                                 <form action="" method="get" class="form-inline">
@@ -139,7 +146,9 @@ if ($_SESSION['Role_ID'] === 6 || $_SESSION['Role_ID'] === 7 || $_SESSION['Role_
                                 </thead>
                                 <tbody>
                                 <?php 
-                                    include('UserProses.php');
+                                    require_once '../Models/Mahasiswa.php';
+                                    $mhs = new Mahasiswa($conn);
+                                    $stmt2 = $mhs->getAllMhs();
                                     $no = 1;
                                     while ($row = sqlsrv_fetch_array($stmt2, SQLSRV_FETCH_ASSOC)) {
                                         if ($row) {

@@ -1,6 +1,7 @@
 <?php 
 
 require_once '../Koneksi.php';
+require_once 'User.php';
 
 class Mahasiswa extends User {
     private $NIM;
@@ -13,7 +14,7 @@ class Mahasiswa extends User {
     private $Tanggal_Lahir;
     private $Tahun_Angkatan;
 
-    public function __construct($conn, $ID_User, $Username, $Password, $Email, $NIM, $Nama, $Alamat, $NoHp, $JenisKelamin, $Prodi, $Tempat_Lahir, $Tanggal_Lahir, $Tahun_Angkatan) {
+    public function __construct($conn = null, $ID_User = null, $Username = null, $Password = null, $Email = null, $NIM = null, $Nama = null, $Alamat = null, $NoHp = null, $JenisKelamin = null, $Prodi = null, $Tempat_Lahir = null, $Tanggal_Lahir = null, $Tahun_Angkatan = null) {
         parent::__construct($conn, $ID_User, $Username, $Password, $Email);
         $this->conn = $conn;
         $this->NIM = $NIM;
@@ -64,7 +65,8 @@ class Mahasiswa extends User {
     }
 
     public function findByNIM($NIM) {
-        $sql = "SELECT u.ID_User, u.Username, u.Email, u.Role_ID 
+        $sql = "SELECT u.ID_User, u.Username, u.Email, m.NIM, m.Nama, m.NoHp,
+                m.Alamat, m.JenisKelamin, m.Tempat_Lahir, m.Tanggal_Lahir, m.Prodi, m.Tahun_Angkatan
                 FROM [User] u
                 JOIN Mahasiswa m ON u.ID_User = s.ID_User
                 WHERE m.NIM = ?";
@@ -73,6 +75,20 @@ class Mahasiswa extends User {
             return null;
         }
         return sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
+    }
+
+    public function getAllMhs() {
+        $prodi = isset($_GET['prodi']) ? $_GET['prodi'] : '';
+        $tahunAngkatan = isset($_GET['tahunAngkatan']) ? $_GET['tahunAngkatan'] : '';
+
+        $sql = "{CALL FilterMahasiswa(?, ?)}";
+        $params = array($prodi, $tahunAngkatan);
+        $stmt = sqlsrv_query($this->conn, $sql, $params);
+
+        if ($stmt === false) {
+            return null;
+        }
+        return $stmt;
     }
 
     public function saveMahasiswa($NIM, $Nama, $Alamat, $NoHp, $JenisKelamin, $Tempat_Lahir, $Tanggal_Lahir, $Prodi, $tahunAngkatan, $ID_User) {
