@@ -128,10 +128,7 @@ class Mahasiswa extends User {
 
     public function deleteMhsUser($NIM) {
         try {
-            // Memulai transaksi
             sqlsrv_begin_transaction($this->conn);
-
-            // Hapus data Mahasiswa
             $sqlMahasiswa = "DELETE FROM Mahasiswa WHERE NIM = ?";
             $paramsMahasiswa = [$NIM];
             $stmtMahasiswa = sqlsrv_query($this->conn, $sqlMahasiswa, $paramsMahasiswa);
@@ -150,12 +147,9 @@ class Mahasiswa extends User {
             if ($stmtUser === false) {
                 throw new Exception('Gagal menghapus User terkait: ' . print_r(sqlsrv_errors(), true));
             }
-
-            // Commit transaksi jika semua berhasil
             sqlsrv_commit($this->conn);
 
         } catch (Exception $e) {
-            // Rollback transaksi jika terjadi kesalahan
             sqlsrv_rollback($this->conn);
             throw $e;
         }

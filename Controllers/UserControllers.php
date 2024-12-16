@@ -129,9 +129,6 @@ class UserController {
             throw new Exception('Failed to move uploaded file.');
         }
     }
-    
-    
-
 
     public function deleteMhs($NIM) {
         try {
@@ -141,6 +138,28 @@ class UserController {
 
             $mhsModel = new Mahasiswa($this->conn);
             $mhsModel->deleteMhsUser($NIM);
+
+            echo json_encode([
+                'status' => 'success',
+                'message' => 'Mahasiswa dan user terkait berhasil dihapus.'
+            ]);
+        } catch (Exception $e) {
+            http_response_code(400);
+            echo json_encode([
+                'status' => 'error',
+                'message' => $e->getMessage()
+            ]);
+        }
+    }
+
+    public function deleteStaff($NIP) {
+        try {
+            if (empty($NIP)) {
+                throw new Exception('NIP tidak boleh kosong.');
+            }
+
+            $staffModel = new Staff($this->conn);
+            $staffModel->deleteStaffUser($NIP);
 
             echo json_encode([
                 'status' => 'success',
@@ -231,6 +250,9 @@ switch ($action) {
         break;
     case 'deleteMhs':
         $userController->deleteMhs($_POST['NIM']);
+        break;
+    case 'deleteStaff':
+        $userController->deleteStaff($_POST['NIP']);
         break;
     default:
         echo json_encode(['message' => 'Action not found']);

@@ -106,6 +106,35 @@ class Staff extends User {
         }
     }
 
+    public function deleteStaffUser($NIP) {
+        try {
+            sqlsrv_begin_transaction($this->conn);
+            $sqlStaff = "DELETE FROM Staff WHERE NIP = ?";
+            $paramsStaff = [$NIP];
+            $stmtStaff = sqlsrv_query($this->conn, $sqlStaff, $paramsStaff);
+
+            if ($stmtStaff === false) {
+                throw new Exception('Gagal menghapus Mahasiswa: ' . print_r(sqlsrv_errors(), true));
+            }
+
+            $sqlUser = "DELETE FROM [User]
+                        WHERE ID_User = (
+                            SELECT ID_User FROM Staff WHERE NIP = ?
+                        )";
+            $paramsUser = [$NIP];
+            $stmtUser = sqlsrv_query($this->conn, $sqlUser, $paramsUser);
+
+            if ($stmtUser === false) {
+                throw new Exception('Gagal menghapus User terkait: ' . print_r(sqlsrv_errors(), true));
+            }
+            sqlsrv_commit($this->conn);
+
+        } catch (Exception $e) {
+            sqlsrv_rollback($this->conn);
+            throw $e;
+        }
+    }
+
 }
 
 ?>

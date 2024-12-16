@@ -216,9 +216,9 @@ $role = $_SESSION['Role_ID'];
         var nip = $(this).data("id");
         if (confirm("Apakah Anda yakin ingin menghapus data ini?")) {
             $.ajax({
-                url: "UserProses.php",
+                url: "../Controllers/UserControllers.php?action=deleteStaff",
                 type: "POST",
-                data: { NIP: nip, action: "delete" },
+                data: { NIP: nip},
                 success: function(response) {
                     alert("Data staff dengan NIP " + nip + " berhasil dihapus");
                     location.reload();
