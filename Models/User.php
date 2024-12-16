@@ -10,9 +10,9 @@ class User {
     protected $Role_ID;
     protected $conn;
 
-    public function __construct($conn = null, $Username = null, $Password = null, $Email = null, $Role_ID = null) {
+    public function __construct($conn = null, $Username = null, $Password = null, $Email = null, $Role_ID = null, $ID_User = null) {
         $this->conn = $conn;
-        // $this->ID_User = $ID_User;
+        $this->ID_User = $ID_User;
         $this->Username = $Username;
         $this->Password = $Password;
         $this->Email = $Email;
@@ -56,7 +56,7 @@ class User {
     }
 
     public function findByNIP($NIP) {
-        $sql = "SELECT u.ID_User, u.Username, u.Email, u.Role_ID, s.TTD 
+        $sql = "SELECT u.ID_User, u.Username, u.Email, u.Role_ID 
                 FROM [User] u
                 JOIN Staff s ON u.ID_User = s.ID_User
                 WHERE s.NIP = ?";
@@ -107,7 +107,7 @@ class User {
         return sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)['ID_User'];
     }
 
-    public function updateUser($username, $email, $roleId, $NIP) {
+    public function updateUserStf($username, $email, $roleId, $NIP) {
         $sql = "UPDATE [User]
                 SET Username = ?, Email = ?, Role_ID = ?
                 WHERE ID_User = (SELECT ID_User FROM Staff WHERE NIP = ?)";

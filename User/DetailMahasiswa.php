@@ -80,7 +80,6 @@ if ($_SESSION['Role_ID'] === 6 || $_SESSION['Role_ID'] === 7 || $_SESSION['Role_
                                                 if ($nim) {
                                                     $mhs = $mhsModel->findByNIM($nim);
                                                 }
-                                            
                                             ?>
                                             <div class="form-body">
                                                 <div class="row">
@@ -141,7 +140,7 @@ if ($_SESSION['Role_ID'] === 6 || $_SESSION['Role_ID'] === 7 || $_SESSION['Role_
                                                     <div class="col-md-6 col-12">
                                                         <div class="form-group">
                                                             <label for="JenisKelamin">Jenis Kelamin</label>
-                                                            <h3><?= isset($mhs['JenisKelamin']) ? htmlspecialchars($mhs['JenisKelamin']) : '' ?></h3>
+                                                            <h3><?= isset($mhs['JenisKelamin']) ? ($mhs['JenisKelamin'] === 'L' ? 'Laki-Laki' : ($mhs['JenisKelamin'] === 'P' ? 'Perempuan' : '')) : '' ?></h3>
                                                         </div>
                                                     </div>
                                                     <div class="col-12 d-flex justify-content-end">

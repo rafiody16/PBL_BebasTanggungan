@@ -17,12 +17,6 @@ if ($_SESSION['Role_ID'] != 1) {
     </script>";
 }
 
-include('UserProses.php');
-include('../Koneksi.php');
-
-getDataStaffByNip();
-
-
 ?>
 
 <!DOCTYPE html>
@@ -95,7 +89,22 @@ getDataStaffByNip();
                                 </div>
                                 <div class="card-content">
                                     <div class="card-body">
-                                        <form class="form form-vertical" action="UserProses.php" method="POST" enctype="multipart/form-data">
+                                        <form class="form form-vertical" method="POST" enctype="multipart/form-data">
+                                            <?php 
+                                                require_once '../Koneksi.php';
+                                                require_once '../Models/Staff.php';
+                                                
+                                                $db = new Database();
+                                                $conn = $db->getConnection();
+                                                $staffModel = new Staff($conn);
+                                                
+                                                $nip = isset($_GET['NIP']) ? $_GET['NIP'] : '';
+                                                $staff = null;
+                                                
+                                                if ($nip) {
+                                                    $staff = $staffModel->findByNIP($nip);
+                                                }
+                                            ?>
                                             <div class="form-body">
                                                 <div class="row">
                                                     <div class="col-12">
@@ -107,19 +116,19 @@ getDataStaffByNip();
                                                     <div class="col-12">
                                                         <div class="form-group">
                                                             <label for="Nama">Nama</label>
-                                                            <input type="text" class="form-control" value="<?= isset($nama) ? htmlspecialchars($nama) : '' ?>" name="Nama" placeholder="Masukkan Nama">
+                                                            <input type="text" class="form-control" value="<?= isset($staff['Nama']) ? htmlspecialchars($staff['Nama']) : '' ?>" name="Nama" placeholder="Masukkan Nama">
                                                         </div>
                                                     </div>
                                                     <div class="col-12">
                                                         <div class="form-group">
                                                             <label for="Username">Username</label>
-                                                            <input type="text" class="form-control" value="<?= isset($username) ? htmlspecialchars($username) : '' ?>" name="Username" placeholder="Masukkan Nama">
+                                                            <input type="text" class="form-control" value="<?= isset($staff['Username']) ? htmlspecialchars($staff['Username']) : '' ?>" name="Username" placeholder="Masukkan Nama">
                                                         </div>
                                                     </div>
                                                     <div class="col-12">
                                                         <div class="form-group">
                                                             <label for="Email">Email</label>
-                                                            <input type="email" class="form-control" value="<?= isset($email) ? htmlspecialchars($email) : '' ?>" name="Email" placeholder="Masukkan Email">
+                                                            <input type="email" class="form-control" value="<?= isset($staff['Email']) ? htmlspecialchars($staff['Email']) : '' ?>" name="Email" placeholder="Masukkan Email">
                                                         </div>
                                                     </div>
                                                     <div class="col-12">
@@ -131,13 +140,13 @@ getDataStaffByNip();
                                                     <div class="col-12">
                                                         <div class="form-group">
                                                             <label for="Alamat">Alamat</label>
-                                                            <textarea class="form-control" name="Alamat" rows="3"><?= isset($alamat) ? htmlspecialchars($alamat) : '' ?></textarea>
+                                                            <textarea class="form-control" name="Alamat" rows="3"><?= isset($staff['Alamat']) ? htmlspecialchars($staff['Alamat']) : '' ?></textarea>
                                                         </div>
                                                     </div>
                                                     <div class="col-12">
                                                         <div class="form-group">
                                                             <label for="NoHp">No.Hp</label>
-                                                            <input type="text" class="form-control" value="<?= isset($noHp) ? htmlspecialchars($noHp) : '' ?>" name="NoHp" placeholder="Masukkan No Hp">
+                                                            <input type="text" class="form-control" value="<?= isset($staff['NoHp']) ? htmlspecialchars($staff['NoHp']) : '' ?>" name="NoHp" placeholder="Masukkan No Hp">
                                                         </div>
                                                     </div>
                                                     <div class="col-12">
@@ -145,21 +154,21 @@ getDataStaffByNip();
                                                             <label for="JenisKelamin">Jenis Kelamin</label>
                                                             <br>
                                                             <input class="form-check-input" type="radio" name="JenisKelamin" id="jenkel1" value="L" required="true" 
-                                                                <?= (isset($jeniskelamin) && $jeniskelamin === 'L') ? 'checked' : '' ?>> Laki-laki 
+                                                                <?= (isset($staff['JenisKelamin']) && $staff['JenisKelamin'] === 'L') ? 'checked' : '' ?>> Laki-laki 
                                                                 <input class="form-check-input" type="radio" name="JenisKelamin" id="jenkel2" value="P" 
-                                                                <?= (isset($jeniskelamin) && $jeniskelamin === 'P') ? 'checked' : '' ?>> Perempuan
+                                                                <?= (isset($staff['JenisKelamin']) && $staff['JenisKelamin'] === 'P') ? 'checked' : '' ?>> Perempuan
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6 col-12">
                                                         <div class="form-group">
                                                             <label for="Tempat_Lahir">Tempat Lahir</label>
-                                                            <input type="text" class="form-control" value="<?= isset($Tempat_Lahir) ? htmlspecialchars($Tempat_Lahir) : '' ?>" name="Tempat_Lahir" placeholder="Masukkan Tempat Lahir"> 
+                                                            <input type="text" class="form-control" value="<?= isset($staff['Tempat_Lahir']) ? htmlspecialchars($staff['Tempat_Lahir']) : '' ?>" name="Tempat_Lahir" placeholder="Masukkan Tempat Lahir"> 
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6 col-12">
                                                         <div class="form-group">
                                                             <label for="Tanggal_Lahir">Tanggal Lahir</label>
-                                                            <input type="date" class="form-control flatpickr-always-open" name="Tanggal_Lahir" value="<?= isset($Tanggal_Lahir) ? htmlspecialchars($Tanggal_Lahir instanceof DateTime ? $Tanggal_Lahir->format('Y-m-d') : (new DateTime($Tanggal_Lahir))->format('Y-m-d')) : '' ?>" placeholder="Select date..">
+                                                            <input type="date" class="form-control flatpickr-always-open" name="Tanggal_Lahir" value="<?= isset($staff['Tanggal_Lahir']) ? htmlspecialchars($staff['Tanggal_Lahir'] instanceof DateTime ? $staff['Tanggal_Lahir']->format('Y-m-d') : (new DateTime($staff['Tanggal_Lahir']))->format('Y-m-d')) : '' ?>" placeholder="Select date..">
                                                         </div>
                                                     </div>
                                                     <div class="col-12">
@@ -168,14 +177,16 @@ getDataStaffByNip();
                                                             <select class="form-select" name="Role_ID" id="basicSelect">
                                                                 <option value="">-- Pilih Role --</option>
                                                             <?php 
-                                                                include('../Koneksi.php');
-                                                                $sql = "SELECT Role_ID, Nama_Role FROM Role";
-                                                                $stmt = sqlsrv_query($conn, $sql);
-                                                                
-                                                                while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
-                                                                    $selected = ($row["Role_ID"] == $roleID) ? 'selected' : '';
-                                                                    echo '<option value="' . $row["Role_ID"] . '" ' . $selected . '>' . $row["Nama_Role"] . '</option>';
-                                                                }
+                                                                 $sql = "SELECT Role_ID, Nama_Role FROM Role";
+                                                                 $stmt = sqlsrv_query($conn, $sql);
+                                                                 if ($stmt) {
+                                                                     while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+                                                                         $selected = ($row["Role_ID"] == $staff['Role_ID']) ? 'selected' : '';
+                                                                         echo '<option value="' . $row["Role_ID"] . '" ' . $selected . '>' . $row["Nama_Role"] . '</option>';
+                                                                     }
+                                                                 } else {
+                                                                     echo '<option value="">Error fetching roles</option>';
+                                                                 }
                                                             ?>
                                                             </select>
                                                         </div>
@@ -199,7 +210,11 @@ getDataStaffByNip();
                                                             data-max-file-size="10MB" name="TTD" data-max-files="1"> -->
                                                         </div>
                                                     <div class="col-12 d-flex justify-content-start">
-                                                        <button type="submit" class="btn btn-primary me-1 mb-1" name="simpanStaff">Simpan</button>
+                                                        <button type="submit" class="btn btn-primary me-1 mb-1" 
+                                                                name="<?= isset($nip) ? 'updateStaff' : 'simpanStaff' ?>" 
+                                                                value="<?= isset($nip) ? 'update' : 'tambah' ?>">
+                                                            <?= isset($nip) ? 'Update' : 'Tambah' ?>
+                                                        </button>
                                                         <button type="reset" class="btn btn-light-secondary me-1 mb-1">Kembali</button>
                                                     </div>
                                                 </div>
@@ -226,6 +241,40 @@ getDataStaffByNip();
             </footer>
         </div>
     </div>
+    <script>
+        $(document).ready(function() {
+            $('form').submit(function(e) {
+                e.preventDefault();
+            
+                var formData = new FormData(this);
+            
+                var buttonName = $('button[type="submit"]').attr('name');
+
+                if (buttonName === 'updateStaff') {
+                    var url = '../Controllers/UserControllers.php?action=updateStaff';
+                } else {
+                    var url = '../Controllers/UserControllers.php?action=createMahasiswa';
+                }
+
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        alert(response);
+                        window.location.reload(); // Memuat ulang halaman setelah submit berhasil
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('AJAX Error:', status, error);
+                        alert('Terjadi kesalahan: ' + error);
+                    }
+                });
+            });
+
+        });
+    </script>
     <script src="../assets/static/js/components/dark.js"></script>
     <script src="../assets/extensions/perfect-scrollbar/perfect-scrollbar.min.js"></script>
     <script src="../assets/extensions/perfect-scrollbar/perfect-scrollbar.min.js"></script>

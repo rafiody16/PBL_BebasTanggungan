@@ -1,6 +1,7 @@
 <?php
 
 require_once '../Koneksi.php';
+require_once 'User.php';
 
 class Staff extends User {
     private $NIP;
@@ -12,7 +13,8 @@ class Staff extends User {
     private $Tanggal_Lahir;
     private $TTD;
 
-    public function __construct($conn,$ID_User, $Username, $Password, $Email, $Role_ID, $NIP, $Nama, $Alamat, $NoHp, $JenisKelamin, $Tempat_Lahir, $Tanggal_Lahir, $TTD) {
+    public function __construct($conn = null, $ID_User = null, $Username = null, $Password = null, $Email = null, $Role_ID = null, $NIP = null, $Nama = null, 
+                                $Alamat = null, $NoHp = null, $JenisKelamin = null, $Tempat_Lahir = null, $Tanggal_Lahir = null, $TTD = null) {
         parent::__construct($conn,$ID_User, $Username, $Password, $Email, $Role_ID);
         $this->NIP = $NIP;
         $this->Nama = $Nama;
@@ -57,12 +59,28 @@ class Staff extends User {
     }
 
     public function findByNIP($NIP) {
-        $sql = "SELECT * FROM Staff WHERE NIP = ?";
+        $sql = "SELECT Staff.Nama, Staff.Alamat, Staff.NoHp, Staff.Tempat_Lahir, Staff.Tanggal_Lahir, Staff.JenisKelamin, 
+                [User].Username, [User].Password, [User].Email, [User].Role_ID, [Role].Nama_Role 
+                FROM Staff INNER JOIN [User] ON Staff.ID_User = [User].ID_User  
+                INNER JOIN [Role] ON [User].Role_ID = [Role].Role_ID WHERE Staff.NIP = ?";
         $stmt = sqlsrv_query($this->conn, $sql, [$NIP]);
         if ($stmt === false) {
             return null;
         }
         return sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
+    }
+
+    public function getAllStaff() {
+        $role = isset($_GET['role']) ? $_GET['role'] : '';
+
+        $sql = "{CALL FilterStaff(?)}";
+        $params = array($role);
+        $stmt = sqlsrv_query($this->conn, $sql, $params);
+
+        if ($stmt === false) {
+            return null;
+        }
+        return $stmt;
     }
 
     public function saveStaff($NIP, $Nama, $Alamat, $NoHp, $JenisKelamin, $Tempat_Lahir, $Tanggal_Lahir, $TTD, $ID_User) {

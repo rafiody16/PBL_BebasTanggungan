@@ -88,6 +88,11 @@ $role = $_SESSION['Role_ID'];
                     <div class="row">
                         <div class="col-12">
                             <div class="card">
+                            <?php 
+                                require_once '../Koneksi.php';
+                                $db = new Database();
+                                $conn = $db->getConnection();
+                            ?>
                             <div class="card-header">
                                 <h5 class="card-title">Tabel User</h5>
                                 <form action="" method="get" class="form-inline">
@@ -125,7 +130,9 @@ $role = $_SESSION['Role_ID'];
                                 </thead>
                                 <tbody>
                                 <?php 
-                                    include('UserProses.php');
+                                    require_once '../Models/Staff.php';
+                                    $staff = new Staff($conn);
+                                    $stmt = $staff->getAllStaff();
                                     $no = 1;
                                     while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
                                         if ($row) {

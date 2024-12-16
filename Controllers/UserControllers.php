@@ -25,49 +25,49 @@ class UserController {
         }
     }
 
-    public function createStaff($NIP, $Nama, $Alamat, $NoHp, $JenisKelamin, $Tempat_Lahir, $Tanggal_Lahir, $TTD, $Username, $Password, $Email, $Role_ID) {
-        try {
-            $newUserID = $this->createUser($Username, $Password, $Email, $Role_ID);
+    // public function createStaff($NIP, $Nama, $Alamat, $NoHp, $JenisKelamin, $Tempat_Lahir, $Tanggal_Lahir, $TTD, $Username, $Password, $Email, $Role_ID) {
+    //     try {
+    //         $newUserID = $this->createUser($Username, $Password, $Email, $Role_ID);
 
-            $uploadDir = "../Uploads/";
+    //         $uploadDir = "../Uploads/";
     
-            function uploadFile($file, $uploadDir) {
-                if (!$file || !isset($file['tmp_name']) || empty($file['tmp_name'])) {
-                    return false;
-                }
+    //         function uploadFile($file, $uploadDir) {
+    //             if (!$file || !isset($file['tmp_name']) || empty($file['tmp_name'])) {
+    //                 return false;
+    //             }
             
-                $fileName = basename($file['name']);
-                $targetFilePath = $uploadDir . $fileName;
+    //             $fileName = basename($file['name']);
+    //             $targetFilePath = $uploadDir . $fileName;
             
-                // Validasi apakah file adalah gambar
-                $fileType = mime_content_type($file['tmp_name']);
-                $allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
+    //             // Validasi apakah file adalah gambar
+    //             $fileType = mime_content_type($file['tmp_name']);
+    //             $allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
             
-                if (!in_array($fileType, $allowedTypes)) {
-                    return false; // File bukan gambar
-                }
+    //             if (!in_array($fileType, $allowedTypes)) {
+    //                 return false; // File bukan gambar
+    //             }
             
-                if (move_uploaded_file($file['tmp_name'], $targetFilePath)) {
-                    return $fileName; 
-                } else {
-                    return false; 
-                }
-            }
+    //             if (move_uploaded_file($file['tmp_name'], $targetFilePath)) {
+    //                 return $fileName; 
+    //             } else {
+    //                 return false; 
+    //             }
+    //         }
     
-            $ttdFile = uploadFile($TTD, $uploadDir);
+    //         $ttdFile = uploadFile($TTD, $uploadDir);
 
-            if ($newUserID) {
-                $staffModel = new Staff($this->conn, $newUserID, $Username, $Password, $Email, $Role_ID, $NIP, $Nama, $Alamat, $NoHp, $JenisKelamin, $Tempat_Lahir, $Tanggal_Lahir, $ttdFile);
-                $staffModel->saveStaff($NIP, $Nama, $Alamat, $NoHp, $JenisKelamin, $Tempat_Lahir, $Tanggal_Lahir, $ttdFile, $newUserID);
+    //         if ($newUserID) {
+    //             $staffModel = new Staff($this->conn, $newUserID, $Username, $Password, $Email, $Role_ID, $NIP, $Nama, $Alamat, $NoHp, $JenisKelamin, $Tempat_Lahir, $Tanggal_Lahir, $ttdFile);
+    //             $staffModel->saveStaff($NIP, $Nama, $Alamat, $NoHp, $JenisKelamin, $Tempat_Lahir, $Tanggal_Lahir, $ttdFile, $newUserID);
 
-                echo json_encode(['success' => true]);
-            } else {
-                throw new Exception('Failed to create User');
-            }
-        } catch (Exception $e) {
-            echo json_encode(['success' => false, 'message' => $e->getMessage()]);
-        }
-    }
+    //             echo json_encode(['success' => true]);
+    //         } else {
+    //             throw new Exception('Failed to create User');
+    //         }
+    //     } catch (Exception $e) {
+    //         echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+    //     }
+    // }
 
     public function createMahasiswa($NIM, $Nama, $Alamat, $NoHp, $JenisKelamin, $Prodi, $tahunAngkatan, $Tempat_Lahir, $Tanggal_Lahir, $Username, $Password, $Email) {
         try {
@@ -101,6 +101,63 @@ class UserController {
             echo json_encode(['success' => false, 'message' => $e->getMessage()]);
         }
     }
+
+    public function updateStaff($NIP, $Nama, $Alamat, $NoHp, $JenisKelamin, $Tempat_Lahir, $Tanggal_Lahir, $TTD, $Username, $Email, $Role_ID) {
+        try {
+            $usrModel = new User($this->conn, $Username, $Email, $Role_ID);
+            $usrModel->updateUserStf($Username, $Email, $Role_ID, $NIP);
+    
+            $uploadDir = "../Uploads/";
+            $TTDFile = null;
+    
+            // Check for uploaded file
+            if (isset($_FILES['TTD']) && $_FILES['TTD']['error'] === UPLOAD_ERR_OK) {
+                $TTDFile = $this->uploadFile($_FILES['TTD'], $uploadDir);
+            } else {
+                // Use existing value if no file uploaded
+                $stfSearch = new Staff($this->conn);
+                $existingStf = $stfSearch->findByNIP($NIP);
+                $TTDFile = $existingStf['TTD'] ?? null;
+            }
+    
+            $stfModel = new Staff($this->conn, $NIP, $Nama, $Alamat, $NoHp, $JenisKelamin, $Tempat_Lahir, $Tanggal_Lahir, $TTDFile);
+            $stfModel->updateStaff($Nama, $Alamat, $NoHp, $JenisKelamin, $Tempat_Lahir, $Tanggal_Lahir, $TTDFile, $NIP);
+    
+            echo json_encode(['success' => true]);
+        } catch (Exception $e) {
+            echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+        }
+    }
+    
+    
+    private function uploadFile($file, $uploadDir) {
+        if (!$file || empty($file['tmp_name'])) {
+            throw new Exception('No file uploaded.');
+        }
+    
+        $fileName = basename($file['name']);
+        $targetFilePath = $uploadDir . $fileName;
+    
+        // Validate file type
+        $allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
+        $fileType = mime_content_type($file['tmp_name']);
+    
+        if (!in_array($fileType, $allowedTypes)) {
+            throw new Exception('Invalid file type: ' . $fileType);
+        }
+    
+        // Debug file path
+        error_log("Uploading file to: " . $targetFilePath);
+    
+        if (move_uploaded_file($file['tmp_name'], $targetFilePath)) {
+            return $fileName;
+        } else {
+            throw new Exception('Failed to move uploaded file.');
+        }
+    }
+    
+    
+
 
     public function deleteMhs($NIM) {
         try {
@@ -139,8 +196,22 @@ switch ($action) {
     case 'createUser':
         $userController->createUser($_POST['username'], $_POST['password'], $_POST['email'], $_POST['roleId']);
         break;
-    case 'createStaff':
-        $userController->createStaff($_POST['NIP'], $_POST['Nama'], $_POST['Alamat'], $_POST['NoHp'], $_POST['JenisKelamin'], $_POST['Tempat_Lahir'], $_POST['Tanggal_Lahir'], $_FILES['TTD'], $_POST['Username'], $_POST['Password'], $_POST['Email'], $_POST['Role_ID']);
+    case 'updateStaff':
+        // $TTD = isset($_FILES['TTD']) && $_FILES['TTD']['error'] === UPLOAD_ERR_OK ? $_FILES['TTD'] : 'Tidak ada file yang terkirim';
+        
+        $userController->updateStaff(
+            $_POST['NIP'],
+            $_POST['Nama'],
+            $_POST['Alamat'],
+            $_POST['NoHp'],
+            $_POST['JenisKelamin'],
+            $_POST['Tempat_Lahir'],
+            $_POST['Tanggal_Lahir'],
+            $_FILES['TTD'],
+            $_POST['Username'],
+            $_POST['Email'],
+            $_POST['Role_ID']
+        );
         break;
     case 'createMahasiswa':
         $userController->createMahasiswa(

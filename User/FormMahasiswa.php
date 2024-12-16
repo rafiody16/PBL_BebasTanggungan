@@ -219,12 +219,10 @@ if ($_SESSION['Role_ID'] === 6 || $_SESSION['Role_ID'] === 7 || $_SESSION['Role_
     </div>
     <script>
         $(document).ready(function() {
-    
-            // Mengirim data formulir untuk create atau update mahasiswa
             $('form').submit(function(e) {
-                e.preventDefault(); // Menghindari submit biasa
+                e.preventDefault();
             
-                var formData = $(this).serialize(); // Mengambil semua data formulir
+                var formData = $(this).serialize();
             
                 var buttonName = $('button[type="submit"]').attr('name');
 
@@ -250,7 +248,6 @@ if ($_SESSION['Role_ID'] === 6 || $_SESSION['Role_ID'] === 7 || $_SESSION['Role_
             });
 
         });
-
     </script>
     <script src="../assets/static/js/components/dark.js"></script>
     <script src="../assets/extensions/perfect-scrollbar/perfect-scrollbar.min.js"></script>

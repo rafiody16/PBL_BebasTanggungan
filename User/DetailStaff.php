@@ -42,10 +42,6 @@ if ($_SESSION['Role_ID'] === 3 || $_SESSION['Role_ID'] === 4 || $_SESSION['Role_
     </script>";
 }
 
-include('UserProses.php');
-include('../Koneksi.php');
-
-getDataStaffByNip();
 
 ?>
 
@@ -71,6 +67,20 @@ getDataStaffByNip();
                                 <div class="card-content">
                                     <div class="card-body">
                                         <form class="form form-vertical">
+                                            <?php
+                                                require_once '../Koneksi.php';
+                                                require_once '../Models/Staff.php';
+                                                
+                                                $db = new Database();
+                                                $staffModel = new Staff($db->getConnection());
+                                                
+                                                $nip = isset($_GET['NIP']) ? $_GET['NIP'] : '';
+                                                $staff = null;
+                                                
+                                                if ($nip) {
+                                                    $staff = $staffModel->findByNIP($nip);
+                                                }
+                                            ?>
                                             <div class="form-body">
                                                 <div class="row">
                                                     <div class="col-md-6 col-12">
@@ -82,49 +92,49 @@ getDataStaffByNip();
                                                     <div class="col-md-6 col-12">
                                                         <div class="form-group">
                                                             <label for="Nama">Nama</label>
-                                                            <h3><?= isset($nama) ? htmlspecialchars($nama) : '' ?></h3>
+                                                            <h3><?= isset($staff['Nama']) ? htmlspecialchars($staff['Nama']) : '' ?></h3>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6 col-12">
                                                         <div class="form-group">
                                                             <label for="Username">Username</label>
-                                                            <h3><?= isset($username) ? htmlspecialchars($username) : '' ?></h3>
+                                                            <h3><?= isset($staff['Username']) ? htmlspecialchars($staff['Username']) : '' ?></h3>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6 col-12">
                                                         <div class="form-group">
                                                             <label for="Email">Email</label>
-                                                            <h3><?= isset($email) ? htmlspecialchars($email) : '' ?></h3>
+                                                            <h3><?= isset($staff['Email']) ? htmlspecialchars($staff['Email']) : '' ?></h3>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6 col-12">
                                                         <div class="form-group">
                                                             <label for="Alamat">Alamat</label>
-                                                            <h3><?= isset($alamat) ? htmlspecialchars($alamat) : '' ?></h3>
+                                                            <h3><?= isset($staff['Alamat']) ? htmlspecialchars($staff['Alamat']) : '' ?></h3>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6 col-12">
                                                         <div class="form-group">
                                                             <label for="NoHp">No.Hp</label>
-                                                            <h3><?= isset($noHp) ? htmlspecialchars($noHp) : '' ?></h3>
+                                                            <h3><?= isset($staff['NoHp']) ? htmlspecialchars($staff['NoHp']) : '' ?></h3>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6 col-12">
                                                         <div class="form-group">
                                                             <label for="TempatTanggalLahir">Tempat Tanggal Lahir</label>
-                                                            <h3><?= isset($Tempat_Lahir) ? htmlspecialchars($Tempat_Lahir) : '' ?> / <?= isset($Tanggal_Lahir) ? htmlspecialchars($Tanggal_Lahir instanceof DateTime ? $Tanggal_Lahir->format('d-m-Y') : $Tanggal_Lahir) : '' ?></h3>
+                                                            <h3><?= isset($staff['Tempat_Lahir']) ? htmlspecialchars($staff['Tempat_Lahir']) : '' ?> / <?= isset($staff['Tanggal_Lahir']) ? htmlspecialchars($staff['Tanggal_Lahir'] instanceof DateTime ? $staff['Tanggal_Lahir']->format('d-m-Y') : $staff['Tanggal_Lahir']) : '' ?></h3>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6 col-12">
                                                         <div class="form-group">
                                                             <label for="JenisKelamin">Jenis Kelamin</label>
-                                                            <h3><?= isset($jeniskelamin) ? ($jeniskelamin === 'L' ? 'Laki-Laki' : ($jeniskelamin === 'P' ? 'Perempuan' : '')) : '' ?></h3>
+                                                            <h3><?= isset($staff['JenisKelamin']) ? ($staff['JenisKelamin'] === 'L' ? 'Laki-Laki' : ($staff['JenisKelamin'] === 'P' ? 'Perempuan' : '')) : '' ?></h3>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6 col-12">
                                                         <div class="form-group">
                                                             <label for="Role_ID">Jabatan</label>
-                                                            <h3><?= isset($Nama_Role) ? htmlspecialchars($Nama_Role) : '' ?></h3>
+                                                            <h3><?= isset($staff['Nama_Role']) ? htmlspecialchars($staff['Nama_Role']) : '' ?></h3>
                                                         </div>
                                                     </div>
                                                     <div class="col-12 d-flex justify-content-end">
