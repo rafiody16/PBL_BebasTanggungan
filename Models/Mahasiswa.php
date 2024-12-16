@@ -114,11 +114,11 @@ class Mahasiswa extends User {
     }
     
 
-    public function updateMahasiswa($Nama, $Alamat, $NoHp, $JenisKelamin, $Tempat_Lahir, $Tanggal_Lahir, $TTD, $NIM) {
+    public function updateMahasiswa($Nama, $Alamat, $NoHp, $JenisKelamin, $Prodi, $tahunAngkatan, $Tempat_Lahir, $Tanggal_Lahir, $NIM) {
         $sql = "UPDATE Mahasiswa
-                SET Nama = ?, Alamat = ?, NoHp = ?, JenisKelamin = ?, Tempat_Lahir = ?, Tanggal_Lahir = ?, TTD = ?
+                SET Nama = ?, Alamat = ?, NoHp = ?, JenisKelamin = ?, Prodi = ?, Tahun_Angkatan = ?, Tempat_Lahir = ?, Tanggal_Lahir = ?, NIM = ?
                 WHERE NIM = ?";
-        $params = [$Nama, $Alamat, $NoHp, $JenisKelamin, $Tempat_Lahir, $Tanggal_Lahir, $TTD, $NIM];
+        $params = [$Nama, $Alamat, $NoHp, $JenisKelamin, $Prodi, $tahunAngkatan, $Tempat_Lahir, $Tanggal_Lahir, $NIM];
         $stmt = sqlsrv_query($this->conn, $sql, $params);
 
         if ($stmt === false) {

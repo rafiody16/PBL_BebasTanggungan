@@ -8,11 +8,9 @@ require_once '../Models/Mahasiswa.php';
 class UserController {
 
     public $conn;
-    private $model;
 
-    public function __construct($conn, $model) {
+    public function __construct($conn) {
         $this->conn = $conn;
-        $this->model = $model;
     }
 
     // Method untuk membuat user baru
@@ -88,49 +86,25 @@ class UserController {
         }
     }
 
-    public function findMahasiswaByNIM($NIM) {
-        // Validasi input NIM (opsional)
-        if (empty($NIM) || !is_numeric($NIM)) {
-            return [
-                'status' => 'error',
-                'message' => 'NIM tidak valid.'
-            ];
-        }
-
-        // Memanggil model untuk mencari data mahasiswa berdasarkan NIM
-        $result = $this->model->findByNIM($NIM);
-
-        if ($result === null) {
-            return [
-                'status' => 'error',
-                'message' => 'Data mahasiswa tidak ditemukan.'
-            ];
-        }
-
-        return [
-            'status' => 'success',
-            'data' => $result
-        ];
-    }
-
-    public function updateUser($username, $email, $roleId, $NIP) {
+    public function updateMhs($username, $email, $NIM, $Nama, $Alamat, $NoHp, $JenisKelamin, $Prodi, $tahunAngkatan, $Tempat_Lahir, $Tanggal_Lahir) {
         try {
-            $userModel = new User($this->conn, null, $username, null, $email, $roleId);
-            $userModel->updateUser($username, $email, $roleId, $NIP);
+            $userModel = new User($this->conn);
+            $userModel->updateUserMhs($username, $email, $NIM);
+            $mhsModel = new Mahasiswa($this->conn);
+            $mhsModel->updateMahasiswa($Nama, $Alamat, $NoHp, $JenisKelamin, $Prodi, $tahunAngkatan, $Tempat_Lahir, $Tanggal_Lahir, $NIM);
             echo json_encode(['success' => true]);
         } catch (Exception $e) {
             echo json_encode(['success' => false, 'message' => $e->getMessage()]);
         }
     }
 
-    // Method untuk memperbarui data mahasiswa berdasarkan NIM
 }
 
 $database = new Database(); // Membuat objek Database untuk mendapatkan koneksi
 $conn = $database->conn; 
-$model = new User($conn);
 
-$userController = new UserController($conn, $model);
+
+$userController = new UserController($conn);
 
 // Mengambil action dari request
 $action = $_GET['action'] ?? '';
@@ -158,11 +132,20 @@ switch ($action) {
             $_POST['Email']
         );        
         break;
-    case 'getByNim':
-        $userController->findMahasiswaByNIM($_POST['NIM']);
-        break;
-    case 'updateUser':
-        $userController->updateUser($_POST['username'], $_POST['email'], $_POST['roleId'], $_POST['NIP']);
+    case 'updateMhs':
+        $userController->updateMhs(
+            $_POST['Username'], 
+            $_POST['Email'], 
+            $_POST['NIM'], 
+            $_POST['Nama'],
+            $_POST['Alamat'],
+            $_POST['NoHp'],
+            $_POST['JenisKelamin'],
+            $_POST['Prodi'],
+            $_POST['Tahun_Angkatan'],
+            $_POST['Tempat_Lahir'],
+            $_POST['Tanggal_Lahir'],
+        );
         break;
     default:
         echo json_encode(['message' => 'Action not found']);

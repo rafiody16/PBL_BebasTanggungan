@@ -82,7 +82,7 @@ if ($_SESSION['Role_ID'] === 6 || $_SESSION['Role_ID'] === 7 || $_SESSION['Role_
                                 </div>
                                 <div class="card-content">
                                     <div class="card-body">
-                                        <form class="form form-vertical" action="UserProses.php" method="POST">
+                                        <form class="form form-vertical" method="POST">
                                             <?php 
                                                 require_once '../Koneksi.php';
                                                 require_once '../Models/Mahasiswa.php';
@@ -186,7 +186,11 @@ if ($_SESSION['Role_ID'] === 6 || $_SESSION['Role_ID'] === 7 || $_SESSION['Role_
                                                         </div>
                                                     </div>
                                                     <div class="col-12 d-flex justify-content-start">
-                                                        <button type="submit" class="btn btn-primary me-1 mb-1" name="simpanMahasiswa">Simpan</button>
+                                                        <button type="submit" class="btn btn-primary me-1 mb-1" 
+                                                                name="<?= isset($mhs['NIM']) ? 'updateMahasiswa' : 'simpanMahasiswa' ?>" 
+                                                                value="<?= isset($mhs['NIM']) ? 'update' : 'tambah' ?>">
+                                                            <?= isset($mhs['NIM']) ? 'Update' : 'Tambah' ?>
+                                                        </button>
                                                         <button type="reset" class="btn btn-light-secondary me-1 mb-1">Kembali</button>
                                                     </div>
                                                 </div>
@@ -213,6 +217,41 @@ if ($_SESSION['Role_ID'] === 6 || $_SESSION['Role_ID'] === 7 || $_SESSION['Role_
             </footer>
         </div>
     </div>
+    <script>
+        $(document).ready(function() {
+    
+            // Mengirim data formulir untuk create atau update mahasiswa
+            $('form').submit(function(e) {
+                e.preventDefault(); // Menghindari submit biasa
+            
+                var formData = $(this).serialize(); // Mengambil semua data formulir
+            
+                var buttonName = $('button[type="submit"]').attr('name');
+
+                if (buttonName === 'updateMahasiswa') {
+                    var url = '../Controllers/UserControllers.php?action=updateMhs';
+                } else {
+                    var url = '../Controllers/UserControllers.php?action=createMahasiswa';
+                }
+
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    data: formData,
+                    success: function(response) {
+                        alert(response);
+                        window.location.reload(); // Memuat ulang halaman setelah submit berhasil
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('AJAX Error:', status, error);
+                        alert('Terjadi kesalahan: ' + error);
+                    }
+                });
+            });
+
+        });
+
+    </script>
     <script src="../assets/static/js/components/dark.js"></script>
     <script src="../assets/extensions/perfect-scrollbar/perfect-scrollbar.min.js"></script>
     <script src="../assets/extensions/perfect-scrollbar/perfect-scrollbar.min.js"></script>
