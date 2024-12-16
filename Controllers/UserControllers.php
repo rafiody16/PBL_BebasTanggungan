@@ -87,15 +87,15 @@ class UserController {
             $uploadDir = "../Uploads/";
             $stfSearch = new Staff($this->conn);
             $existingStf = $stfSearch->findByNIP($NIP);
-            $TTDFile = $existingStf['TTD'] ?? null;
+            $TTD = $existingStf['TTD'] ?? null;
     
             // Check for uploaded file
             if (isset($_FILES['TTD']) && $_FILES['TTD']['error'] === UPLOAD_ERR_OK) {
-                $TTDFile = $this->uploadFile($_FILES['TTD'], $uploadDir);
+                $TTD = $this->uploadFile($_FILES['TTD'], $uploadDir);
             } 
     
-            $stfModel = new Staff($this->conn, $NIP, $Nama, $Alamat, $NoHp, $JenisKelamin, $Tempat_Lahir, $Tanggal_Lahir, $TTDFile);
-            $stfModel->updateStaff($Nama, $Alamat, $NoHp, $JenisKelamin, $Tempat_Lahir, $Tanggal_Lahir, $TTDFile, $NIP);
+            $stfModel = new Staff($this->conn, $NIP, $Nama, $Alamat, $NoHp, $JenisKelamin, $Tempat_Lahir, $Tanggal_Lahir, $TTD);
+            $stfModel->updateStaff($Nama, $Alamat, $NoHp, $JenisKelamin, $Tempat_Lahir, $Tanggal_Lahir, $TTD, $NIP);
     
             echo json_encode(['success' => true]);
         } catch (Exception $e) {
