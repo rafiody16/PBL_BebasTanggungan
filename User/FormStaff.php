@@ -201,7 +201,7 @@ if ($_SESSION['Role_ID'] != 1) {
                                                                     <div class="card-body">
                                                                         <!-- File uploader with image preview -->
                                                                         <input type="file" class="image-preview-filepond" accept="image/*"
-                                                                        data-max-file-size="10MB" name="TTD" data-max-files="1">
+                                                                        data-max-file-size="10MB" name="TTD" data-max-files="1" value="<?= isset($staff['TTD']) ? htmlspecialchars($staff['TTD']) : '' ?>">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -264,7 +264,7 @@ if ($_SESSION['Role_ID'] != 1) {
                     contentType: false,
                     success: function(response) {
                         alert(response);
-                        window.location.reload(); // Memuat ulang halaman setelah submit berhasil
+                        location.href="TabelStaff.php"; // Memuat ulang halaman setelah submit berhasil
                     },
                     error: function(xhr, status, error) {
                         console.error('AJAX Error:', status, error);

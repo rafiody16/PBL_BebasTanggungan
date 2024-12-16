@@ -60,7 +60,7 @@ class Staff extends User {
 
     public function findByNIP($NIP) {
         $sql = "SELECT Staff.Nama, Staff.Alamat, Staff.NoHp, Staff.Tempat_Lahir, Staff.Tanggal_Lahir, Staff.JenisKelamin, 
-                [User].Username, [User].Password, [User].Email, [User].Role_ID, [Role].Nama_Role 
+                Staff.TTD, [User].Username, [User].Password, [User].Email, [User].Role_ID, [Role].Nama_Role 
                 FROM Staff INNER JOIN [User] ON Staff.ID_User = [User].ID_User  
                 INNER JOIN [Role] ON [User].Role_ID = [Role].Role_ID WHERE Staff.NIP = ?";
         $stmt = sqlsrv_query($this->conn, $sql, [$NIP]);

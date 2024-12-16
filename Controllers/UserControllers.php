@@ -108,17 +108,14 @@ class UserController {
             $usrModel->updateUserStf($Username, $Email, $Role_ID, $NIP);
     
             $uploadDir = "../Uploads/";
-            $TTDFile = null;
+            $stfSearch = new Staff($this->conn);
+            $existingStf = $stfSearch->findByNIP($NIP);
+            $TTDFile = $existingStf['TTD'] ?? null;
     
             // Check for uploaded file
             if (isset($_FILES['TTD']) && $_FILES['TTD']['error'] === UPLOAD_ERR_OK) {
                 $TTDFile = $this->uploadFile($_FILES['TTD'], $uploadDir);
-            } else {
-                // Use existing value if no file uploaded
-                $stfSearch = new Staff($this->conn);
-                $existingStf = $stfSearch->findByNIP($NIP);
-                $TTDFile = $existingStf['TTD'] ?? null;
-            }
+            } 
     
             $stfModel = new Staff($this->conn, $NIP, $Nama, $Alamat, $NoHp, $JenisKelamin, $Tempat_Lahir, $Tanggal_Lahir, $TTDFile);
             $stfModel->updateStaff($Nama, $Alamat, $NoHp, $JenisKelamin, $Tempat_Lahir, $Tanggal_Lahir, $TTDFile, $NIP);
