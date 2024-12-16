@@ -211,9 +211,9 @@ if ($_SESSION['Role_ID'] != 1) {
                                                         </div>
                                                     <div class="col-12 d-flex justify-content-start">
                                                         <button type="submit" class="btn btn-primary me-1 mb-1" 
-                                                                name="<?= isset($staff['NIP']) ? 'updateStaff' : 'simpanStaff' ?>" 
-                                                                value="<?= isset($staff['NIP']) ? 'update' : 'tambah' ?>">
-                                                            <?= isset($staff['NIP']) ? 'Update' : 'Tambah' ?>
+                                                            name="<?= empty($nip) ? 'simpanStaff' : 'updateStaff' ?>"
+                                                            value="<?= empty($nip) ? 'tambah' : 'update' ?>">
+                                                            <?= empty($nip) ? 'Tambah' : 'Update' ?>
                                                         </button>
                                                         <button type="reset" class="btn btn-light-secondary me-1 mb-1">Kembali</button>
                                                     </div>
