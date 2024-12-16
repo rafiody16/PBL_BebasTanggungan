@@ -91,7 +91,7 @@ $NIM = $_SESSION['NIM'];
     </div>
     <section class="section">
         <div class="row">
-        <form action="../Controllers/BerkasControllers.php?action=uploadFile" method="POST" enctype="multipart/form-data">
+        <form method="POST" enctype="multipart/form-data">
         <div class="col-12 col-md-12">
                 <div class="card">
                     <div class="card-header">
@@ -244,7 +244,37 @@ $NIM = $_SESSION['NIM'];
     </div>
     <script src="../assets/static/js/components/dark.js"></script>
     <script src="../assets/extensions/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-    
+    <script>
+        $(document).ready(function() {
+            $('form').submit(function(e) {
+                e.preventDefault();
+            
+                var formData = new FormData(this);
+            
+                var buttonName = $('button[type="submit"]').attr('name');
+
+                if (buttonName === 'simpanBerkas') {
+                    var url = '../Controllers/BerkasControllers.php?action=uploadFile';
+                } 
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        alert(response);
+                        location.reload(); // Memuat ulang halaman setelah submit berhasil
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('AJAX Error:', status, error);
+                        alert('Terjadi kesalahan: ' + error);
+                    }
+                });
+            });
+
+        });
+    </script>
     
     <script src="../assets/compiled/js/app.js"></script>
 

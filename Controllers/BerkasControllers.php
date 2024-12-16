@@ -46,8 +46,7 @@ class BerkasControllers {
             $PernyataanPublikasi = $this->uploadFile($_FILES['Pernyataan_Publikasi'], $uploadDir);
 
             if ($newPgID) {
-                $con1 = $this->conn;
-                $AdmModel = new Administrasi($con1, $newPgID, $LaporanSkripsi, $LaporanMagang, $BebasKompen, $ScanToeic);
+                $AdmModel = new Administrasi($this->conn, $newPgID, $LaporanSkripsi, $LaporanMagang, $BebasKompen, $ScanToeic);
                 $AdmModel -> saveAdm($LaporanSkripsi, $LaporanMagang, $BebasKompen, $ScanToeic, $newPgID, "Menunggu", date("Y-m-d"), "-");
 
                 $TAModel = new TugasAkhir($this->conn, $newPgID,$FileAplikasi, $LaporanTA, $PernyataanPublikasi);

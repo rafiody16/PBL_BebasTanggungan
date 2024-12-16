@@ -16,8 +16,12 @@ class Administrasi extends Pengumpulan {
     private $Verifikator;
 
     public function __construct($conn = null, $ID_Pengumpulan = null, $Laporan_Skripsi = null, $Laporan_Magang = null, $Bebas_Kompensasi = null, 
-                            $Scan_Toeic = null, $Status_Verifikasi = null, $Tanggal_Verifikasi = null, $Tanggal_Upload = null, $Keterangan = null, $Verifikator = null) {
+                                $Scan_Toeic = null, $Status_Verifikasi = null, $Tanggal_Verifikasi = null, $Tanggal_Upload = null, $Keterangan = null, $Verifikator = null) {
+        if (!$conn) {
+            throw new Exception('Database connection is null in Administrasi constructor.');
+        }
         parent::__construct($conn, $ID_Pengumpulan, $Status_Verifikasi, $Tanggal_Verifikasi, $Tanggal_Upload, $Keterangan);
+        $this->conn = $conn; // Explicitly assign
         $this->ID_Pengumpulan = $ID_Pengumpulan;
         $this->Laporan_Skripsi = $Laporan_Skripsi;
         $this->Laporan_Magang = $Laporan_Magang;
@@ -29,6 +33,7 @@ class Administrasi extends Pengumpulan {
         $this->Keterangan = $Keterangan;
         $this->Verifikator = $Verifikator;
     }
+
 
     // Getter dan Setter untuk ID_Pengumpulan
     public function getID_Pengumpulan() {
@@ -167,16 +172,15 @@ class Administrasi extends Pengumpulan {
             $ket
         ];
     
-        // Add error logging
         $stmtInsert = sqlsrv_query($this->conn, $sqlInsert, $paramsInsert);
         
         if ($stmtInsert === false) {
-            // Log detailed error information
             $errors = sqlsrv_errors();
             error_log('Database Insert Error: ' . print_r($errors, true));
             throw new Exception('Failed to save Administration data: ' . ($errors ? $errors[0]['message'] : 'Unknown error'));
         }
     }
+    
 
     public function editAdm($NIM, $Laporan_Skripsi, $Laporan_Magang, $Bebas_Kompensasi, $Scan_Toeic) {
         $sqlUpdate = "UPDATE Administrasi 
