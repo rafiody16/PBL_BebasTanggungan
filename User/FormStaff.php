@@ -211,9 +211,9 @@ if ($_SESSION['Role_ID'] != 1) {
                                                         </div>
                                                     <div class="col-12 d-flex justify-content-start">
                                                         <button type="submit" class="btn btn-primary me-1 mb-1" 
-                                                                name="<?= isset($nip) ? 'updateStaff' : 'simpanStaff' ?>" 
-                                                                value="<?= isset($nip) ? 'update' : 'tambah' ?>">
-                                                            <?= isset($nip) ? 'Update' : 'Tambah' ?>
+                                                                name="<?= isset($staff['NIP']) ? 'updateStaff' : 'simpanStaff' ?>" 
+                                                                value="<?= isset($staff['NIP']) ? 'update' : 'tambah' ?>">
+                                                            <?= isset($staff['NIP']) ? 'Update' : 'Tambah' ?>
                                                         </button>
                                                         <button type="reset" class="btn btn-light-secondary me-1 mb-1">Kembali</button>
                                                     </div>
@@ -253,7 +253,7 @@ if ($_SESSION['Role_ID'] != 1) {
                 if (buttonName === 'updateStaff') {
                     var url = '../Controllers/UserControllers.php?action=updateStaff';
                 } else {
-                    var url = '../Controllers/UserControllers.php?action=createMahasiswa';
+                    var url = '../Controllers/UserControllers.php?action=createStaff';
                 }
 
                 $.ajax({
