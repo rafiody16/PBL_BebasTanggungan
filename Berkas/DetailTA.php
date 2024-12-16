@@ -1,11 +1,6 @@
 <?php
 session_start();
 
-include('ProsesBerkas.php');
-
-GetByIdTA();
-
-
 if ($_SESSION['Role_ID'] === 7 || $_SESSION['Role_ID'] === 8) {
     echo "<script>
     alert('Anda tidak memiliki akses ke halaman ini.');
@@ -68,33 +63,69 @@ if ($_SESSION['Role_ID'] === 7 || $_SESSION['Role_ID'] === 8) {
         <div class="row">
             <div class="card">
                 <div class="card-header">
-                    <h5 class="card-title">Tabel Tugas Akhir</h5>
+                    <h5 class="card-title">Detail Tugas Akhir</h5>
                 </div>
                 <div class="card-body">
                         <div class="card-header">
-                            <h4 class="card-title">Detail Tugas Akhir</h4>
+                            <h4 class="card-title">Data Mahasiswa</h4>
                         </div>
                         <div class="card-content">
                             <div class="card-body">
                                 <form class="form form-vertical">
+                                    <?php 
+                                        require_once '../Koneksi.php';
+                                        require_once '../Models/TugasAkhir.php';
+                                        
+                                        $db = new Database();
+                                        $TAModel = new TugasAkhir($db->getConnection());
+                                        
+                                        $id = isset($_GET['ID_Aplikasi']) ? $_GET['ID_Aplikasi'] : '';
+                                        $TA = null;
+                                        
+                                        if ($id) {
+                                            $TA = $TAModel->getTaById($id);
+                                        }
+                                    ?>
                                     <div class="form-body">
                                         <div class="row">
                                             <div class="col-md-6 col-12">
                                                 <div class="form-group">
                                                     <label for="NIM">NIM</label>
-                                                    <div class="text-bold-500"><?= isset($nim) ? htmlspecialchars($nim) : '' ?></div>
+                                                    <div class="text-bold-500"><?= isset($TA['NIM']) ? htmlspecialchars($TA['NIM']) : '' ?></div>
                                                 </div>
                                             </div>
                                             <div class="col-md-6 col-12">
                                                 <div class="form-group">
                                                     <label for="Nama">Nama</label>
-                                                    <div class="text-bold-500"><?= isset($nama) ? htmlspecialchars($nama) : '' ?></div>
+                                                    <div class="text-bold-500"><?= isset($TA['Nama']) ? htmlspecialchars($TA['Nama']) : '' ?></div>
                                                 </div>
                                             </div>
                                             <div class="col-md-6 col-12">
                                                 <div class="form-group">
                                                     <label for="Prodi">Prodi</label>
-                                                    <div class="text-bold-500"><?= isset($prodi) ? htmlspecialchars($prodi) : '' ?></div>
+                                                    <div class="text-bold-500"><?= isset($TA['Prodi']) ? htmlspecialchars($TA['Prodi']) : '' ?></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-12">
+                                                <div class="form-group">
+                                                    <label for="Tahun_Angkatan">Angkatan</label>
+                                                    <div class="text-bold-500"><?= isset($TA['Tahun_Angkatan']) ? htmlspecialchars($TA['Tahun_Angkatan']) : '' ?></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-12">
+                                                <div class="form-group">
+                                                    <label for="Prodi">Status Verifikasi</label>
+                                                    <br>
+                                                    <?php 
+                                                        $status = $TA['Status_Verifikasi'];
+                                                        if ($status === 'Menunggu') {
+                                                            echo "<td><span class='badge bg-warning'>" . htmlspecialchars($status) . "</span></td>";
+                                                        } else if ($status === 'Terverifikasi') {
+                                                            echo "<td><span class='badge bg-success'>" . htmlspecialchars($status) . "</span></td>";
+                                                        } else if ($status === 'Ditolak') {
+                                                            echo "<td><span class='badge bg-danger'>" . htmlspecialchars($status) . "</span></td>";
+                                                        }
+                                                    ?>
                                                 </div>
                                             </div>
                                         </div>
@@ -116,49 +147,43 @@ if ($_SESSION['Role_ID'] === 7 || $_SESSION['Role_ID'] === 8) {
                                         <div class="col-12">
                                             <div class="form-group">
                                                 <label for="Laporan_Skripsi">File Aplikasi</label>
-                                                <div class="text-bold-500"> <a href="<?= htmlspecialchars($fileaplikasiurl) ?>" target="_blank"><?= htmlspecialchars($fileaplikasi) ?></a></div>
+                                                <div class="text-bold-500"> <a href="<?= htmlspecialchars('../Uploads/'.$TA['File_Aplikasi']) ?>" target="_blank"><?= htmlspecialchars($TA['File_Aplikasi']) ?></a></div>
                                             </div>
                                         </div>
                                         <div class="col-12">
                                             <div class="form-group">
                                                 <label for="Laporan_Magang">Laporan Tugas Akhir</label>
-                                                <div class="text-bold-500"><a href="<?= htmlspecialchars($laporantaurl) ?>"><?= isset($laporanta) ? htmlspecialchars($laporanta) : '' ?></a></div>
+                                                <div class="text-bold-500"><a href="<?= htmlspecialchars('../Uploads/'.$TA['Laporan_TA']) ?>"><?= isset($TA['Laporan_TA']) ? htmlspecialchars($TA['Laporan_TA']) : '' ?></a></div>
                                             </div>
                                         </div>
                                         <div class="col-12">
                                             <div class="form-group">
-                                                <label for="Bebas_Kompensasi">Link Pernyataan Publikasi</label>
-                                                <div class="text-bold-500"><a href="<?= htmlspecialchars($pernyataanpublikasiurl) ?>"><?= isset($pernyataanpublikasi) ? htmlspecialchars($pernyataanpublikasi) : '' ?></a></div>
+                                                <label for="Bebas_Kompensasi">Pernyataan Publikasi</label>
+                                                <div class="text-bold-500"><a href="<?= htmlspecialchars('../Uploads/'.$TA['Pernyataan_Publikasi']) ?>"><?= isset($TA['Pernyataan_Publikasi']) ? htmlspecialchars($TA['Pernyataan_Publikasi']) : '' ?></a></div>
                                             </div>
                                         </div>
                                         <div class="col-12">
                                             <div class="form-group">
                                                 <label for="Tanggal_Upload">Tanggal Upload</label>
-                                                <div class="text-bold-500"><?= isset($tanggalUpload) ? htmlspecialchars($tanggalUpload instanceof DateTime ? $tanggalUpload->format('d-m-Y') : $tanggalUpload) : '' ?></div>
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
-                                            <div class="form-group">
-                                                <label for="Status_Verifikasi">Status Verifikasi</label>
-                                                <div class="text-bold-500"><?= isset($statusVerifikasi) ? htmlspecialchars($statusVerifikasi) : '' ?></div>
+                                                <div class="text-bold-500"><?= isset($TA['Tanggal_Upload']) ? htmlspecialchars($TA['Tanggal_Upload'] instanceof DateTime ? $TA['Tanggal_Upload']->format('d-m-Y') : $TA['Tanggal_Upload']) : '' ?></div>
                                             </div>
                                         </div>
                                         <div class="col-12">
                                             <div class="form-group">
                                                 <label for="Tanggal_Verifikasi">Tanggal Verifikasi</label>
-                                                <div class="text-bold-500"><?= isset($tanggalVerifikasi) ? htmlspecialchars($tanggalVerifikasi instanceof DateTime ? $tanggalVerifikasi->format('d-m-Y') : $tanggalVerifikasi) : '-' ?></div>
+                                                <div class="text-bold-500"><?= isset($TA['Tanggal_Verifikasi']) ? htmlspecialchars($TA['Tanggal_Verifikasi'] instanceof DateTime ? $TA['Tanggal_Verifikasi']->format('d-m-Y') : $TA['Tanggal_Verifikasi']) : '-' ?></div>
                                             </div>
                                         </div>
                                         <div class="col-12">
                                             <div class="form-group">
                                                 <label for="Keterangan">Keterangan</label>
-                                                <div class="text-bold-500"><?= isset($keterangan) ? htmlspecialchars($keterangan) : '' ?></div>
+                                                <div class="text-bold-500"><?= isset($TA['Keterangan']) ? htmlspecialchars($TA['Keterangan']) : '-' ?></div>
                                             </div>
                                         </div>
                                         <div class="col-12">
                                             <div class="form-group">
                                                 <label for="Verifikator">Verifikator</label>
-                                                <div class="text-bold-500"><?= isset($verifikator) ? htmlspecialchars($verifikator) : 'Belum Diverifikasi' ?></div>
+                                                <div class="text-bold-500"><?= isset($TA['Verifikator']) ? htmlspecialchars($TA['Verifikator']) : 'Belum Diverifikasi' ?></div>
                                             </div>
                                         </div>
                                     </div>

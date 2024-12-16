@@ -4,16 +4,16 @@ require_once 'Pengumpulan.php';
 
 class TugasAkhir extends Pengumpulan {
 
-    private $ID_Pengumpulan;
-    private $File_Aplikasi;
-    private $Laporan_TA;
-    private $Pernyataan_Publikasi;
-    private $Status_Verifikasi;
-    private $Tanggal_Verifikasi;
-    private $Tanggal_Upload;
-    private $Keterangan;
-    private $Verifikator;
-    private $conn;
+    protected $ID_Pengumpulan;
+    protected $File_Aplikasi;
+    protected $Laporan_TA;
+    protected $Pernyataan_Publikasi;
+    protected $Status_Verifikasi;
+    protected $Tanggal_Verifikasi;
+    protected $Tanggal_Upload;
+    protected $Keterangan;
+    protected $Verifikator;
+    protected $conn;
 
     public function __construct($conn = null, $ID_Pengumpulan = null, $File_Aplikasi = null, $Laporan_TA = null, $Pernyataan_Publikasi = null, 
                             $Status_Verifikasi = null, $Tanggal_Verifikasi = null, $Tanggal_Upload = null, $Keterangan = null, $Verifikator = null) {
@@ -112,28 +112,31 @@ class TugasAkhir extends Pengumpulan {
     }
 
     public function getAllTA() {
-        $prodi = isset($_GET['prodi']) ? $_GET['prodi'] : '';
-        $tahunAngkatan = isset($_GET['tahunAngkatan']) ? $_GET['tahunAngkatan'] : '';
-
+        $prodi = $_GET['prodi'] ?? ''; // Avoid undefined array key warning
+        $tahunAngkatan = $_GET['tahunAngkatan'] ?? ''; // Avoid undefined array key warning
+    
         $sql = "SELECT * FROM fn_GetTugasAkhirDetails(?, ?)";
         $params = array($prodi, $tahunAngkatan);
+    
         $stmt = sqlsrv_query($this->conn, $sql, $params);
-
+    
         if ($stmt === false) {
-            die(print_r(sqlsrv_errors(), true));
+            error_log(print_r(sqlsrv_errors(), true)); // Log detailed error for debugging
+            echo "An error occurred while fetching data. Please try again later.";
+            return false;
         }
-
+    
         return $stmt;
     }
 
     public function getTaById($id) {
-        $sql = "SELECT a.ID_Aplikasi, m.NIM, m.Nama, m.Prodi, a.File_Aplikasi, a.Laporan_TA, a.Pernyataan_Publikasi, 
+        $sql = "SELECT a.ID_Aplikasi, m.NIM, m.Nama, m.Prodi, m.Tahun_Angkatan, a.File_Aplikasi, a.Laporan_TA, a.Pernyataan_Publikasi, 
             a.Status_Verifikasi, a.Tanggal_Verifikasi, a.Tanggal_Upload, a.Keterangan, a.Verifikator FROM TugasAkhir AS a 
             INNER JOIN Pengumpulan AS p ON a.ID_Pengumpulan = p.ID_Pengumpulan INNER JOIN Mahasiswa AS m ON p.NIM = m.NIM WHERE a.ID_Aplikasi = ?";
         $params = array($id);
         $stmt = sqlsrv_query($this->conn, $sql, $params);
 
-        return $stmt;
+        return sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
     }
 
     public function saveTA($id, $File_Aplikasi, $Laporan_TA, $Pernyataan_Publikasi) {

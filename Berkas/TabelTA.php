@@ -72,6 +72,11 @@ if ($_SESSION['Role_ID'] === 2 || $_SESSION['Role_ID'] === 3 || $_SESSION['Role_
     <section class="section">
         <div class="row">
             <div class="card">
+            <?php 
+                require_once '../Koneksi.php';
+                $db = new Database();
+                $conn = $db->getConnection();
+            ?>
             <div class="card-header">
                 <h5 class="card-title">Tabel Tugas Akhir</h5>
                 <form action="" method="get" class="form-inline">
@@ -124,10 +129,16 @@ if ($_SESSION['Role_ID'] === 2 || $_SESSION['Role_ID'] === 3 || $_SESSION['Role_
                                 </thead>
                                 <tbody>
                                 <?php 
-                                    include('ProsesBerkas.php');
+                                    require_once '../Models/TugasAkhir.php';
+
+                                    // Membuat objek dan memanggil fungsi
+                                    $TA = new TugasAkhir($conn);
+                                    $stmtTA = $TA->getAllTA();
                                     $no = 1;
+                                    
                                     while ($row = sqlsrv_fetch_array($stmtTA, SQLSRV_FETCH_ASSOC)) {
                                         if ($row) {
+                                            // Tampilkan data
                                             $status = $row['Status_Verifikasi'];
                                             $ID_Aplikasi = $row['ID_Aplikasi'];
                                             $nim = $row['NIM'];
@@ -137,32 +148,26 @@ if ($_SESSION['Role_ID'] === 2 || $_SESSION['Role_ID'] === 3 || $_SESSION['Role_
                                                 echo "<td>" . htmlspecialchars($nim) . "</td>";
                                                 echo "<td>" . htmlspecialchars($row['Nama']) . "</td>";
                                                 echo "<td>" . htmlspecialchars($row['Prodi']) . "</td>";
+                                                // Badge status
                                                 if ($status === 'Menunggu') {
-                                                    ?>
-                                                    <td><span class="badge bg-warning"><?= htmlspecialchars($status) ?></span></td>
-                                                    <?php 
+                                                    echo "<td><span class='badge bg-warning'>" . htmlspecialchars($status) . "</span></td>";
                                                 } else if ($status === 'Terverifikasi') {
-                                                    ?>
-                                                    <td><span class="badge bg-success"><?= htmlspecialchars($status) ?></span></td>
-                                                    <?php
+                                                    echo "<td><span class='badge bg-success'>" . htmlspecialchars($status) . "</span></td>";
                                                 } else if ($status === 'Ditolak') {
-                                                    ?>
-                                                    <td><span class="badge bg-danger"><?= htmlspecialchars($status) ?></span></td>
-                                                    <?php
+                                                    echo "<td><span class='badge bg-danger'>" . htmlspecialchars($status) . "</span></td>";
                                                 }
                                                 echo "<td>" . htmlspecialchars($row['Keterangan']) . "</td>";
-                                                ?>
-                                                <td>
-                                                    <button data-id="<?= $ID_Aplikasi ?>" class="btn btn-primary btn-detail">Detail</button>
-                                                    <button data-id="<?= $ID_Aplikasi ?>" class="btn btn-success btn-verifikasi">Verifikasi</button>
-                                                    <button data-bs-toggle="modal" data-bs-target="#default" class="btn btn-danger">Tolak</button>
-                                                </td>
-                                                <?php
+                                                // Tombol aksi
+                                                echo "<td>";
+                                                    echo "<button data-id='" . $ID_Aplikasi . "' class='btn btn-primary btn-detail'>Detail</button>";
+                                                    echo "<button data-id='" . $ID_Aplikasi . "' class='btn btn-success btn-verifikasi'>Verifikasi</button>";
+                                                    echo "<button data-bs-toggle='modal' data-bs-target='#default' class='btn btn-danger'>Tolak</button>";
+                                                echo "</td>";
                                             echo "</tr>";
                                         } else {
-                                            echo "Belum ada data";
+                                            echo "Belum ada data.";
                                         }
-                                    }
+                                    }                                    
                                 ?>
                                 </tbody>
                             </table>
