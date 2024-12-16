@@ -15,8 +15,6 @@ if ($_SESSION['Role_ID'] === 6 || $_SESSION['Role_ID'] === 7 || $_SESSION['Role_
     window.history.back();
     </script>";
 }
-
-
 ?>
 
 <!DOCTYPE html>
@@ -85,30 +83,45 @@ if ($_SESSION['Role_ID'] === 6 || $_SESSION['Role_ID'] === 7 || $_SESSION['Role_
                                 <div class="card-content">
                                     <div class="card-body">
                                         <form class="form form-vertical" action="UserProses.php" method="POST">
+                                            <?php 
+                                                require_once '../Koneksi.php';
+                                                require_once '../Models/Mahasiswa.php';
+                                                
+                                                $db = new Database();
+                                                $mhsModel = new Mahasiswa($db->getConnection());
+                                                
+                                                $nim = isset($_GET['NIM']) ? $_GET['NIM'] : '';
+                                                $mhs = null;
+                                                
+                                                if ($nim) {
+                                                    $mhs = $mhsModel->findByNIM($nim);
+                                                }
+                                            
+                                            ?>
                                             <div class="form-body">
                                                 <div class="row">
                                                     <div class="col-12">
                                                         <div class="form-group">
                                                             <label for="NIM">NIM</label>
-                                                            <input type="text" class="form-control" name="NIM" value="<?= isset($nim) ? htmlspecialchars($nim) : '' ?>" placeholder="Masukkan NIM">
+                                                            <input type="text" class="form-control" name="NIM" value="<?= isset($mhs['NIM']) ? htmlspecialchars($mhs['NIM']) : '' ?>" placeholder="Masukkan NIM">
                                                         </div>
                                                     </div>
                                                     <div class="col-12">
                                                         <div class="form-group">
                                                             <label for="Nama">Nama</label>
-                                                            <input type="text" class="form-control" name="Nama" value="<?= isset($nama) ? htmlspecialchars($nama) : '' ?>" placeholder="Masukkan Nama">
+                                                            <input type="text" class="form-control" name="Nama" value="<?= isset($mhs['Nama']) ? htmlspecialchars($mhs['Nama']) : '' ?>" placeholder="Masukkan Nama">
                                                         </div>
                                                     </div>
                                                     <div class="col-12">
                                                         <div class="form-group">
                                                             <label for="Username">Username</label>
-                                                            <input type="text" class="form-control" name="Username" value="<?= isset($username) ? htmlspecialchars($username) : '' ?>" placeholder="Masukkan Nama">
+                                                            <input type="text" class="form-control" name="Username" value="<?= isset($mhs['Username']) ? htmlspecialchars($mhs['Username']) : '' ?>" placeholder="Masukkan Nama">
                                                         </div>
                                                     </div>
                                                     <div class="col-12">
                                                         <div class="form-group">
                                                             <label for="Email">Email</label>
-                                                            <input type="email" class="form-control" name="Email" value="<?= isset($email) ? htmlspecialchars($email) : '' ?>" placeholder="Masukkan Email">
+                                                            <input type="email" class="form-control" name="Email" value="<?= isset($mhs['Email']) ? htmlspecialchars($mhs['Email']) : '' ?>" placeholder="Masukkan Email">
                                                         </div>
                                                     </div>
                                                     <div class="col-12">
@@ -120,25 +133,25 @@ if ($_SESSION['Role_ID'] === 6 || $_SESSION['Role_ID'] === 7 || $_SESSION['Role_
                                                     <div class="col-12">
                                                         <div class="form-group">
                                                             <label for="Alamat">Alamat</label>
-                                                            <textarea class="form-control" name="Alamat" rows="3"><?= isset($alamat) ? htmlspecialchars($alamat) : '' ?></textarea>
+                                                            <textarea class="form-control" name="Alamat" rows="3"><?= isset($mhs['Alamat']) ? htmlspecialchars($mhs['Alamat']) : '' ?></textarea>
                                                         </div>
                                                     </div>
                                                     <div class="col-12">
                                                         <div class="form-group">
                                                             <label for="NoHp">No.Hp</label>
-                                                            <input type="text" class="form-control" name="NoHp" value="<?= isset($noHp) ? htmlspecialchars($noHp) : '' ?>" placeholder="Masukkan No Hp">
+                                                            <input type="text" class="form-control" name="NoHp" value="<?= isset($mhs['NoHp']) ? htmlspecialchars($mhs['NoHp']) : '' ?>" placeholder="Masukkan No Hp">
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6 col-12">
                                                         <div class="form-group">
                                                             <label for="Tempat_Lahir">Tempat Lahir</label>
-                                                            <input type="text" class="form-control" value="<?= isset($Tempat_Lahir) ? htmlspecialchars($Tempat_Lahir) : '' ?>" name="Tempat_Lahir" placeholder="Masukkan Tempat Lahir"> 
+                                                            <input type="text" class="form-control" value="<?= isset($mhs['Tempat_Lahir']) ? htmlspecialchars($mhs['Tempat_Lahir']) : '' ?>" name="Tempat_Lahir" placeholder="Masukkan Tempat Lahir"> 
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6 col-12">
                                                         <div class="form-group">
                                                             <label for="Tanggal_Lahir">Tanggal Lahir</label>
-                                                            <input type="date" class="form-control flatpickr-always-open" name="Tanggal_Lahir" value="<?= isset($Tanggal_Lahir) ? htmlspecialchars($Tanggal_Lahir instanceof DateTime ? $Tanggal_Lahir->format('Y-m-d') : (new DateTime($Tanggal_Lahir))->format('Y-m-d')) : '' ?>" placeholder="Select date.">
+                                                            <input type="date" class="form-control flatpickr-always-open" name="Tanggal_Lahir" value="<?= isset($mhs['Tanggal_Lahir']) ? htmlspecialchars($mhs['Tanggal_Lahir'] instanceof DateTime ? $mhs['Tanggal_Lahir']->format('Y-m-d') : (new DateTime($mhs['Tanggal_Lahir']))->format('Y-m-d')) : '' ?>" placeholder="Select date.">
                                                         </div>
                                                     </div>
                                                     <div class="col-12">
@@ -147,9 +160,9 @@ if ($_SESSION['Role_ID'] === 6 || $_SESSION['Role_ID'] === 7 || $_SESSION['Role_
                                                             <fieldset class="form-group">
                                                                 <select class="form-select" name="Prodi" id="basicSelect">
                                                                     <option>-- Silahkan Pilih Prodi --</option>
-                                                                    <option value="TI" <?= (isset($Prodi) && $Prodi === 'TI') ? 'selected' : '' ?>>D-IV Teknik Informatika</option>
-                                                                    <option value="SIB" <?= (isset($Prodi) && $Prodi === 'SIB') ? 'selected' : '' ?>>D-IV Sistem Informasi Bisnis</option>
-                                                                    <option value="PPLS" <?= (isset($Prodi) && $Prodi === 'PPLS') ? 'selected' : '' ?>>D-II Pengembangan Piranti Lunak Situs</option>
+                                                                    <option value="TI" <?= (isset($mhs['Prodi']) && $mhs['Prodi'] === 'TI') ? 'selected' : '' ?>>D-IV Teknik Informatika</option>
+                                                                    <option value="SIB" <?= (isset($mhs['Prodi']) && $mhs['Prodi'] === 'SIB') ? 'selected' : '' ?>>D-IV Sistem Informasi Bisnis</option>
+                                                                    <option value="PPLS" <?= (isset($mhs['Prodi']) && $mhs['Prodi'] === 'PPLS') ? 'selected' : '' ?>>D-II Pengembangan Piranti Lunak Situs</option>
                                                                 </select>
                                                             </fieldset>
                                                         </div>
@@ -157,7 +170,7 @@ if ($_SESSION['Role_ID'] === 6 || $_SESSION['Role_ID'] === 7 || $_SESSION['Role_
                                                     <div class="col-12">
                                                         <div class="form-group">
                                                             <label for="Tahun_Angkatan">Tahun Angkatan</label>
-                                                            <input type="text" class="form-control" name="Tahun_Angkatan" value="<?= isset($TahunAngkatan) ? htmlspecialchars($TahunAngkatan) : '' ?>" placeholder="Masukkan Tahun Angkatan">
+                                                            <input type="text" class="form-control" name="Tahun_Angkatan" value="<?= isset($mhs['Tahun_Angkatan']) ? htmlspecialchars($mhs['Tahun_Angkatan']) : '' ?>" placeholder="Masukkan Tahun Angkatan">
                                                         </div>
                                                     </div>
                                                     <div class="col-12">
@@ -165,9 +178,9 @@ if ($_SESSION['Role_ID'] === 6 || $_SESSION['Role_ID'] === 7 || $_SESSION['Role_
                                                             <label for="JenisKelamin">Jenis Kelamin</label>
                                                             <br>
                                                             <input class="form-check-input" type="radio" name="JenisKelamin" id="jenkel1" value="L" required="true" 
-                                                                <?= (isset($jeniskelamin) && $jeniskelamin === 'L') ? 'checked' : '' ?>> Laki-laki 
+                                                                <?= (isset($mhs['JenisKelamin']) && $mhs['JenisKelamin'] === 'L') ? 'checked' : '' ?>> Laki-laki 
                                                             <input class="form-check-input" type="radio" name="JenisKelamin" id="jenkel2" value="P" 
-                                                                <?= (isset($jeniskelamin) && $jeniskelamin === 'P') ? 'checked' : '' ?>> Perempuan
+                                                                <?= (isset($mhs['JenisKelamin']) && $mhs['JenisKelamin'] === 'P') ? 'checked' : '' ?>> Perempuan
                                                             <br>
                                                             <br>
                                                         </div>

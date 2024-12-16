@@ -206,7 +206,7 @@ if ($_SESSION['Role_ID'] === 6 || $_SESSION['Role_ID'] === 7 || $_SESSION['Role_
                 $.ajax({
                 url: "DetailMahasiswa.php",
                 type: "POST",
-                data: { NIM: nim, action: "readMahasiswa" },
+                data: { NIM: nim, action: "getByNim" },
                     success: function(response) {
                         location.href = "DetailMahasiswa.php?NIM=" + nim;
                     }

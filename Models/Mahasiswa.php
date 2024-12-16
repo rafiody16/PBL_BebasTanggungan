@@ -68,7 +68,7 @@ class Mahasiswa extends User {
         $sql = "SELECT u.ID_User, u.Username, u.Email, m.NIM, m.Nama, m.NoHp,
                 m.Alamat, m.JenisKelamin, m.Tempat_Lahir, m.Tanggal_Lahir, m.Prodi, m.Tahun_Angkatan
                 FROM [User] u
-                JOIN Mahasiswa m ON u.ID_User = s.ID_User
+                JOIN Mahasiswa m ON u.ID_User = m.ID_User
                 WHERE m.NIM = ?";
         $stmt = sqlsrv_query($this->conn, $sql, [$NIM]);
         if ($stmt === false) {
