@@ -131,6 +131,70 @@ class Administrasi extends Pengumpulan {
     public function setConn($conn) {
         $this->conn = $conn;
     }
+
+    public function getAllAdm() {
+        $prodi = isset($_GET['prodi']) ? $_GET['prodi'] : '';
+        $tahunAngkatan = isset($_GET['tahunAngkatan']) ? $_GET['tahunAngkatan'] : '';
+
+        $sql = "SELECT * FROM fn_GetAdministrasiDetails (?, ?)";
+        $params = array($prodi, $tahunAngkatan);
+        $stmt = sqlsrv_query($this->conn, $sql, $params);
+
+        return $stmt;
+    }
+
+    public function getAdmById($id) {
+        $sql = "SELECT a.ID_Administrasi, m.NIM, m.Nama, m.Prodi, a.Laporan_Skripsi, a.Laporan_Magang, a.Bebas_Kompensasi, a.Scan_Toeic, 
+            a.Status_Verifikasi, a.Tanggal_Verifikasi, a.Tanggal_Upload, a.Keterangan, a.Verifikator FROM Administrasi AS a 
+            INNER JOIN Pengumpulan AS p ON a.ID_Pengumpulan = p.ID_Pengumpulan INNER JOIN Mahasiswa AS m ON p.NIM = m.NIM WHERE a.ID_Administrasi = ?";
+        $params = array($id);
+        $stmt = sqlsrv_query($this->conn, $sql, $params);
+
+        if ($stmt === false) {
+            die(print_r(sqlsrv_errors(), true));
+        }
+        return $stmt;
+    }
+
+    public function saveAdm($Laporan_Skripsi, $Laporan_Magang, $Bebas_Kompensasi, $Scan_Toeic, $ID_Pengumpulan) {
+        $sqlInsert = "INSERT INTO Administrasi (ID_Pengumpulan, Laporan_Skripsi, Laporan_Magang, Bebas_Kompensasi, Scan_Toeic, Status_Verifikasi, Tanggal_Upload, Keterangan) 
+                      VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        $paramsInsert = [
+                        $ID_Pengumpulan,
+                        $Laporan_Skripsi,
+                        $Laporan_Magang,
+                        $Bebas_Kompensasi,
+                        $Scan_Toeic,
+                        "Menunggu",
+                        date("Y-m-d"),
+                        "-"
+                    ];
+        $stmtInsert = sqlsrv_query($this->conn, $sqlInsert, $paramsInsert);
+
+        return $stmtInsert;
+    }
+
+    public function editAdm($NIM, $Laporan_Skripsi, $Laporan_Magang, $Bebas_Kompensasi, $Scan_Toeic) {
+        $sqlUpdate = "UPDATE Administrasi 
+                      SET Laporan_Skripsi = ?, Laporan_Magang = ?, Bebas_Kompensasi = ?, Scan_Toeic = ?, Status_Verifikasi = ?, Tanggal_Upload = ?, Verifikator = ? 
+                      FROM Administrasi a 
+                      INNER JOIN Pengumpulan p ON a.ID_Pengumpulan = p.ID_Pengumpulan 
+                      INNER JOIN Mahasiswa m ON p.NIM = m.NIM 
+                      WHERE m.NIM = ?";
+        $paramsUpdate = [
+                        $Laporan_Skripsi,
+                        $Laporan_Magang, 
+                        $Bebas_Kompensasi, 
+                        $Scan_Toeic, 
+                        'Menunggu', 
+                        date("Y-m-d"), 
+                        NULL, 
+                        $NIM
+                    ];
+        $stmtUpdate = sqlsrv_query($this->conn, $sqlUpdate, $paramsUpdate);
+
+        return $stmtUpdate;
+    }
 }
 
 ?>
