@@ -10,7 +10,7 @@ class User {
     protected $Role_ID;
     protected $conn;
 
-    public function __construct($conn, $Username, $Password, $Email, $Role_ID) {
+    public function __construct($conn = null, $Username = null, $Password = null, $Email = null, $Role_ID = null) {
         $this->conn = $conn;
         // $this->ID_User = $ID_User;
         $this->Username = $Username;
@@ -125,9 +125,9 @@ class User {
                 WHERE ID_User = (SELECT ID_User FROM Mahasiswa WHERE NIM = ?)";
         $params = [$username, $email, $NIM];
         $stmt = sqlsrv_query($this->conn, $sql, $params);
-
+    
         if ($stmt === false) {
-            throw new Exception('Gagal memperbarui User: ' . print_r(sqlsrv_errors(), true));
+            throw new Exception('Gagal memperbarui User Mahasiswa: ' . print_r(sqlsrv_errors(), true));
         }
     }
 

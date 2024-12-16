@@ -88,13 +88,39 @@ class UserController {
 
     public function updateMhs($username, $email, $NIM, $Nama, $Alamat, $NoHp, $JenisKelamin, $Prodi, $tahunAngkatan, $Tempat_Lahir, $Tanggal_Lahir) {
         try {
-            $userModel = new User($this->conn);
+            // Menginstansiasi User Model dan update user mahasiswa
+            $userModel = new User($this->conn, $username,  $email);
             $userModel->updateUserMhs($username, $email, $NIM);
-            $mhsModel = new Mahasiswa($this->conn);
+    
+            // Menginstansiasi Mahasiswa Model untuk update data Mahasiswa
+            $mhsModel = new Mahasiswa($this->conn, $NIM, $Nama, $Alamat, $NoHp, $JenisKelamin, $Prodi, $Tempat_Lahir, $Tanggal_Lahir, $tahunAngkatan);
             $mhsModel->updateMahasiswa($Nama, $Alamat, $NoHp, $JenisKelamin, $Prodi, $tahunAngkatan, $Tempat_Lahir, $Tanggal_Lahir, $NIM);
+    
             echo json_encode(['success' => true]);
         } catch (Exception $e) {
             echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+        }
+    }
+
+    public function deleteMhs($NIM) {
+        try {
+            if (empty($NIM)) {
+                throw new Exception('NIM tidak boleh kosong.');
+            }
+
+            $mhsModel = new Mahasiswa($this->conn);
+            $mhsModel->deleteMhsUser($NIM);
+
+            echo json_encode([
+                'status' => 'success',
+                'message' => 'Mahasiswa dan user terkait berhasil dihapus.'
+            ]);
+        } catch (Exception $e) {
+            http_response_code(400);
+            echo json_encode([
+                'status' => 'error',
+                'message' => $e->getMessage()
+            ]);
         }
     }
 
@@ -146,6 +172,9 @@ switch ($action) {
             $_POST['Tempat_Lahir'],
             $_POST['Tanggal_Lahir'],
         );
+        break;
+    case 'deleteMhs':
+        $userController->deleteMhs($_POST['NIM']);
         break;
     default:
         echo json_encode(['message' => 'Action not found']);

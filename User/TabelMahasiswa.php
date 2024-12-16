@@ -229,9 +229,9 @@ if ($_SESSION['Role_ID'] === 6 || $_SESSION['Role_ID'] === 7 || $_SESSION['Role_
                 var nim = $(this).data("id");
                 if (confirm("Apakah Anda yakin ingin menghapus data ini?")) {
                     $.ajax({
-                        url: "UserProses.php",
+                        url: "../Controllers/UserControllers.php?action=deleteMhs",
                         type: "POST",
-                        data: { NIM: nim, action: "deleteMahasiswa" },
+                        data: { NIM: nim},
                         success: function(response) {
                             alert("Data mahasiswa dengan NIM " + nim + " berhasil dihapus");
                             location.reload();

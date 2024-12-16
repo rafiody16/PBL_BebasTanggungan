@@ -116,7 +116,7 @@ class Mahasiswa extends User {
 
     public function updateMahasiswa($Nama, $Alamat, $NoHp, $JenisKelamin, $Prodi, $tahunAngkatan, $Tempat_Lahir, $Tanggal_Lahir, $NIM) {
         $sql = "UPDATE Mahasiswa
-                SET Nama = ?, Alamat = ?, NoHp = ?, JenisKelamin = ?, Prodi = ?, Tahun_Angkatan = ?, Tempat_Lahir = ?, Tanggal_Lahir = ?, NIM = ?
+                SET Nama = ?, Alamat = ?, NoHp = ?, JenisKelamin = ?, Prodi = ?, Tahun_Angkatan = ?, Tempat_Lahir = ?, Tanggal_Lahir = ?
                 WHERE NIM = ?";
         $params = [$Nama, $Alamat, $NoHp, $JenisKelamin, $Prodi, $tahunAngkatan, $Tempat_Lahir, $Tanggal_Lahir, $NIM];
         $stmt = sqlsrv_query($this->conn, $sql, $params);
@@ -125,6 +125,42 @@ class Mahasiswa extends User {
             throw new Exception('Gagal memperbarui Mahasiswa: ' . print_r(sqlsrv_errors(), true));
         }
     }
+
+    public function deleteMhsUser($NIM) {
+        try {
+            // Memulai transaksi
+            sqlsrv_begin_transaction($this->conn);
+
+            // Hapus data Mahasiswa
+            $sqlMahasiswa = "DELETE FROM Mahasiswa WHERE NIM = ?";
+            $paramsMahasiswa = [$NIM];
+            $stmtMahasiswa = sqlsrv_query($this->conn, $sqlMahasiswa, $paramsMahasiswa);
+
+            if ($stmtMahasiswa === false) {
+                throw new Exception('Gagal menghapus Mahasiswa: ' . print_r(sqlsrv_errors(), true));
+            }
+
+            $sqlUser = "DELETE FROM [User]
+                        WHERE ID_User = (
+                            SELECT ID_User FROM Mahasiswa WHERE NIM = ?
+                        )";
+            $paramsUser = [$NIM];
+            $stmtUser = sqlsrv_query($this->conn, $sqlUser, $paramsUser);
+
+            if ($stmtUser === false) {
+                throw new Exception('Gagal menghapus User terkait: ' . print_r(sqlsrv_errors(), true));
+            }
+
+            // Commit transaksi jika semua berhasil
+            sqlsrv_commit($this->conn);
+
+        } catch (Exception $e) {
+            // Rollback transaksi jika terjadi kesalahan
+            sqlsrv_rollback($this->conn);
+            throw $e;
+        }
+    }
+
 
 }
 
