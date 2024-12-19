@@ -244,6 +244,7 @@ $NIM = $_SESSION['NIM'];
     </div>
     <script src="../assets/static/js/components/dark.js"></script>
     <script src="../assets/extensions/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+    <script src="../assets/extensions/jquery/jquery.min.js"></script>
     <script>
         $(document).ready(function() {
             $('form').submit(function(e) {
@@ -256,7 +257,7 @@ $NIM = $_SESSION['NIM'];
                 if (buttonName === 'simpanBerkas') {
                     var url = '../Controllers/BerkasControllers.php?action=uploadFile';
                 } 
-                $.ajax({
+                jQuery.ajax({
                     url: url,
                     type: 'POST',
                     data: formData,
@@ -289,7 +290,6 @@ $NIM = $_SESSION['NIM'];
 <script src="../assets/extensions/filepond/filepond.js"></script>
 <script src="../assets/extensions/toastify-js/src/toastify.js"></script>
 <script src="../assets/static/js/pages/filepond.js"></script>
-<script src="../assets/extensions/jquery/jquery.min.js"></script>
 <script src="../assets/extensions/parsleyjs/parsley.min.js"></script>
 <script src="../assets/static/js/pages/parsley.js"></script>
 
