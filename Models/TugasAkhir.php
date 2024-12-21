@@ -163,7 +163,7 @@ class TugasAkhir extends Pengumpulan {
         return sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
     }
 
-    public function createTA($ID_Pengumpulan, $File_Aplikasi, $Laporan_TA, $Pernyataan_Publikasi, $Status_Verifikasi = "Menunggu", $Tanggal_Upload, $Keterangan = "") {
+    public function createTA($ID_Pengumpulan, $File_Aplikasi, $Laporan_TA, $Pernyataan_Publikasi, $Tanggal_Upload, $Status_Verifikasi = "Menunggu", $Keterangan = "") {
         $sql = "INSERT INTO TugasAkhir (ID_Pengumpulan, File_Aplikasi, Laporan_TA, Pernyataan_Publikasi, Status_Verifikasi, Tanggal_Upload, Keterangan) 
                 VALUES (?, ?, ?, ?, ?, ?, ?)";
         $params = [$ID_Pengumpulan, $File_Aplikasi, $Laporan_TA, $Pernyataan_Publikasi, $Status_Verifikasi, $Tanggal_Upload, $Keterangan];
