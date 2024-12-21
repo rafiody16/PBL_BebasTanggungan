@@ -63,8 +63,9 @@ class UserController {
                 );
     
                 echo json_encode(['success' => true]);
+                echo "Staff dengan NIP " . $NIP . " berhasil ditambahkan";
             } else {
-                throw new Exception('Failed to create User');
+                throw new Exception('Gagal menambahkan data staff!');
             }
         } catch (Exception $e) {
             echo json_encode(['success' => false, 'message' => $e->getMessage()]);
@@ -80,9 +81,10 @@ class UserController {
                 $mhsModel = new Mahasiswa($this->conn, null, $Username, $Password, $Email, $NIM, $Nama, $Alamat, $NoHp, $JenisKelamin, $Prodi, $Tempat_Lahir, $Tanggal_Lahir, $tahunAngkatan);
                 $mhsModel->saveMahasiswa($NIM, $Nama, $Alamat, $NoHp, $JenisKelamin, $Tempat_Lahir, $Tanggal_Lahir, $Prodi, $tahunAngkatan, $newUserIDMhs);
 
-                echo json_encode(['success' => true]);
+                // echo json_encode(['success' => true]);
+                echo "Mahasiswa dengan NIM " . $NIM . " berhasil ditambahkan";
             } else {
-                throw new Exception('Failed to create User');
+                throw new Exception('Gagal menambahkan data mahasiswa!');
             }
         } catch (Exception $e) {
             echo json_encode(['success' => false, 'message' => $e->getMessage()]);
@@ -99,7 +101,7 @@ class UserController {
             $mhsModel = new Mahasiswa($this->conn, $NIM, $Nama, $Alamat, $NoHp, $JenisKelamin, $Prodi, $Tempat_Lahir, $Tanggal_Lahir, $tahunAngkatan);
             $mhsModel->updateMahasiswa($Nama, $Alamat, $NoHp, $JenisKelamin, $Prodi, $tahunAngkatan, $Tempat_Lahir, $Tanggal_Lahir, $NIM);
     
-            echo json_encode(['success' => true]);
+            echo "Berhasil mengupdate data mahasiswa";
         } catch (Exception $e) {
             echo json_encode(['success' => false, 'message' => $e->getMessage()]);
         }
@@ -123,7 +125,8 @@ class UserController {
             $stfModel = new Staff($this->conn, $NIP, $Nama, $Alamat, $NoHp, $JenisKelamin, $Tempat_Lahir, $Tanggal_Lahir, $TTD);
             $stfModel->updateStaff($Nama, $Alamat, $NoHp, $JenisKelamin, $Tempat_Lahir, $Tanggal_Lahir, $TTD, $NIP);
     
-            echo json_encode(['success' => true]);
+            // echo json_encode(['success' => true]);
+            echo "Berhasil mengupdate data staff";
         } catch (Exception $e) {
             echo json_encode(['success' => false, 'message' => $e->getMessage()]);
         }
