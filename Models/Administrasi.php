@@ -172,8 +172,6 @@ class Administrasi extends Pengumpulan {
 
         return true;
     }
-    
-    
 
     public function editAdm($NIM, $Laporan_Skripsi, $Laporan_Magang, $Bebas_Kompensasi, $Scan_Toeic) {
         $sqlUpdate = "UPDATE Administrasi 
@@ -198,6 +196,17 @@ class Administrasi extends Pengumpulan {
             throw new Exception('Gagal menyimpan Mahasiswa: ' . print_r(sqlsrv_errors(), true));
         }
     }
+
+    function getByNimAdm($NIM) {
+        $sqlAdm = "SELECT a.Tanggal_Upload, a.Status_Verifikasi, a.Keterangan, a.Tanggal_Verifikasi FROM Administrasi AS a
+                    INNER JOIN Pengumpulan AS p ON a.ID_Pengumpulan = p.ID_Pengumpulan INNER JOIN Mahasiswa AS m ON p.NIM = m.NIM
+                    WHERE m.NIM = ?";
+        $paramsAdm = array($NIM);
+        $stmtAdm = sqlsrv_query($this->conn, $sqlAdm, $paramsAdm);
+
+        return sqlsrv_fetch_array($stmtAdm, SQLSRV_FETCH_ASSOC);
+    }
+
 }
 
 ?>

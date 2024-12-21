@@ -50,19 +50,20 @@ $NIM = $_SESSION['NIM'];
 <body>
     <script src="../assets/static/js/initTheme.js"></script>
     <div id="app">
-    <?php include('../assets/Sidebar2.php'); 
-        // require_once '../Koneksi.php';
-        // $db = new Database();
-        // $conn = $db->getConnection();
+    <?php 
+        include('../assets/Sidebar2.php'); 
+        require_once '../Koneksi.php';
+        $db = new Database();
+        $conn = $db->getConnection();
         
-        // $sqlCheck = "SELECT COUNT(*) AS total FROM Pengumpulan WHERE NIM = ?";
-        // $paramsCheck = [$NIM];
-        // $stmtCheck = sqlsrv_query($conn, $sqlCheck, $paramsCheck);
+        $sqlCheck = "SELECT COUNT(*) AS total FROM Pengumpulan WHERE NIM = ?";
+        $paramsCheck = [$NIM];
+        $stmtCheck = sqlsrv_query($conn, $sqlCheck, $paramsCheck);
         
-        // $rowCheck = sqlsrv_fetch_array($stmtCheck, SQLSRV_FETCH_ASSOC);
-        // if ($rowCheck['total'] > 0) {
-        //     echo "<script>window.location.href = 'DetailBerkas.php?NIM=".urlencode($NIM)."';</script>";
-        // }        
+        $rowCheck = sqlsrv_fetch_array($stmtCheck, SQLSRV_FETCH_ASSOC);
+        if ($rowCheck['total'] > 0) {
+            echo "<script>window.location.href = 'DetailBerkas.php?NIM=".urlencode($NIM)."';</script>";
+        }        
     ?>
         </div>
         <div id="main">

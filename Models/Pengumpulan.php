@@ -176,6 +176,17 @@ class Pengumpulan {
         }
     }
 
+    function getByNim ($NIM) {
+        $sql = "SELECT a.Laporan_Skripsi, a.Laporan_Magang, a.Bebas_Kompensasi, a.Scan_Toeic,
+            t.File_Aplikasi, t.Laporan_TA, t.Pernyataan_Publikasi, p.Tanggal_Pengumpulan, 
+            p.Status_Pengumpulan, p.Keterangan, p.Tanggal_Verifikasi FROM Administrasi AS a INNER JOIN Pengumpulan AS p ON a.ID_Pengumpulan = p.ID_Pengumpulan INNER JOIN 
+            TugasAKhir AS t ON t.ID_Pengumpulan = p.ID_Pengumpulan INNER JOIN Mahasiswa AS m ON p.NIM = m.NIM WHERE m.NIM = ?";
+        $params = array($NIM);
+        $stmt = sqlsrv_query($this->conn, $sql, $params);
+
+        return sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
+    }
+
 
 }
 ?>

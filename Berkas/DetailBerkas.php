@@ -17,8 +17,8 @@ if ($_SESSION['Role_ID'] != 8) {
 
 $NIM = $_SESSION['NIM'];
 
-include('ProsesBerkas.php');
-GetAllBerkas();
+// include('ProsesBerkas.php');
+// GetAllBerkas();
 
 ?>
 
@@ -78,6 +78,30 @@ GetAllBerkas();
     <section class="section">
         <div class="row">
         <form>
+        <?php 
+        require_once '../Koneksi.php';
+        require_once '../Models/Pengumpulan.php';
+        require_once '../Models/Administrasi.php';
+        require_once '../Models/TugasAkhir.php';
+        $db = new Database();
+        $conn = $db->getConnection();
+
+        $pgModel = new Pengumpulan($conn);
+        $taModel = new TugasAkhir($conn);
+        $admModel = new Administrasi($conn);
+
+        $nim = isset($_GET['NIM']) ? $_GET['NIM'] : '';
+        $pg = null;
+        $ta = null;
+        $adm = null;
+        
+        if ($nim) {
+            $pg = $pgModel->getByNim($nim);
+            $ta = $taModel->getByNimTA($nim);
+            $adm = $admModel->getByNimAdm($nim);
+        }
+        
+        ?>
         <div class="col-12 col-md-12">
         <div class="card">
                 <div class="card-body">
@@ -106,21 +130,21 @@ GetAllBerkas();
                                                         <tr>
                                                             <td class="text-bold-500">1</td>
                                                             <td class="text-bold-500">Tugas Akhir</td>
-                                                            <td class="text-bold-500"><?= isset($Tanggal_UploadTA) ? htmlspecialchars($Tanggal_UploadTA instanceof DateTime ? $Tanggal_UploadTA->format('d-m-Y') : $Tanggal_UploadTA) : '' ?></td>
-                                                            <td class="text-bold-500"><?= isset($Tanggal_VerifikasiTA) ? htmlspecialchars($Tanggal_VerifikasiTA instanceof DateTime ? $Tanggal_VerifikasiTA->format('d-m-Y') : $Tanggal_VerifikasiTA) : 'Belum Terverifikasi' ?></td>
+                                                            <td class="text-bold-500"><?= isset($ta['Tanggal_Upload']) ? htmlspecialchars($ta['Tanggal_Upload'] instanceof DateTime ? $ta['Tanggal_Upload']->format('d-m-Y') : $ta['Tanggal_Upload']) : '' ?></td>
+                                                            <td class="text-bold-500"><?= isset($ta['Tanggal_Verifikasi']) ? htmlspecialchars($ta['Tanggal_Verifikasi'] instanceof DateTime ? $ta['Tanggal_Verifikasi']->format('d-m-Y') : $ta['Tanggal_Verifikasi']) : 'Belum Terverifikasi' ?></td>
                                                             <td class="text-bold-500">
                                                             <?php
-                                                                if ($Status_VerifikasiTA === 'Menunggu') {
+                                                                if ($ta['Status_Verifikasi'] === 'Menunggu') {
                                                                 ?>
-                                                                    <span class="badge bg-warning"><?= htmlspecialchars($Status_VerifikasiTA) ?></span>
+                                                                    <span class="badge bg-warning"><?= htmlspecialchars($ta['Status_Verifikasi']) ?></span>
                                                                 <?php 
-                                                                } else if ($Status_VerifikasiTA === 'Terverifikasi') {
+                                                                } else if ($ta['Status_Verifikasi'] === 'Terverifikasi') {
                                                                 ?>
-                                                                    <span class="badge bg-success"><?= htmlspecialchars($Status_VerifikasiTA) ?></span>
+                                                                    <span class="badge bg-success"><?= htmlspecialchars($ta['Status_Verifikasi']) ?></span>
                                                                 <?php
-                                                                } else if ($Status_VerifikasiTA === 'Ditolak') {
+                                                                } else if ($ta['Status_Verifikasi'] === 'Ditolak') {
                                                                 ?>
-                                                                    <span class="badge bg-danger"><?= htmlspecialchars($Status_VerifikasiTA) ?></span>
+                                                                    <span class="badge bg-danger"><?= htmlspecialchars($ta['Status_Verifikasi']) ?></span>
                                                                 <?php
                                                                 } else {
                                                                 ?>
@@ -129,18 +153,18 @@ GetAllBerkas();
                                                                 }
                                                                 ?>
                                                             </td>
-                                                            <td class="text-bold-500"><?= htmlspecialchars($KeteranganTA) ?></td>
+                                                            <td class="text-bold-500"><?= htmlspecialchars($ta['Keterangan']) ?></td>
                                                             <td>
                                                                 <?php
-                                                                    if ($Status_VerifikasiTA === 'Menunggu') {
+                                                                    if ($ta['Status_Verifikasi'] === 'Menunggu') {
                                                                 ?>
                                                                     <button class="btn btn-warning"><a href="EditTA.php?NIM=<?= $NIM ?>" style="color: black; text-decoration: none;">Edit</a></button>
                                                                 <?php 
-                                                                    } else if ($Status_VerifikasiTA === 'Terverifikasi') {
+                                                                    } else if ($ta['Status_Verifikasi'] === 'Terverifikasi') {
                                                                 ?>
                                                                     <h5 style="text-align:center;">&#10004;</h5>
                                                                 <?php
-                                                                    } else if ($Status_VerifikasiTA === 'Ditolak') {
+                                                                    } else if ($ta['Status_Verifikasi'] === 'Ditolak') {
                                                                 ?>
                                                                     <button class="btn btn-warning"><a href="EditTA.php?NIM=<?= $NIM ?>" style="color: black; text-decoration: none;">Edit</a></button>
                                                                 <?php
@@ -151,37 +175,37 @@ GetAllBerkas();
                                                         <tr>
                                                             <td class="text-bold-500">2</td>
                                                             <td class="text-bold-500">Administrasi Program Studi</td>
-                                                            <td class="text-bold-500"><?= isset($Tanggal_UploadAdm) ? htmlspecialchars($Tanggal_UploadAdm instanceof DateTime ? $Tanggal_UploadAdm->format('d-m-Y') : $Tanggal_UploadAdm) : '' ?></td>
-                                                            <td class="text-bold-500"><?= isset($Tanggal_VerifikasiAdm) ? htmlspecialchars($Tanggal_VerifikasiAdm instanceof DateTime ? $Tanggal_VerifikasiAdm->format('d-m-Y') : $Tanggal_VerifikasiAdm) : 'Belum Terverifikasi' ?></td>
+                                                            <td class="text-bold-500"><?= isset($adm['Tanggal_Upload']) ? htmlspecialchars($adm['Tanggal_Upload'] instanceof DateTime ? $adm['Tanggal_Upload']->format('d-m-Y') : $adm['Tanggal_Upload']) : '' ?></td>
+                                                            <td class="text-bold-500"><?= isset($adm['Tanggal_Verifikasi']) ? htmlspecialchars($adm['Tanggal_Verifikasi'] instanceof DateTime ? $adm['Tanggal_Verifikasi']->format('d-m-Y') : $adm['Tanggal_Verifikasi']) : 'Belum Terverifikasi' ?></td>
                                                             <td class="text-bold-500">
                                                                 <?php
-                                                                    if ($Status_VerifikasiAdm === 'Menunggu') {
+                                                                    if ($adm['Status_Verifikasi'] === 'Menunggu') {
                                                                 ?>
-                                                                    <span class="badge bg-warning"><?= htmlspecialchars($Status_VerifikasiAdm) ?></span>
+                                                                    <span class="badge bg-warning"><?= htmlspecialchars($adm['Status_Verifikasi']) ?></span>
                                                                 <?php 
-                                                                    } else if ($Status_VerifikasiAdm === 'Terverifikasi') {
+                                                                    } else if ($adm['Status_Verifikasi']  === 'Terverifikasi') {
                                                                 ?>
-                                                                    <span class="badge bg-success"><?= htmlspecialchars($Status_VerifikasiAdm) ?></span>
+                                                                    <span class="badge bg-success"><?= htmlspecialchars($adm['Status_Verifikasi']) ?></span>
                                                                 <?php
-                                                                    } else if ($Status_VerifikasiAdm === 'Ditolak') {
+                                                                    } else if ($adm['Status_Verifikasi']  === 'Ditolak') {
                                                                 ?>
-                                                                    <span class="badge bg-danger"><?= htmlspecialchars($Status_VerifikasiAdm) ?></span>
+                                                                    <span class="badge bg-danger"><?= htmlspecialchars($adm['Status_Verifikasi'] ) ?></span>
                                                                 <?php
                                                                     }
                                                                 ?>
                                                             </td>
-                                                            <td class="text-bold-500"><?= htmlspecialchars($KeteranganAdm) ?></td>
+                                                            <td class="text-bold-500"><?= htmlspecialchars($adm['Keterangan'] ) ?></td>
                                                             <td>
                                                                 <?php
-                                                                    if ($Status_VerifikasiAdm === 'Menunggu') {
+                                                                    if ($adm['Status_Verifikasi']  === 'Menunggu') {
                                                                 ?>
                                                                     <button class="btn btn-warning"><a href="EditAdministrasi.php?NIM=<?= $NIM ?>" style="color: black; text-decoration: none;">Edit</a></button>
                                                                 <?php 
-                                                                    } else if ($Status_VerifikasiAdm === 'Terverifikasi') {
+                                                                    } else if ($adm['Status_Verifikasi']  === 'Terverifikasi') {
                                                                 ?>
                                                                     <h5 style="text-align:center;">&#10004;</h5>
                                                                 <?php
-                                                                    } else if ($Status_VerifikasiAdm === 'Ditolak') {
+                                                                    } else if ($adm['Status_Verifikasi']  === 'Ditolak') {
                                                                 ?>
                                                                     <button class="btn btn-warning"><a href="EditAdministrasi.php?NIM=<?= $NIM ?>" style="color: black; text-decoration: none;">Edit</a></button>
                                                                 <?php
@@ -194,27 +218,27 @@ GetAllBerkas();
                                                             <td class="text-bold-500">Verifikasi Berkas </td>
                                                             <td class="text-bold-500 text-center align-middle"  colspan="2">
                                                                 <?php
-                                                                    if ($Status_Verifikasi === 'Menunggu') {
+                                                                    if ($pg['Status_Pengumpulan'] === 'Menunggu') {
                                                                 ?>
-                                                                    <span class="badge bg-warning"><?= htmlspecialchars($Status_Verifikasi) ?></span>
+                                                                    <span class="badge bg-warning"><?= htmlspecialchars($pg['Status_Pengumpulan']) ?></span>
                                                                 <?php 
-                                                                    } else if ($Status_Verifikasi === 'Terverifikasi') {
+                                                                    } else if ($pg['Status_Pengumpulan']=== 'Terverifikasi') {
                                                                 ?>
-                                                                    <span class="badge bg-success"><?= htmlspecialchars($Status_Verifikasi) ?></span>
+                                                                    <span class="badge bg-success"><?= htmlspecialchars($pg['Status_Pengumpulan']) ?></span>
                                                                 <?php
-                                                                    } else if ($Status_Verifikasi === 'Ditolak') {
+                                                                    } else if ($pg['Status_Pengumpulan'] === 'Ditolak') {
                                                                 ?>
-                                                                    <span class="badge bg-danger"><?= htmlspecialchars($Status_Verifikasi) ?></span>
+                                                                    <span class="badge bg-danger"><?= htmlspecialchars($pg['Status_Pengumpulan']) ?></span>
                                                                 <?php
                                                                     }
                                                                 ?>
                                                             </td>
-                                                            <td colspan="3" class="text-bold-500"><?= htmlspecialchars($Keterangan) ?></td>
+                                                            <td colspan="3" class="text-bold-500"><?= htmlspecialchars($pg['Keterangan']) ?></td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
                                                 <br>
-                                                <?php if($Status_Verifikasi === 'Terverifikasi') {?>
+                                                <?php if($pg['Status_Pengumpulan'] === 'Terverifikasi') {?>
                                                     <div style="display: flex; justify-content: center; margin-top: 20px;">
                                                         <a href="GeneratePdf.php?NIM=<?= $NIM ?>" class="btn btn-success">
                                                             <i class="bi bi-printer">&nbsp;</i>Cetak Bebas Tanggungan
@@ -240,7 +264,7 @@ GetAllBerkas();
                             <p class="card-text">Catatan: Upload dalam bentuk ZIP / RAR (Maksimal 100 MB)</p>
                             <!-- Basic file uploader -->
                             <div class="form-group position-relative has-icon-left">
-                            <div class="text-bold-500"> <a href="<?= htmlspecialchars('../Uploads/' . basename($Laporan_Skripsi)) ?>" target="_blank"><?= htmlspecialchars($Laporan_Skripsi) ?></a></div>
+                            <div class="text-bold-500"> <a href="<?= htmlspecialchars('../Uploads/' . basename($pg['Laporan_Skripsi'])) ?>" target="_blank"><?= htmlspecialchars($pg['Laporan_Skripsi']) ?></a></div>
                             </div>
                         </div>
                     </div>
@@ -256,7 +280,7 @@ GetAllBerkas();
                             <p class="card-text">Catatan: Upload dalam bentuk ZIP / RAR (Maksimal 100 MB)</p>
                             <!-- Basic file uploader -->
                             <div class="form-group position-relative has-icon-left">
-                                <div class="text-bold-500"> <a href="<?= htmlspecialchars('../Uploads/' . basename($Laporan_Magang)) ?>" target="_blank"><?= htmlspecialchars($Laporan_Magang) ?></a></div>
+                                <div class="text-bold-500"> <a href="<?= htmlspecialchars('../Uploads/' . basename($pg['Laporan_Magang'])) ?>" target="_blank"><?= htmlspecialchars($pg['Laporan_Magang']) ?></a></div>
                             </div>
                         </div>
                     </div>
@@ -272,7 +296,7 @@ GetAllBerkas();
                             <p class="card-text">Catatan: Upload dalam bentuk ZIP / RAR (Maksimal 100 MB)</p>
                             <!-- Basic file uploader -->
                             <div class="form-group position-relative has-icon-left">
-                                <div class="text-bold-500"> <a href="<?= htmlspecialchars('../Uploads/' . basename($Bebas_Kompensasi)) ?>" target="_blank"><?= htmlspecialchars($Bebas_Kompensasi) ?></a></div>
+                                <div class="text-bold-500"> <a href="<?= htmlspecialchars('../Uploads/' . basename($pg['Bebas_Kompensasi'])) ?>" target="_blank"><?= htmlspecialchars($pg['Bebas_Kompensasi']) ?></a></div>
                             </div>
                         </div>
                     </div>
@@ -288,7 +312,7 @@ GetAllBerkas();
                             <p class="card-text">Catatan: Upload dalam bentuk ZIP / RAR (Maksimal 100 MB)</p>
                             <!-- Basic file uploader -->
                             <div class="form-group position-relative has-icon-left">
-                                <div class="text-bold-500"> <a href="<?= htmlspecialchars('../Uploads/' . basename($Scan_Toeic)) ?>" target="_blank"><?= htmlspecialchars($Scan_Toeic) ?></a></div>
+                                <div class="text-bold-500"> <a href="<?= htmlspecialchars('../Uploads/' . basename($pg['Scan_Toeic'])) ?>" target="_blank"><?= htmlspecialchars($pg['Scan_Toeic']) ?></a></div>
                             </div>
                         </div>
                     </div>
@@ -315,7 +339,7 @@ GetAllBerkas();
                             </div>
                             <p class="card-text">Catatan: Upload dalam bentuk PDF dan sudah bertanda tangan (Maksimal 10 MB)</p>
                             <div class="form-group position-relative has-icon-left">
-                                <div class="text-bold-500"> <a href="<?= htmlspecialchars('../Uploads/' . basename($Laporan_TA)) ?>" target="_blank"><?= htmlspecialchars($Laporan_TA) ?></a></div>
+                                <div class="text-bold-500"> <a href="<?= htmlspecialchars('../Uploads/' . basename($pg['Laporan_TA'])) ?>" target="_blank"><?= htmlspecialchars($pg['Laporan_TA']) ?></a></div>
                             </div>
                         </div>
                     </div>
@@ -331,7 +355,7 @@ GetAllBerkas();
                             <p class="card-text">Catatan: Upload dalam bentuk ZIP / RAR (Maksimal 100 MB)</p>
                             <!-- Basic file uploader -->
                             <div class="form-group position-relative has-icon-left">
-                                <div class="text-bold-500"> <a href="<?= htmlspecialchars('../Uploads/' . basename($File_Aplikasi)) ?>" target="_blank"><?= htmlspecialchars($File_Aplikasi) ?></a></div>
+                                <div class="text-bold-500"> <a href="<?= htmlspecialchars('../Uploads/' . basename($pg['File_Aplikasi'])) ?>" target="_blank"><?= htmlspecialchars($pg['File_Aplikasi']) ?></a></div>
                             </div>
                         </div>
                     </div>
@@ -353,7 +377,7 @@ GetAllBerkas();
                             </p>
                             </p>
                             <div class="form-group position-relative has-icon-left">
-                                <div class="text-bold-500"> <a href="<?= htmlspecialchars('../Uploads/' . basename($Pernyataan_Publikasi)) ?>" target="_blank"><?= htmlspecialchars($Pernyataan_Publikasi) ?></a></div>
+                                <div class="text-bold-500"> <a href="<?= htmlspecialchars('../Uploads/' . basename($pg['Pernyataan_Publikasi'])) ?>" target="_blank"><?= htmlspecialchars($pg['Pernyataan_Publikasi']) ?></a></div>
                             </div>
                         </div>
                     </div>
