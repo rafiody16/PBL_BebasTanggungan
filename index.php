@@ -61,7 +61,9 @@ if ($_SESSION['Role_ID'] != 1) {
   <body>
     <script src="assets/static/js/initTheme.js"></script>
     <div id="app">
-    <?php include('sidebar3.php'); ?>
+    <?php 
+      include('sidebar3.php'); 
+    ?>
       <div id="main">
         <header class="mb-3">
           <a href="#" class="burger-btn d-block d-xl-none">
@@ -93,20 +95,23 @@ if ($_SESSION['Role_ID'] != 1) {
                           </h6>
                           <h6 class="font-extrabold mb-0">
                             <?php 
-                            $sql = "SELECT COUNT(NIM) AS jumlah_mahasiswa FROM Mahasiswa";
-                            $stmt = sqlsrv_query($conn, $sql);
+                              require_once 'Koneksi.php';
+                              $db = new Database();
+                              $conn = $db->getConnection();
+                              $sql = "SELECT COUNT(NIM) AS jumlah_mahasiswa FROM Mahasiswa";
+                              $stmt = sqlsrv_query($conn, $sql);
+                              
+                              if ($stmt === false) {
+                                  die("Query gagal: " . print_r(sqlsrv_errors(), true));
+                              }
+                              
+                              // Ambil hasil query
+                              $jumlahMahasiswa = 0;
+                              if ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+                                  $jumlahMahasiswa = $row['jumlah_mahasiswa'];
+                              }
                             
-                            if ($stmt === false) {
-                                die("Query gagal: " . print_r(sqlsrv_errors(), true));
-                            }
-                            
-                            // Ambil hasil query
-                            $jumlahMahasiswa = 0;
-                            if ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
-                                $jumlahMahasiswa = $row['jumlah_mahasiswa'];
-                            }
-
-                            echo number_format($jumlahMahasiswa);
+                              echo number_format($jumlahMahasiswa);
                             ?>
                           </h6>
                         </div>
