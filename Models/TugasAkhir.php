@@ -139,24 +139,19 @@ class TugasAkhir extends Pengumpulan {
         return sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
     }
 
-    public function saveTA($id, $File_Aplikasi, $Laporan_TA, $Pernyataan_Publikasi) {
-        $sqlTA = "INSERT INTO TugasAkhir (ID_Pengumpulan, File_Aplikasi, Laporan_TA, Pernyataan_Publikasi, Status_Verifikasi, Tanggal_Upload, Keterangan) 
-                  VALUES (?, ?, ?, ?, ?, ?, ?)";
-        $paramsTA = [
-                    $id, 
-                    $File_Aplikasi, 
-                    $Laporan_TA, 
-                    $Pernyataan_Publikasi, 
-                    "Menunggu", 
-                    date("Y-m-d"), 
-                    "-"
-                ];
-        $stmtTA = sqlsrv_query($this->conn, $sqlTA, $paramsTA);
+    public function createTA($ID_Pengumpulan, $File_Aplikasi, $Laporan_TA, $Pernyataan_Publikasi, $Status_Verifikasi = "Menunggu", $Tanggal_Upload, $Keterangan = "") {
+        $sql = "INSERT INTO TugasAkhir (ID_Pengumpulan, File_Aplikasi, Laporan_TA, Pernyataan_Publikasi, Status_Verifikasi, Tanggal_Upload, Keterangan) 
+                VALUES (?, ?, ?, ?, ?, ?, ?)";
+        $params = [$ID_Pengumpulan, $File_Aplikasi, $Laporan_TA, $Pernyataan_Publikasi, $Status_Verifikasi, $Tanggal_Upload, $Keterangan];
+        $stmt = sqlsrv_query($this->conn, $sql, $params);
 
-        if (!$stmtTA) {
-            throw new Exception('Gagal menyimpan data Tugas Akhir: ' . print_r(sqlsrv_errors(), true));
+        var_dump($params);
+
+        if (!$stmt) {
+            throw new Exception("Gagal menyimpan data Tugas Akhir: " . print_r(sqlsrv_errors(), true));
         }
 
+        return true;
     }
 
     public function editTA($File_Aplikasi, $Laporan_TA, $Pernyataan_Publikasi, $nim) {

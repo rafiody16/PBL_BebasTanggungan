@@ -139,22 +139,19 @@ class Pengumpulan {
         return $stmt;
     }
 
-    function savePengumpulan($NIM) {
-        $sql = "INSERT INTO Pengumpulan (NIM, Tanggal_Pengumpulan, Status_Pengumpulan, Keterangan)  
+    public function create($NIM, $Tanggal_Pengumpulan, $Status_Pengumpulan = "Menunggu", $Keterangan = "-") {
+        $sql = "INSERT INTO Pengumpulan (NIM, Tanggal_Pengumpulan, Status_Pengumpulan, Keterangan) 
+                OUTPUT INSERTED.ID_Pengumpulan 
                 VALUES (?, ?, ?, ?)";
-        $params = [
-            $NIM,
-            date("Y-m-d"),
-            "Menunggu",
-            "-"
-        ];
+        $params = [$NIM, $Tanggal_Pengumpulan, $Status_Pengumpulan, $Keterangan];
         $stmt = sqlsrv_query($this->conn, $sql, $params);
 
-        if ($stmt === false) {
-            throw new Exception('Gagal menyimpan Mahasiswa: ' . print_r(sqlsrv_errors(), true));
+        if (!$stmt) {
+            throw new Exception("Gagal menyimpan data Pengumpulan: " . print_r(sqlsrv_errors(), true));
         }
-        return $stmt;
-        
+
+        $row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
+        return $row['ID_Pengumpulan'] ?? null;
     }
 
     function editPengumpulan($NIM) {
@@ -170,6 +167,8 @@ class Pengumpulan {
             NULL,
             $NIM
         ];
+
+        var_dump($params);
         $stmt = sqlsrv_query($this->conn, $sql, $params);
 
         if ($stmt === false) {

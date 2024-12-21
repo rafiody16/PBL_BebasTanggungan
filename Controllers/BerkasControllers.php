@@ -12,76 +12,76 @@ if (session_status() === PHP_SESSION_NONE) {
 class BerkasControllers {
 
     public $conn;
+    private $Pengumpulan;
+    private $Administrasi;
+    private $tugasAkhir;
 
     public function __construct($conn) {
         $this->conn = $conn;
+        $this->Pengumpulan = new Pengumpulan($conn);
+        $this->Administrasi = new Administrasi($conn);
+        $this->tugasAkhir = new TugasAkhir($conn);
     }
 
     // Method untuk membuat user baru
-    public function createPengumpulan($NIM) {
-        try {
-            $pgModel = new Pengumpulan($this->conn, $NIM);
-            $newPgId = $pgModel -> savePengumpulan($NIM);
-            
-            return $newPgId;
-        } catch (Exception $e) {
-            return null;
-        }
-    }
+    public function handleUpload($NIM, $files, $uploadDir) {
+        $Tanggal_Pengumpulan = date("Y-m-d");
 
-    public function uploadBerkas($NIM, $LaporanSkripsi, $LaporanMagang, $BebasKompen, $ScanToeic,
-                              $FileAplikasi, $LaporanTA, $PernyataanPublikasi) {
+        sqlsrv_begin_transaction($this->conn);
+
         try {
-            // Create Pengumpulan record first
-            $newPgID = $this->createPengumpulan($NIM);
-            if (!$newPgID) {
-                throw new Exception('Failed to create Pengumpulan');
+            // Save Pengumpulan data
+            $ID_Pengumpulan = $this->Pengumpulan->create($NIM, $Tanggal_Pengumpulan);
+
+            // Handle file uploads
+            $uploadedFiles = [];
+            foreach ($files as $key => $file) {
+                $uploadedFiles[$key] = $this->uploadFile($file, $uploadDir);
+                if (!$uploadedFiles[$key]) {
+                    throw new Exception("Gagal mengunggah file: " . $key);
+                }
             }
 
-            $uploadDir = "../Uploads/";
+            // Save Administrasi data
+            $this->Administrasi->createAdm(
+                $ID_Pengumpulan,
+                $uploadedFiles['Laporan_Skripsi'],
+                $uploadedFiles['Laporan_Magang'],
+                $uploadedFiles['Bebas_Kompensasi'],
+                $uploadedFiles['Scan_Toeic'],
+                "Menunggu",
+                $Tanggal_Pengumpulan,
+                ""
+            );
 
-            // Upload files
-            $Laporan_Skripsi = $this->uploadFile($_FILES['Laporan_Skripsi'], $uploadDir);
-            $Laporan_Magang = $this->uploadFile($_FILES['Laporan_Magang'], $uploadDir);
-            $Bebas_Kompensasi = $this->uploadFile($_FILES['Bebas_Kompensasi'], $uploadDir);
-            $Scan_Toeic = $this->uploadFile($_FILES['Scan_Toeic'], $uploadDir);
-            $File_Aplikasi = $this->uploadFile($_FILES['File_Aplikasi'], $uploadDir);
-            $Laporan_TA = $this->uploadFile($_FILES['Laporan_TA'], $uploadDir);
-            $Pernyataan_Publikasi = $this->uploadFile($_FILES['Pernyataan_Publikasi'], $uploadDir);
+            // Save Tugas Akhir data
+            $this->tugasAkhir->createTA(
+                $ID_Pengumpulan,
+                $uploadedFiles['File_Aplikasi'],
+                $uploadedFiles['Laporan_TA'],
+                $uploadedFiles['Pernyataan_Publikasi'],
+                "Menunggu",
+                $Tanggal_Pengumpulan,
+                ""
+            );
 
-            // Process Administrasi and TugasAkhir separately
-            $this->processAdministrasi($newPgID, $Laporan_Skripsi, $Laporan_Magang, $Bebas_Kompensasi, $Scan_Toeic);
-            $this->processTugasAkhir($newPgID, $File_Aplikasi, $Laporan_TA, $Pernyataan_Publikasi);
-
-            echo json_encode(['success' => true]);
-
+            sqlsrv_commit($this->conn);
+            echo "<script>alert('Data berhasil disimpan!'); window.location.href = '../Berkas/DetailBerkas.php?NIM=" . urlencode($NIM) . "';</script>";
         } catch (Exception $e) {
-            error_log("Error in uploadBerkas: " . $e->getMessage()); // Log error message
-            echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+            sqlsrv_rollback($this->conn);
+            echo "<script>alert('" . $e->getMessage() . "');</script>";
         }
     }
 
-    function uploadFile($file, $uploadDir) {
+    private function uploadFile($file, $uploadDir) {
         $fileName = basename($file['name']);
         $targetFilePath = $uploadDir . $fileName;
 
         if (move_uploaded_file($file['tmp_name'], $targetFilePath)) {
-            return $fileName; 
+            return $fileName;
         } else {
-            return false; 
+            return false;
         }
-    }
-
-    // Separate method to handle Administrasi
-    private function processAdministrasi($newPgID, $Laporan_Skripsi, $Laporan_Magang, $Bebas_Kompensasi, $Scan_Toeic) {
-        $AdmModel = new Administrasi($this->conn, $newPgID, $Laporan_Skripsi, $Laporan_Magang, $Bebas_Kompensasi, $Scan_Toeic);
-        $AdmModel->saveAdm($Laporan_Skripsi, $Laporan_Magang, $Bebas_Kompensasi, $Scan_Toeic, $newPgID, "Menunggu", date("Y-m-d"), "-");
-    }
-
-    // Separate method to handle TugasAkhir
-    private function processTugasAkhir($newPgID, $File_Aplikasi, $Laporan_TA, $Pernyataan_Publikasi) {
-        $TAModel = new TugasAkhir($this->conn, $newPgID, $File_Aplikasi, $Laporan_TA, $Pernyataan_Publikasi);
-        $TAModel->saveTA($newPgID, $File_Aplikasi, $Laporan_TA, $Pernyataan_Publikasi);
     }
 }
 
@@ -95,25 +95,19 @@ $action = $_GET['action'] ?? '';
 
 switch ($action) {
     case 'uploadFile':
-        $berkasControllers->uploadBerkas(
-            $_SESSION['NIM'],
-            $_FILES['Laporan_Skripsi'],
-            $_FILES['Laporan_Magang'],
-            $_FILES['Bebas_Kompensasi'],
-            $_FILES['Scan_Toeic'],
-            $_FILES['File_Aplikasi'],
-            $_FILES['Laporan_TA'],
-            $_FILES['Pernyataan_Publikasi']
-        );
-        break;
-    case 'deleteMhs':
-        $userController->deleteMhs($_POST['NIM']);
-        break;
-    case 'deleteStaff':
-        $userController->deleteStaff($_POST['NIP']);
-        break;
-    default:
-        echo json_encode(['message' => 'Action not found']);
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $NIM = $_SESSION['NIM'];
+            $uploadDir = '../uploads/'; // Tentukan direktori unggahan
+    
+            // Pastikan direktori unggahan ada
+            if (!is_dir($uploadDir)) {
+                mkdir($uploadDir, 0777, true);
+            }
+    
+            $berkasControllers->handleUpload($NIM, $_FILES, $uploadDir);
+        } else {
+            echo "<script>alert('Metode request tidak valid!');</script>";
+        }
         break;
 }
 ?>

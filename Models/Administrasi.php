@@ -158,27 +158,19 @@ class Administrasi extends Pengumpulan {
         return $stmt;
     }
 
-    public function saveAdm($Laporan_Skripsi, $Laporan_Magang, $Bebas_Kompensasi, $Scan_Toeic, $ID_Pengumpulan, $status, $tgl, $ket) {
-        $sql = "INSERT INTO Administrasi (ID_Pengumpulan, Laporan_Skripsi, Laporan_Magang, Bebas_Kompensasi, 
-                Scan_Toeic, Status_Verifikasi, Tanggal_Upload, Keterangan) 
+    public function createAdm($ID_Pengumpulan, $Laporan_Skripsi, $Laporan_Magang, $Bebas_Kompensasi, $Scan_Toeic, $Status_Verifikasi = "Menunggu", $Tanggal_Upload, $Keterangan = "-") {
+        $sql = "INSERT INTO Administrasi (ID_Pengumpulan, Laporan_Skripsi, Laporan_Magang, Bebas_Kompensasi, Scan_Toeic, Status_Verifikasi, Tanggal_Upload, Keterangan) 
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-        $params = [
-            $ID_Pengumpulan,
-            $Laporan_Skripsi,
-            $Laporan_Magang,
-            $Bebas_Kompensasi,
-            $Scan_Toeic,
-            $status,
-            $tgl,
-            $ket
-        ];
-    
+        $params = [$ID_Pengumpulan, $Laporan_Skripsi, $Laporan_Magang, $Bebas_Kompensasi, $Scan_Toeic, $Status_Verifikasi, $Tanggal_Upload, $Keterangan];
         $stmt = sqlsrv_query($this->conn, $sql, $params);
-        
+
+        var_dump($params);
+
         if (!$stmt) {
-            throw new Exception('Error inserting Administrasi data: ' . print_r(sqlsrv_errors(), true));
+            throw new Exception("Gagal menyimpan data Administrasi: " . print_r(sqlsrv_errors(), true));
         }
-    
+
+        return true;
     }
     
     
