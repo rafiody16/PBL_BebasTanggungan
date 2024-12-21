@@ -249,9 +249,9 @@ if ($_SESSION['Role_ID'] === 2 || $_SESSION['Role_ID'] === 3 || $_SESSION['Role_
                 var ID_Aplikasi = $(this).data("id");
                 if (confirm("Apakah Anda yakin ingin memverifikasi data ini?")) {
                     $.ajax({
-                    url: "ProsesBerkas.php",
+                    url: "../Controllers/BerkasControllers.php?action=verifTA",
                     type: "POST",
-                    data: { ID_Aplikasi: ID_Aplikasi, action: "verifikasiTA" },
+                    data: { ID_Aplikasi: ID_Aplikasi },
                         success: function(response) {
                             location.reload();
                         }

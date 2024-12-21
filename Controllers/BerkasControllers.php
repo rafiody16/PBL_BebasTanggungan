@@ -83,6 +83,28 @@ class BerkasControllers {
             return false;
         }
     }
+
+    public function VerifikasiAdministrasi($id) {
+        try {
+            $adm = new Administrasi($this->conn, $id);
+            $adm->setStatus_Verifikasi($id, 'Terverifikasi');
+
+            echo "Berhasil terverifikasi";
+        } catch (Exception $e) {
+            echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+        }
+    }
+
+    public function VerifikasiTA($id) {
+        try {
+            $ta = new TugasAkhir($this->conn, $id);
+            $ta->setStatus_Verifikasi($id, 'Terverifikasi');
+
+            echo "Berhasil terverifikasi";
+        } catch (Exception $e) {
+            echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+        }
+    }
 }
 
 $database = new Database(); // Create Database object to get connection
@@ -108,6 +130,9 @@ switch ($action) {
         } else {
             echo "<script>alert('Metode request tidak valid!');</script>";
         }
+        break;
+    case 'verifTA':
+        $berkasControllers->VerifikasiTA($_POST['ID_Aplikasi']);
         break;
 }
 ?>

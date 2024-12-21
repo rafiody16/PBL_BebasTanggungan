@@ -85,8 +85,14 @@ class Administrasi extends Pengumpulan {
         return $this->Status_Verifikasi;
     }
 
-    public function setStatus_Verifikasi($Status_Verifikasi) {
+    public function setStatus_Verifikasi($id, $Status_Verifikasi) {
         $this->Status_Verifikasi = $Status_Verifikasi;
+        $sql = "UPDATE Administrasi SET Status_Verifikasi = ?
+                WHERE ID_Administrasi = ?";
+        $params = [$Status_Verifikasi, $id];
+        $stmt = sqlsrv_query($this->conn, $sql, $params);
+
+        return $stmt;
     }
 
     // Getter dan Setter untuk Tanggal_Verifikasi
