@@ -81,8 +81,14 @@ class TugasAkhir extends Pengumpulan {
         return $this->Tanggal_Verifikasi;
     }
 
-    public function setTanggal_Verifikasi($Tanggal_Verifikasi) {
+    public function setTanggalVerifikasi($Tanggal_Verifikasi, $id) {
         $this->Tanggal_Verifikasi = $Tanggal_Verifikasi;
+        $sql = "UPDATE TugasAkhir SET Tanggal_Verifikasi = ?
+                WHERE ID_Aplikasi = ?";
+        $params = [$Tanggal_Verifikasi, $id];
+        $stmt = sqlsrv_query($this->conn, $sql, $params);
+
+        return $stmt;
     }
 
     public function getTanggal_Upload() {
@@ -97,16 +103,28 @@ class TugasAkhir extends Pengumpulan {
         return $this->Keterangan;
     }
 
-    public function setKeterangan($Keterangan) {
+    public function set_Keterangan($Keterangan, $id) {
         $this->Keterangan = $Keterangan;
+        $sql = "UPDATE TugasAkhir SET Keterangan = ?
+                WHERE ID_Aplikasi = ?";
+        $params = [$Keterangan, $id];
+        $stmt = sqlsrv_query($this->conn, $sql, $params);
+
+        return $stmt;
     }
 
     public function getVerifikator() {
         return $this->Verifikator;
     }
 
-    public function setVerifikator($Verifikator) {
+    public function setVerifikator($Verifikator, $id) {
         $this->Verifikator = $Verifikator;
+        $sql = "UPDATE TugasAkhir SET Verifikator = ?
+                WHERE ID_Aplikasi = ?";
+        $params = [$Verifikator, $id];
+        $stmt = sqlsrv_query($this->conn, $sql, $params);
+
+        return $stmt;
     }
 
     public function getConn() {

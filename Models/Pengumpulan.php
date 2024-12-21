@@ -55,8 +55,14 @@ class Pengumpulan {
         return $this->Status_Pengumpulan;
     }
 
-    public function setStatus_Pengumpulan($Status_Pengumpulan) {
+    public function setStatus_Pengumpulan($Status_Pengumpulan, $id) {
         $this->Status_Pengumpulan = $Status_Pengumpulan;
+        $sql = "UPDATE Pengumpulan SET Status_Pengumpulan = ?
+                WHERE ID_Pengumpulan = ?";
+        $params = [$Status_Pengumpulan, $id];
+        $stmt = sqlsrv_query($this->conn, $sql, $params);
+
+        return $stmt;
     }
 
 

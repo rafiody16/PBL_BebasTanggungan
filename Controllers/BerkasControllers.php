@@ -84,10 +84,13 @@ class BerkasControllers {
         }
     }
 
-    public function VerifikasiAdministrasi($id) {
+    public function VerifikasiAdministrasi($id, $verifikator) {
         try {
             $adm = new Administrasi($this->conn, $id);
             $adm->setStatus_Verifikasi($id, 'Terverifikasi');
+            $adm->setVerifikator($verifikator, $id);
+            $adm->set_Keterangan('-', $id);
+            $adm->setTanggalVerifikasi(date('Y-m-d'), $id);
 
             echo "Berhasil terverifikasi";
         } catch (Exception $e) {
@@ -95,10 +98,13 @@ class BerkasControllers {
         }
     }
 
-    public function VerifikasiTA($id) {
+    public function VerifikasiTA($id, $verifikator) {
         try {
             $ta = new TugasAkhir($this->conn, $id);
             $ta->setStatus_Verifikasi($id, 'Terverifikasi');
+            $ta->setVerifikator($verifikator, $id);
+            $ta->set_Keterangan('-', $id);
+            $ta->setTanggalVerifikasi(date('Y-m-d'), $id);
 
             echo "Berhasil terverifikasi";
         } catch (Exception $e) {
@@ -132,7 +138,7 @@ switch ($action) {
         }
         break;
     case 'verifTA':
-        $berkasControllers->VerifikasiTA($_POST['ID_Aplikasi']);
+        $berkasControllers->VerifikasiTA($_POST['ID_Aplikasi'], $_SESSION['Nama']);
         break;
 }
 ?>

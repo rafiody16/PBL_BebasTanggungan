@@ -96,12 +96,18 @@ class Administrasi extends Pengumpulan {
     }
 
     // Getter dan Setter untuk Tanggal_Verifikasi
-    public function getTanggal_Verifikasi() {
+    public function getTanggalVerifikasi() {
         return $this->Tanggal_Verifikasi;
     }
 
-    public function setTanggal_Verifikasi($Tanggal_Verifikasi) {
+    public function setTanggalVerifikasi($Tanggal_Verifikasi, $id) {
         $this->Tanggal_Verifikasi = $Tanggal_Verifikasi;
+        $sql = "UPDATE Administrasi SET Tanggal_Verifikasi = ?
+                WHERE ID_Administrasi = ?";
+        $params = [$Tanggal_Verifikasi, $id];
+        $stmt = sqlsrv_query($this->conn, $sql, $params);
+
+        return $stmt;
     }
 
     // Getter dan Setter untuk Tanggal_Upload
@@ -118,8 +124,14 @@ class Administrasi extends Pengumpulan {
         return $this->Keterangan;
     }
 
-    public function setKeterangan($Keterangan) {
+    public function set_Keterangan($Keterangan, $id) {
         $this->Keterangan = $Keterangan;
+        $sql = "UPDATE Administrasi SET Keterangan = ?
+                WHERE ID_Administrasi = ?";
+        $params = [$Keterangan, $id];
+        $stmt = sqlsrv_query($this->conn, $sql, $params);
+
+        return $stmt;
     }
 
     // Getter dan Setter untuk Verifikator
@@ -127,8 +139,14 @@ class Administrasi extends Pengumpulan {
         return $this->Verifikator;
     }
 
-    public function setVerifikator($Verifikator) {
+    public function setVerifikator($Verifikator, $id) {
         $this->Verifikator = $Verifikator;
+        $sql = "UPDATE Administrasi SET Verifikator = ?
+                WHERE ID_Administrasi = ?";
+        $params = [$Verifikator, $id];
+        $stmt = sqlsrv_query($this->conn, $sql, $params);
+
+        return $stmt;
     }
 
     // Getter dan Setter untuk koneksi database

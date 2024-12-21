@@ -82,7 +82,9 @@ if ($_SESSION['Role_ID'] === 2 || $_SESSION['Role_ID'] === 3 || $_SESSION['Role_
                                     <select name="prodi" id="prodi" class="form-control">
                                         <option value=""></option>
                                         <?php 
-                                        // Ambil daftar Prodi dari database
+                                        require_once '../Koneksi.php';
+                                        $db = new Database();
+                                        $conn = $db->getConnection();
                                         $stmtProdi = sqlsrv_query($conn, "SELECT DISTINCT Prodi FROM Mahasiswa");
                                         $selectedProdi = isset($_GET['prodi']) ? $_GET['prodi'] : ''; // Ambil nilai prodi yang dipilih
                                         while ($rowProdi = sqlsrv_fetch_array($stmtProdi, SQLSRV_FETCH_ASSOC)) {
@@ -126,9 +128,11 @@ if ($_SESSION['Role_ID'] === 2 || $_SESSION['Role_ID'] === 3 || $_SESSION['Role_
                                         </thead>
                                         <tbody>
                                             <?php
-                                            include('ProsesBerkas.php');
+                                            require_once '../Models/Administrasi.php';
+                                            $admModel = new Administrasi($conn);
+                                            $adm = $admModel->getAllAdm();
                                             $no = 1;
-                                            while ($row = sqlsrv_fetch_array($stmtAdm, SQLSRV_FETCH_ASSOC)) {
+                                            while ($row = sqlsrv_fetch_array($adm, SQLSRV_FETCH_ASSOC)) {
                                                 if ($row) {
                                                     $ID_Administrasi = $row['ID_Administrasi'];
                                                     $nim = $row['NIM'];
