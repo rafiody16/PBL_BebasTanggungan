@@ -253,11 +253,10 @@ if ($_SESSION['Role_ID'] === 2 || $_SESSION['Role_ID'] === 3 || $_SESSION['Role_
                 var ID_Administrasi = $(this).data("id");
                 if (confirm("Apakah Anda yakin ingin memverifikasi data ini?")) {
                     $.ajax({
-                        url: "ProsesBerkas.php",
+                        url: "../Controllers/BerkasControllers.php?action=verifAdm",
                         type: "POST",
                         data: {
                             ID_Administrasi: ID_Administrasi,
-                            action: "verifikasiAdministrasi"
                         },
                         success: function(response) {
                             location.reload();
@@ -275,10 +274,9 @@ if ($_SESSION['Role_ID'] === 2 || $_SESSION['Role_ID'] === 3 || $_SESSION['Role_
                 }
                 if (confirm("Apakah Anda yakin ingin menolak data ini?")) {
                     $.ajax({
-                        url: 'ProsesBerkas.php',
-                        type: 'POST',
+                        url: "../Controllers/BerkasControllers.php?action=tolakAdm",
+                        type: "POST",
                         data: {
-                            action: 'tolakAdministrasi',
                             ID_Administrasi: ID_Administrasi,
                             Keterangan: Keterangan
                         },
@@ -287,7 +285,8 @@ if ($_SESSION['Role_ID'] === 2 || $_SESSION['Role_ID'] === 3 || $_SESSION['Role_
                         },
                         error: function(xhr, status, error) {
                             console.error('Terjadi kesalahan:', error);
-                            alert('Gagal memproses data. Silakan coba lagi.');
+                            console.log('Response:', xhr.responseText)
+                            alert('Gagal memproses data. Silakan coba lagi.', xhr.responseText);
                         }
                     });
                 }

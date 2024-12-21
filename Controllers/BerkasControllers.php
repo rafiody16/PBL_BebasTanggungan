@@ -111,6 +111,22 @@ class BerkasControllers {
             echo json_encode(['success' => false, 'message' => $e->getMessage()]);
         }
     }
+
+    public function TolakAdministrasi($id, $keterangan) {
+        try {
+            $adm = new Administrasi($this->conn, $id);
+            $adm->setStatus_Verifikasi($id, 'Ditolak');
+            $adm->setVerifikator(null, $id);
+            $adm->set_Keterangan($keterangan, $id);
+            $adm->setTanggalVerifikasi(null, $id);
+
+            echo "Berhasil terverifikasi";
+        } catch (Exception $e) {
+            echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+        }
+    }
+
+
 }
 
 $database = new Database(); // Create Database object to get connection
@@ -139,6 +155,12 @@ switch ($action) {
         break;
     case 'verifTA':
         $berkasControllers->VerifikasiTA($_POST['ID_Aplikasi'], $_SESSION['Nama']);
+        break;
+    case 'verifAdm':
+        $berkasControllers->VerifikasiAdministrasi($_POST['ID_Administrasi'], $_SESSION['Nama']);
+        break;
+    case 'tolakAdm':
+        $berkasControllers->TolakAdministrasi($_POST['ID_Administrasi'], $_POST['Keterangan']);
         break;
 }
 ?>
