@@ -112,13 +112,27 @@ class BerkasControllers {
         }
     }
 
-    public function TolakAdministrasi($id, $keterangan) {
+    public function TolakAdministrasi($id, $verifikator, $keterangan) {
         try {
             $adm = new Administrasi($this->conn, $id);
             $adm->setStatus_Verifikasi($id, 'Ditolak');
-            $adm->setVerifikator(null, $id);
+            $adm->setVerifikator($verifikator, $id);
             $adm->set_Keterangan($keterangan, $id);
             $adm->setTanggalVerifikasi(null, $id);
+
+            echo "Berhasil terverifikasi";
+        } catch (Exception $e) {
+            echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+        }
+    }
+
+    public function TolakTA($id, $verifikator, $keterangan) {
+        try {
+            $ta = new TugasAkhir($this->conn, $id);
+            $ta->setStatus_Verifikasi($id, 'Ditolak');
+            $ta->setVerifikator($verifikator, $id);
+            $ta->set_Keterangan($keterangan, $id);
+            $ta->setTanggalVerifikasi(null, $id);
 
             echo "Berhasil terverifikasi";
         } catch (Exception $e) {
@@ -160,7 +174,10 @@ switch ($action) {
         $berkasControllers->VerifikasiAdministrasi($_POST['ID_Administrasi'], $_SESSION['Nama']);
         break;
     case 'tolakAdm':
-        $berkasControllers->TolakAdministrasi($_POST['ID_Administrasi'], $_POST['Keterangan']);
+        $berkasControllers->TolakAdministrasi($_POST['ID_Administrasi'], $_SESSION['Nama'],$_POST['Keterangan']);
+        break;
+    case 'tolakTA':
+        $berkasControllers->TolakTA($_POST['ID_Aplikasi'], $_SESSION['Nama'],$_POST['Keterangan']);
         break;
 }
 ?>

@@ -267,10 +267,9 @@ if ($_SESSION['Role_ID'] === 2 || $_SESSION['Role_ID'] === 3 || $_SESSION['Role_
                     return;
                 }
                 $.ajax({
-                    url: 'ProsesBerkas.php',
+                    url: "../Controllers/BerkasControllers.php?action=tolakTA",
                     type: 'POST',
                     data: {
-                        action: 'tolakTA',
                         ID_Aplikasi: ID_Aplikasi,
                         Keterangan: Keterangan
                     },
