@@ -182,7 +182,7 @@ class Administrasi extends Pengumpulan {
         return $stmt;
     }
 
-    public function createAdm($ID_Pengumpulan, $Laporan_Skripsi, $Laporan_Magang, $Bebas_Kompensasi, $Scan_Toeic, $Status_Verifikasi = "Menunggu", $Tanggal_Upload, $Keterangan = "-") {
+    public function createAdm($ID_Pengumpulan, $Laporan_Skripsi, $Laporan_Magang, $Bebas_Kompensasi, $Scan_Toeic, $Tanggal_Upload, $Status_Verifikasi = "Menunggu", $Keterangan = "-") {
         $sql = "INSERT INTO Administrasi (ID_Pengumpulan, Laporan_Skripsi, Laporan_Magang, Bebas_Kompensasi, Scan_Toeic, Status_Verifikasi, Tanggal_Upload, Keterangan) 
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         $params = [$ID_Pengumpulan, $Laporan_Skripsi, $Laporan_Magang, $Bebas_Kompensasi, $Scan_Toeic, $Status_Verifikasi, $Tanggal_Upload, $Keterangan];
