@@ -32,69 +32,65 @@ class BerkasControllers {
     public function uploadBerkas($NIM, $LaporanSkripsi, $LaporanMagang, $BebasKompen, $ScanToeic,
                               $FileAplikasi, $LaporanTA, $PernyataanPublikasi) {
         try {
-
+            // Create Pengumpulan record first
             $newPgID = $this->createPengumpulan($NIM);
+            if (!$newPgID) {
+                throw new Exception('Failed to create Pengumpulan');
+            }
 
             $uploadDir = "../Uploads/";
-    
-            $LaporanSkripsi = $this->uploadFile($_FILES['Laporan_Skripsi'], $uploadDir);
-            $LaporanMagang = $this->uploadFile($_FILES['Laporan_Magang'], $uploadDir);
-            $BebasKompen = $this->uploadFile($_FILES['Bebas_Kompensasi'], $uploadDir);
-            $ScanToeic = $this->uploadFile($_FILES['Scan_Toeic'], $uploadDir);
-            $FileAplikasi = $this->uploadFile($_FILES['File_Aplikasi'], $uploadDir);
-            $LaporanTA = $this->uploadFile($_FILES['Laporan_TA'], $uploadDir);
-            $PernyataanPublikasi = $this->uploadFile($_FILES['Pernyataan_Publikasi'], $uploadDir);
 
-            if ($newPgID) {
-                $AdmModel = new Administrasi($this->conn, $newPgID, $LaporanSkripsi, $LaporanMagang, $BebasKompen, $ScanToeic);
-                $AdmModel -> saveAdm($LaporanSkripsi, $LaporanMagang, $BebasKompen, $ScanToeic, $newPgID, "Menunggu", date("Y-m-d"), "-");
+            // Upload files
+            $Laporan_Skripsi = $this->uploadFile($_FILES['Laporan_Skripsi'], $uploadDir);
+            $Laporan_Magang = $this->uploadFile($_FILES['Laporan_Magang'], $uploadDir);
+            $Bebas_Kompensasi = $this->uploadFile($_FILES['Bebas_Kompensasi'], $uploadDir);
+            $Scan_Toeic = $this->uploadFile($_FILES['Scan_Toeic'], $uploadDir);
+            $File_Aplikasi = $this->uploadFile($_FILES['File_Aplikasi'], $uploadDir);
+            $Laporan_TA = $this->uploadFile($_FILES['Laporan_TA'], $uploadDir);
+            $Pernyataan_Publikasi = $this->uploadFile($_FILES['Pernyataan_Publikasi'], $uploadDir);
 
-                $TAModel = new TugasAkhir($this->conn, $newPgID,$FileAplikasi, $LaporanTA, $PernyataanPublikasi);
-                $TAModel -> saveTA($newPgID, $FileAplikasi, $LaporanTA, $PernyataanPublikasi);
+            // Process Administrasi and TugasAkhir separately
+            $this->processAdministrasi($newPgID, $Laporan_Skripsi, $Laporan_Magang, $Bebas_Kompensasi, $Scan_Toeic);
+            $this->processTugasAkhir($newPgID, $File_Aplikasi, $Laporan_TA, $Pernyataan_Publikasi);
 
-                echo json_encode(['success' => true]);
-            } else {
-                throw new Exception('Failed to create User');
-            }
+            echo json_encode(['success' => true]);
+
         } catch (Exception $e) {
+            error_log("Error in uploadBerkas: " . $e->getMessage()); // Log error message
             echo json_encode(['success' => false, 'message' => $e->getMessage()]);
         }
     }
-    
-    
-    private function uploadFile($file, $uploadDir) {
-        if (!$file || empty($file['tmp_name'])) {
-            throw new Exception('No file uploaded.');
-        }
-    
+
+    function uploadFile($file, $uploadDir) {
         $fileName = basename($file['name']);
         $targetFilePath = $uploadDir . $fileName;
-    
-        $allowedTypes = ['application/pdf', 'application/zip', 'application/x-rar-compressed'];
-        $fileType = mime_content_type($file['tmp_name']);
-    
-        if (!in_array($fileType, $allowedTypes)) {
-            throw new Exception('Invalid file type: ' . $fileType);
-        }
 
-        error_log("Uploading file to: " . $targetFilePath);
-    
         if (move_uploaded_file($file['tmp_name'], $targetFilePath)) {
-            return $fileName;
+            return $fileName; 
         } else {
-            throw new Exception('Failed to move uploaded file.');
+            return false; 
         }
     }
 
+    // Separate method to handle Administrasi
+    private function processAdministrasi($newPgID, $Laporan_Skripsi, $Laporan_Magang, $Bebas_Kompensasi, $Scan_Toeic) {
+        $AdmModel = new Administrasi($this->conn, $newPgID, $Laporan_Skripsi, $Laporan_Magang, $Bebas_Kompensasi, $Scan_Toeic);
+        $AdmModel->saveAdm($Laporan_Skripsi, $Laporan_Magang, $Bebas_Kompensasi, $Scan_Toeic, $newPgID, "Menunggu", date("Y-m-d"), "-");
+    }
+
+    // Separate method to handle TugasAkhir
+    private function processTugasAkhir($newPgID, $File_Aplikasi, $Laporan_TA, $Pernyataan_Publikasi) {
+        $TAModel = new TugasAkhir($this->conn, $newPgID, $File_Aplikasi, $Laporan_TA, $Pernyataan_Publikasi);
+        $TAModel->saveTA($newPgID, $File_Aplikasi, $Laporan_TA, $Pernyataan_Publikasi);
+    }
 }
 
-$database = new Database(); // Membuat objek Database untuk mendapatkan koneksi
-$conn = $database->getConnection(); 
-
+$database = new Database(); // Create Database object to get connection
+$conn = $database->conn; 
 
 $berkasControllers = new BerkasControllers($conn);
 
-// Mengambil action dari request
+// Get action from request
 $action = $_GET['action'] ?? '';
 
 switch ($action) {
@@ -120,6 +116,4 @@ switch ($action) {
         echo json_encode(['message' => 'Action not found']);
         break;
 }
-
-
 ?>

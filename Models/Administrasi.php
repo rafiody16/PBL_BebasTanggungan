@@ -159,9 +159,10 @@ class Administrasi extends Pengumpulan {
     }
 
     public function saveAdm($Laporan_Skripsi, $Laporan_Magang, $Bebas_Kompensasi, $Scan_Toeic, $ID_Pengumpulan, $status, $tgl, $ket) {
-        $sqlInsert = "INSERT INTO Administrasi (ID_Pengumpulan, Laporan_Skripsi, Laporan_Magang, Bebas_Kompensasi, Scan_Toeic, Status_Verifikasi, Tanggal_Upload, Keterangan)
-                      VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-        $paramsInsert = [
+        $sql = "INSERT INTO Administrasi (ID_Pengumpulan, Laporan_Skripsi, Laporan_Magang, Bebas_Kompensasi, 
+                Scan_Toeic, Status_Verifikasi, Tanggal_Upload, Keterangan) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        $params = [
             $ID_Pengumpulan,
             $Laporan_Skripsi,
             $Laporan_Magang,
@@ -172,14 +173,14 @@ class Administrasi extends Pengumpulan {
             $ket
         ];
     
-        $stmtInsert = sqlsrv_query($this->conn, $sqlInsert, $paramsInsert);
+        $stmt = sqlsrv_query($this->conn, $sql, $params);
         
-        if ($stmtInsert === false) {
-            $errors = sqlsrv_errors();
-            error_log('Database Insert Error: ' . print_r($errors, true));
-            throw new Exception('Failed to save Administration data: ' . ($errors ? $errors[0]['message'] : 'Unknown error'));
+        if (!$stmt) {
+            throw new Exception('Error inserting Administrasi data: ' . print_r(sqlsrv_errors(), true));
         }
+    
     }
+    
     
 
     public function editAdm($NIM, $Laporan_Skripsi, $Laporan_Magang, $Bebas_Kompensasi, $Scan_Toeic) {
