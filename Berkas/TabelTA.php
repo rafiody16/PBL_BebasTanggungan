@@ -158,7 +158,6 @@ if ($_SESSION['Role_ID'] === 2 || $_SESSION['Role_ID'] === 3 || $_SESSION['Role_
                                                 }
                                                 echo "<td>" . htmlspecialchars($row['Keterangan']) . "</td>";
                                         ?>
-                                                // Tombol aksi
                                                 <!-- echo "<td>";
                                                     echo "<button data-id='" . $ID_Aplikasi . "' class='btn btn-primary btn-detail'>Detail</button>";
                                                     echo "<button data-id='" . $ID_Aplikasi . "' class='btn btn-success btn-verifikasi'>Verifikasi</button>";
