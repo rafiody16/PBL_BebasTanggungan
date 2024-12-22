@@ -84,6 +84,30 @@ class BerkasControllers {
         }
     }
 
+    public function verifikasiBerkas($id) {
+        $tgl_verifikasi = date("Y-m-d");
+        $verifikator = $_SESSION['Nama'];
+        $role = $_SESSION['Role_ID'];
+
+        $pgModels = new Pengumpulan($this->conn);
+        $existingBerkas = $pgModels->getPengumpulanById($id);
+
+        if ($existingBerkas) {
+            if ($role === 2) {
+                $pgModels->setVerifikatorKajur($verifikator, $id);
+            } else if (in_array($role, [3, 4, 5])) {
+                $pgModels->setVerifikatorKaprodi($verifikator, $id);
+            }
+
+            if (!is_null($existingBerkas['VerifikatorKajur']) && !is_null($existingBerkas['VerifikatorKaprodi'])) {
+                $pgModels->setStatus_Pengumpulan('Terverifikasi', $id);
+                $pgModels->setTanggal_Verifikasi($tgl_verifikasi, $id);
+                $pgModels->setKeterangan('-', $id);
+            }
+        }
+
+    }
+
     public function VerifikasiAdministrasi($id, $verifikator) {
         try {
             $adm = new Administrasi($this->conn, $id);
@@ -166,6 +190,9 @@ switch ($action) {
         } else {
             echo "<script>alert('Metode request tidak valid!');</script>";
         }
+        break;
+    case 'verifBerkas':
+        $berkasControllers->verifikasiBerkas($_POST['ID_Pengumpulan']);
         break;
     case 'verifTA':
         $berkasControllers->VerifikasiTA($_POST['ID_Aplikasi'], $_SESSION['Nama']);

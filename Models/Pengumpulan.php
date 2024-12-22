@@ -70,32 +70,52 @@ class Pengumpulan {
         return $this->Tanggal_Verifikasi;
     }
 
-    public function setTanggal_Verifikasi($Tanggal_Verifikasi) {
+    public function setTanggal_Verifikasi($Tanggal_Verifikasi, $id) {
         $this->Tanggal_Verifikasi = $Tanggal_Verifikasi;
+        $sql = "UPDATE Pengumpulan SET Tanggal_Verifikasi = ? WHERE ID_Pengumpulan = ?";
+        $params = [$Tanggal_Verifikasi, $id];
+        $stmt = sqlsrv_query($this->conn, $sql, $params);
+
+        return $stmt;
     }
 
     public function getKeterangan() {
         return $this->Keterangan;
     }
 
-    public function setKeterangan($Keterangan) {
+    public function setKeterangan($Keterangan, $id) {
         $this->Keterangan = $Keterangan;
+        $sql = "UPDATE Pengumpulan SET Keterangan = ? WHERE ID_Pengumpulan = ?";
+        $params = [$Keterangan, $id];
+        $stmt = sqlsrv_query($this->conn, $sql, $params);
+
+        return $stmt;
     }
 
     public function getVerifikatorKajur() {
         return $this->VerifikatorKajur;
     }
 
-    public function setVerifikatorKajur($VerifikatorKajur) {
+    public function setVerifikatorKajur($VerifikatorKajur, $id) {
         $this->VerifikatorKajur = $VerifikatorKajur;
+        $sql = "UPDATE Pengumpulan SET VerifikatorKajur = ? WHERE ID_Pengumpulan = ?";
+        $params = [$VerifikatorKajur, $id];
+        $stmt = sqlsrv_query($this->conn, $sql, $params);
+
+        return $stmt;
     }
 
     public function getVerifikatorKaprodi() {
         return $this->VerifikatorKaprodi;
     }
 
-    public function setVerifikatorKaprodi($VerifikatorKaprodi) {
+    public function setVerifikatorKaprodi($VerifikatorKaprodi, $id) {
         $this->VerifikatorKaprodi = $VerifikatorKaprodi;
+        $sql = "UPDATE Pengumpulan SET VerifikatorKaprodi = ? WHERE ID_Pengumpulan = ?";
+        $params = [$VerifikatorKaprodi, $id];
+        $stmt = sqlsrv_query($this->conn, $sql, $params);
+
+        return $stmt;
     }
 
     public function getConn() {
@@ -190,6 +210,12 @@ class Pengumpulan {
         $params = array($NIM);
         $stmt = sqlsrv_query($this->conn, $sql, $params);
 
+        return sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
+    }
+
+    public function getPengumpulanById($ID_Pengumpulan) {
+        $sql = "SELECT ID_Pengumpulan, VerifikatorKajur, VerifikatorKaprodi FROM Pengumpulan WHERE ID_Pengumpulan = ?";
+        $stmt = sqlsrv_query($this->conn, $sql, [$ID_Pengumpulan]);
         return sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
     }
 

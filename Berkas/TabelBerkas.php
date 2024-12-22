@@ -85,8 +85,15 @@ if ($_SESSION['Role_ID'] === 6 || $_SESSION['Role_ID'] === 7 || $_SESSION['Role_
                                         </thead>
                                         <tbody>
                                             <?php
-                                            include('ProsesBerkas.php');
-                                            $stmt3 = getAllPgmp();
+                                            require_once '../Koneksi.php';
+                                            require_once '../Models/Pengumpulan.php';
+
+                                            $db = new Database();
+                                            $conn = $db->getConnection();
+                                            $role = $_SESSION['Role_ID'];
+
+                                            $pgModels = new Pengumpulan($conn);
+                                            $stmt3 = $pgModels->getAllPengumpulan($role);
                                             $no = 1;
                                             while ($row = sqlsrv_fetch_array($stmt3, SQLSRV_FETCH_ASSOC)) {
                                                 if ($row) {
@@ -236,11 +243,10 @@ if ($_SESSION['Role_ID'] === 6 || $_SESSION['Role_ID'] === 7 || $_SESSION['Role_
                 var ID_Pengumpulan = $(this).data("id");
                 if (confirm("Apakah Anda yakin ingin memverifikasi data ini?")) {
                     $.ajax({
-                        url: "ProsesBerkas.php",
+                        url: "../Controllers/BerkasControllers.php?action=verifBerkas",
                         type: "POST",
                         data: {
                             ID_Pengumpulan: ID_Pengumpulan,
-                            action: "verifikasiBerkas"
                         },
                         success: function(response) {
                             location.reload();
