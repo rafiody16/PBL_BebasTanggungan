@@ -215,7 +215,7 @@ $NIM = $_SESSION['NIM'];
                                                         </tr>
                                                         <tr>
                                                             <td class="text-bold-500">3</td>
-                                                            <td class="text-bold-500">Verifikasi Berkas </td>
+                                                            <td class="text-bold-500">Pengesahan Berkas </td>
                                                             <td class="text-bold-500 text-center align-middle"  colspan="2">
                                                                 <?php
                                                                     if ($pg['Status_Pengumpulan'] === 'Menunggu') {
