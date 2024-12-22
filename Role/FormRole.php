@@ -17,10 +17,6 @@ if ($_SESSION['Role_ID'] != 1) {
     </script>";
 }
 
-include('../Koneksi.php');
-include('RoleProses.php');
-
-getRoleById();
 
 ?>
 <!DOCTYPE html>
@@ -64,30 +60,49 @@ getRoleById();
                                 </div>
                                 <div class="card-content">
                                     <div class="card-body">
-                                        <form class="form form-vertical" action="RoleProses.php" method="POST">
+                                        <form class="form form-vertical" method="POST">
+                                            <?php 
+                                                require_once '../Koneksi.php';
+                                                require_once '../Models/Role.php';
+                                                
+                                                $db = new Database();
+                                                $conn = $db->getConnection();
+                                                $roleModel = new Role($conn);
+                                                
+                                                $id = isset($_GET['Role_ID']) ? $_GET['Role_ID'] : '';
+                                                $rl = null;
+                                                
+                                                if ($id) {
+                                                    $rl = $roleModel->findById($id);
+                                                }
+                                            ?>
                                             <div class="form-body">
                                                 <div class="row">
                                                 <div class="col-12">
                                                         <div class="form-group">
                                                             <label for="first-name-vertical">ID Role</label>
-                                                            <input type="text" class="form-control" name="Role_ID" value="<?= isset($Role_ID) ? htmlspecialchars($Role_ID) : '' ?>" placeholder="Masukkan ID_Role">
+                                                            <input type="text" class="form-control" name="Role_ID" value="<?= isset($rl['Role_ID']) ? htmlspecialchars($rl['Role_ID']) : '' ?>" placeholder="Masukkan ID_Role">
                                                         </div>
                                                     </div>
                                                     <div class="col-12">
                                                         <div class="form-group">
                                                             <label for="first-name-vertical">Nama Role</label>
-                                                            <input type="text" class="form-control" name="Nama_Role" value="<?= isset($nama) ? htmlspecialchars($nama) : '' ?>" placeholder="Masukkan jenis role">
+                                                            <input type="text" class="form-control" name="Nama_Role" value="<?= isset($rl['Nama_Role']) ? htmlspecialchars($rl['Nama_Role']) : '' ?>" placeholder="Masukkan jenis role">
                                                         </div>
                                                     </div>
                                                     <div class="col-12">
                                                         <div class="form-group">
                                                             <label for="contact-info-vertical">Deskripsi</label>
-                                                            <textarea class="form-control" name="Deskripsi" rows="3"><?= isset($deskripsi) ? htmlspecialchars($deskripsi) : '' ?></textarea>
+                                                            <textarea class="form-control" name="Deskripsi" rows="3"><?= isset($rl['Deskripsi']) ? htmlspecialchars($rl['Deskripsi']) : '' ?></textarea>
                                                         </div>
                                                     </div>
                                                     <div class="col-12 d-flex justify-content-start">
-                                                        <button type="submit" class="btn btn-primary me-1 mb-1" name="simpanRole">Simpan</button>
-                                                        <a href="TabelRole.php" class="btn btn-light-secondary me-1 mb-1">Kembali</a>
+                                                        <button type="submit" class="btn btn-primary me-1 mb-1" 
+                                                            name="<?= empty($rl['Role_ID']) ? 'simpanRole' : 'updateRole' ?>"
+                                                            value="<?= empty($rl['Role_ID']) ? 'tambah' : 'update' ?>">
+                                                            <?= empty($rl['Role_ID']) ? 'Tambah' : 'Update' ?>
+                                                        </button>
+                                                        <button class="btn btn-light-secondary me-1 mb-1 btn-kembali">Kembali</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -113,6 +128,43 @@ getRoleById();
             </footer>
         </div>
     </div>
+    <script>
+        $(document).ready(function() {
+            $('form').submit(function(e) {
+                e.preventDefault();
+            
+                var formData = new FormData(this);
+            
+                var buttonName = $('button[type="submit"]').attr('name');
+
+                if (buttonName === 'updateRole') {
+                    var url = '../Controllers/RoleController.php?action=updateRole';
+                } else {
+                    var url = '../Controllers/RoleController.php?action=createRole';
+                }
+
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        alert(response);
+                        location.href="TabelRole.php"; // Memuat ulang halaman setelah submit berhasil
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('AJAX Error:', status, error);
+                        alert('Terjadi kesalahan: ' + error);
+                    }
+                });
+            });
+            $(".btn-kembali").click(function() {
+                window.history.back();
+            });
+
+        });
+    </script>
     <script src="../assets/static/js/components/dark.js"></script>
     <script src="assets/extensions/perfect-scrollbar/perfect-scrollbar.min.js"></script>
     <script src="../assets/extensions/perfect-scrollbar/perfect-scrollbar.min.js"></script>

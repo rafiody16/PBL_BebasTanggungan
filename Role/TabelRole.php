@@ -81,7 +81,14 @@ if ($_SESSION['Role_ID'] != 1) {
                                             </thead>
                                             <tbody>
                                             <?php 
-                                                include('RoleProses.php');
+                                                require_once '../Koneksi.php';
+                                                require_once '../Models/Role.php';
+                                                
+                                                $db = new Database();
+                                                $conn = $db->getConnection();
+                                                $roleModel = new Role($conn);
+                                                $stmt = $roleModel->getAll();
+                                                
                                                 $no = 1;
                                                 while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
                                                     $Role_ID = $row['Role_ID'];

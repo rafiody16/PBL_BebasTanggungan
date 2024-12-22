@@ -59,4 +59,15 @@ class Role {
         
         return sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
     }
+
+    public function getAll() {
+        $sql = "SELECT * FROM [Role]";
+        $stmt = sqlsrv_query($this->conn, $sql);
+        
+        if ($stmt === false) {
+            throw new Exception('Query failed: ' . print_r(sqlsrv_errors(), true));
+        }
+        
+        return $stmt;
+    }
 }
