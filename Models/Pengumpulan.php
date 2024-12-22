@@ -129,6 +129,8 @@ class Pengumpulan {
     public function getAllPengumpulan($role) {
         $sql = "SELECT 
                 p.ID_Pengumpulan, 
+                a.ID_Administrasi,
+                t.ID_Aplikasi,
                 p.NIM, 
                 m.Nama, 
                 m.Prodi, 

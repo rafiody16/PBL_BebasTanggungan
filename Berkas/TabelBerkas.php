@@ -98,10 +98,14 @@ if ($_SESSION['Role_ID'] === 6 || $_SESSION['Role_ID'] === 7 || $_SESSION['Role_
                                             while ($row = sqlsrv_fetch_array($stmt3, SQLSRV_FETCH_ASSOC)) {
                                                 if ($row) {
                                                     $ID_Pengumpulan = $row['ID_Pengumpulan'];
+                                                    $ID_Administrasi = $row['ID_Administrasi'];
+                                                    $ID_Aplikasi = $row['ID_Aplikasi'];
                                                     $nim = $row['NIM'];
                                                     $status = $row['Status_Pengumpulan'];
                                                     echo "<tr>";
                                                     echo "<td style='display:none;'>" . htmlspecialchars($ID_Pengumpulan) . "</td>";
+                                                    echo "<td style='display:none;'>" . htmlspecialchars($ID_Administrasi) . "</td>";
+                                                    echo "<td style='display:none;'>" . htmlspecialchars($ID_Aplikasi) . "</td>";
                                                     echo "<td>" . htmlspecialchars($no++) . "</td>";
                                                     echo "<td>" . htmlspecialchars($nim) . "</td>";
                                                     echo "<td>" . htmlspecialchars($row['Nama']) . "</td>";
@@ -198,11 +202,11 @@ if ($_SESSION['Role_ID'] === 6 || $_SESSION['Role_ID'] === 7 || $_SESSION['Role_
                             <table>
                                 <tr>
                                     <td>Detail Administrasi:</td>
-                                    <td><a href="DetailAdministrasi.php?ID_Administrasi=<?= $ID_Pengumpulan ?>" class="btn btn-primary my-2">Lihat Detail</a></td>
+                                    <td><a href="DetailAdministrasi.php?ID_Administrasi=<?= $ID_Administrasi ?>" class="btn btn-primary my-2">Lihat Detail</a></td>
                                 </tr>
                                 <tr>
                                 <td>Detail Tugas Akhir:</td>
-                                <td><a href="DetailTA.php?ID_Aplikasi=<?= $ID_Pengumpulan ?>" class="btn btn-primary my-2">Lihat Detail</a></td>
+                                <td><a href="DetailTA.php?ID_Aplikasi=<?= $ID_Aplikasi ?>" class="btn btn-primary my-2">Lihat Detail</a></td>
                                 </tr>
                             </table>
                         </div>
