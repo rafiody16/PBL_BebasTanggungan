@@ -46,11 +46,6 @@ if ($_SESSION['Role_ID'] != 8) {
     </script>";
 }
 
-include('mhs_data.php');
-include('../../Koneksi.php');
-
-getDataMahasiswaByID();
-
 ?>
 
   <body>
@@ -114,12 +109,26 @@ getDataMahasiswaByID();
                 <div class="card">
                   <div class="card-body">
                   <form class="form form-vertical">
+                    <?php 
+                        require_once '../../Koneksi.php';
+                        require_once 'mhs_data.php';
+
+                        $db = new Database();
+                        $mhsModel = new Mahasiswa($db->getConnection());
+
+                        $nim = $_SESSION['NIM'];
+                        $mhs = null;
+
+                        if ($nim) {
+                            $mhs = $mhsModel->findByNIM($nim);
+                        }
+                    ?>
                       <div class="form-body">
                           <div class="row">
                               <div class="col-md-6 col-12">
                                   <div class="form-group">
                                       <label for="Nama">Nama</label>
-                                      <h4><?= isset($nama) ? htmlspecialchars($nama) : '' ?></h4>
+                                      <h4><?= isset($mhs['Nama']) ? htmlspecialchars($mhs['Nama']) : '' ?></h4>
                                   </div>
                               </div>
                               <div class="col-md-6 col-12">
@@ -131,51 +140,51 @@ getDataMahasiswaByID();
                               <div class="col-md-6 col-12">
                                   <div class="form-group">
                                       <label for="Role_ID">Program Studi</label>
-                                      <h4><?= (isset($Prodi) && $Prodi === 'TI') ? 'D-IV Teknik Informatika' : ((isset($Prodi) && $Prodi === 'SIB') ? 'D-IV Sistem Informasi Bisnis' : 'D-II Pengembangan Piranti Lunak Situs')?></h4>
+                                      <h4><?= (isset($mhs['Prodi']) && $mhs['Prodi'] === 'TI') ? 'D-IV Teknik Informatika' : ((isset($mhs['Prodi']) && $mhs['Prodi'] === 'SIB') ? 'D-IV Sistem Informasi Bisnis' : 'D-II Pengembangan Piranti Lunak Situs')?></h4>
                                   </div>
                               </div>
                               <div class="col-md-6 col-12">
                                   <div class="form-group">
                                       <label for="Username">Username</label>
-                                      <h4><?= isset($username) ? htmlspecialchars($username) : '' ?></h4>
+                                      <h4><?= isset($mhs['Username']) ? htmlspecialchars($mhs['Username']) : '' ?></h4>
                                   </div>
                               </div>
                               <div class="col-md-6 col-12">
                                   <div class="form-group">
                                       <label for="Email">Email</label>
-                                      <h4><?= isset($email) ? htmlspecialchars($email) : '' ?></h4>
+                                      <h4><?= isset($mhs['Email']) ? htmlspecialchars($mhs['Email']) : '' ?></h4>
                                   </div>
                               </div>
                               <div class="col-md-6 col-12">
                                   <div class="form-group">
                                       <label for="Alamat">Alamat</label>
-                                      <h4><?= isset($alamat) ? htmlspecialchars($alamat) : '' ?></h4>
+                                      <h4><?= isset($mhs['Alamat']) ? htmlspecialchars($mhs['Alamat']) : '' ?></h4>
                                   </div>
                               </div>
                               <div class="col-md-6 col-12">
                                   <div class="form-group">
                                       <label for="NoHp">No.Hp</label>
-                                      <h4><?= isset($noHp) ? htmlspecialchars($noHp) : '' ?></h4>
+                                      <h4><?= isset($mhs['NoHp']) ? htmlspecialchars($mhs['NoHp']) : '' ?></h4>
                                   </div>
                               </div>
                               <div class="col-md-6 col-12">
                                   <div class="form-group">
                                       <label for="TempatLahir">Tempat Lahir</label>
-                                      <h4><?= isset($Tempat_Lahir) ? htmlspecialchars($Tempat_Lahir) : '' ?></h4>
+                                      <h4><?= isset($mhs['Tempat_Lahir']) ? htmlspecialchars($mhs['Tempat_Lahir']) : '' ?></h4>
                                   </div>
                               </div>
                               <div class="col-md-6 col-12">
                                   <div class="form-group">
                                       <label for="TanggalLahir">Tanggal Lahir</label>
                                       <h4><?php
-                                      echo htmlspecialchars($Tanggal_Lahir->format('d-m-Y')); 
+                                      echo htmlspecialchars($mhs['Tanggal_Lahir']->format('d-m-Y')); 
                                       ?></h4>
                                   </div>
                               </div>
                               <div class="col-md-6 col-12">
                                   <div class="form-group">
                                       <label for="JenisKelamin">Jenis Kelamin</label>
-                                      <h4><?= isset($jeniskelamin) ? ($jeniskelamin === 'L' ? 'Laki-Laki' : ($jeniskelamin === 'P' ? 'Perempuan' : '')) : '' ?></h4>
+                                      <h4><?= isset($mhs['JenisKelamin']) ? ($mhs['JenisKelamin'] === 'L' ? 'Laki-Laki' : ($mhs['JenisKelamin'] === 'P' ? 'Perempuan' : '')) : '' ?></h4>
                                   </div>
                               </div>
                           </div>
