@@ -123,6 +123,47 @@ class BerkasControllers {
         }
     }
 
+    public function editTA($NIM) {
+        try {
+
+            $uploadDir = '../Uploads/';
+
+            $File_Aplikasi = $this->uploadFile($_FILES['File_Aplikasi'], $uploadDir);
+            $Laporan_TA = $this->uploadFile($_FILES['Laporan_TA'], $uploadDir);
+            $Pernyataan_Publikasi = $this->uploadFile($_FILES['Pernyataan_Publikasi'], $uploadDir);
+            $Tanggal_Pengumpulan = date("Y-m-d");
+
+            $currentData = $this->tugasAkhir->getByNimTA($NIM);
+
+            $File_Aplikasi = $File_Aplikasi ?: $currentData['File_Aplikasi'];
+            $Laporan_TA = $Laporan_TA ?: $currentData['Laporan_TA'];
+            $Pernyataan_Publikasi = $Pernyataan_Publikasi ?: $currentData['Pernyataan_Publikasi'];
+
+            $this->tugasAkhir->editTA(
+                $File_Aplikasi,
+                $Laporan_TA,
+                $Pernyataan_Publikasi,
+                $NIM
+            );
+
+            $this->Pengumpulan->editPengumpulan(
+            $NIM, 
+            $Tanggal_Pengumpulan,
+            'Menunggu',
+            null,
+            null,
+            null,
+            '-'
+            );
+
+            sqlsrv_commit($this->conn);
+            echo "<script>alert('Data berhasil diubah!'); window.location.href = '../Berkas/DetailBerkas.php?NIM=" . urlencode($NIM) . "';</script>";
+        } catch (Exception $e) {
+            sqlsrv_rollback($this->conn);
+            echo "<script>alert('" . $e->getMessage() . "');</script>";
+        }
+    }
+
     private function uploadFile($file, $uploadDir) {
         $fileName = basename($file['name']);
         $targetFilePath = $uploadDir . $fileName;
@@ -282,6 +323,9 @@ switch ($action) {
         break;
     case 'editAdm':
         $berkasControllers->editAdministrasi($_POST['NIM']);
+        break;
+    case 'editTA':
+        $berkasControllers->editTA($_POST['NIM']);
         break;
     case 'verifBerkas':
         $berkasControllers->verifikasiBerkas($_POST['ID_Pengumpulan']);

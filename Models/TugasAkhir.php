@@ -209,9 +209,9 @@ class TugasAkhir extends Pengumpulan {
     }
 
     function getByNimTA($NIM) {
-        $sqlTA = "SELECT t.Tanggal_Upload, t.Status_Verifikasi, t.Keterangan, t.Tanggal_Verifikasi FROM TugasAkhir AS t
-             INNER JOIN Pengumpulan AS p ON t.ID_Pengumpulan = p.ID_Pengumpulan INNER JOIN Mahasiswa AS m ON p.NIM = m.NIM
-             WHERE m.NIM = ?";
+        $sqlTA = "SELECT t.File_Aplikasi, t.Laporan_TA, t.Pernyataan_Publikasi, t.Tanggal_Upload, t.Status_Verifikasi, t.Keterangan, t.Tanggal_Verifikasi FROM TugasAkhir AS t
+                  INNER JOIN Pengumpulan AS p ON t.ID_Pengumpulan = p.ID_Pengumpulan INNER JOIN Mahasiswa AS m ON p.NIM = m.NIM
+                  WHERE m.NIM = ?";
         $paramsTA = array($NIM);
         $stmtTA = sqlsrv_query($this->conn, $sqlTA, $paramsTA);
 
