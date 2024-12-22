@@ -1,4 +1,6 @@
 <?php
+$db = new Database();
+$conn = $db->getConnection();
 function getDataStaffByID() {
     global $conn;
     global $nip, $nama, $username, $email, $password, $alamat, $noHp, $roleID, $Nama_Role, $jeniskelamin, $Tempat_Lahir, $Tanggal_Lahir;

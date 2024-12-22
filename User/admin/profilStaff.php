@@ -40,11 +40,6 @@ if ($_SESSION['Role_ID'] === 8) {
 }
 
 
-include('admin_data.php');
-include('../../Koneksi.php');
-
-getDataStaffByID();
-
 ?>
 
   <body>

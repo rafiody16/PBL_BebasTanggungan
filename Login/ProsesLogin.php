@@ -40,6 +40,7 @@ class User {
         $_SESSION['Username'] = $this->username;
         $_SESSION['Role_ID'] = $row['Role_ID'];
         $_SESSION['ID_User'] = $row['ID_User'];
+        $_SESSION['NIM'] = $row['NIM'];
 
         // Ambil Nama dan NIP dari Staff
         $sqlVrf = "SELECT Nama, NIP FROM Staff WHERE ID_User = ?";
@@ -52,7 +53,18 @@ class User {
 
         if ($rowVrf = sqlsrv_fetch_array($stmtVrf, SQLSRV_FETCH_ASSOC)) {
             $_SESSION['NIP'] = $rowVrf['NIP'];
-            $_SESSION['Nama'] = $rowVrf['Nama'];
+        }
+
+        $sqlVrf2 = "SELECT NIM FROM Mahasiswa WHERE ID_User = ?";
+        $paramsVrf2 = array($row['ID_User']);
+        $stmtVrf2 = sqlsrv_query($this->conn, $sqlVrf2, $paramsVrf2);
+
+        if ($stmtVrf2 === false) {
+            die(print_r(sqlsrv_errors(), true));
+        }
+
+        if ($rowVrf = sqlsrv_fetch_array($stmtVrf2, SQLSRV_FETCH_ASSOC)) {
+            $_SESSION['NIM'] = $rowVrf['NIM'];
         }
 
         sqlsrv_free_stmt($stmtVrf);
