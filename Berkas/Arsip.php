@@ -85,8 +85,11 @@ $role = $_SESSION['Role_ID'];
                                         </thead>
                                         <tbody>
                                             <?php
+                                            include('../Koneksi.php');
                                             include('ProsesBerkas.php');
-                                            $stmt3 = Arsip();
+                                            $db = new Database();
+                                            $conn = $db->getConnection();
+                                            $stmt3 = Arsip($conn);
                                             $no = 1;
                                             while ($row = sqlsrv_fetch_array($stmt3, SQLSRV_FETCH_ASSOC)) {
                                                 if ($row) {

@@ -135,8 +135,7 @@ function getAllPgmp() {
     return $stmt3;
 }
 
-function Arsip() {
-    global $conn;
+function Arsip($conn) {
     $role = $_SESSION['Role_ID'];
 
     if ($role === 6) {
