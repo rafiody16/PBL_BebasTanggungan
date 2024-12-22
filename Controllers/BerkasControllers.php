@@ -73,6 +73,56 @@ class BerkasControllers {
         }
     }
 
+    public function editAdministrasi($NIM) {
+        try {
+
+            $uploadDir = '../Uploads/';
+
+            $Laporan_Skripsi = $this->uploadFile($_FILES['Laporan_Skripsi'], $uploadDir);
+            $Laporan_Magang = $this->uploadFile($_FILES['Laporan_Magang'], $uploadDir);
+            $Bebas_Kompensasi = $this->uploadFile($_FILES['Bebas_Kompensasi'], $uploadDir);
+            $Scan_Toeic = $this->uploadFile($_FILES['Scan_Toeic'], $uploadDir);
+            $Tanggal_Pengumpulan = date("Y-m-d");
+
+
+            $currentData = $this->Administrasi->getByNimAdm($NIM);
+
+            $Laporan_Skripsi = $Laporan_Skripsi ?: $currentData['Laporan_Skripsi'];
+            $Laporan_Magang = $Laporan_Magang ?: $currentData['Laporan_Magang'];
+            $Bebas_Kompensasi = $Bebas_Kompensasi ?: $currentData['Bebas_Kompensasi'];
+            $Scan_Toeic = $Scan_Toeic ?: $currentData['Scan_Toeic'];
+                
+
+            $this->Administrasi->editAdm(
+                $NIM,
+                $Laporan_Skripsi,
+                $Laporan_Magang,
+                $Bebas_Kompensasi,
+                $Scan_Toeic,
+                'Menunggu',
+                $Tanggal_Pengumpulan,
+                '-',
+                null
+            );
+
+            $this->Pengumpulan->editPengumpulan(
+                $NIM, 
+            $Tanggal_Pengumpulan,
+            'Menunggu',
+            null,
+            null,
+            null,
+            '-'
+            );
+
+            sqlsrv_commit($this->conn);
+            echo "<script>alert('Data berhasil diubah!'); window.location.href = '../Berkas/DetailBerkas.php?NIM=" . urlencode($NIM) . "';</script>";
+        } catch (Exception $e) {
+            sqlsrv_rollback($this->conn);
+            echo "<script>alert('" . $e->getMessage() . "');</script>";
+        }
+    }
+
     private function uploadFile($file, $uploadDir) {
         $fileName = basename($file['name']);
         $targetFilePath = $uploadDir . $fileName;
@@ -229,6 +279,9 @@ switch ($action) {
         } else {
             echo "<script>alert('Metode request tidak valid!');</script>";
         }
+        break;
+    case 'editAdm':
+        $berkasControllers->editAdministrasi($_POST['NIM']);
         break;
     case 'verifBerkas':
         $berkasControllers->verifikasiBerkas($_POST['ID_Pengumpulan']);

@@ -182,17 +182,17 @@ class Pengumpulan {
         return $row['ID_Pengumpulan'] ?? null;
     }
 
-    function editPengumpulan($NIM) {
-        $sql = "UPDATE Pengumpulan SET Tanggal_Pengumpulan = ?, Status_Pengumpulan = ?
+    function editPengumpulan($NIM, $Tanggal_Pengumpulan, $Status_Pengumpulan, $Tanggal_Verifikasi, $VerifikatorKajur, $VerifikatorKaprodi, $Keterangan) {
+        $sql = "UPDATE Pengumpulan SET Tanggal_Pengumpulan = ?, Status_Pengumpulan = ?,
                 Tanggal_Verifikasi = ?, Keterangan = ?, VerifikatorKajur = ?, VerifikatorKaprodi = ?
                 WHERE NIM = ?";
         $params = [
-            date("Y-m-d"),
-            "Menunggu",
-            NULL,
-            "-",
-            NULL,
-            NULL,
+            $Tanggal_Pengumpulan,
+            $Status_Pengumpulan,
+            $Tanggal_Verifikasi,
+            $Keterangan,
+            $VerifikatorKajur,
+            $VerifikatorKaprodi,
             $NIM
         ];
 

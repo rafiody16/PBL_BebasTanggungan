@@ -1,7 +1,5 @@
 <?php
 session_start();
-include('../Koneksi.php');
-include('ProsesBerkas.php');
 
 // Cek apakah pengguna sudah login
 if (!isset($_SESSION['Username'])) {
@@ -78,7 +76,7 @@ $NIM = $_SESSION['NIM'];
     </div>
     <section class="section">
         <div class="row">
-        <form action="ProsesBerkas.php" method="POST" enctype="multipart/form-data">
+        <form method="POST" action="../Controllers/BerkasControllers.php?action=editAdm" enctype="multipart/form-data">
         <input type="hidden" name="NIM" value="<?php echo $NIM; ?>">
         <input type="hidden" name="action" value="editAdministrasi">
         <div class="col-12 col-md-12">
@@ -172,66 +170,6 @@ $NIM = $_SESSION['NIM'];
     
     <script src="../assets/compiled/js/app.js"></script>
     <script>
-        document.querySelector('.with-validation-filepond-laporan').addEventListener('change', function(event) {
-            const fileInput = event.target;
-            const file = fileInput.files[0];
-            const linkElement = document.getElementById('uploaded-file-link');
-
-            if (file) {
-                const fileURL = URL.createObjectURL(file);
-
-                linkElement.href = fileURL;
-                linkElement.textContent = file.name;
-
-                fileInput.addEventListener('change', () => URL.revokeObjectURL(fileURL));
-            } else {
-           
-                linkElement.href = "#";
-                linkElement.textContent = "Tidak ada file";
-            }
-        });
-        FilePond.create(document.querySelector('.with-validation-filepond-laporan'), {
-            files: [
-                {
-                    source: '<?= $laporantaurl ?>',
-                    options: {
-                        type: 'remote',
-                        file: {
-                            name: '<?= htmlspecialchars($laporanta) ?>',
-                            size: 12345,
-                            type: 'application/pdf'
-                        }
-                    }
-                }
-            ]
-        });
-
-        $(document).ready(function() {
-            $(".btn-primary").click(function(event) {
-                event.preventDefault();
-
-                var formData = new FormData($("form")[0]);
-                formData.append("action", "editAdministrasi"); 
-
-                var nim = $("input[name='NIM']").val();
-
-                $.ajax({
-                    url: "ProsesBerkas.php",
-                    type: "POST",
-                    data: formData,
-                    contentType: false, 
-                    processData: false, 
-                    success: function(response) {
-                        alert("Data berhasil diubah.");
-                        location.reload();
-                    },
-                    error: function(xhr, status, error) {
-                        alert("Terjadi kesalahan. Silakan coba lagi.");
-                    }
-                });
-            });
-        });
-
     </script>
     
 

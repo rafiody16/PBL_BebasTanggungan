@@ -204,9 +204,9 @@ class Administrasi extends Pengumpulan {
         return true;
     }
 
-    public function editAdm($NIM, $Laporan_Skripsi, $Laporan_Magang, $Bebas_Kompensasi, $Scan_Toeic) {
+    public function editAdm($NIM, $Laporan_Skripsi, $Laporan_Magang, $Bebas_Kompensasi, $Scan_Toeic, $Status_Verifikasi, $Tanggal_Upload, $Keterangan, $Verifikator) {
         $sqlUpdate = "UPDATE Administrasi 
-                      SET Laporan_Skripsi = ?, Laporan_Magang = ?, Bebas_Kompensasi = ?, Scan_Toeic = ?, Status_Verifikasi = ?, Tanggal_Upload = ?, Verifikator = ? 
+                      SET Laporan_Skripsi = ?, Laporan_Magang = ?, Bebas_Kompensasi = ?, Scan_Toeic = ?, Status_Verifikasi = ?, Tanggal_Upload = ?, Keterangan = ?, Verifikator = ? 
                       FROM Administrasi a 
                       INNER JOIN Pengumpulan p ON a.ID_Pengumpulan = p.ID_Pengumpulan 
                       INNER JOIN Mahasiswa m ON p.NIM = m.NIM 
@@ -216,9 +216,10 @@ class Administrasi extends Pengumpulan {
                         $Laporan_Magang, 
                         $Bebas_Kompensasi, 
                         $Scan_Toeic, 
-                        'Menunggu', 
-                        date("Y-m-d"), 
-                        NULL, 
+                        $Status_Verifikasi, 
+                        $Tanggal_Upload, 
+                        $Keterangan,
+                        $Verifikator,
                         $NIM
                     ];
         $stmtUpdate = sqlsrv_query($this->conn, $sqlUpdate, $paramsUpdate);
@@ -229,7 +230,8 @@ class Administrasi extends Pengumpulan {
     }
 
     function getByNimAdm($NIM) {
-        $sqlAdm = "SELECT a.Tanggal_Upload, a.Status_Verifikasi, a.Keterangan, a.Tanggal_Verifikasi FROM Administrasi AS a
+        $sqlAdm = "SELECT a.Laporan_Skripsi, a.Laporan_Magang, a.Bebas_Kompensasi, a.Scan_Toeic, 
+                    a.Tanggal_Upload, a.Status_Verifikasi, a.Keterangan, a.Tanggal_Verifikasi FROM Administrasi AS a
                     INNER JOIN Pengumpulan AS p ON a.ID_Pengumpulan = p.ID_Pengumpulan INNER JOIN Mahasiswa AS m ON p.NIM = m.NIM
                     WHERE m.NIM = ?";
         $paramsAdm = array($NIM);
