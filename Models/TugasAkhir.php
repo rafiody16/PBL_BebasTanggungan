@@ -156,10 +156,14 @@ class TugasAkhir extends Pengumpulan {
     public function getTaById($id) {
         $sql = "SELECT a.ID_Aplikasi, m.NIM, m.Nama, m.Prodi, m.Tahun_Angkatan, a.File_Aplikasi, a.Laporan_TA, a.Pernyataan_Publikasi, 
             a.Status_Verifikasi, a.Tanggal_Verifikasi, a.Tanggal_Upload, a.Keterangan, a.Verifikator FROM TugasAkhir AS a 
-            INNER JOIN Pengumpulan AS p ON a.ID_Pengumpulan = p.ID_Pengumpulan INNER JOIN Mahasiswa AS m ON p.NIM = m.NIM WHERE a.ID_Aplikasi = ?
-            OR p.ID_Pengumpulan = ?";
+            INNER JOIN Pengumpulan AS p ON a.ID_Pengumpulan = p.ID_Pengumpulan INNER JOIN Mahasiswa AS m ON p.NIM = m.NIM WHERE a.ID_Aplikasi = ?";
         $params = array($id);
         $stmt = sqlsrv_query($this->conn, $sql, $params);
+        var_dump($id);
+
+        if ($stmt === false) {
+            die(print_r(sqlsrv_errors(), true));
+        }
 
         return sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
     }
