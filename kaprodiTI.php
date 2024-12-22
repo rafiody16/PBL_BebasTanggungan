@@ -107,6 +107,9 @@ if ($_SESSION['Role_ID'] != 3) {
                           <h6 class="font-extrabold mb-0">
                           <h6 class="font-extrabold mb-0">
                           <?php 
+                            require_once 'Koneksi.php';
+                            $db = new Database();
+                            $conn = $db->getConnection();
                             $sql = "SELECT COUNT(NIM) AS jumlah_mahasiswa FROM Mahasiswa
                                     WHERE Prodi = 'TI'";
                             $stmt = sqlsrv_query($conn, $sql);
@@ -182,9 +185,6 @@ if ($_SESSION['Role_ID'] != 3) {
                           <h6 class="text-muted font-semibold">Arsip Data</h6>
                           <h6 class="font-extrabold mb-0">
                           <?php 
-                            require_once 'Koneksi.php';
-                            $db = new Database();
-                            $conn = $db->getConnection();
                             $sql = "SELECT COUNT(ID_Pengumpulan) AS jml_verifikasi FROM Pengumpulan INNER JOIN
                                     Mahasiswa ON Pengumpulan.NIM = Mahasiswa.NIM
                                     WHERE Pengumpulan.Status_Pengumpulan = 'Terverifikasi' AND Mahasiswa.Prodi = 'TI';";

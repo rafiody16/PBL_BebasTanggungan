@@ -105,7 +105,6 @@ class BerkasControllers {
                 $pgModels->setKeterangan('-', $id);
             }
         }
-
     }
 
     public function VerifikasiAdministrasi($id, $verifikator) {
@@ -164,6 +163,46 @@ class BerkasControllers {
         }
     }
 
+    public function tolakBerkas($id) {
+        $Keterangan = $_POST['Keterangan'];
+        $verifikator = $_SESSION['Nama'];
+        $SubBagian = $_POST['SubBagian'];
+        $role = $_SESSION['Role_ID'];
+
+        $pgModels = new Pengumpulan($this->conn);
+        $existingBerkas = $pgModels->getPengumpulanById($id);
+
+        if ($existingBerkas) {
+            if ($role === 2) {
+                $pgModels->setVerifikatorKajur($verifikator, $id);
+                $pgModels->setStatus_Pengumpulan('Ditolak', $id);
+                $pgModels->setTanggal_Verifikasi(null, $id);
+                $pgModels->setKeterangan($Keterangan, $id);
+            } else if (in_array($role, [3, 4, 5])) {
+                $pgModels->setVerifikatorKaprodi($verifikator, $id);
+                $pgModels->setStatus_Pengumpulan('Ditolak', $id);
+                $pgModels->setTanggal_Verifikasi(null, $id);
+                $pgModels->setKeterangan($Keterangan, $id);
+            }
+        }
+
+        if ($SubBagian === 'Administrasi') {
+            $admModels = new Administrasi($this->conn);
+            $existingAdmin = $admModels->getAdministrasiByPengumpulanId($id);
+
+            if ($existingAdmin) {
+                $admModels->updateBerkasAdm('Ditolak',null,$Keterangan,$verifikator,$id);
+            }
+        } else if ($SubBagian === 'TA') {
+            $taModels = new TugasAkhir($this->conn);
+            $existingTA = $taModels->getTAByPengumpulanId($id);
+
+            if ($existingTA) {
+                $taModels->updateBerkasTA('Ditolak',null,$Keterangan,$verifikator,$id);
+            }
+        }
+    }
+
 
 }
 
@@ -205,6 +244,9 @@ switch ($action) {
         break;
     case 'tolakTA':
         $berkasControllers->TolakTA($_POST['ID_Aplikasi'], $_SESSION['Nama'],$_POST['Keterangan']);
+        break;
+    case 'tolakBerkas':
+        $berkasControllers->tolakBerkas($_POST['ID_Pengumpulan']);
         break;
 }
 ?>

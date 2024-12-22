@@ -156,10 +156,17 @@ class TugasAkhir extends Pengumpulan {
     public function getTaById($id) {
         $sql = "SELECT a.ID_Aplikasi, m.NIM, m.Nama, m.Prodi, m.Tahun_Angkatan, a.File_Aplikasi, a.Laporan_TA, a.Pernyataan_Publikasi, 
             a.Status_Verifikasi, a.Tanggal_Verifikasi, a.Tanggal_Upload, a.Keterangan, a.Verifikator FROM TugasAkhir AS a 
-            INNER JOIN Pengumpulan AS p ON a.ID_Pengumpulan = p.ID_Pengumpulan INNER JOIN Mahasiswa AS m ON p.NIM = m.NIM WHERE a.ID_Aplikasi = ?";
+            INNER JOIN Pengumpulan AS p ON a.ID_Pengumpulan = p.ID_Pengumpulan INNER JOIN Mahasiswa AS m ON p.NIM = m.NIM WHERE a.ID_Aplikasi = ?
+            OR p.ID_Pengumpulan = ?";
         $params = array($id);
         $stmt = sqlsrv_query($this->conn, $sql, $params);
 
+        return sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
+    }
+
+    public function getTAByPengumpulanId($ID_Pengumpulan) {
+        $sql = "SELECT ID_Aplikasi FROM TugasAkhir WHERE ID_Pengumpulan = ?";
+        $stmt = sqlsrv_query($this->conn, $sql, [$ID_Pengumpulan]);
         return sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
     }
 
@@ -209,7 +216,15 @@ class TugasAkhir extends Pengumpulan {
         $stmtTA = sqlsrv_query($this->conn, $sqlTA, $paramsTA);
 
         return sqlsrv_fetch_array($stmtTA, SQLSRV_FETCH_ASSOC);
+    }
 
+    public function updateBerkasTA($status, $tanggal, $keterangan, $verifikator, $ID_Pengumpulan) {
+        $sql = "UPDATE TugasAkhir 
+                SET Status_Verifikasi = ?, Tanggal_Verifikasi = ?, Keterangan = ?, Verifikator = ? 
+                WHERE ID_Pengumpulan = ?";
+        $params = [$status, $tanggal, $keterangan, $verifikator, $ID_Pengumpulan];
+        $stmt = sqlsrv_query($this->conn, $sql, $params);
+        return $stmt;
     }
 
 }

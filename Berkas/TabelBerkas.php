@@ -273,10 +273,9 @@ if ($_SESSION['Role_ID'] === 6 || $_SESSION['Role_ID'] === 7 || $_SESSION['Role_
                 }
                 if (confirm("Apakah Anda yakin ingin menolak data ini?")) {
                     $.ajax({
-                        url: 'ProsesBerkas.php',
+                        url: '../Controllers/BerkasControllers.php?action=tolakBerkas',
                         type: 'POST',
                         data: {
-                            action: 'tolakBerkas',
                             ID_Pengumpulan: ID_Pengumpulan,
                             Keterangan: Keterangan,
                             SubBagian: SubBagian

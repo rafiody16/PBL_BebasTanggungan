@@ -175,10 +175,17 @@ class Administrasi extends Pengumpulan {
             INNER JOIN Pengumpulan AS p ON a.ID_Pengumpulan = p.ID_Pengumpulan INNER JOIN Mahasiswa AS m ON p.NIM = m.NIM WHERE a.ID_Administrasi = ?";
         $params = array($id);
         $stmt = sqlsrv_query($this->conn, $sql, $params);
+        var_dump($id);
 
         if ($stmt === false) {
             die(print_r(sqlsrv_errors(), true));
         }
+        return sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
+    }
+
+    public function getAdministrasiByPengumpulanId($ID_Pengumpulan) {
+        $sql = "SELECT ID_Administrasi FROM Administrasi WHERE ID_Pengumpulan = ?";
+        $stmt = sqlsrv_query($this->conn, $sql, [$ID_Pengumpulan]);
         return sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
     }
 
@@ -229,6 +236,15 @@ class Administrasi extends Pengumpulan {
         $stmtAdm = sqlsrv_query($this->conn, $sqlAdm, $paramsAdm);
 
         return sqlsrv_fetch_array($stmtAdm, SQLSRV_FETCH_ASSOC);
+    }
+
+    public function updateBerkasAdm($status, $tanggal, $keterangan, $verifikator, $ID_Pengumpulan) {
+        $sql = "UPDATE Administrasi 
+                SET Status_Verifikasi = ?, Tanggal_Verifikasi = ?, Keterangan = ?, Verifikator = ? 
+                WHERE ID_Pengumpulan = ?";
+        $params = [$status, $tanggal, $keterangan, $verifikator, $ID_Pengumpulan];
+        $stmt = sqlsrv_query($this->conn, $sql, $params);
+        return $stmt;
     }
 
 }
