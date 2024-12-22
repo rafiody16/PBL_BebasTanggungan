@@ -106,6 +106,9 @@ if ($_SESSION['Role_ID'] != 7) {
                           </h6>
                           <h6 class="font-extrabold mb-0">
                           <?php 
+                            require_once 'Koneksi.php';
+                            $db = new Database();
+                            $conn = $db->getConnection();
                             $sql = "SELECT COUNT(ID_Administrasi) AS jml_verifikasi FROM Administrasi;";
                             $stmt = sqlsrv_query($conn, $sql);
                             

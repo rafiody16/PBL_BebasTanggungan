@@ -3,7 +3,7 @@
         session_start();
     }
     $current_page = basename($_SERVER['PHP_SELF']);
-    $submenu_pages = ['dashboardMHS.php', 'index.php', 'kaprodiPPLS.php', 'kaprodiTI.php', 'kaprodiSIB.php', 'dasborKajur.php'];
+    $submenu_pages = ['dashboardMHS.php', 'index.php', 'kaprodiPPLS.php', 'kaprodiTI.php', 'kaprodiSIB.php', 'dasborKajur.php', 'verifikatorTA.php', 'verifikatorAdministrasi.php'];
 
     include('../../Koneksi.php');
     $role = $_SESSION['Role_ID'];

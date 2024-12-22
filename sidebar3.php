@@ -3,7 +3,7 @@
         session_start();
     }
     $current_page = basename($_SERVER['PHP_SELF']);
-    $submenu_pages = ['dashboardMHS.php', 'index.php', 'kaprodiPPLS.php', 'kaprodiTI.php', 'kaprodiSIB.php', 'dasborKajur.php'];
+    $submenu_pages = ['dashboardMHS.php', 'index.php', 'kaprodiPPLS.php', 'kaprodiTI.php', 'kaprodiSIB.php', 'dasborKajur.php', 'verifikatorTA.php', 'verifikatorAdministrasi.php'];
 
     include('Koneksi.php');
     $role = $_SESSION['Role_ID'];
@@ -108,7 +108,7 @@
                     <li class="sidebar-item <?php echo ($current_page == 'TabelBerkas.php') ? 'active' : ''; ?>">
                         <a href="Berkas/TabelBerkas.php" class="sidebar-link">
                             <i class="bi bi-folder-check"></i>
-                            <span>Verifikasi Berkas</span>
+                            <span>Pengesahan Berkas</span>
                         </a>
                     </li>
                 <?php } ?>

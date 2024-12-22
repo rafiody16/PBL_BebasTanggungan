@@ -105,7 +105,10 @@ if ($_SESSION['Role_ID'] != 6) {
                             Jumlah Data Tugas Akhir
                           </h6>
                           <h6 class="font-extrabold mb-0">
-                          <?php 
+                          <?php
+                            require_once 'Koneksi.php';
+                            $db = new Database();
+                            $conn = $db->getConnection(); 
                             $sql = "SELECT COUNT(ID_Aplikasi) AS jml_verifikasi FROM TugasAkhir;";
                             $stmt = sqlsrv_query($conn, $sql);
                             
