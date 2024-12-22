@@ -85,11 +85,15 @@ $role = $_SESSION['Role_ID'];
                                         </thead>
                                         <tbody>
                                             <?php
-                                            include('../Koneksi.php');
-                                            include('ProsesBerkas.php');
+                                            require_once '../Koneksi.php';
+                                            require_once '../Models/Pengumpulan.php';
+
                                             $db = new Database();
                                             $conn = $db->getConnection();
-                                            $stmt3 = Arsip($conn);
+
+                                            $pgModels = new Pengumpulan($conn);
+                                            $stmt3 = $pgModels->arsip();
+
                                             $no = 1;
                                             while ($row = sqlsrv_fetch_array($stmt3, SQLSRV_FETCH_ASSOC)) {
                                                 if ($row) {
