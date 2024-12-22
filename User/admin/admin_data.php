@@ -1,36 +1,75 @@
 <?php
-$db = new Database();
-$conn = $db->getConnection();
-function getDataStaffByID() {
-    global $conn;
-    global $nip, $nama, $username, $email, $password, $alamat, $noHp, $roleID, $Nama_Role, $jeniskelamin, $Tempat_Lahir, $Tanggal_Lahir;
-    $id = $_SESSION['ID_User'] ?? null; // Mengambil ID dari parameter GET
-    $sql = "SELECT Staff.NIP, Staff.Nama, Staff.Alamat, Staff.NoHp, Staff.Tempat_Lahir, Staff.Tanggal_Lahir, Staff.JenisKelamin, [User].Username, [User].Password, [User].Email, [User ].Role_ID, [Role].Nama_Role FROM Staff INNER JOIN [User ] ON Staff.ID_User = [User ].ID_User  INNER JOIN [Role] ON [User ].Role_ID = [Role].Role_ID WHERE Staff.ID_User = ?"; // Pastikan kolom ID sesuai dengan yang ada di database
-    $params = array($id);
-    $stmt = sqlsrv_query($conn, $sql, $params);
-    
-    if ($stmt === false) {
-        echo "Query failed: ";
-        print_r(sqlsrv_errors());
-        exit;
+
+require_once '../../Koneksi.php';
+
+class Staff {
+    private $NIP;
+    private $Nama;
+    private $Alamat;
+    private $NoHp;
+    private $JenisKelamin;
+    private $Tempat_Lahir;
+    private $Tanggal_Lahir;
+    private $TTD;
+    protected $conn;
+
+    public function __construct($conn = null, $ID_User = null, $Username = null, $Password = null, $Email = null, $Role_ID = null, $NIP = null, $Nama = null, 
+                                $Alamat = null, $NoHp = null, $JenisKelamin = null, $Tempat_Lahir = null, $Tanggal_Lahir = null, $TTD = null) {
+        $this->NIP = $NIP;
+        $this->conn = $conn;
+        $this->Nama = $Nama;
+        $this->Alamat = $Alamat;
+        $this->NoHp = $NoHp;
+        $this->JenisKelamin = $JenisKelamin;
+        $this->Tempat_Lahir = $Tempat_Lahir;
+        $this->Tanggal_Lahir = $Tanggal_Lahir;
+        $this->TTD = $TTD;
     }
-    
-    if ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
-        // Populate the form fields with existing data
-        $nip = $row['NIP'];
-        $nama = $row['Nama'];
-        $username = $row['Username'];
-        $email = $row['Email'];
-        $password = $row['Password'];
-        $alamat = $row['Alamat'];
-        $noHp = $row['NoHp'];
-        $Tempat_Lahir = $row['Tempat_Lahir'];
-        $Tanggal_Lahir = $row['Tanggal_Lahir'];
-        $roleID = $row['Role_ID'];
-        $Nama_Role = $row['Nama_Role'];
-        $jeniskelamin = $row['JenisKelamin'];
-    } else {
-        echo "No data found for the given ID.";
+
+    public function getNIP() {
+        return $this->NIP;
     }
+
+    public function getNama() {
+        return $this->Nama;
+    }
+
+    public function getAlamat() {
+        return $this->Alamat;
+    }
+
+    public function getNoHp() {
+        return $this->NoHp;
+    }
+
+    public function getJenisKelamin() {
+        return $this->JenisKelamin;
+    }
+
+    public function getTempatLahir() {
+        return $this->Tempat_Lahir;
+    }
+
+    public function getTanggalLahir() {
+        return $this->Tanggal_Lahir;
+    }
+
+    public function getTTD() {
+        return $this->TTD;
+    }
+
+    public function findByNIP($NIP) {
+        $sql = "SELECT Staff.Nama, Staff.Alamat, Staff.NoHp, Staff.Tempat_Lahir, Staff.Tanggal_Lahir, Staff.JenisKelamin, 
+                Staff.TTD, [User].Username, [User].Password, [User].Email, [User].Role_ID, [Role].Nama_Role 
+                FROM Staff INNER JOIN [User] ON Staff.ID_User = [User].ID_User  
+                INNER JOIN [Role] ON [User].Role_ID = [Role].Role_ID WHERE Staff.NIP = ?";
+        $stmt = sqlsrv_query($this->conn, $sql, [$NIP]);
+        if ($stmt === false) {
+            return null;
+        }
+        return sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
+    }
+
 }
+
 ?>

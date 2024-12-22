@@ -104,12 +104,26 @@ if ($_SESSION['Role_ID'] === 8) {
                 <div class="card">
                   <div class="card-body">
                   <form class="form form-vertical">
+                    <?php 
+                    require_once '../../Koneksi.php';
+                    require_once 'admin_data.php';
+                    
+                    $db = new Database();
+                    $staffModel = new Staff($db->getConnection());
+                    
+                    $nip = $_SESSION['NIP'];
+                    $sf = null;
+                    
+                    if ($nip) {
+                        $sf = $staffModel->findByNIP($nip);
+                    }
+                    ?>
                       <div class="form-body">
                           <div class="row">
                               <div class="col-md-6 col-12">
                                   <div class="form-group">
                                       <label for="Nama">Nama</label>
-                                      <h3><?= isset($nama) ? htmlspecialchars($nama) : '' ?></h3>
+                                      <h3><?= isset($sf['Nama']) ? htmlspecialchars($sf['Nama']) : '' ?></h3>
                                   </div>
                               </div>
                               <div class="col-md-6 col-12">
@@ -121,51 +135,51 @@ if ($_SESSION['Role_ID'] === 8) {
                               <div class="col-md-6 col-12">
                                   <div class="form-group">
                                       <label for="Username">Username</label>
-                                      <h3><?= isset($username) ? htmlspecialchars($username) : '' ?></h3>
+                                      <h3><?= isset($sf['Username']) ? htmlspecialchars($sf['Username']) : '' ?></h3>
                                   </div>
                               </div>
                               <div class="col-md-6 col-12">
                                   <div class="form-group">
                                       <label for="Email">Email</label>
-                                      <h3><?= isset($email) ? htmlspecialchars($email) : '' ?></h3>
+                                      <h3><?= isset($sf['Email']) ? htmlspecialchars($sf['Email']) : '' ?></h3>
                                   </div>
                               </div>
                               <div class="col-md-6 col-12">
                                   <div class="form-group">
                                       <label for="Alamat">Alamat</label>
-                                      <h3><?= isset($alamat) ? htmlspecialchars($alamat) : '' ?></h3>
+                                      <h3><?= isset($sf['Alamat']) ? htmlspecialchars($sf['Alamat']) : '' ?></h3>
                                   </div>
                               </div>
                               <div class="col-md-6 col-12">
                                   <div class="form-group">
                                       <label for="NoHp">No.Hp</label>
-                                      <h3><?= isset($noHp) ? htmlspecialchars($noHp) : '' ?></h3>
+                                      <h3><?= isset($sf['NoHp']) ? htmlspecialchars($sf['NoHp']) : '' ?></h3>
                                   </div>
                               </div>
                               <div class="col-md-6 col-12">
                                   <div class="form-group">
                                       <label for="TempatLahir">Tempat Lahir</label>
-                                      <h3><?= isset($Tempat_Lahir) ? htmlspecialchars($Tempat_Lahir) : '' ?></h3>
+                                      <h3><?= isset($sf['Tempat_Lahir']) ? htmlspecialchars($sf['Tempat_Lahir']) : '' ?></h3>
                                   </div>
                               </div>
                               <div class="col-md-6 col-12">
                                   <div class="form-group">
                                       <label for="TanggalLahir">Tanggal Lahir</label>
                                       <h3><?php
-                                      echo htmlspecialchars($Tanggal_Lahir->format('d-m-Y')); 
+                                      echo htmlspecialchars($sf['Tanggal_Lahir']->format('d-m-Y')); 
                                       ?></h3>
                                   </div>
                               </div>
                               <div class="col-md-6 col-12">
                                   <div class="form-group">
                                       <label for="JenisKelamin">Jenis Kelamin</label>
-                                      <h3><?= isset($jeniskelamin) ? ($jeniskelamin === 'L' ? 'Laki-Laki' : ($jeniskelamin === 'P' ? 'Perempuan' : '')) : '' ?></h3>
+                                      <h3><?= isset($sf['JenisKelamin']) ? ($sf['JenisKelamin'] === 'L' ? 'Laki-Laki' : ($sf['JenisKelamin'] === 'P' ? 'Perempuan' : '')) : '' ?></h3>
                                   </div>
                               </div>
                               <div class="col-md-6 col-12">
                                   <div class="form-group">
                                       <label for="Role_ID">Jabatan</label>
-                                      <h3><?= isset($Nama_Role) ? htmlspecialchars($Nama_Role) : '' ?></h3>
+                                      <h3><?= isset($sf['Nama_Role']) ? htmlspecialchars($sf['Nama_Role']) : '' ?></h3>
                                   </div>
                               </div>
                           </div>
