@@ -92,7 +92,7 @@
                     <li class="sidebar-item <?php echo ($current_page == 'TabelTA.php') ? 'active' : ''; ?>">
                         <a href="Berkas/TabelTA.php" class="sidebar-link">
                             <i class="bi bi-folder-check"></i>
-                            <span>Verifikas TA</span>
+                            <span>Verifikasi TA</span>
                         </a>
                     </li>
                 <?php } ?>
@@ -115,17 +115,17 @@
                 <?php if ($role === 1 || $role === 2 || $role === 3 || $role === 4 || $role === 5) { ?>
                     <li class="sidebar-item <?php echo ($current_page == 'FormMahasiswa.php' || $current_page == 'TabelMahasiswa.php') ? 'active' : ''; ?> has-sub">
                         <a href="#" class="sidebar-link">
-                        <i class="bi bi-person-lines-fill"></i>
-                        <span>Data Mahasiswa</span>
+                            <i class="bi bi-person-lines-fill"></i>
+                            <span>Data Mahasiswa</span>
                         </a>
 
                         <ul class="submenu active">
                             <li class="submenu-item <?php echo ($current_page == 'FormMahasiswa.php') ? 'active' : ''; ?>">
-                                <a href="User/FormMahasiswa.php" class="submenu-link"
+                                <a href="./User/FormMahasiswa.php" class="submenu-link"
                                 >Tambah Data</a>
                             </li>
                             <li class="submenu-item <?php echo ($current_page == 'TabelMahasiswa.php') ? 'active' : ''; ?>">
-                                <a href="User/TabelMahasiswa.php" class="submenu-link"
+                                <a href="./User/TabelMahasiswa.php" class="submenu-link"
                                 >Lihat Data</a>
                             </li>
                         </ul>
@@ -134,17 +134,17 @@
                 <?php if($role === 1 || $role === 2) { ?>
                     <li class="sidebar-item <?php echo ($current_page == 'FormStaff.php' || $current_page == 'TabelStaff.php') ? 'active' : ''; ?> has-sub">
                         <a href="#" class="sidebar-link">
-                        <i class="bi bi-person-lines-fill"></i>
-                        <span>Data Staff</span>
+                            <i class="bi bi-person-lines-fill"></i>
+                            <span>Data Staff</span>
                         </a>
 
                         <ul class="submenu">
                             <li class="submenu-item <?php echo ($current_page == 'FormStaff.php') ? 'active' : ''; ?>">
-                            <a href="User/FormStaff.php" class="submenu-link"
+                            <a href="./User/FormStaff.php" class="submenu-link"
                                 >Tambah Data</a>
                             </li>
                             <li class="submenu-item <?php echo ($current_page == 'TabelStaff.php') ? 'active' : ''; ?>">
-                                <a href="User/TabelStaff.php" class="submenu-link"
+                                <a href="./User/TabelStaff.php" class="submenu-link"
                             >Lihat Data</a>
                             </li>
                         </ul>
