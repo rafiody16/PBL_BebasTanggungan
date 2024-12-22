@@ -309,7 +309,7 @@ switch ($action) {
     case 'uploadFile':
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $NIM = $_SESSION['NIM'];
-            $uploadDir = '../uploads/'; // Tentukan direktori unggahan
+            $uploadDir = '../Uploads/'; // Tentukan direktori unggahan
     
             // Pastikan direktori unggahan ada
             if (!is_dir($uploadDir)) {

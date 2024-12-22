@@ -1,6 +1,6 @@
 <?php
 session_start();
-
+echo 'Session NIP: ' . (isset($_SESSION['NIP']) ? $_SESSION['NIP'] : 'Session NIP tidak ditemukan');
 header("Cache-Control: no-cache, no-store, must-revalidate"); // Untuk HTTP/1.1
 header("Pragma: no-cache"); // Untuk HTTP/1.0
 header("Expires: 0");// Untuk memastikan halaman tidak disimpan

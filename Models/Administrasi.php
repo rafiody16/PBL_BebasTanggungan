@@ -188,18 +188,42 @@ class Administrasi extends Pengumpulan {
         return sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
     }
 
+    // public function createAdm($ID_Pengumpulan, $Laporan_Skripsi, $Laporan_Magang, $Bebas_Kompensasi, $Scan_Toeic, $Tanggal_Upload, $Status_Verifikasi, $Keterangan) {
+    //     $sql = "INSERT INTO Administrasi (ID_Pengumpulan, Laporan_Skripsi, Laporan_Magang, Bebas_Kompensasi, Scan_Toeic, Status_Verifikasi, Tanggal_Upload, Keterangan) 
+    //             VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+    //     $params = [$ID_Pengumpulan, $Laporan_Skripsi, $Laporan_Magang, $Bebas_Kompensasi, $Scan_Toeic, $Status_Verifikasi, $Tanggal_Upload, $Keterangan];
+    //     $stmt = sqlsrv_query($this->conn, $sql, $params);
+
+    //     var_dump($params);
+
+    //     if (!$stmt) {
+    //         throw new Exception("Gagal menyimpan data Administrasi: " . print_r(sqlsrv_errors(), true));
+    //     }
+
+    // }
+
     public function createAdm($ID_Pengumpulan, $Laporan_Skripsi, $Laporan_Magang, $Bebas_Kompensasi, $Scan_Toeic, $Tanggal_Upload, $Status_Verifikasi = "Menunggu", $Keterangan = "-") {
+        // Pastikan tanggal dalam format yang benar: YYYY-MM-DD
+        $Tanggal_Upload = date("Y-m-d", strtotime($Tanggal_Upload));
+    
+        // SQL query untuk menyimpan data Administrasi
         $sql = "INSERT INTO Administrasi (ID_Pengumpulan, Laporan_Skripsi, Laporan_Magang, Bebas_Kompensasi, Scan_Toeic, Status_Verifikasi, Tanggal_Upload, Keterangan) 
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        
+        // Menyiapkan parameter untuk query
         $params = [$ID_Pengumpulan, $Laporan_Skripsi, $Laporan_Magang, $Bebas_Kompensasi, $Scan_Toeic, $Status_Verifikasi, $Tanggal_Upload, $Keterangan];
+        
+        // Menjalankan query SQL
         $stmt = sqlsrv_query($this->conn, $sql, $params);
-
+    
+        // Debug output untuk melihat nilai parameter
         var_dump($params);
-
+    
+        // Mengecek apakah query berhasil
         if (!$stmt) {
-            throw new Exception("Gagal menyimpan data Administrasi: " . print_r(sqlsrv_errors(), true));
+            die("SQL Query failed: " . print_r(sqlsrv_errors(), true));
         }
-
+    
         return true;
     }
 

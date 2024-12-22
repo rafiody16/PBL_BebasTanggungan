@@ -1,5 +1,5 @@
 <?php 
-include "../Koneksi.php";
+require_once "../Koneksi.php";
 session_start();
 
 class User {
@@ -123,7 +123,7 @@ class User {
 }
 
 $database = new Database(); // Membuat objek Database untuk mendapatkan koneksi
-$conn = $database->conn; 
+$conn = $database->getConnection(); 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST['Username'];
