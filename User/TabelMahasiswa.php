@@ -100,13 +100,21 @@ if ($_SESSION['Role_ID'] === 6 || $_SESSION['Role_ID'] === 7 || $_SESSION['Role_
                                         <select name="prodi" id="prodi" class="form-control">
                                             <option value=""></option>
                                             <?php 
-                                                // Ambil daftar prodi dari database
-                                                $stmtProdi = sqlsrv_query($conn, "SELECT DISTINCT Prodi FROM Mahasiswa");
-                                                $selectedProdi = isset($_GET['prodi']) ? $_GET['prodi'] : ''; // Ambil nilai prodi yang dipilih
-                                                while ($rowProdi = sqlsrv_fetch_array($stmtProdi, SQLSRV_FETCH_ASSOC)) {
-                                                    $selected = ($rowProdi['Prodi'] == $selectedProdi) ? 'selected' : ''; // Cek apakah ini yang dipilih
-                                                    echo "<option value='" . htmlspecialchars($rowProdi['Prodi']) . "' $selected>" . htmlspecialchars($rowProdi['Prodi']) . "</option>";
-                                                }     
+                                                if($_SESSION['Role_ID'] === 1 || $_SESSION['Role_ID'] === 2 ) {
+                                                    $stmtProdi = sqlsrv_query($conn, "SELECT DISTINCT Prodi FROM Mahasiswa");
+                                                    $selectedProdi = isset($_GET['prodi']) ? $_GET['prodi'] : ''; // Ambil nilai prodi yang dipilih
+                                                    while ($rowProdi = sqlsrv_fetch_array($stmtProdi, SQLSRV_FETCH_ASSOC)) {
+                                                        $selected = ($rowProdi['Prodi'] == $selectedProdi) ? 'selected' : ''; // Cek apakah ini yang dipilih
+                                                        echo "<option value='" . htmlspecialchars($rowProdi['Prodi']) . "' $selected>" . htmlspecialchars($rowProdi['Prodi']) . "</option>";
+                                                    }     
+                                                } else if ($_SESSION['Role_ID'] === 3) {
+                                                    $stmtProdi = sqlsrv_query($conn, "SELECT DISTINCT Prodi FROM Mahasiswa");
+                                                    $selectedProdi = isset($_GET['prodi']) ? $_GET['prodi'] : 'TI'; // Ambil nilai prodi yang dipilih
+                                                    while ($rowProdi = sqlsrv_fetch_array($stmtProdi, SQLSRV_FETCH_ASSOC)) {
+                                                        $selected = ($rowProdi['Prodi'] == $selectedProdi) ? 'selected' : ''; // Cek apakah ini yang dipilih
+                                                        echo "<option value='" . htmlspecialchars($rowProdi['Prodi']) . "' $selected>" . htmlspecialchars($rowProdi['Prodi']) . "</option>";
+                                                    }     
+                                                }
                                             ?>
                                         </select>
                                     </div>
