@@ -238,7 +238,7 @@ if ($_SESSION['Role_ID'] === 2 || $_SESSION['Role_ID'] === 3 || $_SESSION['Role_
                 $.ajax({
                 url: "DetailTA.php",
                 type: "GET",
-                data: { ID_Aplikasi: ID_Aplikasi, action: "detailTA" },
+                data: { ID_Aplikasi: ID_Aplikasi },
                     success: function(response) {
                         location.href = "DetailTA.php?ID_Aplikasi=" + ID_Aplikasi;
                     }

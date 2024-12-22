@@ -12,10 +12,6 @@ if ($_SESSION['Role_ID'] === 6 || $_SESSION['Role_ID'] === 8) {
     </script>";
   }
 
-include('ProsesBerkas.php');
-
-GetByIdAdministrasi();
-
 ?>
 
 <!DOCTYPE html>
@@ -71,33 +67,71 @@ GetByIdAdministrasi();
         <div class="row">
             <div class="card">
                 <div class="card-header">
-                    <h5 class="card-title">Tabel Administrasi</h5>
+                    <h5 class="card-title">Detail Administrasi</h5>
                 </div>
                 <div class="card-body">
                         <div class="card-header">
-                            <h4 class="card-title">Detail Administrasi</h4>
+                            <h4 class="card-title">Data Mahasiswa</h4>
                         </div>
                         <div class="card-content">
                             <div class="card-body">
+                                <?php 
+                                    require_once '../Koneksi.php';
+                                    require_once '../Models/Administrasi.php';
+
+                                    $db = new Database();
+                                    $conn = $db->getConnection();
+
+                                    $admModel = new Administrasi($conn);
+
+                                    $id = isset($_GET['ID_Administrasi']) ? $_GET['ID_Administrasi'] : '';
+                                    $adm = null;
+
+                                    if($id) {
+                                        $adm = $admModel->getAdmById($id);
+                                    }
+                                ?>
                                 <form class="form form-vertical">
                                     <div class="form-body">
-                                        <div class="row">
+                                    <div class="row">
                                             <div class="col-md-6 col-12">
                                                 <div class="form-group">
                                                     <label for="NIM">NIM</label>
-                                                    <div class="text-bold-500"><?= isset($nim) ? htmlspecialchars($nim) : '' ?></div>
+                                                    <div class="text-bold-500"><?= isset($adm['NIM']) ? htmlspecialchars($adm['NIM']) : '' ?></div>
                                                 </div>
                                             </div>
                                             <div class="col-md-6 col-12">
                                                 <div class="form-group">
                                                     <label for="Nama">Nama</label>
-                                                    <div class="text-bold-500"><?= isset($nama) ? htmlspecialchars($nama) : '' ?></div>
+                                                    <div class="text-bold-500"><?= isset($adm['Nama']) ? htmlspecialchars($adm['Nama']) : '' ?></div>
                                                 </div>
                                             </div>
                                             <div class="col-md-6 col-12">
                                                 <div class="form-group">
                                                     <label for="Prodi">Prodi</label>
-                                                    <div class="text-bold-500"><?= isset($prodi) ? htmlspecialchars($prodi) : '' ?></div>
+                                                    <div class="text-bold-500"><?= isset($adm['Prodi']) ? htmlspecialchars($adm['Prodi']) : '' ?></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-12">
+                                                <div class="form-group">
+                                                    <label for="Tahun_Angkatan">Angkatan</label>
+                                                    <div class="text-bold-500"><?= isset($adm['Tahun_Angkatan']) ? htmlspecialchars($adm['Tahun_Angkatan']) : '' ?></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-12">
+                                                <div class="form-group">
+                                                    <label for="Prodi">Status Verifikasi</label>
+                                                    <br>
+                                                    <?php 
+                                                        $status = $adm['Status_Verifikasi'];
+                                                        if ($status === 'Menunggu') {
+                                                            echo "<td><span class='badge bg-warning'>" . htmlspecialchars($status) . "</span></td>";
+                                                        } else if ($status === 'Terverifikasi') {
+                                                            echo "<td><span class='badge bg-success'>" . htmlspecialchars($status) . "</span></td>";
+                                                        } else if ($status === 'Ditolak') {
+                                                            echo "<td><span class='badge bg-danger'>" . htmlspecialchars($status) . "</span></td>";
+                                                        }
+                                                    ?>
                                                 </div>
                                             </div>
                                         </div>
@@ -119,55 +153,49 @@ GetByIdAdministrasi();
                                         <div class="col-12">
                                             <div class="form-group">
                                                 <label for="Laporan_Skripsi">Laporan Skripsi</label>
-                                                <div class="text-bold-500"> <a href="<?= htmlspecialchars($laporanSkripsiurl) ?>" target="_blank"><?= htmlspecialchars($laporanSkripsi) ?></a></div>
+                                                <div class="text-bold-500"> <a href="<?= htmlspecialchars($adm['Laporan_Skripsi']) ?>" target="_blank"><?= htmlspecialchars($adm['Laporan_Skripsi']) ?></a></div>
                                             </div>
                                         </div>
                                         <div class="col-12">
                                             <div class="form-group">
                                                 <label for="Laporan_Magang">Laporan Magang</label>
-                                                <div class="text-bold-500"><a href="<?= htmlspecialchars($laporanMagangurl) ?>"><?= isset($laporanMagang) ? htmlspecialchars($laporanMagang) : '' ?></a></div>
+                                                <div class="text-bold-500"><a href="<?= htmlspecialchars($adm['Laporan_Magang']) ?>"><?= isset($adm['Laporan_Magang']) ? htmlspecialchars($adm['Laporan_Magang']) : '' ?></a></div>
                                             </div>
                                         </div>
                                         <div class="col-12">
                                             <div class="form-group">
                                                 <label for="Bebas_Kompensasi">Bebas Kompen</label>
-                                                <div class="text-bold-500"><a href="<?= htmlspecialchars($bebasKompensasiurl) ?>"><?= isset($bebasKompensasi) ? htmlspecialchars($bebasKompensasi) : '' ?></a></div>
+                                                <div class="text-bold-500"><a href="<?= htmlspecialchars($adm['Bebas_Kompensasi']) ?>"><?= isset($adm['Bebas_Kompensasi']) ? htmlspecialchars($adm['Bebas_Kompensasi']) : '' ?></a></div>
                                             </div>
                                         </div>
                                         <div class="col-12">
                                             <div class="form-group">
                                                 <label for="Laporan_Skripsi">Scan Toeic</label>
-                                                <div class="text-bold-500"><a href="<?= htmlspecialchars($scanToeicurl) ?>"><?= isset($scanToeic) ? htmlspecialchars($scanToeic) : '' ?></a></div>
+                                                <div class="text-bold-500"><a href="<?= htmlspecialchars($adm['Scan_Toeic']) ?>"><?= isset($adm['Scan_Toeic']) ? htmlspecialchars($adm['Scan_Toeic']) : '' ?></a></div>
                                             </div>
                                         </div>
                                         <div class="col-12">
                                             <div class="form-group">
                                                 <label for="Tanggal_Upload">Tanggal Upload</label>
-                                                <div class="text-bold-500"><?= isset($tanggalUpload) ? htmlspecialchars($tanggalUpload instanceof DateTime ? $tanggalUpload->format('d-m-Y') : $tanggalUpload) : '' ?></div>
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
-                                            <div class="form-group">
-                                                <label for="Status_Verifikasi">Status Verifikasi</label>
-                                                <div class="text-bold-500"><?= isset($statusVerifikasi) ? htmlspecialchars($statusVerifikasi) : '' ?></div>
+                                                <div class="text-bold-500"><?= isset($adm['Tanggal_Upload']) ? htmlspecialchars($adm['Tanggal_Upload'] instanceof DateTime ? $adm['Tanggal_Upload']->format('d-m-Y') : $adm['Tanggal_Upload']) : '' ?></div>
                                             </div>
                                         </div>
                                         <div class="col-12">
                                             <div class="form-group">
                                                 <label for="Tanggal_Verifikasi">Tanggal Verifikasi</label>
-                                                <div class="text-bold-500"><?= isset($tanggalVerifikasi) ? htmlspecialchars($tanggalVerifikasi instanceof DateTime ? $tanggalVerifikasi->format('d-m-Y') : $tanggalVerifikasi) : '-' ?></div>
+                                                <div class="text-bold-500"><?= isset($adm['Tanggal_Verifikasi']) ? htmlspecialchars($adm['Tanggal_Verifikasi'] instanceof DateTime ? $adm['Tanggal_Verifikasi']->format('d-m-Y') : $adm['Tanggal_Verifikasi']) : '-' ?></div>
                                             </div>
                                         </div>
                                         <div class="col-12">
                                             <div class="form-group">
                                                 <label for="Keterangan">Keterangan</label>
-                                                <div class="text-bold-500"><?= isset($keterangan) ? htmlspecialchars($keterangan) : '' ?></div>
+                                                <div class="text-bold-500"><?= isset($adm['Keterangan']) ? htmlspecialchars($adm['Keterangan']) : '' ?></div>
                                             </div>
                                         </div>
                                         <div class="col-12">
                                             <div class="form-group">
                                                 <label for="Verifikator">Verifikator</label>
-                                                <div class="text-bold-500"><?= isset($verifikator) ? htmlspecialchars($verifikator) : 'Belum Diverifikasi' ?></div>
+                                                <div class="text-bold-500"><?= isset($adm['Verifikator']) ? htmlspecialchars($adm['Verifikator']) : 'Belum Diverifikasi' ?></div>
                                             </div>
                                         </div>
                                     </div>
@@ -176,11 +204,46 @@ GetByIdAdministrasi();
                         </div>
                     </div>
                 </div>
+                <button class="btn btn-success btn-verifikasi" data-id="<?= $id ?>">Verifikasi</button>
+                <button data-bs-toggle='modal' data-bs-target='#default' class='btn btn-danger'>Tolak</button>
+                <button class="btn btn-secondary btn-kembali">Kembali</button>
             </div>
         </div>
     </section>
 </div>
-
+<div class="modal fade text-left" id="default" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="myModalLabel1">Tolak Verifikasi</h5>
+                    <button type="button" class="close rounded-pill" data-bs-dismiss="modal"
+                        aria-label="Close">
+                        <i data-feather="x"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="ProsesBerkas.php" method="POST">
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label for="Keterangan">Keterangan</label>
+                                <input type="text" class="form-control" name="Keterangan" placeholder="Masukkan Keterangan">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn" data-bs-dismiss="modal">
+                        <i class="bx bx-x d-block d-sm-none"></i>
+                        <span class="d-none d-sm-block">Tutup</span>
+                    </button>
+                    <button type="button" class="btn btn-danger btn-tolak" data-bs-dismiss="modal" data-id="<?= $id ?>">
+                        <i class="bx bx-check d-block d-sm-none"></i>
+                        <span class="d-none d-sm-block">Tolak</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
             <footer>
     <div class="footer clearfix mb-0 text-muted">
         <div class="float-start">
@@ -202,28 +265,24 @@ GetByIdAdministrasi();
 
     <script>
         $(document).ready(function() {
-            $(".btn-detail").click(function() {
-                var ID_Administrasi = $(this).data("id");
-                $.ajax({
-                url: "DetailAdministrasi.php",
-                type: "POST",
-                data: { ID_Administrasi: ID_Administrasi, action: "readAdministrasi" },
-                    success: function(response) {
-                        location.href = "DetailMahasiswa.php?NIM=" + ID_Administrasi;
-                    }
-                });
+            $(".btn-kembali").click(function() {
+                window.history.back();
             });
 
             $(".btn-verifikasi").click(function() {
                 var ID_Administrasi = $(this).data("id");
+                if (confirm("Apakah Anda yakin ingin memverifikasi data ini?")) {
                     $.ajax({
-                    url: "ProsesBerkas.php",
-                    type: "POST",
-                    data: { ID_Administrasi: ID_Administrasi, action: "verifikasiAdministrasi" },
-                    success: function(response) {
-                        location.reload();
-                    }
-                })   
+                        url: "../Controllers/BerkasControllers.php?action=verifAdm",
+                        type: "POST",
+                        data: {
+                            ID_Administrasi: ID_Administrasi,
+                        },
+                        success: function(response) {
+                            location.reload();
+                        }
+                    })
+                }
             });
 
             $('.btn-tolak').on('click', function () {
@@ -233,22 +292,24 @@ GetByIdAdministrasi();
                     alert('Keterangan harus diisi!');
                     return;
                 }
-                $.ajax({
-                    url: 'ProsesBerkas.php',
-                    type: 'POST',
-                    data: {
-                        action: 'tolakAdministrasi',
-                        ID_Administrasi: ID_Administrasi,
-                        Keterangan: Keterangan
-                    },
-                    success: function (response) {
-                        location.reload(); 
-                    },
-                    error: function (xhr, status, error) {
-                        console.error('Terjadi kesalahan:', error);
-                        alert('Gagal memproses data. Silakan coba lagi.');
-                    }
-                });
+                if (confirm("Apakah Anda yakin ingin menolak data ini?")) {
+                    $.ajax({
+                        url: "../Controllers/BerkasControllers.php?action=tolakAdm",
+                        type: "POST",
+                        data: {
+                            ID_Administrasi: ID_Administrasi,
+                            Keterangan: Keterangan
+                        },
+                        success: function(response) {
+                            location.reload();
+                        },
+                        error: function(xhr, status, error) {
+                            console.error('Terjadi kesalahan:', error);
+                            console.log('Response:', xhr.responseText)
+                            alert('Gagal memproses data. Silakan coba lagi.', xhr.responseText);
+                        }
+                    });
+                }
             });
 
             $("#modalClose").click(function() {

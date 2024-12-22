@@ -170,7 +170,7 @@ class Administrasi extends Pengumpulan {
     }
 
     public function getAdmById($id) {
-        $sql = "SELECT a.ID_Administrasi, m.NIM, m.Nama, m.Prodi, a.Laporan_Skripsi, a.Laporan_Magang, a.Bebas_Kompensasi, a.Scan_Toeic, 
+        $sql = "SELECT a.ID_Administrasi, m.NIM, m.Nama, m.Prodi, m.Tahun_Angkatan, a.Laporan_Skripsi, a.Laporan_Magang, a.Bebas_Kompensasi, a.Scan_Toeic, 
             a.Status_Verifikasi, a.Tanggal_Verifikasi, a.Tanggal_Upload, a.Keterangan, a.Verifikator FROM Administrasi AS a 
             INNER JOIN Pengumpulan AS p ON a.ID_Pengumpulan = p.ID_Pengumpulan INNER JOIN Mahasiswa AS m ON p.NIM = m.NIM WHERE a.ID_Administrasi = ?";
         $params = array($id);
@@ -179,7 +179,7 @@ class Administrasi extends Pengumpulan {
         if ($stmt === false) {
             die(print_r(sqlsrv_errors(), true));
         }
-        return $stmt;
+        return sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
     }
 
     public function createAdm($ID_Pengumpulan, $Laporan_Skripsi, $Laporan_Magang, $Bebas_Kompensasi, $Scan_Toeic, $Tanggal_Upload, $Status_Verifikasi = "Menunggu", $Keterangan = "-") {

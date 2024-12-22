@@ -192,10 +192,46 @@ if ($_SESSION['Role_ID'] === 7 || $_SESSION['Role_ID'] === 8) {
                         </div>
                     </div>
                 </div>
+                <button class="btn btn-success btn-verifikasi" data-id="<?= $id ?>">Verifikasi</button>
+                <button data-bs-toggle='modal' data-bs-target='#default' class='btn btn-danger'>Tolak</button>
+                <button class="btn btn-secondary btn-kembali">Kembali</button>
             </div>
         </div>
     </section>
 </div>
+<div class="modal fade text-left" id="default" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="myModalLabel1">Tolak Verifikasi</h5>
+                    <button type="button" class="close rounded-pill" data-bs-dismiss="modal"
+                        aria-label="Close">
+                        <i data-feather="x"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="ProsesBerkas.php" method="POST">
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label for="Keterangan">Keterangan</label>
+                                <input type="text" class="form-control" name="Keterangan" placeholder="Masukkan Keterangan">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn" data-bs-dismiss="modal">
+                        <i class="bx bx-x d-block d-sm-none"></i>
+                        <span class="d-none d-sm-block">Tutup</span>
+                    </button>
+                    <button type="button" class="btn btn-danger btn-tolak" data-bs-dismiss="modal" data-id="<?= $id ?>">
+                        <i class="bx bx-check d-block d-sm-none"></i>
+                        <span class="d-none d-sm-block">Tolak</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 
             <footer>
     <div class="footer clearfix mb-0 text-muted">
@@ -218,43 +254,36 @@ if ($_SESSION['Role_ID'] === 7 || $_SESSION['Role_ID'] === 8) {
 
     <script>
         $(document).ready(function() {
-            $(".btn-detail").click(function() {
-                var ID_Administrasi = $(this).data("id");
-                $.ajax({
-                url: "DetailAdministrasi.php",
-                type: "POST",
-                data: { ID_Administrasi: ID_Administrasi, action: "readAdministrasi" },
-                    success: function(response) {
-                        location.href = "DetailMahasiswa.php?NIM=" + ID_Administrasi;
-                    }
-                });
+            $(".btn-kembali").click(function() {
+                window.history.back();
             });
 
             $(".btn-verifikasi").click(function() {
-                var ID_Administrasi = $(this).data("id");
+                var ID_Aplikasi = $(this).data("id");
+                if (confirm("Apakah Anda yakin ingin memverifikasi data ini?")) {
                     $.ajax({
-                    url: "ProsesBerkas.php",
+                    url: "../Controllers/BerkasControllers.php?action=verifTA",
                     type: "POST",
-                    data: { ID_Administrasi: ID_Administrasi, action: "verifikasiAdministrasi" },
-                    success: function(response) {
-                        location.reload();
-                    }
-                })   
+                    data: { ID_Aplikasi: ID_Aplikasi },
+                        success: function(response) {
+                            location.reload();
+                        }
+                    });   
+                }   
             });
 
             $('.btn-tolak').on('click', function () {
-                var ID_Administrasi = $(this).data('id');
+                var ID_Aplikasi = $(this).data('id');
                 var Keterangan = $("input[name='Keterangan']").val();
                 if (!Keterangan) {
                     alert('Keterangan harus diisi!');
                     return;
                 }
                 $.ajax({
-                    url: 'ProsesBerkas.php',
+                    url: "../Controllers/BerkasControllers.php?action=tolakTA",
                     type: 'POST',
                     data: {
-                        action: 'tolakAdministrasi',
-                        ID_Administrasi: ID_Administrasi,
+                        ID_Aplikasi: ID_Aplikasi,
                         Keterangan: Keterangan
                     },
                     success: function (response) {
