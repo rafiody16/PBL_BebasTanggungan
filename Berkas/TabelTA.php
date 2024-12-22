@@ -157,12 +157,19 @@ if ($_SESSION['Role_ID'] === 2 || $_SESSION['Role_ID'] === 3 || $_SESSION['Role_
                                                     echo "<td><span class='badge bg-danger'>" . htmlspecialchars($status) . "</span></td>";
                                                 }
                                                 echo "<td>" . htmlspecialchars($row['Keterangan']) . "</td>";
+                                        ?>
                                                 // Tombol aksi
-                                                echo "<td>";
+                                                <!-- echo "<td>";
                                                     echo "<button data-id='" . $ID_Aplikasi . "' class='btn btn-primary btn-detail'>Detail</button>";
                                                     echo "<button data-id='" . $ID_Aplikasi . "' class='btn btn-success btn-verifikasi'>Verifikasi</button>";
                                                     echo "<button data-bs-toggle='modal' data-bs-target='#default' class='btn btn-danger'>Tolak</button>";
-                                                echo "</td>";
+                                                echo "</td>"; -->
+                                                <td>
+                                                        <button data-id="<?= $ID_Aplikasi ?>" class="btn btn-primary btn-detail">Detail</button>
+                                                        <button data-id="<?= $ID_Aplikasi ?>" class="btn btn-success btn-verifikasi">Verifikasi</button>
+                                                        <button data-bs-toggle="modal" data-bs-target="#default" class="btn btn-danger">Tolak</button>
+                                                    </td>
+                                        <?php
                                             echo "</tr>";
                                         } else {
                                             echo "Belum ada data.";
