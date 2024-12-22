@@ -73,97 +73,6 @@ class BerkasControllers {
         }
     }
 
-    public function editAdministrasi($NIM) {
-        try {
-
-            $uploadDir = '../Uploads/';
-
-            $Laporan_Skripsi = $this->uploadFile($_FILES['Laporan_Skripsi'], $uploadDir);
-            $Laporan_Magang = $this->uploadFile($_FILES['Laporan_Magang'], $uploadDir);
-            $Bebas_Kompensasi = $this->uploadFile($_FILES['Bebas_Kompensasi'], $uploadDir);
-            $Scan_Toeic = $this->uploadFile($_FILES['Scan_Toeic'], $uploadDir);
-            $Tanggal_Pengumpulan = date("Y-m-d");
-
-
-            $currentData = $this->Administrasi->getByNimAdm($NIM);
-
-            $Laporan_Skripsi = $Laporan_Skripsi ?: $currentData['Laporan_Skripsi'];
-            $Laporan_Magang = $Laporan_Magang ?: $currentData['Laporan_Magang'];
-            $Bebas_Kompensasi = $Bebas_Kompensasi ?: $currentData['Bebas_Kompensasi'];
-            $Scan_Toeic = $Scan_Toeic ?: $currentData['Scan_Toeic'];
-                
-
-            $this->Administrasi->editAdm(
-                $NIM,
-                $Laporan_Skripsi,
-                $Laporan_Magang,
-                $Bebas_Kompensasi,
-                $Scan_Toeic,
-                'Menunggu',
-                $Tanggal_Pengumpulan,
-                '-',
-                null
-            );
-
-            $this->Pengumpulan->editPengumpulan(
-                $NIM, 
-            $Tanggal_Pengumpulan,
-            'Menunggu',
-            null,
-            null,
-            null,
-            '-'
-            );
-
-            sqlsrv_commit($this->conn);
-            echo "<script>alert('Data berhasil diubah!'); window.location.href = '../Berkas/DetailBerkas.php?NIM=" . urlencode($NIM) . "';</script>";
-        } catch (Exception $e) {
-            sqlsrv_rollback($this->conn);
-            echo "<script>alert('" . $e->getMessage() . "');</script>";
-        }
-    }
-
-    public function editTA($NIM) {
-        try {
-
-            $uploadDir = '../Uploads/';
-
-            $File_Aplikasi = $this->uploadFile($_FILES['File_Aplikasi'], $uploadDir);
-            $Laporan_TA = $this->uploadFile($_FILES['Laporan_TA'], $uploadDir);
-            $Pernyataan_Publikasi = $this->uploadFile($_FILES['Pernyataan_Publikasi'], $uploadDir);
-            $Tanggal_Pengumpulan = date("Y-m-d");
-
-            $currentData = $this->tugasAkhir->getByNimTA($NIM);
-
-            $File_Aplikasi = $File_Aplikasi ?: $currentData['File_Aplikasi'];
-            $Laporan_TA = $Laporan_TA ?: $currentData['Laporan_TA'];
-            $Pernyataan_Publikasi = $Pernyataan_Publikasi ?: $currentData['Pernyataan_Publikasi'];
-
-            $this->tugasAkhir->editTA(
-                $File_Aplikasi,
-                $Laporan_TA,
-                $Pernyataan_Publikasi,
-                $NIM
-            );
-
-            $this->Pengumpulan->editPengumpulan(
-            $NIM, 
-            $Tanggal_Pengumpulan,
-            'Menunggu',
-            null,
-            null,
-            null,
-            '-'
-            );
-
-            sqlsrv_commit($this->conn);
-            echo "<script>alert('Data berhasil diubah!'); window.location.href = '../Berkas/DetailBerkas.php?NIM=" . urlencode($NIM) . "';</script>";
-        } catch (Exception $e) {
-            sqlsrv_rollback($this->conn);
-            echo "<script>alert('" . $e->getMessage() . "');</script>";
-        }
-    }
-
     private function uploadFile($file, $uploadDir) {
         $fileName = basename($file['name']);
         $targetFilePath = $uploadDir . $fileName;
@@ -196,6 +105,7 @@ class BerkasControllers {
                 $pgModels->setKeterangan('-', $id);
             }
         }
+
     }
 
     public function VerifikasiAdministrasi($id, $verifikator) {
@@ -254,46 +164,6 @@ class BerkasControllers {
         }
     }
 
-    public function tolakBerkas($id) {
-        $Keterangan = $_POST['Keterangan'];
-        $verifikator = $_SESSION['Nama'];
-        $SubBagian = $_POST['SubBagian'];
-        $role = $_SESSION['Role_ID'];
-
-        $pgModels = new Pengumpulan($this->conn);
-        $existingBerkas = $pgModels->getPengumpulanById($id);
-
-        if ($existingBerkas) {
-            if ($role === 2) {
-                $pgModels->setVerifikatorKajur($verifikator, $id);
-                $pgModels->setStatus_Pengumpulan('Ditolak', $id);
-                $pgModels->setTanggal_Verifikasi(null, $id);
-                $pgModels->setKeterangan($Keterangan, $id);
-            } else if (in_array($role, [3, 4, 5])) {
-                $pgModels->setVerifikatorKaprodi($verifikator, $id);
-                $pgModels->setStatus_Pengumpulan('Ditolak', $id);
-                $pgModels->setTanggal_Verifikasi(null, $id);
-                $pgModels->setKeterangan($Keterangan, $id);
-            }
-        }
-
-        if ($SubBagian === 'Administrasi') {
-            $admModels = new Administrasi($this->conn);
-            $existingAdmin = $admModels->getAdministrasiByPengumpulanId($id);
-
-            if ($existingAdmin) {
-                $admModels->updateBerkasAdm('Ditolak',null,$Keterangan,$verifikator,$id);
-            }
-        } else if ($SubBagian === 'TA') {
-            $taModels = new TugasAkhir($this->conn);
-            $existingTA = $taModels->getTAByPengumpulanId($id);
-
-            if ($existingTA) {
-                $taModels->updateBerkasTA('Ditolak',null,$Keterangan,$verifikator,$id);
-            }
-        }
-    }
-
 
 }
 
@@ -321,12 +191,6 @@ switch ($action) {
             echo "<script>alert('Metode request tidak valid!');</script>";
         }
         break;
-    case 'editAdm':
-        $berkasControllers->editAdministrasi($_POST['NIM']);
-        break;
-    case 'editTA':
-        $berkasControllers->editTA($_POST['NIM']);
-        break;
     case 'verifBerkas':
         $berkasControllers->verifikasiBerkas($_POST['ID_Pengumpulan']);
         break;
@@ -341,9 +205,6 @@ switch ($action) {
         break;
     case 'tolakTA':
         $berkasControllers->TolakTA($_POST['ID_Aplikasi'], $_SESSION['Nama'],$_POST['Keterangan']);
-        break;
-    case 'tolakBerkas':
-        $berkasControllers->tolakBerkas($_POST['ID_Pengumpulan']);
         break;
 }
 ?>
