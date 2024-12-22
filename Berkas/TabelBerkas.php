@@ -22,7 +22,7 @@ if ($_SESSION['Role_ID'] === 6 || $_SESSION['Role_ID'] === 7 || $_SESSION['Role_
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Unggah Berkas - Berkas Tugas Akhir</title>
+    <title>Pengesahan Berkas - BeTaTI</title>
 
     <link rel="shortcut icon" href="../assets/img/logoJti.png" type="image/x-icon">
     <link rel="shortcut icon" href="../assets/img/logoJti.png" type="image/png">
@@ -51,7 +51,7 @@ if ($_SESSION['Role_ID'] === 6 || $_SESSION['Role_ID'] === 7 || $_SESSION['Role_
                 <div class="page-title">
                     <div class="row">
                         <div class="col-12 col-md-9 order-md-1 order-last">
-                            <h3>Verifikasi Berkas Mahasiswa</h3>
+                            <h3>Pengesahan Berkas Mahasiswa</h3>
                             <p class="text-subtitle text-muted">-</p>
                         </div>
                         <div class="col-12 col-md-3 order-md-2 order-first">

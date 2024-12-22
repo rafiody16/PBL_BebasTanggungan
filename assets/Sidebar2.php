@@ -108,7 +108,7 @@
                     <li class="sidebar-item <?php echo ($current_page == 'TabelBerkas.php') ? 'active' : ''; ?>">
                         <a href="../Berkas/TabelBerkas.php" class="sidebar-link">
                             <i class="bi bi-folder-check"></i>
-                            <span>Verifikasi Berkas</span>
+                            <span>Pengesahan Berkas</span>
                         </a>
                     </li>
                 <?php } ?>
