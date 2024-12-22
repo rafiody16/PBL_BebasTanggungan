@@ -49,8 +49,8 @@ class BerkasControllers {
                 $uploadedFiles['Laporan_Magang'],
                 $uploadedFiles['Bebas_Kompensasi'],
                 $uploadedFiles['Scan_Toeic'],
-                "Menunggu",
                 $Tanggal_Pengumpulan,
+                "Menunggu",
                 ""
             );
 
@@ -60,8 +60,8 @@ class BerkasControllers {
                 $uploadedFiles['File_Aplikasi'],
                 $uploadedFiles['Laporan_TA'],
                 $uploadedFiles['Pernyataan_Publikasi'],
-                "Menunggu",
                 $Tanggal_Pengumpulan,
+                "Menunggu",
                 ""
             );
 

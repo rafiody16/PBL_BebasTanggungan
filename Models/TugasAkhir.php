@@ -173,18 +173,43 @@ class TugasAkhir extends Pengumpulan {
         return sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
     }
 
-    public function createTA($ID_Pengumpulan, $File_Aplikasi, $Laporan_TA, $Pernyataan_Publikasi, $Tanggal_Upload, $Status_Verifikasi, $Keterangan) {
-        $sql = "INSERT INTO TugasAkhir (ID_Pengumpulan, File_Aplikasi, Laporan_TA, Pernyataan_Publikasi, Status_Verifikasi, Tanggal_Upload, Keterangan) 
+    // public function createTA($ID_Pengumpulan, $File_Aplikasi, $Laporan_TA, $Pernyataan_Publikasi, $Tanggal_Upload, $Status_Verifikasi, $Keterangan) {
+    //     $sql = "INSERT INTO TugasAkhir (ID_Pengumpulan, File_Aplikasi, Laporan_TA, Pernyataan_Publikasi, Status_Verifikasi, Tanggal_Upload, Keterangan) 
+    //             VALUES (?, ?, ?, ?, ?, ?, ?)";
+    //     $params = [$ID_Pengumpulan, $File_Aplikasi, $Laporan_TA, $Pernyataan_Publikasi, $Status_Verifikasi, $Tanggal_Upload, $Keterangan];
+    //     $stmt = sqlsrv_query($this->conn, $sql, $params);
+
+    //     var_dump($params);
+
+    //     if (!$stmt) {
+    //         throw new Exception("Gagal menyimpan data Tugas Akhir: " . print_r(sqlsrv_errors(), true));
+    //     }
+
+    // }
+
+    public function createTA($ID_Pengumpulan, $File_Aplikasi, $Laporan_TA, $Pernyataan_Publikasi, $Tanggal_Upload, $Status_Verifikasi = "Menunggu", $Keterangan = "") {
+        // Pastikan tanggal dalam format yang benar: YYYY-MM-DD
+        $Tanggal_Upload = date("Y-m-d", strtotime($Tanggal_Upload));
+    
+        // SQL query untuk menyimpan data Tugas Akhir
+        $sql = "INSERT INTO TugasAkhir (ID_Pengumpulan, File_Aplikasi, Laporan_TA, Pernyataan_Publikasi, Tanggal_Upload, Status_Verifikasi, Keterangan) 
                 VALUES (?, ?, ?, ?, ?, ?, ?)";
-        $params = [$ID_Pengumpulan, $File_Aplikasi, $Laporan_TA, $Pernyataan_Publikasi, $Status_Verifikasi, $Tanggal_Upload, $Keterangan];
+        
+        // Menyiapkan parameter untuk query
+        $params = [$ID_Pengumpulan, $File_Aplikasi, $Laporan_TA, $Pernyataan_Publikasi, $Tanggal_Upload, $Status_Verifikasi, $Keterangan];
+        
+        // Menjalankan query SQL
         $stmt = sqlsrv_query($this->conn, $sql, $params);
-
+    
+        // Debug output untuk melihat nilai parameter
         var_dump($params);
-
+    
+        // Mengecek apakah query berhasil
         if (!$stmt) {
             throw new Exception("Gagal menyimpan data Tugas Akhir: " . print_r(sqlsrv_errors(), true));
         }
-
+    
+        return true;
     }
 
     public function editTA($File_Aplikasi, $Laporan_TA, $Pernyataan_Publikasi, $nim) {

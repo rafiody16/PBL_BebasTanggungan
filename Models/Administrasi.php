@@ -207,11 +207,11 @@ class Administrasi extends Pengumpulan {
         $Tanggal_Upload = date("Y-m-d", strtotime($Tanggal_Upload));
     
         // SQL query untuk menyimpan data Administrasi
-        $sql = "INSERT INTO Administrasi (ID_Pengumpulan, Laporan_Skripsi, Laporan_Magang, Bebas_Kompensasi, Scan_Toeic, Status_Verifikasi, Tanggal_Upload, Keterangan) 
+        $sql = "INSERT INTO Administrasi (ID_Pengumpulan, Laporan_Skripsi, Laporan_Magang, Bebas_Kompensasi, Scan_Toeic, Tanggal_Upload, Status_Verifikasi, Keterangan) 
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         
         // Menyiapkan parameter untuk query
-        $params = [$ID_Pengumpulan, $Laporan_Skripsi, $Laporan_Magang, $Bebas_Kompensasi, $Scan_Toeic, $Status_Verifikasi, $Tanggal_Upload, $Keterangan];
+        $params = [$ID_Pengumpulan, $Laporan_Skripsi, $Laporan_Magang, $Bebas_Kompensasi, $Scan_Toeic, $Tanggal_Upload, $Status_Verifikasi, $Keterangan];
         
         // Menjalankan query SQL
         $stmt = sqlsrv_query($this->conn, $sql, $params);
