@@ -63,11 +63,12 @@ class User {
             die(print_r(sqlsrv_errors(), true));
         }
 
-        if ($rowVrf = sqlsrv_fetch_array($stmtVrf2, SQLSRV_FETCH_ASSOC)) {
-            $_SESSION['NIM'] = $rowVrf['NIM'];
+        if ($rowVrf2 = sqlsrv_fetch_array($stmtVrf2, SQLSRV_FETCH_ASSOC)) {
+            $_SESSION['NIM'] = $rowVrf2['NIM'];
         }
 
         sqlsrv_free_stmt($stmtVrf);
+        sqlsrv_free_stmt($stmtVrf2);
     }
 
     private function redirectUser ($row) {
