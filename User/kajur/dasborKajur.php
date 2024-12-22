@@ -106,7 +106,7 @@ if ($_SESSION['Role_ID'] != 2) {
                           </h6>
                           <h6 class="font-extrabold mb-0">
                           <?php 
-                              require_once 'Koneksi.php';
+                              require_once '../../Koneksi.php';
                               $db = new Database();
                               $conn = $db->getConnection();
                               $sql = "SELECT COUNT(NIM) AS jumlah_mahasiswa FROM Mahasiswa";

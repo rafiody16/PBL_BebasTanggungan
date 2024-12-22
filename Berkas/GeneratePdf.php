@@ -1,9 +1,12 @@
 <?php
 session_start();
 require('../assets/library/fpdf.php');
-include('ProsesBerkas.php');
+include('ProsesPDF.php');
 
-Berkas();
+$db = new Database();
+$conn = $db->getConnection();
+
+Berkas($conn);
 $NIM = $_SESSION['NIM'];
 
 // Buat instance FPDF
