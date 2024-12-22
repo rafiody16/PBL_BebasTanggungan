@@ -159,7 +159,6 @@ class TugasAkhir extends Pengumpulan {
             INNER JOIN Pengumpulan AS p ON a.ID_Pengumpulan = p.ID_Pengumpulan INNER JOIN Mahasiswa AS m ON p.NIM = m.NIM WHERE a.ID_Aplikasi = ?";
         $params = array($id);
         $stmt = sqlsrv_query($this->conn, $sql, $params);
-        var_dump($id);
 
         if ($stmt === false) {
             die(print_r(sqlsrv_errors(), true));
