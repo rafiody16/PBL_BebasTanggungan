@@ -2,7 +2,7 @@
 require_once "../Koneksi.php";
 session_start();
 
-class User {
+class Auth {
     private $conn;
     private $username;
     private $password;
@@ -131,7 +131,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST['Username'];
     $password = $_POST['Password'];
 
-    $user = new User($conn, $username, $password);
+    $user = new Auth($conn, $username, $password);
     $user->login();
 }
 
