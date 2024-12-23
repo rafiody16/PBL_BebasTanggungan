@@ -207,11 +207,14 @@ if ($_SESSION['Role_ID'] === 6 || $_SESSION['Role_ID'] === 7 || $_SESSION['Role_
             <footer>
                 <div class="footer clearfix mb-0 text-muted">
                     <div class="float-start">
-                        <p>2024 &copy; BeTaTI</p>
+                        <!-- <p>2024 &copy; BeTaTI</p> -->
+                        <p>2023 &copy; Mazer</p>
                     </div>
                     <div class="float-end">
+                        <!-- <p>Crafted with <span class="text-danger"><i class="bi bi-heart-fill icon-mid"></i></span>
+                            by <a href="https://github.com/rafiody16/PBL_BebasTanggungan">Kelompok 1</a></p> -->
                         <p>Crafted with <span class="text-danger"><i class="bi bi-heart-fill icon-mid"></i></span>
-                            by <a href="https://github.com/rafiody16/PBL_BebasTanggungan">Kelompok 1</a></p>
+                        by <a href="https://saugi.me">Saugi</a></p>
                     </div>
                 </div>
             </footer>
