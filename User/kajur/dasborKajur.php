@@ -249,13 +249,15 @@ if ($_SESSION['Role_ID'] != 2) {
               <p>2024 &copy; BeTaTI</p>
             </div>
             <div class="float-end">
-              <p>
+              <!-- <p>
                 Crafted with
                 <span class="text-danger"
                   ><i class="bi bi-heart-fill icon-mid"></i
                 ></span>
                 by <a href="https://github.com/rafiody16/PBL_BebasTanggungan">Kelompok 1</a>
-              </p>
+              </p> -->
+              <p>Crafted with <span class="text-danger"><i class="bi bi-heart-fill icon-mid"></i></span>
+              by <a href="https://saugi.me">Saugi</a></p>
             </div>
           </div>
         </footer>
