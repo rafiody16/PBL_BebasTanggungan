@@ -215,7 +215,8 @@ if ($_SESSION['Role_ID'] != 1) {
                                                             value="<?= empty($nip) ? 'tambah' : 'update' ?>">
                                                             <?= empty($nip) ? 'Tambah' : 'Update' ?>
                                                         </button>
-                                                        <button type="reset" class="btn btn-light-secondary me-1 mb-1">Kembali</button>
+                                                        <!-- <button type="reset" class="btn btn-light-secondary me-1 mb-1">Kembali</button> -->
+                                                        <div><a href="TabelStaff.php" class="btn btn-light-secondary me-1 mb-1">Kembali</a></div>
                                                     </div>
                                                 </div>
                                             </div>

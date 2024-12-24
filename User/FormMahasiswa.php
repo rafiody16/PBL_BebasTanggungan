@@ -191,7 +191,8 @@ if ($_SESSION['Role_ID'] === 6 || $_SESSION['Role_ID'] === 7 || $_SESSION['Role_
                                                                 value="<?= isset($mhs['NIM']) ? 'update' : 'tambah' ?>">
                                                             <?= isset($mhs['NIM']) ? 'Update' : 'Tambah' ?>
                                                         </button>
-                                                        <button type="reset" class="btn btn-light-secondary me-1 mb-1">Kembali</button>
+                                                        <!-- <button type="reset" class="btn btn-light-secondary me-1 mb-1">Kembali</button> -->
+                                                        <div><a href="TabelMahasiswa.php" class="btn btn-light-secondary me-1 mb-1">Kembali</a></div>
                                                     </div>
                                                 </div>
                                             </div>
