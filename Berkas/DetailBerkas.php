@@ -224,7 +224,7 @@ $NIM = $_SESSION['NIM'];
                                                                 <?php 
                                                                     } else if ($pg['Status_Pengumpulan']=== 'Terverifikasi') {
                                                                 ?>
-                                                                    <span class="badge bg-success"><?= htmlspecialchars('Sudah disahkan') ?></span>
+                                                                    <span class="badge bg-success"><?= htmlspecialchars('Disahkan') ?></span>
                                                                 <?php
                                                                     } else if ($pg['Status_Pengumpulan'] === 'Ditolak') {
                                                                 ?>
