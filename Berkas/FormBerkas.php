@@ -222,7 +222,7 @@ $NIM = $_SESSION['NIM'];
                 </div>
             </div>
             
-            <div class="col-sm-12 d-flex justify-content-end">
+            <div class="col-sm-12 d-flex justify-content-start">
                 <button type="submit" class="btn btn-primary me-2 mb-2" style="font-size: 1.3rem; padding: 1rem 2rem;" name="simpanBerkas">Submit</button>
                 <button type="reset" class="btn btn-light-secondary me-2 mb-2" style="font-size: 1.3rem; padding: 1rem 2rem;">Reset</button>
             </div>
