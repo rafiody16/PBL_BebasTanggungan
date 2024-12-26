@@ -78,7 +78,7 @@ if ($_SESSION['Role_ID'] != 4) {
             <div class="card">
                 <div class="card-body">
                   <div class="" style="padding: 20px; border-radius: 100px;">
-                    <h5>Halo, Ketua Program Studi SIB!</h5>
+                    <h5>Halo, Ketua Program Studi D-IV Sistem Informasi bisnis!</h5>
                     <!-- <p>Selamat datang di beranda sistem informasi Bebas Tanggungan Jurusan Teknologi Informasi (BeTaTI). 
                         Ini adalah tempat di mana Anda dapat mengakses semua informasi penting yang berkaitan dengan bebas tanggungan mahasiswa jurusan Teknologi Informasi dan berbagai layanan akademik lainnya.</p> -->
                     <p>Selamat datang di beranda Sistem Informasi Bebas Tanggungan Jurusan Teknologi Informasi (BeTaTI). 
