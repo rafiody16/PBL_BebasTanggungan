@@ -94,7 +94,7 @@ $role = $_SESSION['Role_ID'];
                                 $conn = $db->getConnection();
                             ?>
                             <div class="card-header">
-                                <h5 class="card-title">Tabel User</h5>
+                                <h5 class="card-title">Tabel Staff</h5>
                                 <form action="" method="get" class="form-inline">
                                     <div class="form-group mb-2">
                                         <label for="role" class="mr-2">Jabatan:</label>
@@ -241,6 +241,8 @@ $role = $_SESSION['Role_ID'];
     <script src="../assets/extensions/perfect-scrollbar/perfect-scrollbar.min.js"></script>
     <script src="../assets/extensions/perfect-scrollbar/perfect-scrollbar.min.js"></script>
     <script src="../assets/compiled/js/app.js"></script>
+    <script src="../assets/extensions/simple-datatables/umd/simple-datatables.js"></script>
+    <script src="../assets/static/js/pages/simple-datatables.js"></script>
 </body>
 
 </html>

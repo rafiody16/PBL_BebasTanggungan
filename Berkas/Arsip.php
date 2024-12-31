@@ -53,7 +53,8 @@ $role = $_SESSION['Role_ID'];
                     <div class="row">
                         <div class="col-12 col-md-9 order-md-1 order-last">
                             <h3>Arsip Berkas</h3>
-                            <p class="text-subtitle text-muted">-</p>
+                            <br>
+                            <p class="text-subtitle text-muted"></p>
                         </div>
                         <div class="col-12 col-md-3 order-md-2 order-first">
                             <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
@@ -69,7 +70,7 @@ $role = $_SESSION['Role_ID'];
                     <div class="row">
                         <div class="card">
                             <div class="card-header">
-                                <h5 class="card-title">Tabel Berkas</h5>
+                                <h5 class="card-title">Tabel Arsip Berkas</h5>
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
@@ -118,7 +119,14 @@ $role = $_SESSION['Role_ID'];
                                                         <?php 
                                                     } else if ($status === 'Terverifikasi') {
                                                         ?>
-                                                        <td><span class="badge bg-success"><?= htmlspecialchars($status) ?></span></td>
+                                                        <?php
+                                                        if ($role === 2 || $role === 3 || $role === 4 || $role === 5) {
+                                                            echo "<td><span class='badge bg-success'>" . htmlspecialchars("Disahkan") . "</span></td>";
+                                                        } else {
+                                                            echo "<td><span class='badge bg-success'>" . htmlspecialchars($status) . "</span></td>";
+                                                        }
+                                                        ?>
+                                                        <!-- <td><span class="badge bg-success"><?= htmlspecialchars($status) ?></span></td> -->
                                                         <?php
                                                     } else if ($status === 'Ditolak') {
                                                         ?>

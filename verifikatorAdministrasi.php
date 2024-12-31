@@ -78,7 +78,7 @@ if ($_SESSION['Role_ID'] != 7) {
             <div class="card">
                 <div class="card-body">
                   <div class="" style="padding: 20px; border-radius: 100px;">
-                    <h5>Halo, verifikator Berkas Administrasi!</h5>
+                    <h5>Halo, Verifikator Berkas Administrasi!</h5>
                     <p>Selamat datang di beranda Sistem Informasi Bebas Tanggungan Jurusan Teknologi Informasi (BeTaTI). 
                     Ini adalah tempat di mana Anda dapat mengakses semua informasi penting yang berkaitan dengan verifikasi berkas administrasi untuk pengurusan bebas tanggungan mahasiswa Jurusan Teknologi Informasi Politeknik Negeri Malang.</p>
                   </div>

@@ -1,6 +1,6 @@
 <?php 
 
-include "../Koneksi.php";
+require_once "../Koneksi.php";
 
 class UserProses {
     

@@ -148,7 +148,7 @@ if ($_SESSION['Role_ID'] === 6 || $_SESSION['Role_ID'] === 7 || $_SESSION['Role_
                 <div class="modal-dialog modal-dialog-scrollable" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="myModalLabel1">Tolak Verifikasi</h5>
+                            <h5 class="modal-title" id="myModalLabel1">Tolak Pengesahan</h5>
                             <button type="button" class="close rounded-pill" data-bs-dismiss="modal"
                                 aria-label="Close">
                                 <i data-feather="x"></i>

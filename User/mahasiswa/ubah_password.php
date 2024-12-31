@@ -1,5 +1,5 @@
 <?php
-include '../../Koneksi.php';
+require_once '../../Koneksi.php';
 
 session_start();
 

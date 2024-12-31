@@ -61,9 +61,10 @@ if ($_SESSION['Role_ID'] === 6 || $_SESSION['Role_ID'] === 7 || $_SESSION['Role_
                             <h3>Tabel Mahasiswa</h3>
                             <p class="text-subtitle text-muted">Data mahasiswa.</p>
                             <?php if($role === 1 || $role === 2 || $role === 3 || $role === 4 || $role === 5) { ?>
-                            <div>
-                                <a href="FormMahasiswa.php" class="btn btn-success">Tambah Data</a>
-                            </div>
+                                <div>
+                                    <a href="FormMahasiswa.php" class="btn btn-success">Tambah Data</a>
+                                </div>
+                                <br>
                             <?php } ?>
                         </div>
                         <div class="col-12 col-md-6 order-md-2 order-first">
@@ -80,12 +81,12 @@ if ($_SESSION['Role_ID'] === 6 || $_SESSION['Role_ID'] === 7 || $_SESSION['Role_
                                     </li>
                                 </ol>
                             </nav>
-                            </div>
+                        </div>
                     </div>
                 </div>
                 <section class="section">
-                    <div class="row">
-                        <div class="col-12">
+                    <div class="row align-items-center mb-3">
+                        <div class="col-md-12">
                             <div class="card">
                             <?php 
                                 require_once '../Koneksi.php';
@@ -138,56 +139,56 @@ if ($_SESSION['Role_ID'] === 6 || $_SESSION['Role_ID'] === 7 || $_SESSION['Role_
                             </div>
                                 <div class="card-body">
                                     <div class="table-responsive">
-                            <table class="table table-lg">
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>NIM</th>
-                                        <th>Nama</th>
-                                        <th>Alamat</th>
-                                        <th>Prodi</th>
-                                        <th>Jenis Kelamin</th>
-                                        <th>No. HP</th>
-                                        <th>Tahun Angkatan</th>
-                                        <th>Aksi</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                <?php 
-                                    require_once '../Models/Mahasiswa.php';
-                                    $mhs = new Mahasiswa($conn);
-                                    $stmt2 = $mhs->getAllMhs();
-                                    $no = 1;
-                                    while ($row = sqlsrv_fetch_array($stmt2, SQLSRV_FETCH_ASSOC)) {
-                                        if ($row) {
-                                            $nim = $row['NIM'];
-                                            echo "<tr>";
-                                                echo "<td>" . htmlspecialchars($no++) . "</td>";
-                                                echo "<td>" . htmlspecialchars($nim) . "</td>";
-                                                echo "<td>" . htmlspecialchars($row['Nama']) . "</td>";
-                                                echo "<td>" . htmlspecialchars($row['Alamat']) . "</td>";
-                                                echo "<td>" . htmlspecialchars($row['Prodi']) . "</td>";
-                                                echo "<td>" . htmlspecialchars($row['JenisKelamin']) . "</td>";
-                                                echo "<td>" . htmlspecialchars($row['NoHp']) . "</td>";
-                                                echo "<td>" . htmlspecialchars($row['Tahun_Angkatan']) . "</td>";
-                                                ?>
-                                                <td>
-                                                    <button data-id="<?= $nim ?>" class="btn btn-primary btn-detail">Detail</button>
-                                                    <button data-id="<?= $nim ?>" class="btn btn-warning btn-edit">Edit</button>
-                                                    <button data-id="<?= $nim ?>" class="btn btn-danger btn-delete">Hapus</button>
-                                                </td>
-                                                <?php
-                                            echo "</tr>";
-                                        } else {
-                                            echo "Belum ada data";
-                                        }
-                                    }
-                                ?>
-                                </tbody>
-                            </table>
-                            <a href="TabelMahasiswa.php" class="btn btn-secondary mb-3">Reset Filter</a>
-                        </div>
-                    </div>
+                                        <table class="table table-lg">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>NIM</th>
+                                                    <th>Nama</th>
+                                                    <th>Alamat</th>
+                                                    <th>Prodi</th>
+                                                    <th>Jenis Kelamin</th>
+                                                    <th>No. HP</th>
+                                                    <th>Tahun Angkatan</th>
+                                                    <th>Aksi</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            <?php 
+                                                require_once '../Models/Mahasiswa.php';
+                                                $mhs = new Mahasiswa($conn);
+                                                $stmt2 = $mhs->getAllMhs();
+                                                $no = 1;
+                                                while ($row = sqlsrv_fetch_array($stmt2, SQLSRV_FETCH_ASSOC)) {
+                                                    if ($row) {
+                                                        $nim = $row['NIM'];
+                                                        echo "<tr>";
+                                                            echo "<td>" . htmlspecialchars($no++) . "</td>";
+                                                            echo "<td>" . htmlspecialchars($nim) . "</td>";
+                                                            echo "<td>" . htmlspecialchars($row['Nama']) . "</td>";
+                                                            echo "<td>" . htmlspecialchars($row['Alamat']) . "</td>";
+                                                            echo "<td>" . htmlspecialchars($row['Prodi']) . "</td>";
+                                                            echo "<td>" . htmlspecialchars($row['JenisKelamin']) . "</td>";
+                                                            echo "<td>" . htmlspecialchars($row['NoHp']) . "</td>";
+                                                            echo "<td>" . htmlspecialchars($row['Tahun_Angkatan']) . "</td>";
+                                                            ?>
+                                                            <td>
+                                                                <button data-id="<?= $nim ?>" class="btn btn-primary btn-detail">Detail</button>
+                                                                <button data-id="<?= $nim ?>" class="btn btn-warning btn-edit">Edit</button>
+                                                                <button data-id="<?= $nim ?>" class="btn btn-danger btn-delete">Hapus</button>
+                                                            </td>
+                                                            <?php
+                                                        echo "</tr>";
+                                                    } else {
+                                                        echo "Belum ada data";
+                                                    }
+                                                }
+                                            ?>
+                                            </tbody>
+                                        </table>
+                                        <a href="TabelMahasiswa.php" class="btn btn-secondary mb-3">Reset Filter</a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -196,16 +197,16 @@ if ($_SESSION['Role_ID'] === 6 || $_SESSION['Role_ID'] === 7 || $_SESSION['Role_
 
             <footer>
                 <div class="footer clearfix mb-0 text-muted">
-        <div class="float-start">
-            <!-- <p>2024 &copy; BeTaTI</p> -->
-            <p>2023 &copy; Mazer</p>
-        </div>
-        <div class="float-end">
-            <p>Crafted with <span class="text-danger"><i class="bi bi-heart-fill icon-mid"></i></span>
-            by <a href="https://saugi.me">Saugi</a></p>
-            <!-- <p>Crafted with <span class="text-danger"><i class="bi bi-heart-fill icon-mid"></i></span>
-                by <a href="https://github.com/rafiody16/PBL_BebasTanggungan">Kelompok 1</a></p> -->
-        </div>
+                    <div class="float-start">
+                        <!-- <p>2024 &copy; BeTaTI</p> -->
+                        <p>2023 &copy; Mazer</p>
+                    </div>
+                    <div class="float-end">
+                        <p>Crafted with <span class="text-danger"><i class="bi bi-heart-fill icon-mid"></i></span>
+                        by <a href="https://saugi.me">Saugi</a></p>
+                        <!-- <p>Crafted with <span class="text-danger"><i class="bi bi-heart-fill icon-mid"></i></span>
+                            by <a href="https://github.com/rafiody16/PBL_BebasTanggungan">Kelompok 1</a></p> -->
+                    </div>
                 </div>
             </footer>
         </div>
@@ -261,6 +262,9 @@ if ($_SESSION['Role_ID'] === 6 || $_SESSION['Role_ID'] === 7 || $_SESSION['Role_
     <script src="../assets/extensions/perfect-scrollbar/perfect-scrollbar.min.js"></script>
     <script src="../assets/extensions/perfect-scrollbar/perfect-scrollbar.min.js"></script>
     <script src="../assets/compiled/js/app.js"></script>
+
+    <script src="../assets/extensions/simple-datatables/umd/simple-datatables.js"></script>
+    <script src="../assets/static/js/pages/simple-datatables.js"></script>
 </body>
 
 </html>
